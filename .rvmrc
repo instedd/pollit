@@ -1,0 +1,2 @@
+rvm use ruby-1.9.2@pollit --create
+rvm_project_rvmrc_default=1

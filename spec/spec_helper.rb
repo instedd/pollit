@@ -1,8 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
 require File.expand_path(File.dirname(__FILE__) + '/blueprints')
+require 'rspec/rails'
+require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -26,8 +27,19 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  # Render views on all functional tests
+  config.render_views = true
+
+  # Execute before every test
   config.before(:each) do 
     Sham.reset
   end
   
+end
+
+WebMock.allow_net_connect!
+class WebMock::RequestStub
+  def to_return_file(file)
+    self.to_return(:body => File.new("#{Rails.root}/spec/webmocks/#{file}"), :status => 200)
+  end
 end

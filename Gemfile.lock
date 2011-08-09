@@ -30,6 +30,7 @@ GEM
       activesupport (= 3.1.0.rc5)
     activesupport (3.1.0.rc5)
       multi_json (~> 1.0)
+    addressable (2.2.6)
     ansi (1.3.0)
     arel (2.1.4)
     bcrypt-ruby (2.1.4)
@@ -48,6 +49,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    crack (0.1.8)
     devise (1.4.2)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.3)
@@ -83,6 +85,7 @@ GEM
     mocha (0.9.12)
     multi_json (1.0.3)
     mysql2 (0.3.6)
+    nokogiri (1.5.0)
     orm_adapter (0.0.5)
     polyglot (0.3.2)
     rack (1.3.2)
@@ -149,6 +152,9 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.0.5)
       rack (>= 1.0)
+    webmock (1.6.4)
+      addressable (~> 2.2, > 2.2.5)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -165,9 +171,11 @@ DEPENDENCIES
   machinist (~> 1.0.6)
   mocha
   mysql2 (= 0.3.6)
+  nokogiri
   rails (= 3.1.0.rc5)
   rspec-rails (~> 2.6)
   sass-rails (~> 3.1.0.rc)
   therubyracer
   turn
   uglifier
+  webmock

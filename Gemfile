@@ -9,6 +9,7 @@ gem 'devise'
 gem 'therubyracer'
 gem "arel", "2.1.4"
 gem "enumerated_attribute"
+gem 'nokogiri'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,4 +26,5 @@ group :test do
   gem 'machinist', '~> 1.0.6'
   gem 'faker'
   gem 'mocha'
+  gem 'webmock'
 end

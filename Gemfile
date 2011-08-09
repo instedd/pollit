@@ -18,6 +18,18 @@ group :assets do
   gem 'uglifier'
 end
 
+<<<<<<< local
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
+
+=======
+>>>>>>> other
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
@@ -25,4 +37,8 @@ group :test do
   gem 'machinist', '~> 1.0.6'
   gem 'faker'
   gem 'mocha'
+end
+
+group :development do
+  gem 'hpricot'
 end

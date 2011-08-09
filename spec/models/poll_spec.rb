@@ -32,7 +32,7 @@ describe Poll do
         question.description.should eq(opts[:description] || "Description #{index+1}")
         question.kind.should eq(:options)
         
-        opts[:options] = (0..(opts[:options_count])).map {|i| "Opt#{i+1}"} unless opts[:options]
+        opts[:options] = (0...(opts[:options_count])).map {|i| "Opt#{i+1}"} unless opts[:options]
         question.options.should eq(opts[:options])
       end
     end

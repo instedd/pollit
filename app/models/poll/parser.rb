@@ -12,19 +12,27 @@ module Poll::Parser
       poll.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text
 
       doc.search('//div[contains(@class,"ss-item")]').each do |element|
-        p element
         kind = question_kind(element)
-        p kind
         next if not kind
         poll.questions.build :kind => kind,
           :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
-          :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip)
+          :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip),
+          :options => extract_options(element)
       end
 
       return poll
     end
 
     private
+
+    def extract_options(element)
+      case element.attribute('class').value
+        when /ss-select/ then element.search('.//option')
+        when /ss-checkbox/ then element.search('.//input[contains(@class,"ss-q-checkbox")]')
+        when /ss-radio/ then element.search('.//input[contains(@class,"ss-q-radio")]')
+        else []
+      end.map{|opt| opt.attribute('value').value}.reject{|opt| opt == '__option__'}
+    end
 
     def question_kind(element)
       case element.attribute('class').value

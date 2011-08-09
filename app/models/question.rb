@@ -1,5 +1,5 @@
 class Question < ActiveRecord::Base
   belongs_to :poll
 
-  enum_attr :kind, %w(^text option)
+  enum_attr :kind, %w(^text options)
 end

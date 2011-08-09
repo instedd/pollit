@@ -17,3 +17,18 @@ Poll.blueprint do
   description
   url
 end
+
+Question.blueprint do
+  title
+  description
+  kind          {:text}
+  poll          {Poll.make}
+end
+
+Question.blueprint(:options) do
+  title
+  description
+  kind          {:options}
+  poll          {Poll.make}
+  options       {(0..rand(3)+1).map{Sham.name}}
+end

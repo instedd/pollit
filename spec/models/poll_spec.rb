@@ -9,7 +9,7 @@ describe Poll do
     Poll.make.should be_persisted
   end
 
-  context "Parse google form" do
+  context "parsing google form" do
     before(:each) do
       url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
       stub_request(:get, url).to_return_file('google-form.html')

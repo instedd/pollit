@@ -6,6 +6,9 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'compass'
 gem 'devise'
+gem 'therubyracer'
+gem "arel", "2.1.4"
+gem "enumerated_attribute"
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,16 +17,6 @@ group :assets do
   gem 'coffee-rails', "~> 3.1.0.rc"
   gem 'uglifier'
 end
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
 
 group :test do
   # Pretty printed test output

@@ -39,5 +39,11 @@ module Pollit
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # Use rspec as test framework instead of test unit
+    config.generators do |g|
+      g.test_framework :rspec
+      g.fixture_replacement :machinist
+    end
   end
 end

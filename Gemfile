@@ -6,10 +6,11 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'compass'
 gem 'devise'
+gem 'omniauth'
 gem 'therubyracer'
 gem "arel", "2.1.4"
 gem "enumerated_attribute"
-gem 'nokogiri'
+gem 'nokogiri', '1.4.7'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,4 +29,8 @@ group :test do
   gem 'mocha'
   gem 'webmock'
   gem 'ci_reporter'
+end
+
+group :development do
+  gem 'hpricot'
 end

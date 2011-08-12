@@ -30,7 +30,6 @@ group :test do
   gem 'mocha'
   gem 'webmock'
   gem 'ci_reporter'
-  gem 'spork', '~> 0.9.0'
 end
 
 group :development do

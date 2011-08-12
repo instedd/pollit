@@ -8,4 +8,10 @@ class Question < ActiveRecord::Base
   serialize :options, Array
   
   enum_attr :kind, %w(^text options numeric)
+
+  def to_message
+    if kind_text?
+      title
+    end
+  end
 end

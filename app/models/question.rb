@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  OptionsIndices = Array('a'..'z')
+
   belongs_to :poll
 
   validate :poll, :presence => true
@@ -12,6 +14,14 @@ class Question < ActiveRecord::Base
   def to_message
     if kind_text?
       title
+    elsif numeric?
+      "#{title} #{numeric_min}-#{numeric_max}"
+    elsif kind_options?
+      opts = []
+      options.each_with_index do |opt,idx| 
+        opts << "#{OptionsIndices[idx]}-#{opt}"
+      end
+      "#{title} #{opts.join(' ')}"
     end
   end
 end

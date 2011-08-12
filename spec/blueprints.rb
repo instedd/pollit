@@ -32,3 +32,12 @@ Question.blueprint(:options) do
   poll          {Poll.make}
   options       {(0..rand(3)+1).map{Sham.name}}
 end
+
+Question.blueprint(:numeric) do
+  title
+  description
+  kind          {:numeric}
+  poll          {Poll.make}
+  numeric_min   {rand(3)+1}
+  numeric_max   {rand(3)+5}
+end

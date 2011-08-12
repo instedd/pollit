@@ -6,5 +6,6 @@ class Question < ActiveRecord::Base
   validate :options, :presence => true, :if => :kind_options?
 
   serialize :options, Array
-  enum_attr :kind, %w(^text options)
+  
+  enum_attr :kind, %w(^text options numeric)
 end

@@ -218,6 +218,7 @@ GEM
     webmock (1.6.2)
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
+    wirble (0.1.3)
 
 PLATFORMS
   ruby
@@ -246,3 +247,4 @@ DEPENDENCIES
   turn
   uglifier
   webmock
+  wirble

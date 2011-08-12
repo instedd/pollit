@@ -1,6 +1,2 @@
 %h1 Home#index
 %p Find me in app/views/home/index.html.haml
-- if user_signed_in?
-  Signed in as #{current_user.email}. Not you?
-- else
-  = link_to "sign in with google", user_omniauth_authorize_path(:google)

@@ -49,7 +49,7 @@ describe Poll do
     it "can parse public google form" do
       poll.title.should eq('Test Form')
       poll.description.should eq('The description of the form')
-      poll.questions.length.should eq(5)
+      poll.questions.length.should eq(6)
     end
 
     it_can_parse_question_as_text "text question", 0
@@ -59,7 +59,7 @@ describe Poll do
     it_can_parse_question_as_options "choice question", 3, :options_count => 2
     it_can_parse_question_as_options "choice question with other", 4, :options_count => 2
 
-    #it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1
+    it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1
 
   end
 end

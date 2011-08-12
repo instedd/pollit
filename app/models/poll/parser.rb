@@ -14,16 +14,29 @@ module Poll::Parser
       doc.search('//div[contains(@class,"ss-item")]').each do |element|
         kind = question_kind(element)
         next if not kind
-        poll.questions.build :kind => kind,
+
+        question = poll.questions.build :kind => kind,
           :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
-          :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip),
-          :options => extract_options(element)
+          :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip)
+        
+        if question.kind_options?
+          question.options = extract_options(element)
+        elsif question.kind_numeric?
+          question.numeric_min, question.numeric_max = extract_numeric(element)
+        end
+        
       end
 
       return poll
     end
 
     private
+
+    def extract_numeric(element)
+      logger.info element.search('.//td[@class="ss-scalerow"]/input[@type="radio"]')
+      element.search('.//td[@class="ss-scalerow"]/input[@type="radio"]')\
+        .map{|r| r.attribute('value').value}.minmax
+    end
 
     def extract_options(element)
       case element.attribute('class').value
@@ -37,7 +50,8 @@ module Poll::Parser
     def question_kind(element)
       case element.attribute('class').value
         when /ss-text/, /ss-paragraph-text/ then :text
-        when /ss-radio/, /ss-checkbox/, /ss-select/ then :options
+        when /ss-radio/, /ss-select/ then :options
+        when /ss-scale/ then :numeric
         else nil
       end
     end

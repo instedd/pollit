@@ -21,10 +21,11 @@ group :assets do
   gem 'uglifier'
 end
 
+gem "rspec-rails", "~> 2.6", :group => [:test, :development]
+
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem "rspec-rails", "~> 2.6"
   gem 'machinist', '~> 1.0.6'
   gem 'faker'
   gem 'mocha'

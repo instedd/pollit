@@ -1,6 +1,6 @@
 class PollsController < ApplicationController
 
-  # require authentication
+  before_filter :authenticate_user!
 
   def index
     @polls = current_user.polls

@@ -9,6 +9,10 @@ describe Poll do
     Poll.make.should be_persisted
   end
 
+  it "has an owner" do
+    Poll.make.owner.should_not be_nil
+  end
+
   context "parsing google form" do
     let(:poll) do
       url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'

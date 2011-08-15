@@ -12,10 +12,18 @@ Sham.define do
   name         { Faker::Lorem.words.first }
 end
 
+User.blueprint do
+  email
+  name
+  password
+  password_confirmation { password }
+end
+
 Poll.blueprint do
   title
   description
   url
+  owner         {User.make}
 end
 
 Question.blueprint do

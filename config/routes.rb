@@ -3,5 +3,7 @@ Pollit::Application.routes.draw do
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   
+  resources :polls
+
   root :to => "home#index"
 end

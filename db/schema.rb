@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110812182944) do
+ActiveRecord::Schema.define(:version => 20110815151428) do
 
   create_table "polls", :force => true do |t|
     t.string   "title"
     t.string   "description"
-    t.integer  "owner"
+    t.integer  "owner_id"
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"

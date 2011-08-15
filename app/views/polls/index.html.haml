@@ -1,0 +1,6 @@
+%h1 Polls
+%h2 Your polls:
+%ul
+  - @polls.each do |poll|
+    %li
+      = link_to poll.title, poll

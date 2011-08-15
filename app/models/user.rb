@@ -7,5 +7,5 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :google_token
 
-  has_many :polls
+  has_many :polls, :foreign_key => 'owner_id'
 end

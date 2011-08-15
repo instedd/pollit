@@ -1,0 +1,8 @@
+development:
+  nuntium_service_url:  http://nuntium.instedd.org
+
+test:
+  nuntium_service_url:  http://nuntium.instedd.org
+  
+production:
+  nuntium_service_url:  http://nuntium.instedd.org

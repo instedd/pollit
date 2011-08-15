@@ -5,11 +5,13 @@ require 'faker'
 Sham.define do
   title        { Faker::Lorem.words.join }
   question     { "#{Faker::Lorem.words.join}?" }
+  response     { Faker::Lorem.words.join }
   description  { Faker::Lorem.paragraph }
   email        { Faker::Internet.email }
   url          { "http://#{Faker::Internet.domain_name}" }
   password     { rand(36**8).to_s(36) }
   name         { Faker::Lorem.words.first }
+  phone        { "sms://#{rand(10000)}" }
 end
 
 User.blueprint do
@@ -48,4 +50,15 @@ Question.blueprint(:numeric) do
   poll          {Poll.make}
   numeric_min   {rand(3)+1}
   numeric_max   {rand(3)+5}
+end
+
+Answer.blueprint do
+  question      {Question.make}
+  respondent    {Respondent.make}
+  response      
+end
+
+Respondent.blueprint do
+  poll          {Poll.make}
+  phone
 end

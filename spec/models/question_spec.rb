@@ -19,6 +19,11 @@ describe Question do
     Question.make.poll.should_not be_nil
   end
 
+  it "has many answers" do
+    question = Question.make(:answers => [Answer.make(:response => 'foo'), Answer.make(:response => 'bar')])
+    question.reload.should have(2).answers
+  end
+
   context "as message" do
     it "can be set to message being text" do
       Question.make(:text, :title => "A question?").message.should\

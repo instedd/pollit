@@ -6,4 +6,12 @@ class PollsController < ApplicationController
     @polls = current_user.polls
   end
 
+  def show
+    @poll = Poll.find(params[:id])
+    
+  end
+
+  def start
+    
+  end
 end

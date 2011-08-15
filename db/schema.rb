@@ -10,13 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815151428) do
+ActiveRecord::Schema.define(:version => 20110815182636) do
 
   create_table "polls", :force => true do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "owner_id"
-    t.string   "url"
+    t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20110815151428) do
     t.integer  "poll_id"
     t.integer  "numeric_max"
     t.integer  "numeric_min"
+    t.string   "field_name"
   end
 
   create_table "users", :force => true do |t|

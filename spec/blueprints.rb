@@ -16,13 +16,13 @@ User.blueprint do
   email
   name
   password
-  password_confirmation { password }
+  password_confirmation {password}
 end
 
 Poll.blueprint do
   title
   description
-  url
+  form_url      {Sham.url}
   owner         {User.make}
 end
 

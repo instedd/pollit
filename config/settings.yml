@@ -1,8 +1,18 @@
 development:
   nuntium_service_url:  http://nuntium.instedd.org
-
+  nuntium_account_name: name
+  nuntium_app_name: app
+  nuntium_app_password: 
+  nuntium_message_from: sms://0
 test:
   nuntium_service_url:  http://nuntium.instedd.org
-  
+  nuntium_account_name: name
+  nuntium_app_name: app
+  nuntium_app_password:
+  nuntium_message_from: sms://0 
 production:
   nuntium_service_url:  http://nuntium.instedd.org
+  nuntium_account_name: name
+  nuntium_app_name: app
+  nuntium_app_password: 
+  nuntium_message_from: sms://0

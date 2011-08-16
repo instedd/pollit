@@ -10,6 +10,7 @@ module Poll::Parser
     
       poll.title = doc.at_xpath('//h1[@class="ss-form-title"]').text
       poll.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text
+      poll.post_url = doc.at_xpath('//form').attribute('action').value
 
       doc.search('//div[contains(@class,"ss-item")]').each do |element|
         begin

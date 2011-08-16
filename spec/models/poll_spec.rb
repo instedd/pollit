@@ -54,6 +54,7 @@ describe Poll do
     it "can parse public google form" do
       poll.title.should eq('Test Form')
       poll.description.should eq('The description of the form')
+      poll.post_url.should eq('https://docs.google.com/spreadsheet/formResponse?formkey=FORMKEY&ifq')
       poll.questions.length.should eq(6)
     end
 

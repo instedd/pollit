@@ -240,6 +240,7 @@ DEPENDENCIES
   nokogiri (= 1.4.7)
   omniauth
   rails (= 3.1.0.rc5)
+  rest-client
   rspec-rails (~> 2.6)
   sass-rails (~> 3.1.0.rc)
   therubyracer

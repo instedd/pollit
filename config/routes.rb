@@ -3,7 +3,11 @@ Pollit::Application.routes.draw do
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   
-  resources :polls
+  resources :polls do
+    collection do
+      post 'import_form'
+    end
+  end
 
   root :to => "home#index"
 end

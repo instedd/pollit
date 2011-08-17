@@ -1,0 +1,40 @@
+#poll_form_container
+  = form_for @poll do |f|
+    = render "shared/error_messages", :target => @poll
+
+    %h2 Import poll from google forms
+    
+    %span Copy the live form URL (not the spreadsheet's URL) making sure the form does not require sign-in
+    %p
+      = f.label :form_url
+      = f.text_field :form_url
+      = link_to 'Import form', '#', :id => 'import_form_action'
+
+    %h2 Poll information
+
+    %p
+      = f.label :title
+      = f.text_field :title
+    %p
+      = f.label :description
+      = f.text_field :description
+
+    %h2 Poll questions
+
+    -# HACK: Store questions as json for now to be sent back to the server, use standard input fields or a javascript viewmodel when applying actual design
+    = hidden_field_tag :questions, @poll.questions.to_json
+
+    %ul
+      - @poll.questions.each do |question|
+        %li= question.title
+
+    %h2 Poll details
+
+    %p
+      = f.label :welcome_message
+      = f.text_field :welcome_message
+    %p
+      = f.label :confirmation_word
+      = f.text_field :confirmation_word
+
+    = f.submit

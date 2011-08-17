@@ -6,6 +6,10 @@ class Poll < ActiveRecord::Base
 
   validate :title, :presence => true, :length => {:maximum => 64}
 
+  accepts_nested_attributes_for :questions
+
+  after_initialize :default_values
+
   include Parser
 
   def start
@@ -43,5 +47,11 @@ class Poll < ActiveRecord::Base
     query = URI.parse(form_url || post_url).query
     CGI::parse(query)['formkey'][0]
   end
+
+  private
   
+  def default_values
+    self.confirmation_word ||= "Yes"
+  end
+
 end

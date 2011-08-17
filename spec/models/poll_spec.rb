@@ -13,6 +13,16 @@ describe Poll do
     Poll.make.owner.should_not be_nil
   end
 
+  context "validations" do
+    it "must have a title" do
+      Poll.make_unsaved(:title => "").should be_invalid
+    end
+
+    it "must require questions if specified" do
+      Poll.make_unsaved(:requires_questions => true).should be_invalid
+    end
+  end
+
   context "parsing google form" do
     let(:poll) do
       url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'

@@ -21,6 +21,12 @@ describe PollsController do
     response.should redirect_to(:action => 'index')
   end
 
+  it "should not create new poll if invalid" do
+    post :create, :poll => Poll.plan(:title => ''), :questions => "[]"
+    Poll.all.should be_empty
+    response.should render_template('new')
+  end
+
   it "should import poll form" do
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')

@@ -11,14 +11,7 @@ describe Respondent do
   end
 
   let(:poll) do
-    Poll.make\
-      :form_url => form_url, 
-      :post_url => post_url,
-      :questions => [
-        Question.make(:field_name => 'entry.0.single'),
-        Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single'),
-        Question.make(:options, :options => %w(oof rab zab), :field_name => 'entry.2.group'),
-        Question.make(:numeric, :numeric_min => 1, :numeric_max => 10, :field_name => 'entry.3.group')]
+    Poll.make :with_questions, :form_url => form_url, :post_url => post_url
   end
 
   it "can be instantiated" do

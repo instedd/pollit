@@ -29,6 +29,18 @@ describe Respondent do
     Respondent.make.should be_persisted
   end
 
+  it "can find answer for question" do
+    respondent = Respondent.make :poll => poll
+    answer = respondent.answers.make :question => poll.questions.first
+    respondent.answer_for(poll.questions.first).should eq(answer)
+  end
+
+  it "answer for question is nil if not found" do
+    respondent = Respondent.make :poll => poll
+    respondent.answers.make :question => poll.questions.first
+    respondent.answer_for(poll.questions.second).should be_nil
+  end
+
   context "pusher" do
 
     let(:respondent) do
@@ -40,13 +52,11 @@ describe Respondent do
     end
 
     let (:post_params) do
-      {
-        'entry.0.single' => ['text'],
+      { 'entry.0.single' => ['text'],
         'entry.1.single' => ['foo'],
         'entry.2.group' => ['zab'],
         'entry.3.group' => ['4'],
-        'pageNumber' => ['0']
-      }
+        'pageNumber' => ['0'] }
     end
 
     it "can be pushed to google forms" do

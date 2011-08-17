@@ -21,14 +21,20 @@ class Poll < ActiveRecord::Base
     respondents.each do |respondent|
       messages << {
         :from => Pollit::Application.config.nuntium_message_from,
-        :to => respondent.phone,
-        :body => "Hello Nuntium!"
+        :to => respondent.phone
+        :body => self.welcome_message
       }
+      respondent.confirmed = true
+      respondent.save
     end
 
     api.send_ao messages
     self.status = :started
     save
+  end
+
+  def next_question
+    ""
   end
 
   def google_form_key

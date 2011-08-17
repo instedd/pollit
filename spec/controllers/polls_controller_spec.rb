@@ -16,13 +16,19 @@ describe PollsController do
   end
 
   it "should create new poll" do
-    post :create, :poll => Poll.plan, :questions => "[]"
-    controller.current_user.should have(1).poll
+    post :create, :poll => Poll.plan, :questions => [Question.make_unsaved(:without_poll)].to_json
+    Poll.all.should have(1).poll
     response.should redirect_to(:action => 'index')
   end
 
   it "should not create new poll if invalid" do
-    post :create, :poll => Poll.plan(:title => ''), :questions => "[]"
+    post :create, :poll => Poll.plan(:title => ''), :questions => [Question.make_unsaved(:without_poll)].to_json
+    Poll.all.should be_empty
+    response.should render_template('new')
+  end
+
+  it "should not create new poll if no questions set" do
+    post :create, :poll => Poll.plan, :questions => '[]'
     Poll.all.should be_empty
     response.should render_template('new')
   end

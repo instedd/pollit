@@ -49,6 +49,13 @@ Question.blueprint do
   poll          {Poll.make}
 end
 
+Question.blueprint(:without_poll) do
+  title
+  description
+  kind          {:text}
+  poll          {nil}
+end
+
 Question.blueprint(:options) do
   title
   description

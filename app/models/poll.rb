@@ -4,11 +4,15 @@ class Poll < ActiveRecord::Base
   has_many :questions
   has_many :respondents
 
-  validate :title, :presence => true, :length => {:maximum => 64}
+  validates :title, :presence => true, :length => {:maximum => 64}
+  validates :form_url, :presence => true
+  validates :post_url, :presence => true
+  validates :questions, :presence => true, :if => :requires_questions
 
   accepts_nested_attributes_for :questions
 
   after_initialize :default_values
+  attr_accessor :requires_questions
 
   include Parser
 

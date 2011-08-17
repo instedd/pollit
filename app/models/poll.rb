@@ -21,9 +21,10 @@ class Poll < ActiveRecord::Base
     respondents.each do |respondent|
       messages << {
         :from => Pollit::Application.config.nuntium_message_from,
-        :to => respondent.phone
+        :to => respondent.phone,
         :body => self.welcome_message
       }
+      
       respondent.confirmed = true
       respondent.save
     end

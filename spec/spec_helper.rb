@@ -12,6 +12,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = true
   config.render_views = true
+  config.extend ControllerMacros, :type => :controller
 
   config.before(:each) do 
     Sham.reset

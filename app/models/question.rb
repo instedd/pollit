@@ -2,6 +2,7 @@ class Question < ActiveRecord::Base
   OptionsIndices = Array('a'..'z')
 
   belongs_to :poll
+  has_many :answers
 
   validates :poll,    :presence => true
   validates :title,   :presence => true

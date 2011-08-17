@@ -10,27 +10,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110815195227) do
+ActiveRecord::Schema.define(:version => 20110816145604) do
 
   create_table "answers", :force => true do |t|
-    t.integer  "poll_id"
     t.integer  "respondent_id"
     t.string   "response"
     t.integer  "response_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "question_id"
   end
 
   create_table "polls", :force => true do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "owner_id"
-    t.string   "url"
+    t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "channel"
     t.string   "welcome_message"
     t.string   "status"
+    t.string   "post_url"
   end
 
   create_table "questions", :force => true do |t|
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20110815195227) do
     t.integer  "poll_id"
     t.integer  "numeric_max"
     t.integer  "numeric_min"
+    t.string   "field_name"
   end
 
   create_table "respondents", :force => true do |t|
@@ -50,6 +52,8 @@ ActiveRecord::Schema.define(:version => 20110815195227) do
     t.integer  "poll_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "pushed_at"
+    t.string   "pushed_status"
   end
 
   create_table "users", :force => true do |t|

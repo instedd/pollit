@@ -25,6 +25,7 @@ describe Poll do
       question.title.should eq(opts[:title] || "Test #{name}")
       question.description.should eq(opts[:description] || "Description #{index+1}")
       question.kind.should eq(kind)
+      question.field_name.should eq(opts[:field]) if opts[:field]
       question
     end
 
@@ -53,17 +54,18 @@ describe Poll do
     it "can parse public google form" do
       poll.title.should eq('Test Form')
       poll.description.should eq('The description of the form')
+      poll.post_url.should eq('https://docs.google.com/spreadsheet/formResponse?formkey=FORMKEY&ifq')
       poll.questions.length.should eq(6)
     end
 
-    it_can_parse_question_as_text "text question", 0
-    it_can_parse_question_as_text "paragraph question", 1
+    it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
+    it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
     
-    it_can_parse_question_as_options "choose from list question", 2, :options_count => 3
-    it_can_parse_question_as_options "choice question", 3, :options_count => 2
-    it_can_parse_question_as_options "choice question with other", 4, :options_count => 2
+    it_can_parse_question_as_options "choose from list question", 2, :options_count => 3, :field => 'entry.1.single'
+    it_can_parse_question_as_options "choice question", 3, :options_count => 2, :field => 'entry.5.group'
+    it_can_parse_question_as_options "choice question with other", 4, :options_count => 2, :field => 'entry.6.group'
 
-    it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1
+    it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1, :field => 'entry.7.group'
 
   end
 end

@@ -13,6 +13,7 @@ gem "enumerated_attribute"
 gem 'nokogiri', '1.4.7'
 gem 'thin'
 gem 'rest-client'
+gem 'acts_as_list'
 
 # Gems used only for assets and not required
 # in production environments by default.

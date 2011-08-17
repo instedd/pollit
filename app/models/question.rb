@@ -4,7 +4,6 @@ class Question < ActiveRecord::Base
   belongs_to :poll
   has_many :answers
 
-  validates :poll,    :presence => true
   validates :title,   :presence => true
   validates :options, :presence => true, :if => :kind_options?
   validates :message, :length => {:maximum => 140}

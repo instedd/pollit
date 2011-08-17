@@ -3,21 +3,20 @@ require 'open-uri'
 module Poll::Parser
   extend ActiveSupport::Concern
 
-  module ClassMethods
-    def parse_form(url)
-      poll = Poll.new
-      doc = Nokogiri::HTML(open(url))
+  module InstanceMethods
+    def parse_form
+      doc = Nokogiri::HTML(open(self.form_url))
     
-      poll.title = doc.at_xpath('//h1[@class="ss-form-title"]').text
-      poll.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text
-      poll.post_url = doc.at_xpath('//form').attribute('action').value
+      self.title = doc.at_xpath('//h1[@class="ss-form-title"]').text if self.title.blank?
+      self.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text if self.description.blank?
+      self.post_url = doc.at_xpath('//form').attribute('action').value
 
       doc.search('//div[contains(@class,"ss-item")]').each do |element|
         begin
           kind = question_kind(element)
           next if not kind
 
-          question = poll.questions.build :kind => kind,
+          question = self.questions.build :kind => kind,
             :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
             :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip),
             :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip
@@ -28,11 +27,9 @@ module Poll::Parser
             question.numeric_min, question.numeric_max = extract_numeric(element)
           end
         rescue => ex
-          raise Exception.new("Error parsing element on poll #{poll}:\n#{element.inner_html}\n#{ex.message}")
+          raise Exception.new("Error parsing element on poll #{self}:\n#{element.inner_html}\n#{ex.message}")
         end
       end
-
-      return poll
     end
 
     private
@@ -61,6 +58,15 @@ module Poll::Parser
       end
     end
 
+  end
+
+  module ClassMethods
+    def parse_form(url)
+      poll = Poll.new
+      poll.form_url = url
+      poll.parse_form
+      return poll
+    end
   end
 
 end

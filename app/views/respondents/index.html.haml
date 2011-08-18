@@ -1,0 +1,8 @@
+%h1 
+  Manage respondents for
+  = @poll.title
+
+= form_tag batch_update_poll_respondents_path, :method => :put do
+  = text_area_tag 'phones', @phones_list, :style => 'height: 300px; width: 400px'
+  %br
+  = submit_tag 

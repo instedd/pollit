@@ -1,0 +1,9 @@
+%h1 Poll
+
+#title Title: #{@poll.title}
+#description Description: #{@poll.description}
+#owner Owner: #{@poll.owner.email}
+#channel Channel: #{@poll.channel}
+%br
+
+= button_to "Start Poll", :action => :start, :id => @poll.id

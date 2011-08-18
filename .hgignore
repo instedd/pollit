@@ -3,6 +3,8 @@ syntax: glob
 db/*.sqlite3
 log/*.log
 tmp/
+coverage/
+coverage.data
 .sass-cache/
 spec/reports/*
 **.orig

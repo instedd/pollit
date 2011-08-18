@@ -8,6 +8,6 @@ class Respondent < ActiveRecord::Base
   include Pusher
 
   def answer_for(question)
-    answers.find(:question_id => question.id)
+    answers.find_by_question_id question.id
   end
 end

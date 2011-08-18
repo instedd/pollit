@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(:version => 20110817205706) do
     t.datetime "updated_at"
     t.string   "channel"
     t.string   "welcome_message"
-    t.string   "status"
     t.string   "post_url"
+    t.string   "confirmation_word"
+    t.string   "status"
   end
 
   create_table "questions", :force => true do |t|

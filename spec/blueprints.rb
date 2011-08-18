@@ -25,7 +25,21 @@ Poll.blueprint do
   title
   description
   form_url      {Sham.url}
+  post_url      {Sham.url}
   owner         {User.make}
+end
+
+Poll.blueprint(:with_questions) do
+  title
+  description
+  form_url      {Sham.url}
+  post_url      {Sham.url}
+  owner         {User.make}
+  questions     {[
+    Question.make(:field_name => 'entry.0.single'),
+    Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single'),
+    Question.make(:options, :options => %w(oof rab zab), :field_name => 'entry.2.group'),
+    Question.make(:numeric, :numeric_min => 1, :numeric_max => 10, :field_name => 'entry.3.group')]}
 end
 
 Question.blueprint do
@@ -33,6 +47,13 @@ Question.blueprint do
   description
   kind          {:text}
   poll          {Poll.make}
+end
+
+Question.blueprint(:without_poll) do
+  title
+  description
+  kind          {:text}
+  poll          {nil}
 end
 
 Question.blueprint(:options) do

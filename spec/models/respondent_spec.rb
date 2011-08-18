@@ -11,14 +11,7 @@ describe Respondent do
   end
 
   let(:poll) do
-    Poll.make\
-      :form_url => form_url, 
-      :post_url => post_url,
-      :questions => [
-        Question.make(:field_name => 'entry.0.single'),
-        Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single'),
-        Question.make(:options, :options => %w(oof rab zab), :field_name => 'entry.2.group'),
-        Question.make(:numeric, :numeric_min => 1, :numeric_max => 10, :field_name => 'entry.3.group')]
+    Poll.make :with_questions, :form_url => form_url, :post_url => post_url
   end
 
   it "can be instantiated" do
@@ -27,6 +20,18 @@ describe Respondent do
 
   it "can be saved successfully" do
     Respondent.make.should be_persisted
+  end
+
+  it "can find answer for question" do
+    respondent = Respondent.make :poll => poll
+    answer = respondent.answers.make :question => poll.questions.first
+    respondent.answer_for(poll.questions.first).should eq(answer)
+  end
+
+  it "answer for question is nil if not found" do
+    respondent = Respondent.make :poll => poll
+    respondent.answers.make :question => poll.questions.first
+    respondent.answer_for(poll.questions.second).should be_nil
   end
 
   context "pusher" do
@@ -40,13 +45,11 @@ describe Respondent do
     end
 
     let (:post_params) do
-      {
-        'entry.0.single' => ['text'],
+      { 'entry.0.single' => ['text'],
         'entry.1.single' => ['foo'],
         'entry.2.group' => ['zab'],
         'entry.3.group' => ['4'],
-        'pageNumber' => ['0']
-      }
+        'pageNumber' => ['0'] }
     end
 
     it "can be pushed to google forms" do

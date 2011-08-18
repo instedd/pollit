@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  acts_as_list :scope => :poll
+
   OptionsIndices = Array('a'..'z')
 
   belongs_to :poll

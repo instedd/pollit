@@ -1,7 +1,7 @@
 class Poll < ActiveRecord::Base
   belongs_to :owner, :class_name => User.name
   
-  has_many :questions
+  has_many :questions, :order => "position"
   has_many :respondents
 
   validate :title, :presence => true, :length => {:maximum => 64}
@@ -24,9 +24,6 @@ class Poll < ActiveRecord::Base
         :to => respondent.phone,
         :body => self.welcome_message
       }
-      
-      respondent.confirmed = true
-      respondent.save
     end
 
     api.send_ao messages

@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
 require File.expand_path(File.dirname(__FILE__) + '/blueprints')
+
 require 'rspec/rails'
 require 'webmock/rspec'
 
@@ -12,6 +13,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = true
   config.render_views = true
+  config.extend ControllerMacros, :type => :controller
 
   config.before(:each) do 
     Sham.reset

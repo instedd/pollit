@@ -33,6 +33,7 @@ group :test do
   gem 'mocha'
   gem 'webmock'
   gem 'ci_reporter'
+  gem 'cover_me'
 end
 
 group :development do

@@ -11,6 +11,8 @@ class Poll < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions
 
+  INVALID_REPLY = "Your answer was not understood. Please answer with (%s)"
+
   after_initialize :default_values
   attr_accessor :requires_questions
 
@@ -30,17 +32,48 @@ class Poll < ActiveRecord::Base
       messages << {
         :from => Pollit::Application.config.nuntium_message_from,
         :to => respondent.phone,
-        :body => self.welcome_message
+        :body => welcome_message
       }
     end
 
-    api.send_ao messages
+    response = api.send_ao messages
     self.status = :started
     save
+
+    p response
   end
 
-  def next_question
-    ""
+  def accept_answer(response, respondent)
+    if respondent.confirmed
+      current_question_id = respondent.current_question_id
+
+      return nil if current_question_id.nil?
+
+      options = questions.find(current_question_id).options
+
+      if options.include?(answer)
+        next_question = questions.where(:id => current_question_id).lower_item
+        respondent.current_question_id = next_question.try(:id)
+        respondent.save!
+
+        if (next_question.nil?)
+          return goodbye_message
+        else
+          return next_question.description
+        end
+      else
+        return INVALID_REPLY % [options.join("|")]
+      end
+    else
+      if response.strip.downcase == poll.confirmation_word.strip.downcase
+        respondent.confirmed = true
+        respondent.current_question_id = questions.first
+        respondent.save!
+        return welcome_message
+      else
+        return nil
+      end
+    end
   end
 
   def google_form_key

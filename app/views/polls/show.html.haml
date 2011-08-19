@@ -7,3 +7,4 @@
 %br
 
 = button_to "Start Poll", :action => :start, :id => @poll.id
+= link_to "Manage respondents", poll_respondents_path(@poll)

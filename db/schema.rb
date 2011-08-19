@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817205706) do
+ActiveRecord::Schema.define(:version => 20110818204911) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -30,9 +30,10 @@ ActiveRecord::Schema.define(:version => 20110817205706) do
     t.datetime "updated_at"
     t.string   "channel"
     t.string   "welcome_message"
+    t.string   "status"
     t.string   "post_url"
     t.string   "confirmation_word"
-    t.string   "status"
+    t.string   "goodbye_message"
   end
 
   create_table "questions", :force => true do |t|

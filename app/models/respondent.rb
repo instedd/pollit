@@ -10,4 +10,9 @@ class Respondent < ActiveRecord::Base
   def answer_for(question)
     answers.find_by_question_id question.id
   end
+
+  def unprefixed_phone
+    return nil if not phone
+    phone.gsub(/^sms:\/\//, '')
+  end
 end

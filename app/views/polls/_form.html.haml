@@ -27,7 +27,12 @@
 
     %ul
       - @poll.questions.each do |question|
-        %li= question.title
+        %li
+          = question.title
+          - if question.kind_options?
+            %ol
+              - question.options.each do |option|
+                %li= option
 
     %h2 Poll details
 

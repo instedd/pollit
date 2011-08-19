@@ -10,6 +10,11 @@ Pollit::Application.routes.draw do
     member do
       post 'start'
     end
+    resources :respondents, :only => [:index] do
+      collection do
+        put 'batch_update'
+      end
+    end
   end
 
   root :to => "home#index"

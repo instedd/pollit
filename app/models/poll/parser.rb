@@ -11,15 +11,17 @@ module Poll::Parser
       self.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text if self.description.blank?
       self.post_url = doc.at_xpath('//form').attribute('action').value
 
+      position = 0
       doc.search('//div[contains(@class,"ss-item")]').each do |element|
         begin
           kind = question_kind(element)
           next if not kind
-
+          position += 1
           question = self.questions.build :kind => kind,
             :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
             :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip),
-            :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip
+            :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip,
+            :position => position
           
           if question.kind_options?
             question.options = extract_options(element)

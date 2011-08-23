@@ -50,17 +50,17 @@ class Poll < ActiveRecord::Base
       current_question = questions.find(respondent.current_question_id)
       
       if current_question.kind_text?
-        accept_text_answer(response, respondent)
+        return accept_text_answer(response, respondent)
       elsif current_question.numeric?
-        accept_numeric_answer(response, respondent)
+        return accept_numeric_answer(response, respondent)
       elsif current_question.kind_options?
-        accept_options_answer(response, respondent)
+        return accept_options_answer(response, respondent)
       end
     else
       if response.strip.downcase == confirmation_word.strip.downcase
         respondent.confirmed = true
         current_question = questions.first
-        respondent.current_question_id = current_question
+        respondent.current_question_id = current_question.id
         respondent.save!
         return current_question.description
       else
@@ -92,7 +92,7 @@ class Poll < ActiveRecord::Base
   def accept_numeric_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
 
-    if(question.numeric_min..question.numeric_max).cover?(response)
+    if(question.numeric_min..question.numeric_max).cover?(response.to_i)
       return next_question_for respondent
     else
       return INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
@@ -102,7 +102,7 @@ class Poll < ActiveRecord::Base
   def accept_options_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
 
-    if question.options.include?(response)
+    if question.valid_option? response
       return next_question_for respondent
     else
       return INVALID_REPLY_OPTIONS % [question.options.join("|")]
@@ -117,6 +117,7 @@ class Poll < ActiveRecord::Base
     respondent.save!
 
     if next_question.nil?
+      respondent.push_answers
       return goodbye_message
     else
       return next_question.message

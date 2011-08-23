@@ -31,4 +31,10 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def valid_option?(value)
+    return true if OptionsIndices[0..options.count-1].include?(value)
+    return true if options.include?(value)
+    return true if options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt}"}.include?(value)
+    false
+  end
 end

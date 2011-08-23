@@ -18,6 +18,7 @@ class PollsController < ApplicationController
     @poll = current_user.polls.build params[:poll]
     @poll.requires_questions = true
     @poll.questions_attributes = JSON.parse params[:questions]
+
     if @poll.save
       redirect_to :action => 'index'
     else
@@ -27,8 +28,9 @@ class PollsController < ApplicationController
 
   def start
     @poll = Poll.find(params[:id])
-    @poll.start unless @poll.confirmed
-    render :text => @poll.next_question
+    @poll.start unless @poll.status == "started"
+    
+    redirect_to :action => 'show'
   end
 
   def import_form

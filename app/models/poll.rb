@@ -11,7 +11,9 @@ class Poll < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions
 
-  INVALID_REPLY = "Your answer was not understood. Please answer with (%s)"
+  INVALID_REPLY_OPTIONS = "Your answer was not understood. Please answer with (%s)"
+  INVALID_REPLY_TEXT = "Your answer was not understood. Please answer with non empty string"
+  INVALID_REPLY_NUMERIC = "Your answer was not understood. Please answer with a number between %s and %s"
 
   after_initialize :default_values
   attr_accessor :requires_questions
@@ -36,40 +38,31 @@ class Poll < ActiveRecord::Base
       }
     end
 
-    response = api.send_ao messages
+    api.send_ao messages
     self.status = :started
     save
-
-    p response
   end
 
   def accept_answer(response, respondent)
     if respondent.confirmed
-      current_question_id = respondent.current_question_id
-
-      return nil if current_question_id.nil?
-
-      options = questions.find(current_question_id).options
-
-      if options.include?(answer)
-        next_question = questions.where(:id => current_question_id).lower_item
-        respondent.current_question_id = next_question.try(:id)
-        respondent.save!
-
-        if (next_question.nil?)
-          return goodbye_message
-        else
-          return next_question.description
-        end
-      else
-        return INVALID_REPLY % [options.join("|")]
+      return nil if respondent.current_question_id.nil?
+      
+      current_question = questions.find(respondent.current_question_id)
+      
+      if current_question.kind_text?
+        accept_text_answer(response, respondent)
+      elsif current_question.numeric?
+        accept_numeric_answer(response, respondent)
+      elsif current_question.kind_options?
+        accept_options_answer(response, respondent)
       end
     else
-      if response.strip.downcase == poll.confirmation_word.strip.downcase
+      if response.strip.downcase == confirmation_word.strip.downcase
         respondent.confirmed = true
-        respondent.current_question_id = questions.first
+        current_question = questions.first
+        respondent.current_question_id = current_question
         respondent.save!
-        return welcome_message
+        return current_question.description
       else
         return nil
       end
@@ -88,4 +81,45 @@ class Poll < ActiveRecord::Base
     self.confirmation_word ||= "Yes"
   end
 
+  def accept_text_answer(response, respondent)
+    if response.blank?
+      return INVALID_REPLY_TEXT
+    else
+      return next_question_for respondent
+    end
+  end
+
+  def accept_numeric_answer(response, respondent)
+    question = questions.find(respondent.current_question_id)
+
+    if(question.numeric_min..question.numeric_max).cover?(response)
+      return next_question_for respondent
+    else
+      return INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
+    end
+  end
+
+  def accept_options_answer(response, respondent)
+    question = questions.find(respondent.current_question_id)
+
+    if question.options.include?(response)
+      return next_question_for respondent
+    else
+      return INVALID_REPLY_OPTIONS % [question.options.join("|")]
+    end
+  end
+
+  def next_question_for(respondent)
+    question = questions.find(respondent.current_question_id)
+
+    next_question = question.lower_item
+    respondent.current_question_id = next_question.try(:id)
+    respondent.save!
+
+    if next_question.nil?
+      return goodbye_message
+    else
+      return next_question.message
+    end
+  end
 end

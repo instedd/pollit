@@ -20,14 +20,7 @@ class Poll < ActiveRecord::Base
 
   include Parser
 
-  def start
-    service_url = Pollit::Application.config.nuntium_service_url
-    account_name = Pollit::Application.config.nuntium_account_name
-    app_name = Pollit::Application.config.nuntium_app_name
-    app_password = Pollit::Application.config.nuntium_app_password
-
-    api = Nuntium.new service_url, account_name, app_name, app_password
-    
+  def start    
     messages = []
 
     respondents.each do |respondent|
@@ -38,8 +31,9 @@ class Poll < ActiveRecord::Base
       }
     end
 
-    api.send_ao messages
+    send_messages messages
     self.status = :started
+    
     save
   end
 
@@ -122,5 +116,17 @@ class Poll < ActiveRecord::Base
     else
       return next_question.message
     end
+  end
+
+  private
+
+  def send_messages(messages)
+    service_url = Pollit::Application.config.nuntium_service_url
+    account_name = Pollit::Application.config.nuntium_account_name
+    app_name = Pollit::Application.config.nuntium_app_name
+    app_password = Pollit::Application.config.nuntium_app_password
+
+    api = Nuntium.new service_url, account_name, app_name, app_password
+    api.send_ao messages
   end
 end

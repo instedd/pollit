@@ -53,4 +53,16 @@ describe PollsController do
     assigns(:poll).description.should eq('The description of the form')
   end
 
+  it "should render show page" do
+    p = Poll.make
+    get :show, :id => p.id
+    assigns(:poll).class.name.should eq("Poll")
+  end
+
+  it "shoud start poll" do
+    p = Poll.make :with_questions
+    post :start, :id => p.id
+    Poll.find(p.id).status.should eq("started")
+  end
+
 end

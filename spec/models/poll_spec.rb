@@ -68,6 +68,71 @@ describe Poll do
       poll.questions.length.should eq(6)
     end
 
+    it "should change status to started when a poll is started" do
+      p = Poll.make(:with_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.status.should eq(:started)
+    end
+
+    it "should not set next question if confirmation word is not correct" do
+      p = Poll.make(:with_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.accept_answer("lala", p.respondents.first)
+      p.respondents.first.confirmed.should be_false
+    end
+
+    it "should set next question if confirmation word is correct" do
+      p = Poll.make(:with_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      response = p.accept_answer("yes", p.respondents.first)
+      p.respondents.first.confirmed.should be_true
+      p.respondents.first.current_question_id.should eq(p.questions.first.id)
+      response.should eq(p.questions.first.description)
+    end
+
+    it "should send next question if the option is valid" do
+      p = Poll.make(:with_text_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.accept_answer("yes", p.respondents.first)
+      response = p.accept_answer("lalala", p.respondents.first)
+
+      p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+
+      p = Poll.make(:with_option_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.accept_answer("yes", p.respondents.first)
+      p.accept_answer("lalala", p.respondents.first)
+      p.respondents.first.current_question_id.should_not eq(p.questions.first.lower_item.id)
+      p.accept_answer("foo", p.respondents.first)
+      p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+
+      p = Poll.make(:with_numeric_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.accept_answer("yes", p.respondents.first)
+      p.accept_answer(11, p.respondents.first)
+      p.respondents.first.current_question_id.should_not eq(p.questions.first.lower_item.id)
+      p.accept_answer(5, p.respondents.first)
+      p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+    end
+
+    it "should send messages with nuntium" do
+      p = Poll.make(:with_text_questions)
+      p.should_receive(:send_messages)
+      p.start
+    end
+
     it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
     it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
     

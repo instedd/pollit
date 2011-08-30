@@ -12,7 +12,7 @@ module Respondent::Pusher
   private
 
   def answers_form_data
-    data = {'pageNumber' => 0}
+    data = {'pageNumber' => 0, 'submit' => ''}
     answers.includes(:question).each do |answer|
       data[answer.question.field_name] = answer.response
     end

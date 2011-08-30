@@ -24,9 +24,11 @@ end
 Poll.blueprint do
   title
   description
-  form_url      {Sham.url}
-  post_url      {Sham.url}
-  owner         {User.make}
+  form_url        {Sham.url}
+  post_url        {Sham.url}
+  owner           {User.make}
+  welcome_message {"welcome, press yes"}
+  goodbye_message {"goodbye!"}
 end
 
 Poll.blueprint(:with_questions) do

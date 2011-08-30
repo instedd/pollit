@@ -113,8 +113,10 @@ describe Poll do
       p.accept_answer("yes", p.respondents.first)
       p.accept_answer("lalala", p.respondents.first)
       p.respondents.first.current_question_id.should_not eq(p.questions.first.lower_item.id)
+      p.respondents.first.answers.count.should eq(0)
       p.accept_answer("foo", p.respondents.first)
       p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+      p.respondents.first.answers.count.should_not eq(0)
 
       p = Poll.make(:with_numeric_questions)
       p.stubs(:send_messages).returns(true)

@@ -49,16 +49,17 @@ describe Respondent do
         'entry.1.single' => ['foo'],
         'entry.2.group' => ['zab'],
         'entry.3.group' => ['4'],
-        'pageNumber' => ['0'] }
+        'pageNumber' => ['0'],
+        'submit' => ['']}
     end
 
     it "can be pushed to google forms" do
       stub_request(:post, post_url).to_return_file('google-form-post-response.html')
       respondent.push_answers.should be_true
 
-      #a_request(:post, post_url).with { |req|
-      #  CGI.parse(req.body) == post_params
-      #}.should have_been_made
+      a_request(:post, post_url).with { |req|
+        CGI.parse(req.body) == post_params
+      }.should have_been_made
 
       respondent.pushed_at.should_not be_nil
       respondent.pushed_status.should eq(:succeeded)
@@ -68,9 +69,9 @@ describe Respondent do
       stub_request(:post, post_url).to_return(:status => 500, :body => "failed")
       respondent.push_answers.should be_false
       
-      #a_request(:post, post_url).with { |req|
-      #  CGI.parse(req.body) == post_params
-      #}.should have_been_made
+      a_request(:post, post_url).with { |req|
+        CGI.parse(req.body) == post_params
+      }.should have_been_made
 
       respondent.pushed_at.should be_nil
       respondent.pushed_status.should eq(:failed)

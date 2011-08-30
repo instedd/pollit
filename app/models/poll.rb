@@ -8,9 +8,12 @@ class Poll < ActiveRecord::Base
   validates :form_url, :presence => true
   validates :post_url, :presence => true
   validates :questions, :presence => true, :if => :requires_questions
+  validates :welcome_message, :presence => true
+  validates :goodbye_message, :presence => true
 
   accepts_nested_attributes_for :questions
 
+  MESSAGE_FROM = "sms://0"
   INVALID_REPLY_OPTIONS = "Your answer was not understood. Please answer with (%s)"
   INVALID_REPLY_TEXT = "Your answer was not understood. Please answer with non empty string"
   INVALID_REPLY_NUMERIC = "Your answer was not understood. Please answer with a number between %s and %s"
@@ -25,7 +28,7 @@ class Poll < ActiveRecord::Base
 
     respondents.each do |respondent|
       messages << {
-        :from => Pollit::Application.config.nuntium_message_from,
+        :from => MESSAGE_FROM,
         :to => respondent.phone,
         :body => welcome_message
       }
@@ -76,9 +79,12 @@ class Poll < ActiveRecord::Base
   end
 
   def accept_text_answer(response, respondent)
+    question = questions.find(respondent.current_question_id)
+
     if response.blank?
       return INVALID_REPLY_TEXT
     else
+      save_answer question, respondent, response
       return next_question_for respondent
     end
   end
@@ -87,6 +93,7 @@ class Poll < ActiveRecord::Base
     question = questions.find(respondent.current_question_id)
 
     if(question.numeric_min..question.numeric_max).cover?(response.to_i)
+      save_answer question, respondent, response
       return next_question_for respondent
     else
       return INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
@@ -97,6 +104,7 @@ class Poll < ActiveRecord::Base
     question = questions.find(respondent.current_question_id)
 
     if question.valid_option? response
+      save_answer question, respondent, response
       return next_question_for respondent
     else
       return INVALID_REPLY_OPTIONS % [question.options.join("|")]
@@ -121,12 +129,15 @@ class Poll < ActiveRecord::Base
   private
 
   def send_messages(messages)
-    service_url = Pollit::Application.config.nuntium_service_url
-    account_name = Pollit::Application.config.nuntium_account_name
-    app_name = Pollit::Application.config.nuntium_app_name
-    app_password = Pollit::Application.config.nuntium_app_password
-
-    api = Nuntium.new service_url, account_name, app_name, app_password
+    api = Nuntium.new_from_config
     api.send_ao messages
+  end
+
+  def save_answer(question, respondent, response)
+    answer = Answer.new
+    answer.question = question
+    answer.respondent = respondent
+    answer.response = response
+    answer.save
   end
 end

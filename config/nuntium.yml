@@ -1,0 +1,15 @@
+development:
+  url: http://nuntium.manas.com.ar
+  account: pollit
+  application: pollit-mhick
+  password: pollit
+test:
+  url: http://nuntium.instedd.org
+  account: giancarlo
+  application: rememberme
+  password: hello
+production:
+  url: http://nuntium.instedd.org
+  account: giancarlo
+  application: rememberme
+  password: hello

@@ -5,6 +5,7 @@ class Answer < ActiveRecord::Base
 
   validates_presence_of :respondent
   validates_presence_of :question
+  validates_presence_of :response
 
   validates_uniqueness_of :respondent_id, :scope => [:question_id]
 

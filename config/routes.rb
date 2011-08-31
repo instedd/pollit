@@ -1,4 +1,6 @@
 Pollit::Application.routes.draw do
+  get "answers/index"
+
   devise_for :users, :controllers => {:omniauth_callbacks => 'omniauth_callbacks'}
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
@@ -15,6 +17,7 @@ Pollit::Application.routes.draw do
         put 'batch_update'
       end
     end
+    resources :answers, :only => [:index]
   end
 
   root :to => "home#index"

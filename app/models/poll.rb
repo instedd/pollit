@@ -23,6 +23,11 @@ class Poll < ActiveRecord::Base
 
   include Parser
 
+  def completion_percentage
+    answers_count = Answer.includes(:respondent => :poll).where("polls.id = ?",1).count
+    (answers_count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
+  end
+
   def start    
     messages = []
 
@@ -82,10 +87,10 @@ class Poll < ActiveRecord::Base
     question = questions.find(respondent.current_question_id)
 
     if response.blank?
-      return INVALID_REPLY_TEXT
+      INVALID_REPLY_TEXT
     else
-      save_answer question, respondent, response
-      return next_question_for respondent
+      Answer.create :question => question, :respondent => respondent, :response => response
+      next_question_for respondent
     end
   end
 
@@ -93,21 +98,22 @@ class Poll < ActiveRecord::Base
     question = questions.find(respondent.current_question_id)
 
     if(question.numeric_min..question.numeric_max).cover?(response.to_i)
-      save_answer question, respondent, response
-      return next_question_for respondent
+      Answer.create :question => question, :respondent => respondent, :response => response.to_i
+      next_question_for respondent
     else
-      return INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
+      INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
     end
   end
 
   def accept_options_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
+    option = question.option_for(response)
 
-    if question.valid_option? response
-      save_answer question, respondent, response
-      return next_question_for respondent
+    if option.nil?
+      INVALID_REPLY_OPTIONS % [question.options.join("|")]
     else
-      return INVALID_REPLY_OPTIONS % [question.options.join("|")]
+      Answer.create :question => question, :respondent => respondent, :response => option
+      next_question_for respondent
     end
   end
 
@@ -120,24 +126,15 @@ class Poll < ActiveRecord::Base
 
     if next_question.nil?
       respondent.push_answers
-      return goodbye_message
+      goodbye_message
     else
-      return next_question.message
+      next_question.message
     end
   end
 
   private
 
   def send_messages(messages)
-    api = Nuntium.new_from_config
-    api.send_ao messages
-  end
-
-  def save_answer(question, respondent, response)
-    answer = Answer.new
-    answer.question = question
-    answer.respondent = respondent
-    answer.response = response
-    answer.save
+    Nuntium.new_from_config.send_ao messages
   end
 end

@@ -1,0 +1,19 @@
+%h1 
+  Answers for
+  = @poll.title
+
+%table
+  %tr
+    %th Respondent
+    %th Question
+    %th Answer
+    %th Date
+    %th Pushed
+  - @poll.respondents.each do |respondent|
+    - respondent.answers.each do |answer|
+      %tr
+        %td= answer.respondent.unprefixed_phone
+        %td= answer.question.title
+        %td= answer.response
+        %td= answer.created_at.strftime("%Y-%m-%d %H:%M:%S")
+        %td= answer.respondent.pushed_status

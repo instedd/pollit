@@ -31,11 +31,16 @@ class Question < ActiveRecord::Base
     end
   end
 
-  def valid_option?(value)
-    value.downcase!
-    return true if OptionsIndices[0..options.count-1].include?(value)
-    return true if options.collect { |opt| opt.downcase }.include?(value)
-    return true if options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(value)
-    false
+  def option_for(value)
+    if OptionsIndices[0..options.count-1].include?(value.downcase)
+      options[OptionsIndices.index(value.downcase)]
+    elsif options.collect { |opt| opt.downcase }.include?(value.downcase)
+      pos = options.collect { |opt| opt.downcase }.index(value.downcase)
+      options[pos]
+    elsif options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(value.downcase)
+      options[OptionsIndices.index(value.downcase.split('-').first)]
+    else
+      nil
+    end
   end
 end

@@ -4,12 +4,12 @@ development:
   application: pollit-mhick
   password: pollit
 test:
-  url: http://nuntium.instedd.org
-  account: giancarlo
-  application: rememberme
-  password: hello
+  url: 
+  account: 
+  application: 
+  password: 
 production:
-  url: http://nuntium.instedd.org
-  account: giancarlo
-  application: rememberme
-  password: hello
+  url: 
+  account: 
+  application: 
+  password: 

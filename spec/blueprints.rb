@@ -38,6 +38,8 @@ Poll.blueprint(:with_questions) do
   form_url      {Sham.url}
   post_url      {Sham.url}
   owner         {User.make}
+  welcome_message {"welcome, press yes"}
+  goodbye_message {"goodbye!"}
   questions     {[
     Question.make(:field_name => 'entry.0.single', :position => 1),
     Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single', :position => 2),
@@ -59,6 +61,8 @@ Poll.blueprint(:with_text_questions) do
   form_url      {Sham.url}
   post_url      {Sham.url}
   owner         {User.make}
+  welcome_message {"welcome, press yes"}
+  goodbye_message {"goodbye!"}
   questions     {[
     Question.make(:field_name => 'entry.0.single', :position => 1),
     Question.make(:field_name => 'entry.1.single', :position => 2),
@@ -78,6 +82,8 @@ Poll.blueprint(:with_option_questions) do
   form_url      {Sham.url}
   post_url      {Sham.url}
   owner         {User.make}
+  welcome_message {"welcome, press yes"}
+  goodbye_message {"goodbye!"}
   questions     {[
     Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single', :position => 1),
     Question.make(:options, :options => %w(oof rab zab), :field_name => 'entry.2.single', :position => 2)]}
@@ -96,6 +102,8 @@ Poll.blueprint(:with_numeric_questions) do
   form_url      {Sham.url}
   post_url      {Sham.url}
   owner         {User.make}
+  welcome_message {"welcome, press yes"}
+  goodbye_message {"goodbye!"}
   questions     {[
     Question.make(:numeric, :numeric_min => 1, :numeric_max => 10, :field_name => 'entry.0.group', :position => 1),
     Question.make(:numeric, :numeric_min => 30, :numeric_max => 40, :field_name => 'entry.1.group', :position => 2)]}

@@ -4,12 +4,12 @@ development:
   application: pollit-mhick
   password: pollit
 test:
-  url: 
-  account: 
-  application: 
-  password: 
+  url: http://nuntium.manas.com.ar
+  account: pollit
+  application: pollit-mhick
+  password: pollit
 production:
-  url: 
-  account: 
-  application: 
-  password: 
+  url: http://nuntium.manas.com.ar
+  account: pollit
+  application: pollit-mhick
+  password: pollit

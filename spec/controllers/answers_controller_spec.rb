@@ -4,7 +4,8 @@ describe AnswersController do
 
   describe "GET 'index'" do
     it "should be successful" do
-      get 'index'
+      p = Poll.make :with_questions
+      get 'index', :poll_id => p.id
       response.should be_success
     end
   end

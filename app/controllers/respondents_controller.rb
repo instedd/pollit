@@ -7,14 +7,18 @@ class RespondentsController < ApplicationController
   end
 
   def batch_update
-    phones = params[:phones].scan(/[^,;\s\n\r]+/).reject{|p| p.empty?}.map{|p| "sms://#{p}"}
+    return if @poll.started?
+    Respondent.delete_all :poll_id => @poll.id
+
+    phones = params[:phones].map { |phone| "sms://#{phone}" }
+
     phones.each do |phone|
       unless @poll.respondents.find_by_phone(phone)
         @poll.respondents.create(:phone => phone)
       end
     end
 
-    redirect_to :action => :index
+    head :ok
   end
 
   private

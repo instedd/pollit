@@ -49,6 +49,10 @@ class Poll < ActiveRecord::Base
     save
   end
 
+  def started?
+    self.status.to_s == "started"
+  end
+
   def accept_answer(response, respondent)
     if respondent.confirmed
       return nil if respondent.current_question_id.nil?

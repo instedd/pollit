@@ -1,3 +1,7 @@
+%br
+%br
+= link_to "Go Back", polls_path
+
 %h1 Poll
 
 #title Title: #{@poll.title}
@@ -6,5 +10,7 @@
 #channel Channel: #{@poll.channel}
 %br
 
-= button_to "Start Poll", :action => :start, :id => @poll.id
-= link_to "Manage respondents", poll_respondents_path(@poll)
+= button_to "Start Poll", :action => :start, :id => @poll.id unless @poll.status == "started"
+%br
+= link_to "Manage respondents", poll_respondents_path(@poll) unless @poll.started?
+= link_to "View Answers", poll_answers_path(@poll) if @poll.started?

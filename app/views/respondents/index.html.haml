@@ -1,8 +1,64 @@
+%br
+%br
+= link_to "Go Back", @poll
 %h1 
   Manage respondents for
   = @poll.title
+.notice
+%div{"ng:controller" => "PhonesCtrl"}
+  %form{"ng:submit" => "addPhone()"}
+    %input{:class => "numberText", :name => "numberText", :placeholder => "enter a phone number", :size => "35", :type => "text"}
+    %input{:type => "submit", :value => "Add"}
+    %br
+  %ul
+    %li{"ng:repeat" => "phone in phones"}
+      %input{:name => "phone.checked", :type => "checkbox"}
+      %span {{phone.number}}
+  %input{"ng:click" => "saveChanges()", :type => "button", :value => "Save"}
+  %input{"ng:click" => "removeChecked()", :type => "button", :value => "Remove selected"}
+:javascript
+  $(document).ready(function() {
+    $('.numberText').numeric({ negative: false });
+  });
 
-= form_tag batch_update_poll_respondents_path, :method => :put do
-  = text_area_tag 'phones', @phones_list, :style => 'height: 300px; width: 400px'
-  %br
-  = submit_tag 
+  function PhonesCtrl() {
+    var modified = false;
+    var scope = this;
+    scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};
+   
+    scope.addPhone = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      if (!_.include(phones, scope.numberText)) {
+        modified = true;
+        scope.phones.push({number:scope.numberText});
+        scope.numberText = ''; 
+      }
+    };
+   
+    scope.removeChecked = function() {
+      modified = true;
+      var oldPhones = scope.phones;
+      scope.phones = [];
+      angular.forEach(oldPhones, function(phone) {
+        if (!phone.checked) scope.phones.push(phone);
+      });
+    };
+
+    scope.saveChanges = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      if (modified) {
+        $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
+        $(".notice").html("Phones saved succesfully!");
+        modified = false;
+      } else {
+        $(".notice").html("");
+      }
+    };
+  }
+
+:css
+  .notice { 
+    background-color:yellow;
+    width:280px;
+    text-align:center;
+  }

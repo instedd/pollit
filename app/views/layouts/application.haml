@@ -1,5 +1,5 @@
 !!!
-%html
+%html{"xmlns:ng" =>"http://angularjs.org"}
   %head
     %title Pollit
     = stylesheet_link_tag    "application"
@@ -15,4 +15,3 @@
       or 
       = link_to "sign in", new_user_session_path
     = yield
-  

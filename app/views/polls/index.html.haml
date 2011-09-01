@@ -1,9 +1,22 @@
+%br
+%br
+= link_to "Go Back", root_path
+
 %h1 Polls
+
+%h2 Your polls:
+
 = link_to "Create a new poll", new_poll_path
-- if @polls.any?
-  %h2 Your polls:
-  %ul
+%br
+%br
+
+%table
+  %tr
+    %th 
+    %th Completion
     - @polls.each do |poll|
-      %li
-        = link_to(poll.title, poll)
-        = "(#{poll.completion_percentage})"
+      %tr
+        %td= link_to(poll.title, poll)
+        %td= poll.completion_percentage
+
+

@@ -14,7 +14,7 @@ Pollit::Application.routes.draw do
     end
     resources :respondents, :only => [:index] do
       collection do
-        put 'batch_update'
+        post 'batch_update'
       end
     end
     resources :answers, :only => [:index]

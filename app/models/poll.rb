@@ -3,6 +3,7 @@ class Poll < ActiveRecord::Base
   
   has_many :questions, :order => "position"
   has_many :respondents
+  has_many :answers, :through => :respondents
 
   validates :title, :presence => true, :length => {:maximum => 64}
   validates :form_url, :presence => true
@@ -24,11 +25,10 @@ class Poll < ActiveRecord::Base
   include Parser
 
   def completion_percentage
-    answers_count = Answer.includes(:respondent => :poll).where("polls.id = ?", id).count
     if (questions.count == 0 || respondents.count == 0)
       "0%"
     else
-      (answers_count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
+      (answers.count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
     end
   end
 

@@ -38,10 +38,10 @@
 
     %p
       = f.label :welcome_message
-      = f.text_field :welcome_message
+      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
     %p
       = f.label :goodbye_message
-      = f.text_field :goodbye_message
+      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
     %p
       = f.label :confirmation_word
       = f.text_field :confirmation_word

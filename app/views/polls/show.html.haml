@@ -9,8 +9,8 @@
 #owner Owner: #{@poll.owner.email}
 #channel Channel: #{@poll.channel}
 %br
-
-= button_to "Start Poll", :action => :start, :id => @poll.id unless @poll.status == "started"
+%b= "This poll has no respondents, so it can't be started" if @poll.respondents.empty?
+= button_to "Start Poll", {:action => :start, :id => @poll.id}, {:disabled => @poll.respondents.empty?} unless @poll.started?
 %br
 = link_to "Manage respondents", poll_respondents_path(@poll) unless @poll.started?
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?

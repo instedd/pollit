@@ -3,7 +3,7 @@ class RespondentsController < ApplicationController
   before_filter :load_poll
 
   def index
-    @phones_list = @poll.respondents.map{|r| r.unprefixed_phone}.join("\n")
+    redirect_to @poll if @poll.started?
   end
 
   def batch_update

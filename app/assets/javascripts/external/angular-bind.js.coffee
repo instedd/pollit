@@ -3,5 +3,7 @@
     try
       (previousOnLoad||angular.noop)()
     catch error
-    angular.compile(window.document)()
+    try
+      angular.compile(window.document)()
+    catch error
 )(window, window.onload)

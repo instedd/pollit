@@ -1,16 +1,17 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc5'
+gem 'rails', '3.1.0'
 gem 'mysql2', '0.3.6'
+gem 'pg'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'compass'
 gem 'devise'
 gem 'omniauth'
 gem 'therubyracer'
-gem "arel", "2.1.4"
-gem "enumerated_attribute"
-gem 'nokogiri', '1.4.7'
+gem 'enumerated_attribute'
+gem 'nokogiri'
+gem 'hpricot'
 gem 'thin'
 gem 'rest-client'
 gem 'acts_as_list'
@@ -19,17 +20,17 @@ gem 'nuntium_api', :require => 'nuntium'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "~> 3.1.0.rc"
-  gem 'coffee-rails', "~> 3.1.0.rc"
+  gem 'sass-rails', '~> 3.1.0'
+  gem 'coffee-rails', '~> 3.1.0'
   gem 'uglifier'
 end
 
-gem "rspec-rails", "~> 2.6", :group => [:test, :development]
+gem 'rspec-rails', :group => [:test, :development]
 
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
-  gem 'machinist', '~> 1.0.6'
+  gem 'machinist'
   gem 'faker'
   gem 'mocha'
   gem 'webmock'
@@ -38,6 +39,5 @@ group :test do
 end
 
 group :development do
-  gem 'hpricot'
   gem 'wirble'
 end

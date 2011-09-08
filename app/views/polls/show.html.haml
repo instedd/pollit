@@ -7,12 +7,15 @@
 #title Title: #{@poll.title}
 #description Description: #{@poll.description}
 #owner Owner: #{@poll.owner.email}
-#channel Channel: #{@poll.channel}
 %br
 %b= "This poll has no respondents, so it can't be started" if @poll.respondents.empty?
 = button_to "Start Poll", {:action => :start, :id => @poll.id}, {:disabled => @poll.respondents.empty?} unless @poll.started?
 %br
-= link_to "Manage respondents", poll_respondents_path(@poll) unless @poll.started?
+- unless @poll.started?
+  = link_to "Manage respondents", poll_respondents_path(@poll)
+  |
+  = link_to 'Import respondents', import_phones_poll_respondents_path(@poll)
+
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?
 |
 = link_to 'Delete Poll', @poll, :confirm => 'Are you sure?', :method => :delete

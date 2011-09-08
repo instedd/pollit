@@ -26,6 +26,20 @@ class PollsController < ApplicationController
     end
   end
 
+  def edit
+    @poll = Poll.find(params[:id])
+  end
+
+  def update
+    @poll = Poll.find(params[:id])
+
+    if @poll.update_attributes(params[:poll])
+      redirect_to :action => 'index'
+    else
+      render :view => 'edit'
+    end
+  end
+
   def start
     @poll = Poll.find(params[:id])
     @poll.start unless @poll.status == "started"
@@ -37,6 +51,13 @@ class PollsController < ApplicationController
     @poll = Poll.new params[:poll]
     @poll.parse_form
     render :partial => 'form'
+  end
+
+  def destroy
+    poll = Poll.find(params[:id])
+    poll.destroy
+
+    redirect_to :action => :index
   end
 
 end

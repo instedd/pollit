@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818204911) do
+ActiveRecord::Schema.define(:version => 20110908184337) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -21,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20110818204911) do
     t.integer  "question_id"
   end
 
+  create_table "channels", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "polls", :force => true do |t|
     t.string   "title"
     t.string   "description"
@@ -28,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20110818204911) do
     t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "channel"
     t.string   "welcome_message"
     t.string   "status"
     t.string   "post_url"

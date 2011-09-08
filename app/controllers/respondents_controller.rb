@@ -1,3 +1,5 @@
+require 'csv'
+
 class RespondentsController < ApplicationController
 
   before_filter :load_poll
@@ -19,6 +21,28 @@ class RespondentsController < ApplicationController
     end
 
     head :ok
+  end
+
+  def import_phones
+    
+  end
+
+  def import_csv
+    return if @poll.started?
+    redirect_to @poll if @poll.started?
+    redirect_to @poll unless params[:csv].content_type == "text/csv"
+
+    Respondent.delete_all :poll_id => @poll.id
+
+    CSV.new(params[:csv].tempfile).each do |row|
+      phone = row.first.gsub(/[^0-9]/, "")
+
+      unless @poll.respondents.find_by_phone(phone)
+        @poll.respondents.create(:phone => phone)
+      end
+    end
+
+    redirect_to @poll
   end
 
   private

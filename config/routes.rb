@@ -15,6 +15,8 @@ Pollit::Application.routes.draw do
     resources :respondents, :only => [:index] do
       collection do
         post 'batch_update'
+        get 'import_phones'
+        post 'import_csv'
       end
     end
     resources :answers, :only => [:index]

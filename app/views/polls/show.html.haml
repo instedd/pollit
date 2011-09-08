@@ -14,3 +14,5 @@
 %br
 = link_to "Manage respondents", poll_respondents_path(@poll) unless @poll.started?
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?
+|
+= link_to 'Delete Poll', @poll, :confirm => 'Are you sure?', :method => :delete

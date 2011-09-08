@@ -14,9 +14,11 @@
   %tr
     %th 
     %th Completion
+    %th 
     - @polls.each do |poll|
       %tr
         %td= link_to(poll.title, poll)
         %td= poll.completion_percentage
+        %td= link_to("edit", edit_poll_path(poll))
 
 

@@ -1,5 +1,5 @@
 class Respondent < ActiveRecord::Base
-  has_many :answers
+  has_many :answers, :dependent => :destroy
   belongs_to :poll
   validates_presence_of :poll
 

@@ -2,7 +2,7 @@ class Poll < ActiveRecord::Base
   belongs_to :owner, :class_name => User.name
   
   has_many :questions, :order => "position"
-  has_many :respondents
+  has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
 
   validates :title, :presence => true, :length => {:maximum => 64}

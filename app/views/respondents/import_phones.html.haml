@@ -1,0 +1,7 @@
+= form_for @poll, :method => :post, :url => { :action => "import_csv" }, :html => {:multipart => true} do |f|
+  %h2 Import phones from file
+
+  %p
+    = file_field_tag :csv
+
+  = submit_tag

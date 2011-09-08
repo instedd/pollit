@@ -34,12 +34,12 @@ class Poll < ActiveRecord::Base
 
   def start    
     messages = []
-
     respondents.each do |respondent|
       messages << {
         :from => MESSAGE_FROM,
         :to => respondent.phone,
-        :body => welcome_message
+        :body => welcome_message,
+        :poll => as_channel_name
       }
     end
 
@@ -85,6 +85,10 @@ class Poll < ActiveRecord::Base
     CGI::parse(query)['formkey'][0]
   end
 
+  def as_channel_name
+    "#{name}-#{id}"
+  end
+  
   private
   
   def default_values

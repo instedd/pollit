@@ -86,7 +86,7 @@ class Poll < ActiveRecord::Base
   end
 
   def as_channel_name
-    "#{name}-#{id}"
+    "#{title}-#{id}"
   end
   
   private

@@ -18,4 +18,4 @@
 
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?
 |
-= link_to 'Delete Poll', @poll, :confirm => 'Are you sure?', :method => :delete
+= link_to 'Delete Poll', @poll, :confirm => 'Are you sure you want to delete this poll?', :method => :delete

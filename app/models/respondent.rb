@@ -1,7 +1,8 @@
 class Respondent < ActiveRecord::Base
   has_many :answers, :dependent => :destroy
   belongs_to :poll
-  validates_presence_of :poll
+
+  validates :phone, :presence => true, :uniqueness => { :scope => :poll_id }
 
   enum_attr :pushed_status, %w(^pending succeeded failed)
 

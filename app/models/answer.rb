@@ -1,12 +1,8 @@
 class Answer < ActiveRecord::Base
-
   belongs_to :respondent
   belongs_to :question
 
-  validates_presence_of :respondent
-  validates_presence_of :question
-  validates_presence_of :response
-
-  validates_uniqueness_of :respondent_id, :scope => [:question_id]
-
+  validates :respondent_id, :presence => true, :uniqueness => {:scope => :question_id}
+  validates :question_id, :presence => true
+  validates :response, :presence => true
 end

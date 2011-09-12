@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, 
                   :remember_me, :name, :google_token
 
+  after_save :set_channel
+
   def current_poll
-    polls.first
+    polls.where(:status => "started").first
   end
 
   def register_channel(code)
@@ -38,5 +40,11 @@ class User < ActiveRecord::Base
     })
 
     Channel.create! :name => channel_info[:name], :address => channel_info[:address]
+  end
+
+  def set_channel
+    unless channel
+      Channel.create!(:name => "channel#{id}", :address => "manas-xmpp-dev", :user_id => id)\
+    end
   end
 end

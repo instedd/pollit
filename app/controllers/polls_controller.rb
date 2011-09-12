@@ -57,7 +57,7 @@ class PollsController < ApplicationController
     poll = Poll.find(params[:id])
     poll.destroy
 
-    redirect_to :action => :index
+    redirect_to polls_path, :notice => "Poll has been deleted"
   end
 
 end

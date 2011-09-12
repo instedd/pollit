@@ -88,7 +88,7 @@ class Poll < ActiveRecord::Base
   end
 
   def as_channel_name
-    "#{title}-#{id}".parametrize
+    "#{title}-#{id}".parameterize
   end
   
   private

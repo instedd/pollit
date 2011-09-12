@@ -32,7 +32,7 @@ Poll.blueprint do
 end
 
 Poll.blueprint(:with_questions) do
-  title
+  title 
   description
   confirmation_word {"yes"}
   form_url      {Sham.url}
@@ -118,13 +118,17 @@ end
 Question.blueprint do
   title
   description
+  field_name    {"entry.0"}
+  position      {1}
   kind          {:text}
-  poll          {Poll.make}
+  poll
 end
 
 Question.blueprint(:without_poll) do
   title
   description
+  field_name    {"entry.0"}
+  position      {1}
   kind          {:text}
   poll          {nil}
 end
@@ -133,16 +137,19 @@ Question.blueprint(:options) do
   title
   description
   kind          {:options}
-  poll          {Poll.make}
+  poll
+  field_name    {"entry.0"}
+  position      {1}
   options       {(0..rand(3)+1).map{Sham.name}}
 end
 
 Question.blueprint(:numeric) do
   title
   description
+  field_name    {"entry.0"}
   position      {1}
   kind          {:numeric}
-  poll          {Poll.make}
+  poll
   numeric_min   {rand(3)+1}
   numeric_max   {rand(3)+5}
 end
@@ -154,6 +161,6 @@ Answer.blueprint do
 end
 
 Respondent.blueprint do
-  poll          {Poll.make}
+  poll
   phone
 end

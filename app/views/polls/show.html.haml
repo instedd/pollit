@@ -13,8 +13,6 @@
 %br
 - unless @poll.started?
   = link_to "Manage respondents", poll_respondents_path(@poll)
-  |
-  = link_to 'Import respondents', import_phones_poll_respondents_path(@poll)
 
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?
 |

@@ -9,7 +9,7 @@ test:
   application: pollit-mhick
   password: pollit
 production:
-  url: http://nuntium.manas.com.ar
+  url: http://nuntium.instedd.org
   account: pollit
-  application: pollit-mhick
+  application: pollit
   password: pollit

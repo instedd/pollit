@@ -1,27 +1,29 @@
 class Poll < ActiveRecord::Base
-  belongs_to :owner, :class_name => User.name
-  
-  has_many :questions, :order => "position"
-  has_many :respondents, :dependent => :destroy
-  has_many :answers, :through => :respondents
-
-  validates :title, :presence => true, :length => {:maximum => 64}
-  validates :form_url, :presence => true
-  validates :post_url, :presence => true
-  validates :questions, :presence => true, :if => :requires_questions
-  validates :welcome_message, :presence => true
-  validates :goodbye_message, :presence => true
-
-  accepts_nested_attributes_for :questions
-
   MESSAGE_FROM = "sms://0"
   INVALID_REPLY_OPTIONS = "Your answer was not understood. Please answer with (%s)"
   INVALID_REPLY_TEXT = "Your answer was not understood. Please answer with non empty string"
   INVALID_REPLY_NUMERIC = "Your answer was not understood. Please answer with a number between %s and %s"
 
-  after_initialize :default_values
-  attr_accessor :requires_questions
+  belongs_to :owner, :class_name => User.name
+  has_many :questions, :order => "position"
+  has_many :respondents, :dependent => :destroy
+  has_many :answers, :through => :respondents
 
+  validates :title, :presence => true, :length => {:maximum => 64}
+  validates :description, :presence => true
+  validates :owner, :presence => true
+  validates :form_url, :presence => true
+  validates :welcome_message, :presence => true, :length => {:maximum => 140}
+  validates :post_url, :presence => true
+  validates :confirmation_word, :presence => true
+  validates :goodbye_message, :presence => true, :length => {:maximum => 140}
+  validates :questions, :presence => true, :if => :requires_questions
+
+  accepts_nested_attributes_for :questions
+  attr_accessor :requires_questions
+    
+  after_initialize :default_values
+  
   include Parser
 
   def completion_percentage

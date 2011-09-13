@@ -2,12 +2,14 @@ class NuntiumController < ApplicationController
   def receive_at
     logger.debug "Received nuntium message: #{params.inspect}"
 
-    poll = Channel.find_by_address(params[:channel]).user.current_poll
+    channel = Channel.find_by_address(params[:channel])
     respondent = Respondent.find_by_phone(params[:from])
 
-    if (respondent.nil? || poll.nil?)
+    if (respondent.nil? || channel.nil?)
       render :nothing => true
     else
+      poll = channel.user.current_poll
+      
       next_message = poll.accept_answer(params[:body], respondent)
 
       if next_message.nil?

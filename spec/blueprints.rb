@@ -21,9 +21,14 @@ User.blueprint do
   password_confirmation {password}
 end
 
+Channel.blueprint do
+  ticket_code {1111}
+  name {"testing"}
+end
+
 Poll.blueprint do
-  title
-  description
+  title           {"test title"}
+  description     {"test description"}
   form_url        {Sham.url}
   post_url        {Sham.url}
   owner           {User.make}
@@ -32,14 +37,15 @@ Poll.blueprint do
 end
 
 Poll.blueprint(:with_questions) do
-  title 
-  description
+  channel           {Channel.make}
+  title             {"test title"}
+  description       {"test description"}
   confirmation_word {"yes"}
-  form_url      {Sham.url}
-  post_url      {Sham.url}
-  owner         {User.make}
-  welcome_message {"welcome, press yes"}
-  goodbye_message {"goodbye!"}
+  form_url          {Sham.url}
+  post_url          {Sham.url}
+  owner             {User.make}
+  welcome_message   {"welcome, press yes"}
+  goodbye_message   {"goodbye!"}
   questions     {[
     Question.make(:field_name => 'entry.0.single', :position => 1),
     Question.make(:options, :options => %w(foo bar baz), :field_name => 'entry.1.single', :position => 2),
@@ -55,6 +61,7 @@ Poll.blueprint(:with_questions) do
 end
 
 Poll.blueprint(:with_text_questions) do
+  channel           {Channel.make}
   title
   description
   confirmation_word {"yes"}
@@ -154,13 +161,13 @@ Question.blueprint(:numeric) do
   numeric_max   {rand(3)+5}
 end
 
+Respondent.blueprint do
+  poll
+  phone
+end
+
 Answer.blueprint do
   question      {Question.make}
   respondent    {Respondent.make}
   response      
-end
-
-Respondent.blueprint do
-  poll
-  phone
 end

@@ -24,7 +24,6 @@ class Poll < ActiveRecord::Base
   attr_accessor :requires_questions
     
   after_initialize :default_values
-  before_save :register_nuntium_channel, :if => :new_record?
   
   include Parser
 

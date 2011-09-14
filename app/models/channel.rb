@@ -1,7 +1,6 @@
 class Channel < ActiveRecord::Base
   belongs_to :poll
 
-  validates :poll_id, :presence => true
   validates :name, :presence => true
 
   attr_accessor  :ticket_code
@@ -31,7 +30,9 @@ class Channel < ActiveRecord::Base
       :enabled => true
     })
     
-    self.address = channel_info[:address]
+    unless channel_info.nil?
+      self.address = "sms://#{channel_info[:address]}"
+    end
   end
 
   def delete_nuntium_channel

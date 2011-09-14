@@ -1,5 +1,3 @@
-%br
-%br
 = link_to "Go Back", polls_path
 
 %h1 Poll
@@ -7,13 +5,28 @@
 #title Title: #{@poll.title}
 #description Description: #{@poll.description}
 #owner Owner: #{@poll.owner.email}
-%br
-%b= "This poll has no respondents, so it can't be started" if @poll.respondents.empty?
-= button_to "Start Poll", {:action => :start, :id => @poll.id}, {:disabled => @poll.respondents.empty?} unless @poll.started?
-%br
-- unless @poll.started?
-  = link_to "Manage respondents", poll_respondents_path(@poll)
+#completion Completion: #{@poll.completion_percentage}
+
+- if @poll.can_be_started?
+  = button_to "Start Poll", start_poll_path(@poll.id)
+- else
+  - if @poll.respondents.empty?
+    %b
+      %p= "This poll has no respondents! Add them to start the poll."
+  - if @poll.channel.nil?
+    %b
+      %p= "This poll has no channel! Add it to start the poll."
+  - if @poll.started?
+    %b
+      %p= "Poll has been started!"
+
+- if @poll.respondents.empty?
+  = link_to "Manage Respondents", poll_respondents_path(@poll)
+  |
+- if @poll.channel.nil?
+  = link_to "Add Channel", "/"
+  |
 
 = link_to "View Answers", poll_answers_path(@poll) if @poll.started?
 |
-= link_to 'Delete Poll', @poll, :confirm => 'Are you sure you want to delete this poll?', :method => :delete
+= link_to 'Delete Poll', @poll, :method => :delete, :confirm => 'Are you sure you want to delete this poll?'

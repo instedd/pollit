@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110908184337) do
+ActiveRecord::Schema.define(:version => 20110913191741) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -23,11 +23,11 @@ ActiveRecord::Schema.define(:version => 20110908184337) do
   end
 
   create_table "channels", :force => true do |t|
-    t.integer  "user_id"
     t.string   "name"
     t.string   "address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "poll_id"
   end
 
   create_table "polls", :force => true do |t|

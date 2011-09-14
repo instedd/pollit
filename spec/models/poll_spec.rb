@@ -69,11 +69,12 @@ describe Poll do
     end
 
     it "should change status to started when a poll is started" do
-      p = Poll.make(:with_questions)
-      p.stubs(:send_messages).returns(true)
-      p.start
-
-      p.status.should eq(:started)
+      poll = Poll.make(:with_questions)
+      poll.stubs(:send_messages).returns(true)
+      
+      starting = poll.start
+      
+      poll.status.should eq(:started)
     end
 
     it "should not set next question if confirmation word is not correct" do

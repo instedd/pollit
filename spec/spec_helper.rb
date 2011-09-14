@@ -17,6 +17,13 @@ RSpec.configure do |config|
 
   config.before(:each) do 
     Sham.reset
+
+    @nuntium = mock("nuntium")
+    Nuntium.stubs(:new_from_config).returns(@nuntium)
+    @nuntium.stubs(:create_channel)
+    @nuntium.stubs(:update_channel)
+    @nuntium.stubs(:delete_channel)
+    @nuntium.stubs(:send_ao)
   end    
 end
 

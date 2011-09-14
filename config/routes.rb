@@ -11,6 +11,7 @@ Pollit::Application.routes.draw do
     end
     member do
       post 'start'
+      post 'register_channel/:ticket_code', :action => 'register_channel'
     end
     resources :respondents, :only => [:index] do
       collection do

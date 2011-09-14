@@ -8,6 +8,7 @@ class Poll < ActiveRecord::Base
   has_many :questions, :order => "position"
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
+  has_one :channel, :dependent => :destroy
 
   validates :title, :presence => true, :length => {:maximum => 64}
   validates :description, :presence => true
@@ -23,18 +24,13 @@ class Poll < ActiveRecord::Base
   attr_accessor :requires_questions
     
   after_initialize :default_values
+  before_save :register_nuntium_channel, :if => :new_record?
   
   include Parser
 
-  def completion_percentage
-    if (questions.count == 0 || respondents.count == 0)
-      "0%"
-    else
-      (answers.count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
-    end
-  end
+  def start
+    return false unless can_be_started?
 
-  def start    
     messages = []
     respondents.each do |respondent|
       messages << {
@@ -51,8 +47,40 @@ class Poll < ActiveRecord::Base
     save
   end
 
+  def can_be_started?
+    (!started?) && channel && respondents.any?
+  end
+
   def started?
     self.status.to_s == "started"
+  end
+
+  def as_channel_name
+    "#{title}-#{id}".parameterize
+  end
+
+  def register_channel(code)
+    unless started?
+      Channel.create({
+        :ticket_code => code,
+        :name => as_channel_name, 
+        :poll_id => id
+      })
+    end
+  end
+
+  def completion_percentage
+    if (questions.count == 0 || respondents.count == 0)
+      "0%"
+    else
+      (answers.count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
+    end
+  end
+
+  def google_form_key
+    return nil unless form_url || post_url
+    query = URI.parse(form_url || post_url).query
+    CGI::parse(query)['formkey'][0]
   end
 
   def accept_answer(response, respondent)
@@ -80,22 +108,8 @@ class Poll < ActiveRecord::Base
       end
     end
   end
-
-  def google_form_key
-    return nil unless form_url || post_url
-    query = URI.parse(form_url || post_url).query
-    CGI::parse(query)['formkey'][0]
-  end
-
-  def as_channel_name
-    "#{title}-#{id}".parameterize
-  end
   
   private
-  
-  def default_values
-    self.confirmation_word ||= "Yes"
-  end
 
   def accept_text_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
@@ -146,9 +160,11 @@ class Poll < ActiveRecord::Base
     end
   end
 
-  private
-
   def send_messages(messages)
     Nuntium.new_from_config.send_ao messages
+  end
+
+  def default_values
+    self.confirmation_word ||= "Yes"
   end
 end

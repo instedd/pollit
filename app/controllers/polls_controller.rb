@@ -60,4 +60,8 @@ class PollsController < ApplicationController
     redirect_to polls_path, :notice => "Poll has been deleted"
   end
 
+  def register_channel
+    poll = Poll.find(params[:id])
+    poll.register_channel(params[:ticket_code])
+  end
 end

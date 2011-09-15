@@ -22,7 +22,7 @@
     %b
       %p= "Poll has been started!"
 
-- if @poll.respondents.empty?
+- if @poll.respondents.empty? || !@poll.started?
   = link_to "Manage Respondents", poll_respondents_path(@poll)
   |
   

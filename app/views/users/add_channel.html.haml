@@ -1,0 +1,7 @@
+= form_tag :method => :post, :url => { :controller => :users, :action => :create_channel }
+  %h2 Register channel
+  %p
+    = "Code:"
+    = text_field_tag :code
+
+  = submit_tag

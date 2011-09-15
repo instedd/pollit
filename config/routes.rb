@@ -13,6 +13,7 @@ Pollit::Application.routes.draw do
       post 'start'
       post 'register_channel/:ticket_code', :action => 'register_channel'
     end
+    resources :channels, :only => [:new, :create]
     resources :respondents, :only => [:index] do
       collection do
         post 'batch_update'

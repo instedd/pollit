@@ -2,20 +2,22 @@
 
 %h1 Poll
 
-#title Title: #{@poll.title}
-#description Description: #{@poll.description}
-#owner Owner: #{@poll.owner.email}
-#completion Completion: #{@poll.completion_percentage}
+#title #{@poll.title}
+#description #{@poll.description}
+#owner #{@poll.owner.email}
+#completion Completed #{@poll.completion_percentage}
 
 - if @poll.can_be_started?
   = button_to "Start Poll", start_poll_path(@poll.id)
+  %br
+  
 - else
   - if @poll.respondents.empty?
     %b
-      %p= "This poll has no respondents! Add them to start the poll."
+      %p= "There are no respondents assigned."
   - if @poll.channel.nil?
     %b
-      %p= "This poll has no channel! Add it to start the poll."
+      %p= "There is no channel set."
   - if @poll.started?
     %b
       %p= "Poll has been started!"
@@ -23,10 +25,13 @@
 - if @poll.respondents.empty?
   = link_to "Manage Respondents", poll_respondents_path(@poll)
   |
+  
 - if @poll.channel.nil?
-  = link_to "Add Channel", "/"
+  = link_to "Add Channel", new_poll_channel_path(@poll)
   |
 
-= link_to "View Answers", poll_answers_path(@poll) if @poll.started?
-|
+- if @poll.started?
+  = link_to "View Answers", poll_answers_path(@poll)
+  |
+
 = link_to 'Delete Poll', @poll, :method => :delete, :confirm => 'Are you sure you want to delete this poll?'

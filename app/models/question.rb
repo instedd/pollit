@@ -4,7 +4,7 @@ class Question < ActiveRecord::Base
   belongs_to :poll
   has_many :answers
 
-  validates :title,   :presence => true
+  validates :title, :presence => true
   validates :description, :presence => true
   validates :field_name, :presence => true
   validates :position, :presence => true

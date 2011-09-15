@@ -1,9 +1,9 @@
 class Channel < ActiveRecord::Base
   belongs_to :poll
 
-  validates :name, :presence => true
+  attr_accessor :ticket_code
 
-  attr_accessor  :ticket_code
+  validates :name, :presence => true
 
   before_create :register_nuntium_channel
   before_destroy :delete_nuntium_channel
@@ -14,7 +14,7 @@ class Channel < ActiveRecord::Base
     @nuntium = Nuntium.new_from_config
 
     channel_info = @nuntium.create_channel({ 
-      :name => name, 
+      :name => name,
       :protocol => 'sms',
       :kind => 'qst_server',
       :direction => 'bidirectional',
@@ -30,9 +30,7 @@ class Channel < ActiveRecord::Base
       :enabled => true
     })
     
-    unless channel_info.nil?
-      self.address = "sms://#{channel_info[:address]}"
-    end
+    self.address = "sms://#{channel_info[:address]}"
   end
 
   def delete_nuntium_channel

@@ -1,11 +1,11 @@
 development:
-  url: http://nuntium.manas.com.ar
-  account: pollit
+  url: http://nuntium.instedd.org
+  account: pollit-dev
   password: pollit
-  application: pollit-mhick
+  application: pollit
 test:
   url: http://nuntium.instedd.org
-  account: pollit
+  account: pollit-dev
   password: pollit
   application: pollit
 production:

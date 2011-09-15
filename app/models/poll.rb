@@ -58,14 +58,15 @@ class Poll < ActiveRecord::Base
     "#{title}-#{id}".parameterize
   end
 
-  def register_channel(code)
-    unless started?
-      Channel.create({
-        :ticket_code => code,
-        :name => as_channel_name, 
-        :poll_id => id
-      })
-    end
+  def register_channel(ticket_code)
+    return false if ticket_code.blank?
+    return false if started?
+
+    Channel.create({
+      :ticket_code => ticket_code,
+      :name => as_channel_name, 
+      :poll_id => id
+    })
   end
 
   def completion_percentage

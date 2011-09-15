@@ -1,0 +1,12 @@
+= link_to "Go Back", @poll
+
+%h1 
+  Add channel for
+  = @poll.title
+
+= form_for @channel, :method => :post, :url => { :action => "create" } do |f|
+  %p
+    = f.label :ticket_code
+    = f.text_field :ticket_code
+
+  = submit_tag 'Save'

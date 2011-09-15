@@ -20,7 +20,7 @@ RSpec.configure do |config|
 
     @nuntium = mock("nuntium")
     Nuntium.stubs(:new_from_config).returns(@nuntium)
-    @nuntium.stubs(:create_channel)
+    @nuntium.stubs(:create_channel).returns({:address => ""})
     @nuntium.stubs(:update_channel)
     @nuntium.stubs(:delete_channel)
     @nuntium.stubs(:send_ao)

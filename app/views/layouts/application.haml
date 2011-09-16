@@ -2,21 +2,56 @@
 %html{"xmlns:ng" =>"http://angularjs.org"}
   %head
     %title Pollit
-    = stylesheet_link_tag 'http://dax7k8orhij0j.cloudfront.net/theme/stylesheets/theme.css'
-    = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/jquery-1.6.2.min.js'
-    = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/theme.js'
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
+    = stylesheet_link_tag 'http://dax7k8orhij0j.cloudfront.net/theme/stylesheets/theme.css'
+    = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/theme.js'
     = csrf_meta_tags
   %body
-    #user_nav
-    - if user_signed_in?
-      Signed in as #{current_user.email}. Not you?
-      = link_to "Sign out", destroy_user_session_path, :method => :delete
-    - else
-      = link_to "Sign up", new_user_registration_path
-      or 
-      = link_to "sign in", new_user_session_path
-    %br
-    %br
-    = yield
+    #wrapper
+      #toolbar
+        %ul#instedd-pulldown
+        #NavMenu
+          %ul
+            %li.active
+              %a{:href => "#"} Home
+            %li
+              %a{:href => "#"} Volunteers
+            %li
+              %a{:href => "#"} Help
+        %ul.RightMenu
+          %li
+            #User
+              John Dog
+              %br/
+              %br/
+              .container
+                Lorem ipsum dolor sit amet
+            / #User
+          %li
+            %a.icon.fsettings{:href => "#"}
+      #header
+        .left
+          %a{:href => "/"}
+            %img{:src => "http://dax7k8orhij0j.cloudfront.net/theme/images/header/logos/pollit.png"}/
+        .BreadCrumb
+          %ul
+            %li
+              %a{:href => "#"} dolor sit
+            %li
+              %a{:href => "#"} amet
+      #container
+        #user_nav
+        - if user_signed_in?
+          Signed in as #{current_user.email}. Not you?
+          = link_to "Sign out", destroy_user_session_path, :method => :delete
+        - else
+          = link_to "Sign up", new_user_registration_path
+          or 
+          = link_to "sign in", new_user_session_path
+        %br
+        %br
+        = yield
+      #footer-span
+        #footer
+          = render :partial => "shared/footer"

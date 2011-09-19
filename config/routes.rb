@@ -1,7 +1,7 @@
 Pollit::Application.routes.draw do
   get "answers/index"
 
-  devise_for :users, :controllers => {:omniauth_callbacks => 'omniauth_callbacks'}
+  devise_for :users
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   

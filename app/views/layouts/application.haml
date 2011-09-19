@@ -8,6 +8,7 @@
     = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/theme.js'
     = csrf_meta_tags
   %body
+    = flash_message
     #wrapper
       #toolbar
         %ul#instedd-pulldown
@@ -25,7 +26,7 @@
                 %br
                 %br
                 .container
-                  = link_to "Sign out", destroy_user_session_path, :method => :delete
+                  = link_to "Sign out", destroy_user_session_path
                   %br
                   = link_to "Settings", "#"
               - else

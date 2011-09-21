@@ -1,23 +1,9 @@
-- content_for :breadcrumb do
-  %li
-    %a{:href => "#"} dolor
-  %li
-    %a{:href => "#"} sit
-  %li
-    %a{:href => "#"} amet
-
-= link_to "Go Back", root_path
-
-%h1 Polls
-
 %h2 Your polls:
 
-= link_to "New Poll", new_poll_path
-%br
+= instedd_table_for(@polls, headers=["Name", "Completion Percentage"]) do |poll|
+  %td= link_to poll.title, poll
+  %td= poll.completion_percentage
 
-%ul
-  - @polls.each do |poll|
-    %li
-      = poll.title
-      = link_to("View", poll)
-      = link_to("Edit", edit_poll_path(poll))
+%br
+%br
+= link_to "New Poll", new_poll_path, :class => "white button"

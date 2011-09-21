@@ -33,6 +33,26 @@ module InsteddAppHelper
       end
     end
   end
+
+  def instedd_table_for(data, headers, &block)
+    val = content_tag :table, :class => "GralTable" do
+      content_tag :tbody do
+        head = content_tag :tr do
+          raw(headers.map { |x| content_tag :th, x }.join)
+        end
+
+        concat(head)
+
+        data.each do |row|
+          tr = content_tag :tr do
+            capture(row, &block)
+          end
+
+          concat(tr)
+        end
+      end
+    end
+  end
 end
 
 module DeviseHelper  

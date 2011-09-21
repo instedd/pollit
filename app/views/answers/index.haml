@@ -2,7 +2,7 @@
   Answers for
   = @poll.title
 
-= instedd_table_for(@poll.respondents, headers=["Respondent", "Question", "Answer", "Date", "Pushed"]) do |respondent|
+= instedd_table_for(@poll.answers, headers=["Respondent", "Question", "Answer", "Date", "Pushed"]) do |answer|
   %td= answer.respondent.unprefixed_phone
   %td= answer.question.title
   %td= answer.response

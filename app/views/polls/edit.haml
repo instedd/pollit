@@ -4,17 +4,18 @@
 
     %h2 Edit Poll
 
-    %p
+    .field.w30
       = f.label :title
       = f.text_field :title
-    %p
+    .field.w30
       = f.label :description
       = f.text_field :description
-    %p
+    .field.w30
       = f.label :welcome_message
       = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
-    %p
+    .field.w30
       = f.label :goodbye_message
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
 
-    = f.submit
+    = f.submit "Save", :class => "grey button"
+    = link_to "Cancel", polls_path, :class => "white button"

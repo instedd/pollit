@@ -2,26 +2,25 @@
   = form_for @poll do |f|
     = render "shared/error_messages", :target => @poll
 
-    %h2 Import poll from google forms
+    %h3 Import poll from google forms
     
     %span Copy the live form URL (not the spreadsheet's URL) making sure the form does not require sign-in
-    %p
+    .field
       = f.label :form_url
       = f.text_field :form_url
-      = link_to 'Import form', '#', :id => 'import_form_action'
+      = link_to 'Import form', '#', :id => 'import_form_action', :class => "orange button"
       = f.hidden_field :post_url
 
     %h2 Poll information
 
-    %p
+    .field.w30
       = f.label :title
       = f.text_field :title
-    %p
+    .field.w30
       = f.label :description
       = f.text_field :description
 
     %h2 Poll questions
-
     -# HACK: Store questions as json for now to be sent back to the server, use standard input fields or a javascript viewmodel when applying actual design
     = hidden_field_tag :questions, @poll.questions.to_json
 
@@ -36,14 +35,15 @@
 
     %h2 Poll details
 
-    %p
+    .field.w30
       = f.label :welcome_message
       = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
-    %p
+    .field.w30
       = f.label :goodbye_message
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
-    %p
+    .field.w30
       = f.label :confirmation_word
       = f.text_field :confirmation_word
 
-    = f.submit
+    = f.submit "Create", :class => "grey button"
+    = link_to "Cancel", polls_path, :class => "white button"

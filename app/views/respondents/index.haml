@@ -1,4 +1,5 @@
-= link_to "Go Back", @poll
+- content_for :head do
+  %script{"src" => "/assets/exclude/angular-0.9.19.min.js", "ng:autobind" => ""}
 
 %h1 
   Manage respondents for
@@ -6,24 +7,25 @@
 .notice
 
 = form_for @poll, :method => :post, :url => { :action => "import_csv" }, :html => {:multipart => true} do |f|
-  %h2 Import phones from file
+  %h3 Get phones from csv file
   %p
     = file_field_tag :csv
-  = submit_tag 'Save'
 
-%h2 Manage phones manually
+%h3 Add Phones Manually
 
 %div{"ng:controller" => "PhonesCtrl"}
   %form{"ng:submit" => "addPhone()"}
-    %input{:class => "numberText", :name => "numberText", :placeholder => "enter a phone number", :size => "35", :type => "text"}
-    %input{:type => "submit", :value => "Add"}
+
+    %input{:class => "numberText field w30", :name => "numberText", :placeholder => "Enter a phone number...", :size => "35", :type => "text"}
+    %input{:type => "submit", :class => "orange button", :value => "Add"}
     %br
   %ul
     %li{"ng:repeat" => "phone in phones"}
       %input{:name => "phone.checked", :type => "checkbox"}
       %span {{phone.number}}
-  %input{"ng:click" => "saveChanges()", :type => "button", :value => "Save"}
-  %input{"ng:click" => "removeChecked()", :type => "button", :value => "Remove selected"}
+  %input{"ng:click" => "saveChanges()", :type => "button", :value => "Save", :class => "gray button" }
+  = link_to "Cancel", @poll, :class => "white button"
+
 :javascript
   $(document).ready(function() {
     $('.numberText').numeric({ negative: false });

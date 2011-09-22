@@ -13,17 +13,18 @@
 
 %h3 Add Phones Manually
 
-%div{"ng:controller" => "PhonesCtrl"}
-  %form{"ng:submit" => "addPhone()"}
-    %input{:class => "numberText field w30", :name => "numberText", :placeholder => "Enter a phone number...", :size => "35", :type => "text"}
-    %input{:type => "submit", :class => "orange button", :value => "Add"}
-    %br
+= content_tag :div, "ng:controller" => "PhonesCtrl" do
+  = content_tag :form, "ng:submit" => "addPhone()" do
+    .field
+      = text_field_tag "numberText", nil, :placeholder => "Enter a phone number...", :size => "35"
+      = orange_button "Add"
   %ul
-    %li{"ng:repeat" => "phone in phones"}
-      %input{:name => "phone.checked", :type => "checkbox"}
+    = content_tag :li, "ng:repeat" => "phone in phones" do
+      = check_box_tag "phone.checked"
       %span {{phone.number}}
-  %input{"ng:click" => "saveChanges()", :type => "button", :value => "Save", :class => "gray button" }
-  = link_to "Cancel", @poll, :class => "white button"
+  
+  = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+  = white_link_to "Cancel", @poll
 
 :javascript
   $(document).ready(function() {

@@ -1,6 +1,6 @@
 #poll_form_container
   = form_for @poll do |f|
-    = render "shared/error_messages", :target => @poll
+    = errors_for @poll
 
     %h3 Import poll from google forms
     
@@ -8,7 +8,7 @@
     .field
       = f.label :form_url
       = f.text_field :form_url
-      = link_to 'Import form', '#', :id => 'import_form_action', :class => "orange button"
+      = orange_link_to 'Import form', '#', :id => 'import_form_action'
       = f.hidden_field :post_url
 
     %h2 Poll information
@@ -45,5 +45,5 @@
       = f.label :confirmation_word
       = f.text_field :confirmation_word
 
-    = f.submit "Create", :class => "grey button"
-    = link_to "Cancel", polls_path, :class => "white button"
+    = grey_button "Create"
+    = white_link_to "Cancel", polls_path

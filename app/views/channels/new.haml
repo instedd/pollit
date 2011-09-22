@@ -4,8 +4,13 @@
 
 = form_for @channel, :method => :post, :url => { :action => "create" } do |f|
   .field.w20
-    = f.label :ticket_code
-    = f.text_field :ticket_code
+  = errors_for @channel
 
-  = f.submit "Save", :class => "grey button"
-  = link_to "Cancel", @poll, :class => "white button"
+  = f.label :ticket_code
+  = f.text_field :ticket_code
+
+  %br
+  %br
+
+  = grey_button "Save"
+  = white_link_to "Cancel", @poll

@@ -1,6 +1,6 @@
 #poll_form_container
   = form_for @poll do |f|
-    = render "shared/error_messages", :target => @poll
+    = errors_for @poll
 
     %h2 Edit Poll
 

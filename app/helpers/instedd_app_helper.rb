@@ -73,19 +73,21 @@ module InsteddAppHelper
     colored_button text, 'white', options
   end
 
-  def orange_link_to(text, url, options={})
-    options.merge!(:class => "orange button")
+  def colored_link(text, url, color, options={})
+    options.merge!(:class => "button #{color}")
     link_to text, url, options
+  end
+
+  def orange_link_to(text, url, options={})
+    colored_link(text, url, 'orange', options)
   end
 
   def grey_link_to(text, url, options={})
-    options.merge!(:class => "grey button")
-    link_to text, url, options
+    colored_link(text, url, 'grey', options)
   end
 
   def white_link_to(text, url, options={})
-    options.merge!(:class => "white button")
-    link_to text, url, options
+    colored_link(text, url, 'white', options)
   end
 end
 

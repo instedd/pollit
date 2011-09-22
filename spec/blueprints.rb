@@ -27,7 +27,7 @@ Channel.blueprint do
 end
 
 Poll.blueprint do
-  title           {"test title"}
+  title           {Sham.title}
   description     {"test description"}
   form_url        {Sham.url}
   post_url        {Sham.url}
@@ -38,7 +38,7 @@ end
 
 Poll.blueprint(:with_questions) do
   channel           {Channel.make}
-  title             {"test title"}
+  title             {Sham.title}
   description       {"test description"}
   confirmation_word {"yes"}
   form_url          {Sham.url}
@@ -62,7 +62,7 @@ end
 
 Poll.blueprint(:with_text_questions) do
   channel           {Channel.make}
-  title
+  title         {Sham.title}
   description
   confirmation_word {"yes"}
   form_url      {Sham.url}
@@ -83,7 +83,7 @@ Poll.blueprint(:with_text_questions) do
 end
 
 Poll.blueprint(:with_option_questions) do
-  title
+  title            {Sham.title}
   description
   confirmation_word {"yes"}
   form_url      {Sham.url}
@@ -103,7 +103,7 @@ Poll.blueprint(:with_option_questions) do
 end
 
 Poll.blueprint(:with_numeric_questions) do
-  title
+  title          {Sham.title}
   description
   confirmation_word {"yes"}
   form_url      {Sham.url}

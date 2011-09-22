@@ -26,17 +26,17 @@ class Channel < ActiveRecord::Base
       :direction => 'bidirectional',
       :ticket_code => ticket_code,
       :ticket_message => "This phone will be used for #{name}",
-      :at_rules => [{
-        'actions' => [{ 'property' => 'poll', 'value' => name }], 
-        'matchings' => [], 
-        'stop' => false 
-      }],
-      :restrictions => [{ 'name' => 'poll', 'value' => name }],
+      :restrictions => nuntium_channel_restrictions,
       :configuration => { :password => SecureRandom.base64(6) },
       :enabled => true
     })
     
     self.address = "sms://#{channel_info[:address]}"
+  end
+
+  def nuntium_channel_restrictions
+    values = if poll.nil? then [''] else [poll.id.to_s, ''] end
+    [{ 'name' => 'poll_id', 'value' => values }]
   end
 
   def delete_nuntium_channel

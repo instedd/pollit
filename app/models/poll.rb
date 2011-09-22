@@ -36,7 +36,7 @@ class Poll < ActiveRecord::Base
         :from => MESSAGE_FROM,
         :to => respondent.phone,
         :body => welcome_message,
-        :poll => as_channel_name
+        :poll_id => self.id.to_s
       }
     end
 
@@ -158,7 +158,11 @@ class Poll < ActiveRecord::Base
   end
 
   def send_messages(messages)
-    Nuntium.new_from_config.send_ao messages
+    begin
+      Nuntium.new_from_config.send_ao messages
+    rescue MultiJson::DecodeError
+      # HACK until nuntium ruby api is fixed
+    end
   end
 
   def default_values

@@ -10,7 +10,7 @@
   %br
 
 - if @poll.can_be_started?
-  = orange_link_to "Start Poll", start_poll_path(@poll.id)
+  = orange_link_to "Start Poll", start_poll_path(@poll.id), :method => :post
   %br
   
 - else

@@ -35,6 +35,7 @@ group :test do
   gem 'webmock'
   gem 'ci_reporter'
   gem 'cover_me'
+  gem 'rcov'
 end
 
 group :development do

@@ -18,10 +18,9 @@ class Poll < ActiveRecord::Base
   validates :post_url, :presence => true
   validates :confirmation_word, :presence => true
   validates :goodbye_message, :presence => true, :length => {:maximum => 140}
-  validates :questions, :presence => true, :if => :requires_questions
+  validates :questions, :presence => true
 
   accepts_nested_attributes_for :questions
-  attr_accessor :requires_questions
     
   after_initialize :default_values
   
@@ -99,7 +98,7 @@ class Poll < ActiveRecord::Base
         current_question = questions.first
         respondent.current_question_id = current_question.id
         respondent.save!
-        return current_question.description
+        return current_question.message
       else
         return nil
       end

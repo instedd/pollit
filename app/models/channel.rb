@@ -3,12 +3,18 @@ class Channel < ActiveRecord::Base
 
   attr_accessor :ticket_code
 
+  validates :ticket_code, :presence => true
   validates :name, :presence => true
+  validate :poll_not_started, :message => "poll has already started"
 
   before_create :register_nuntium_channel
   before_destroy :delete_nuntium_channel
 
   private
+
+  def poll_not_started
+    poll && !poll.started?
+  end
 
   def register_nuntium_channel
     @nuntium = Nuntium.new_from_config

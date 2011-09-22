@@ -36,7 +36,7 @@ class PollsController < ApplicationController
     if @poll.update_attributes(params[:poll])
       redirect_to :action => 'index'
     else
-      render :view => 'edit'
+      render :action => 'edit'
     end
   end
 

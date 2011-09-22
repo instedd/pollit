@@ -16,7 +16,6 @@ class PollsController < ApplicationController
 
   def create
     @poll = current_user.polls.build params[:poll]
-    @poll.requires_questions = true
     @poll.questions_attributes = JSON.parse params[:questions]
 
     if @poll.save

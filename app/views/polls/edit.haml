@@ -17,5 +17,5 @@
       = f.label :goodbye_message
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
 
-    = f.submit "Save", :class => "grey button"
-    = link_to "Cancel", polls_path, :class => "white button"
+    = grey_button "Save"
+    = white_link_to "Cancel", polls_path

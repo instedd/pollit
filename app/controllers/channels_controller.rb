@@ -6,11 +6,11 @@ class ChannelsController < ApplicationController
 
   def create
     @poll = Poll.find(params[:poll_id])
-    if @poll.register_channel(params[:channel][:ticket_code])
+    @channel = @poll.register_channel(params[:channel][:ticket_code])
+
+    if @channel.valid?
       redirect_to @poll, :notice => "Channel has been registered."
     else
-      @channel = Channel.new
-      flash[:error] = "channel could not been registered"
       render "new"
     end
   end

@@ -59,12 +59,9 @@ class Poll < ActiveRecord::Base
   end
 
   def register_channel(ticket_code)
-    return false if ticket_code.blank?
-    return false if started?
-
     Channel.create({
       :ticket_code => ticket_code,
-      :name => as_channel_name, 
+      :name => as_channel_name,
       :poll_id => id
     })
   end

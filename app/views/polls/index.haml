@@ -1,0 +1,9 @@
+%h2 Your polls:
+
+= instedd_table_for(@polls, headers=["Name", "Completion Percentage"]) do |poll|
+  %td= link_to poll.title, poll
+  %td= poll.completion_percentage
+
+%br
+%br
+= white_link_to "New Poll", new_poll_path

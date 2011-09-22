@@ -1,0 +1,53 @@
+!!!
+%html
+  %head
+    %title Pollit
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = yield(:head)
+    = stylesheet_link_tag 'http://dax7k8orhij0j.cloudfront.net/theme/stylesheets/theme.css'
+    = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/theme.js'
+    = csrf_meta_tags
+  %body
+    = flash_message
+    #wrapper
+      #toolbar
+        %ul#instedd-pulldown
+        #NavMenu
+          %ul
+            %li
+              = link_to "Home", root_path
+            %li
+              = link_to "Polls", polls_path
+        %ul.RightMenu
+          - if !current_user.nil?
+            %li
+              #User
+                = current_user.email
+                %br
+                %br
+                .container
+                  = link_to "Logout", destroy_user_session_path
+            %li
+              = link_to '', edit_user_registration_path, :class => 'fsettings'
+          - else
+            %li
+              = link_to "Create account", new_user_registration_path, :class => 'fedit'
+            %li
+              = link_to "Log in", new_user_session_path, :class => 'fuser'
+      #header
+        .left
+          %a{:href => "/"}
+            %img{:src => "http://dax7k8orhij0j.cloudfront.net/theme/images/header/logos/pollit.png"}
+        
+        - if content_for?(:breadcrumb)
+          .BreadCrumb
+            %ul
+              = yield(:breadcrumb)
+              
+      #container
+        = yield
+
+      #footer-span
+        #footer
+          = render :partial => "shared/footer"

@@ -1,0 +1,21 @@
+#poll_form_container
+  = form_for @poll do |f|
+    = render "shared/error_messages", :target => @poll
+
+    %h2 Edit Poll
+
+    .field.w30
+      = f.label :title
+      = f.text_field :title
+    .field.w30
+      = f.label :description
+      = f.text_field :description
+    .field.w30
+      = f.label :welcome_message
+      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
+    .field.w30
+      = f.label :goodbye_message
+      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
+
+    = grey_button "Save"
+    = white_link_to "Cancel", polls_path

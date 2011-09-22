@@ -1,0 +1,66 @@
+- content_for :head do
+  %script{"src" => "/assets/exclude/angular-0.9.19.min.js", "ng:autobind" => ""}
+
+%h1 
+  Manage respondents for
+  = @poll.title
+.notice
+
+= form_for @poll, :method => :post, :url => { :action => "import_csv" }, :html => {:multipart => true} do |f|
+  %h3 Get phones from csv file
+  %p
+    = file_field_tag :csv
+
+%h3 Add Phones Manually
+
+%div{"ng:controller" => "PhonesCtrl"}
+  %form{"ng:submit" => "addPhone()"}
+    %input{:class => "numberText field w30", :name => "numberText", :placeholder => "Enter a phone number...", :size => "35", :type => "text"}
+    %input{:type => "submit", :class => "orange button", :value => "Add"}
+    %br
+  %ul
+    %li{"ng:repeat" => "phone in phones"}
+      %input{:name => "phone.checked", :type => "checkbox"}
+      %span {{phone.number}}
+  %input{"ng:click" => "saveChanges()", :type => "button", :value => "Save", :class => "gray button" }
+  = link_to "Cancel", @poll, :class => "white button"
+
+:javascript
+  $(document).ready(function() {
+    $('.numberText').numeric({ negative: false });
+  });
+
+  function PhonesCtrl() {
+    var modified = false;
+    var scope = this;
+    scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};
+   
+    scope.addPhone = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      if (!_.include(phones, scope.numberText)) {
+        modified = true;
+        scope.phones.push({number:scope.numberText});
+        scope.numberText = ''; 
+      }
+    };
+   
+    scope.removeChecked = function() {
+      modified = true;
+      var oldPhones = scope.phones;
+      scope.phones = [];
+      angular.forEach(oldPhones, function(phone) {
+        if (!phone.checked) scope.phones.push(phone);
+      });
+    };
+
+    scope.saveChanges = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      if (modified) {
+        $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
+        $(".notice").html("Phones saved succesfully!");
+        modified = false;
+      } else {
+        $(".notice").html("");
+      }
+    };
+  }

@@ -53,6 +53,36 @@ module InsteddAppHelper
       end
     end
   end
+
+  def orange_button(text, options={})
+    options.merge!(:class => "orange button")
+    button_tag text, options
+  end
+
+  def grey_button(text, options={})
+    options.merge!(:class => "grey button")
+    button_tag text, options
+  end
+
+  def white_button(text, options={})
+    options.merge!(:class => "white button")
+    button_tag text, options
+  end
+
+  def orange_link_to(text, url, options={})
+    options.merge!(:class => "orange button")
+    link_to text, url, options
+  end
+
+  def grey_link_to(text, url, options={})
+    options.merge!(:class => "grey button")
+    link_to text, url, options
+  end
+
+  def white_link_to(text, url, options={})
+    options.merge!(:class => "white button")
+    link_to text, url, options
+  end
 end
 
 module DeviseHelper  

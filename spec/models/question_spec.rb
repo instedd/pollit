@@ -15,10 +15,6 @@ describe Question do
     question.options.should_not be_empty
   end
 
-  it "belongs to a poll" do
-    Question.make.poll.should_not be_nil
-  end
-
   it "has many answers" do
     question = Question.make(:answers => [Answer.make(:response => 'foo'), Answer.make(:response => 'bar')])
     question.reload.should have(2).answers

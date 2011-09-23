@@ -19,7 +19,7 @@ describe Poll do
     end
 
     it "must require questions if specified" do
-      Poll.make_unsaved(:requires_questions => true).should be_invalid
+      Poll.make_unsaved(:questions => []).should be_invalid
     end
   end
 
@@ -94,7 +94,7 @@ describe Poll do
       response = p.accept_answer("yes", p.respondents.first)
       p.respondents.first.confirmed.should be_true
       p.respondents.first.current_question_id.should eq(p.questions.first.id)
-      response.should eq(p.questions.first.description)
+      response.should eq(p.questions.first.message)
     end
 
     it "should send next question if the option is valid" do

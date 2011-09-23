@@ -65,11 +65,19 @@ class Poll < ActiveRecord::Base
     })
   end
 
+  def questions_answered
+    answers.count
+  end
+
+  def answers_expected
+    respondents.count * questions.count
+  end
+
   def completion_percentage
-    if (questions.count == 0 || respondents.count == 0)
+    if answers_expected == 0
       "0%"
     else
-      (answers.count.to_f / (respondents.count.to_f * questions.count.to_f) * 100).to_i.to_s + "%"
+      ((questions_answered.to_f / answers_expected.to_f)*100).round(0).to_i.to_s + "%"
     end
   end
 

@@ -2,11 +2,11 @@
 %html
   %head
     %title Pollit
+    = yield(:head)
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    = yield(:head)
-    = stylesheet_link_tag 'http://dax7k8orhij0j.cloudfront.net/theme/stylesheets/theme.css'
-    = javascript_include_tag 'http://dax7k8orhij0j.cloudfront.net/theme/javascripts/theme.js'
+    = stylesheet_link_tag 'http://theme.instedd.org.s3.amazonaws.com/theme/stylesheets/theme.css'
+    = javascript_include_tag 'http://theme.instedd.org.s3.amazonaws.com/theme/javascripts/theme.js'
     = csrf_meta_tags
   %body
     = flash_message

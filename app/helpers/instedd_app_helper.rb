@@ -89,6 +89,23 @@ module InsteddAppHelper
   def white_link_to(text, url, options={})
     colored_link(text, url, 'white', options)
   end
+
+  def progress_bar(completed_amount, total_amount)
+    percentage = ((completed_amount.to_f/total_amount.to_f)*100).round(0).to_s
+
+    content_tag :div, :class => "smvalues" do
+      concat(content_tag(:div, :class => "L") do
+        content_tag(:span)  { completed_amount.to_s }
+      end)
+      concat(content_tag(:div, :class => "R") do
+        content_tag(:span)  { total_amount.to_s }
+      end)
+      concat(tag(:br, :clear => :all))
+      concat(content_tag(:div, :class => "M") do
+        tag(:span, :style => "width:#{percentage}%")
+      end)
+    end
+  end
 end
 
 module DeviseHelper  

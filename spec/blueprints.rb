@@ -34,6 +34,7 @@ Poll.blueprint do
   owner           {User.make}
   welcome_message {"welcome, press yes"}
   goodbye_message {"goodbye!"}
+  questions {[Question.make]}
 end
 
 Poll.blueprint(:with_questions) do
@@ -123,28 +124,17 @@ Poll.blueprint(:with_numeric_questions) do
 end
 
 Question.blueprint do
-  title
-  description
+  title         {Sham.title}
+  description   {Sham.description}
   field_name    {"entry.0"}
   position      {1}
   kind          {:text}
-  poll
-end
-
-Question.blueprint(:without_poll) do
-  title
-  description
-  field_name    {"entry.0"}
-  position      {1}
-  kind          {:text}
-  poll          {nil}
 end
 
 Question.blueprint(:options) do
   title
   description
   kind          {:options}
-  poll
   field_name    {"entry.0"}
   position      {1}
   options       {(0..rand(3)+1).map{Sham.name}}
@@ -156,7 +146,6 @@ Question.blueprint(:numeric) do
   field_name    {"entry.0"}
   position      {1}
   kind          {:numeric}
-  poll
   numeric_min   {rand(3)+1}
   numeric_max   {rand(3)+5}
 end

@@ -5,7 +5,6 @@ class Question < ActiveRecord::Base
   has_many :answers
 
   validates :title, :presence => true
-  validates :description, :presence => true
   validates :field_name, :presence => true
   validates :position, :presence => true
   validates :options, :presence => true, :if => :kind_options?

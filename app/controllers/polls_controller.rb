@@ -1,6 +1,7 @@
 class PollsController < ApplicationController
 
   before_filter :authenticate_user!
+  add_breadcrumb "Polls", :polls_path
 
   def index
     @polls = current_user.polls
@@ -58,7 +59,7 @@ class PollsController < ApplicationController
     poll = Poll.find(params[:id])
     poll.destroy
 
-    redirect_to polls_path, :notice => "Poll has been deleted"
+    redirect_to polls_path, :notice => "Poll #{poll.title} has been deleted"
   end
 
   def register_channel

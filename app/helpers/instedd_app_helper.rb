@@ -1,4 +1,5 @@
 module InsteddAppHelper
+  
   def flash_message
     res = nil
     keys = { :notice => 'flash_notice', :error => 'flash_error', :alert => 'flash_error' }
@@ -75,6 +76,20 @@ module InsteddAppHelper
     end
   end
 
+  class BreadcrumbBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
+    def render
+      return "" if @elements.empty?
+      "<div class='BreadCrumb'><ul>#{@elements.map{|e| "<li>#{item e}</li>"}.join}</ul></div>"
+    end  
+    def item(element)
+      @context.link_to_unless_current(compute_name(element), compute_path(element))
+    end
+  end
+
+  def breadcrumb
+    raw render_breadcrumbs :builder => BreadcrumbBuilder
+  end
+
   def progress_bar(completed_amount, total_amount)
     return if total_amount == 0
     percentage = ((completed_amount.to_f/total_amount.to_f)*100).round(0).to_s
@@ -92,6 +107,7 @@ module InsteddAppHelper
       end)
     end
   end
+
 end
 
 module DeviseHelper  

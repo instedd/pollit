@@ -1,11 +1,11 @@
 class ChannelsController < ApplicationController
+  before_filter_load_poll
+
   def new
-    @poll = Poll.find(params[:poll_id])
     @channel = Channel.new
   end
 
   def create
-    @poll = Poll.find(params[:poll_id])
     @channel = @poll.register_channel(params[:channel][:ticket_code])
 
     if @channel.valid?
@@ -14,4 +14,5 @@ class ChannelsController < ApplicationController
       render "new"
     end
   end
+
 end

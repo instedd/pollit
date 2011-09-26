@@ -68,6 +68,19 @@ describe Poll do
       poll.questions.length.should eq(6)
     end
 
+    it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
+    it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
+    
+    it_can_parse_question_as_options "choose from list question", 2, :options_count => 3, :field => 'entry.1.single'
+    it_can_parse_question_as_options "choice question", 3, :options_count => 2, :field => 'entry.5.group'
+    it_can_parse_question_as_options "choice question with other", 4, :options_count => 2, :field => 'entry.6.group'
+
+    it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1, :field => 'entry.7.group'
+
+  end
+
+  context "workflow" do
+
     it "should change status to started when a poll is started" do
       poll = Poll.make(:with_questions)
       poll.stubs(:send_messages).returns(true)
@@ -135,15 +148,5 @@ describe Poll do
       p.should_receive(:send_messages)
       p.start
     end
-
-    it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
-    it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
-    
-    it_can_parse_question_as_options "choose from list question", 2, :options_count => 3, :field => 'entry.1.single'
-    it_can_parse_question_as_options "choice question", 3, :options_count => 2, :field => 'entry.5.group'
-    it_can_parse_question_as_options "choice question with other", 4, :options_count => 2, :field => 'entry.6.group'
-
-    it_can_parse_question_as_numeric "scale question", 5, :max => 5, :min => 1, :field => 'entry.7.group'
-
   end
 end

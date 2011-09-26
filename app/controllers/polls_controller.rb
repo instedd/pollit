@@ -48,7 +48,9 @@ class PollsController < ApplicationController
 
   def import_form
     @poll = Poll.new params[:poll]
+    @poll.owner_id = current_user.id
     @poll.parse_form
+    @poll.generate_unique_title! if params[:poll][:title].blank?
     render :partial => 'form'
   end
 

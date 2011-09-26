@@ -8,7 +8,7 @@ module Poll::Parser
       doc = Nokogiri::HTML(open(self.form_url))
     
       self.title = doc.at_xpath('//h1[@class="ss-form-title"]').text if self.title.blank?
-      self.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').text if self.description.blank?
+      self.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').try(:text) if self.description.blank?
       self.post_url = doc.at_xpath('//form').attribute('action').value
 
       position = 0
@@ -19,7 +19,7 @@ module Poll::Parser
           position += 1
           question = self.questions.build :kind => kind,
             :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
-            :description => element.at_xpath('.//label[@class="ss-q-help"]').text.try(:strip),
+            :description => element.at_xpath('.//label[@class="ss-q-help"]').try(:text).try(:strip),
             :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip,
             :position => position
           

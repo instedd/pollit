@@ -4,10 +4,11 @@
 
 $ ->
   $('#import_form_action').live 'click', ->
-    $.post(
-      "/polls/import_form"
-      $('#poll_form_container form').serialize()
-      (res) -> $('#poll_form_container').replaceWith(res)
-    )
+    if $('#poll_form_url').val() isnt ''
+      $.post(
+        "/polls/import_form"
+        $('#poll_form_container form').serialize()
+        (res) -> $('#poll_form_container').replaceWith(res)
+      )
     false
   

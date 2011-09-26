@@ -1,7 +1,6 @@
 module InsteddAppHelper
   def flash_message
     res = nil
-    
     keys = { :notice => 'flash_notice', :error => 'flash_error', :alert => 'flash_error' }
     
     keys.each do |key, value|
@@ -54,40 +53,26 @@ module InsteddAppHelper
     end
   end
 
-  def colored_button(text, color, options)
+  def colored_button(color, text, options={})
     options.merge!(:class => color)
     button_tag options do
       content_tag :span, text
     end
   end
 
-  def orange_button(text, options={})
-    colored_button text, 'orange', options
-  end
-
-  def grey_button(text, options={})
-    colored_button text, 'grey', options
-  end
-
-  def white_button(text, options={})
-    colored_button text, 'white', options
-  end
-
-  def colored_link(text, url, color, options={})
+  def colored_link_to(color, text, url, options={})
     options.merge!(:class => "button #{color}")
     link_to text, url, options
   end
 
-  def orange_link_to(text, url, options={})
-    colored_link(text, url, 'orange', options)
-  end
+  ['orange', 'grey', 'white'].each do |color|
+    define_method "#{color}_button" do |*args| 
+      colored_button *([color] + args)
+    end
 
-  def grey_link_to(text, url, options={})
-    colored_link(text, url, 'grey', options)
-  end
-
-  def white_link_to(text, url, options={})
-    colored_link(text, url, 'white', options)
+    define_method "#{color}_link_to" do |*args| 
+      colored_link_to *([color] + args)
+    end
   end
 
   def progress_bar(completed_amount, total_amount)

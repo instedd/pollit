@@ -3,6 +3,16 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
+  include BreadcrumbsOnRails::ControllerMixin
+
+  def self.before_filter_load_poll(opts = {})
+    before_filter opts do
+      add_breadcrumb "Polls", :polls_path
+      @poll = Poll.find params[:poll_id]
+      add_breadcrumb @poll.title, poll_path(@poll)
+    end
+  end
+
   private
   
   def record_not_found

@@ -1,3 +1,5 @@
+- add_breadcrumb @poll.title, poll_path(@poll)
+
 %h1= @poll.title
 
 = white_link_to "Edit", edit_poll_path(@poll)

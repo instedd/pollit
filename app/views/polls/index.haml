@@ -6,14 +6,14 @@
       %th My Polls
       %th
     - @polls.each do |poll|
-      %tr
+      %tr.link{'data-url' => poll_path(poll)}
         %td.mactive
           = poll.title
         %td
           - if poll.respondents.any?
             = progress_bar poll.questions_answered, poll.answers_expected
-          = link_to '', poll, :class => :farrow 
-    %tr
-      %td{:class => "add"}= link_to "Create Poll", new_poll_path
+          %button.farrow
+    %tr.link{'data-url' => new_poll_path}
+      %td Create Poll
       %td
-        = link_to "", new_poll_path, :class =>"cadd"
+        %button.cadd

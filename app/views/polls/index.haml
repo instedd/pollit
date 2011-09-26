@@ -7,12 +7,12 @@
       %th
     - @polls.each do |poll|
       %tr
-        %td.mpaused
-          %span= poll.title
+        %td.mactive
+          = poll.title
         %td
           - if poll.respondents.any?
             = progress_bar poll.questions_answered, poll.answers_expected
-          = link_to '', poll, :class => :cremove, :method => :delete, :confirm => 'Are you sure you want to delete this poll?'
+          = link_to '', poll, :class => :farrow 
     %tr
       %td{:class => "add"}= link_to "Create Poll", new_poll_path
       %td

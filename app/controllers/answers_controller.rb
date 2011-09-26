@@ -1,6 +1,8 @@
 class AnswersController < ApplicationController
+
+  before_filter_load_poll
+
   def index
-    @poll = Poll.find params[:poll_id]
   end
 
 end

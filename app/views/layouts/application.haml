@@ -5,8 +5,8 @@
     = yield(:head)
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    = stylesheet_link_tag 'http://theme.instedd.org.s3.amazonaws.com/theme/stylesheets/theme.css'
-    = javascript_include_tag 'http://theme.instedd.org.s3.amazonaws.com/theme/javascripts/theme.js'
+    = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')
+    = javascript_include_tag instedd_theme_url_for('theme/javascripts/theme.js')
     = csrf_meta_tags
   %body
     = flash_message

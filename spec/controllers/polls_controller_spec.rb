@@ -53,6 +53,33 @@ describe PollsController do
     assigns(:poll).description.should eq('The description of the form')
   end
 
+  it "should generate new title when importing poll form if another one existed with that title" do
+    Poll.make :owner => controller.current_user, :title => 'Test Form'
+
+    url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
+    stub_request(:get, url).to_return_file('google-form.html')
+    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
+
+    assigns(:poll).should have(6).questions
+    assigns(:poll).title.should eq("Test Form 2")
+    assigns(:poll).description.should eq('The description of the form')
+  end
+
+  it "should generate new title with higher index when importing poll form if another one existed with candidate titles" do
+    Poll.make :owner => controller.current_user, :title => 'Test Form'
+    Poll.make :owner => controller.current_user, :title => 'Test Form 2'
+    Poll.make :owner => controller.current_user, :title => 'Test Form 3'
+
+    url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
+    stub_request(:get, url).to_return_file('google-form.html')
+    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
+
+    assigns(:poll).should have(6).questions
+    assigns(:poll).title.should eq("Test Form 4")
+    assigns(:poll).description.should eq('The description of the form')
+  end
+
+
   it "should render show page" do
     p = Poll.make
     get :show, :id => p.id

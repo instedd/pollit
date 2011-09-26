@@ -15,6 +15,7 @@ gem 'thin'
 gem 'rest-client'
 gem 'acts_as_list'
 gem 'nuntium_api', :require => 'nuntium'
+gem 'breadcrumbs_on_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

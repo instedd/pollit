@@ -26,6 +26,17 @@ class Poll < ActiveRecord::Base
   
   include Parser
 
+  def generate_unique_title!
+    return unless self.title && self.owner_id
+    escaped_title = self.title.gsub('%', '\%').gsub('_', '\_')
+    matches = self.class.where("owner_id = ? AND title LIKE ?", owner_id, "#{escaped_title}%").select('title')
+    unless matches.empty?
+      index =  2
+      index += 1 while matches.any?{|p| p.title.downcase == "#{title} #{index}".downcase}
+      self.title = "#{title} #{index}"
+    end
+  end
+
   def start
     return false unless can_be_started?
 
@@ -174,5 +185,7 @@ class Poll < ActiveRecord::Base
 
   def default_values
     self.confirmation_word ||= "Yes"
+  rescue
+    true
   end
 end

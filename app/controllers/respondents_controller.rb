@@ -2,7 +2,7 @@ require 'csv'
 
 class RespondentsController < ApplicationController
 
-  before_filter :load_poll
+  before_filter_load_poll
 
   def index
     redirect_to @poll if @poll.started?
@@ -42,7 +42,4 @@ class RespondentsController < ApplicationController
     end
   end
 
-  def load_poll
-    @poll = Poll.find params[:poll_id]
-  end
 end

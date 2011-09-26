@@ -1,7 +1,7 @@
 module InsteddAppHelper
+  
   def flash_message
     res = nil
-    
     keys = { :notice => 'flash_notice', :error => 'flash_error', :alert => 'flash_error' }
     
     keys.each do |key, value|
@@ -54,40 +54,40 @@ module InsteddAppHelper
     end
   end
 
-  def colored_button(text, color, options)
+  def colored_button(color, text, options={})
     options.merge!(:class => color)
     button_tag options do
       content_tag :span, text
     end
   end
 
-  def orange_button(text, options={})
-    colored_button text, 'orange', options
-  end
-
-  def grey_button(text, options={})
-    colored_button text, 'grey', options
-  end
-
-  def white_button(text, options={})
-    colored_button text, 'white', options
-  end
-
-  def colored_link(text, url, color, options={})
+  def colored_link_to(color, text, url, options={})
     options.merge!(:class => "button #{color}")
     link_to text, url, options
   end
 
-  def orange_link_to(text, url, options={})
-    colored_link(text, url, 'orange', options)
+  ['orange', 'grey', 'white'].each do |color|
+    define_method "#{color}_button" do |*args| 
+      colored_button *([color] + args)
+    end
+
+    define_method "#{color}_link_to" do |*args| 
+      colored_link_to *([color] + args)
+    end
   end
 
-  def grey_link_to(text, url, options={})
-    colored_link(text, url, 'grey', options)
+  class BreadcrumbBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
+    def render
+      return "" if @elements.empty?
+      "<div class='BreadCrumb'><ul>#{@elements.map{|e| "<li>#{item e}</li>"}.join}</ul></div>"
+    end  
+    def item(element)
+      @context.link_to_unless_current(compute_name(element), compute_path(element))
+    end
   end
 
-  def white_link_to(text, url, options={})
-    colored_link(text, url, 'white', options)
+  def breadcrumb
+    raw render_breadcrumbs :builder => BreadcrumbBuilder
   end
 
   def removable_crud_item(name, value, options={})
@@ -101,6 +101,7 @@ module InsteddAppHelper
   end
 
   def progress_bar(completed_amount, total_amount)
+    return if total_amount == 0
     percentage = ((completed_amount.to_f/total_amount.to_f)*100).round(0).to_s
 
     content_tag :div, :class => "smvalues" do
@@ -116,6 +117,7 @@ module InsteddAppHelper
       end)
     end
   end
+
 end
 
 module DeviseHelper  

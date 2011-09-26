@@ -1,0 +1,56 @@
+- content_for :head do
+  = angular_js_include_tag
+
+%h1 
+  Manage respondents for
+  = @poll.title
+.notice
+
+= form_for @poll, :method => :post, :url => { :action => "import_csv" }, :html => {:multipart => true} do |f|
+  %h3 Get phones from csv file
+  %p
+    = file_field_tag :csv
+
+%h3 Add Phones Manually
+
+= content_tag :div, "ng:controller" => "PhonesCtrl" do
+  = content_tag :div, "ng:repeat" => "phone in phones" do
+    %p= removable_crud_item "phone.number", "{{phone.number}}", "ng:change" => "removeIfEmpty()"
+
+  = content_tag :form, "ng:submit" => "addPhone()" do
+    %p= new_crud_item "numberText", "Add a new phone..."
+
+  = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+  = white_link_to "Cancel", @poll
+
+:javascript
+  $(document).ready(function() {
+    $('.ux-clist').numeric({ negative: false });
+  });
+
+  function PhonesCtrl() {
+    var scope = this;
+    scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};  
+
+    scope.addPhone = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      if (!_.include(phones, scope.numberText)) {
+        scope.phones.push({number:scope.numberText});
+        scope.numberText = '';
+      }
+    };
+   
+    scope.removeIfEmpty = function() {
+      var oldPhones = scope.phones;
+      scope.phones = [];
+      angular.forEach(oldPhones, function(phone) {
+        if (phone.number != '') scope.phones.push(phone);
+      });
+    };
+
+    scope.saveChanges = function() {
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
+      $(".notice").html("Phones saved succesfully!");
+    };
+  }

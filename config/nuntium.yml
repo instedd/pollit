@@ -1,0 +1,15 @@
+development:
+  url: http://nuntium.instedd.org
+  account: pollit-dev
+  password: pollit
+  application: pollit
+test:
+  url: http://nuntium.instedd.org
+  account: pollit-dev
+  password: pollit
+  application: pollit
+production:
+  url: http://nuntium.instedd.org
+  account: pollit
+  password: pollit
+  application: pollit

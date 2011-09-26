@@ -1,0 +1,37 @@
+%h1= @poll.title
+
+= white_link_to "Edit", edit_poll_path(@poll)
+
+%br
+%br
+.whitebox.w30
+  = @poll.description
+%br
+.whitebox.w30
+  = "Completed #{@poll.completion_percentage} of the questions."
+  %br
+
+- if @poll.can_be_started?
+  = orange_link_to "Start Poll", start_poll_path(@poll.id), :method => :post
+  %br
+  
+- else
+  - if @poll.respondents.empty?
+    %p
+      = label_tag :respondents, "There are no respondents assigned.", :class => :error
+  - if @poll.channel.nil?
+    %p
+      = label_tag :channel, "There is no channel set.", :class => :error
+
+  - if @poll.started?
+    %p= "Poll has been started!"
+
+%ul
+  - if @poll.respondents.empty? || !@poll.started?
+    %li= link_to "Manage Respondents", poll_respondents_path(@poll)
+
+  - if @poll.channel.nil?
+    %li= link_to "Add Channel", new_poll_channel_path(@poll)
+
+  - if @poll.started?
+    %li= link_to "View Answers", poll_answers_path(@poll)

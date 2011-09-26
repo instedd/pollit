@@ -1,0 +1,19 @@
+%h2 Your polls:
+
+.tablewrapp
+  %table.GralTable.TwoColumn.CleanTable.ItemsTable
+    %tr
+      %th My Polls
+      %th
+    - @polls.each do |poll|
+      %tr
+        %td.mactive
+          = poll.title
+        %td
+          - if poll.respondents.any?
+            = progress_bar poll.questions_answered, poll.answers_expected
+          = link_to '', poll, :class => :farrow 
+    %tr
+      %td{:class => "add"}= link_to "Create Poll", new_poll_path
+      %td
+        = link_to "", new_poll_path, :class =>"cadd"

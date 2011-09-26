@@ -91,6 +91,7 @@ module InsteddAppHelper
   end
 
   def progress_bar(completed_amount, total_amount)
+    return if total_amount == 0
     percentage = ((completed_amount.to_f/total_amount.to_f)*100).round(0).to_s
 
     content_tag :div, :class => "smvalues" do

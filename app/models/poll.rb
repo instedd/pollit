@@ -11,7 +11,6 @@ class Poll < ActiveRecord::Base
   has_one :channel, :dependent => :destroy
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
-  validates :description, :presence => true
   validates :owner, :presence => true
   validates :form_url, :presence => true
   validates :welcome_message, :presence => true, :length => {:maximum => 140}

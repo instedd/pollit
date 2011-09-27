@@ -37,6 +37,7 @@ GEM
     bcrypt-ruby (3.0.1)
     breadcrumbs_on_rails (2.1.0)
     builder (3.0.0)
+    cancan (1.6.5)
     chunky_png (1.2.4)
     ci_reporter (1.6.5)
       builder (>= 2.1.2)
@@ -193,6 +194,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   breadcrumbs_on_rails
+  cancan
   ci_reporter
   coffee-rails (~> 3.1.0)
   compass

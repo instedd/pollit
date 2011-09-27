@@ -6,14 +6,23 @@ class ApplicationController < ActionController::Base
   include BreadcrumbsOnRails::ControllerMixin
 
   def self.before_filter_load_poll(opts = {})
+    raise "Foo"
     before_filter opts do
-      add_breadcrumb "Polls", :polls_path
       @poll = Poll.find params[:poll_id]
+      
+      authorize! 
+      add_breadcrumb "Polls", :polls_path
       add_breadcrumb @poll.title, poll_path(@poll)
     end
   end
 
   private
+
+  def load_poll(poll_id=nil)
+    @poll = Poll.find (poll_id || params[:poll_id])
+    authorize! :manage, @poll
+    add_breadcrumb @poll.title, poll_path(@poll)
+  end
   
   def record_not_found
     render :file => "public/400.html", :layout => nil

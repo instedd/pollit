@@ -1,0 +1,12 @@
+.addnewtop
+  .addnewbot
+    .addnewcontent
+      %label
+        Add a new <%= item_pretty %>
+      - <%= item_class%>.<%= item_types%>.each do |<%=item%>_type|
+        .fieldimg
+          = link_to_add_<%=item%>(<%=item%>_add, <%=item%>_type) do
+            %span{:class => <%=item%>_type}
+            = <%= item_class%>.<%=item_type_label%>(<%=item%>_type)
+            
+

@@ -1,0 +1,38 @@
+- f = <%=item%>_form
+- disabled = !f.object.new_record?
+
+.fieldform{:id => "field_form_#{index}", "data-field-index" => index}
+  = f.hidden_field :<%=item%>_type
+  
+  = f.label :name, "<%=item_pretty.titleize%> Name"
+  %p The name of this <%=item_pretty%> as it is presented.
+  = f.text_field :name, :disabled => disabled, :class => 'fieldname required'
+  %hr
+  
+  = f.label :hint
+  %p Additional help for this <%=item_pretty%>.
+  = f.text_field :hint, :disabled => false, :class => 'fieldhint'
+  %hr
+
+  .required
+    = f.label :required, :class => 'left'
+    = f.check_box :required, :disabled => disabled, :class => 'right fieldrequired'
+  .clear
+  %p Should this <%=item_pretty%> be filled in before continuing?
+  %hr
+
+  - if f.object.<%=item_type_has_options%>
+    = f.label :options
+    %p Possible values for this <%=item_pretty%>.
+    %br
+    .fieldoptions
+      - if f.object.options
+        - f.object.options.each do |opt|
+          = render :partial => '<%=field_option_view_name%>', :object => opt, :locals => {:f => f}
+    .clear
+    .newfieldoption.require_from_group
+      = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
+      = link_to_add_option f, :class => 'right addoption'
+      .clear
+
+

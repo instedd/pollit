@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   include BreadcrumbsOnRails::ControllerMixin
 
   def self.before_filter_load_poll(opts = {})

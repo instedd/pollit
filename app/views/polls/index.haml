@@ -1,0 +1,19 @@
+%h2 Your polls:
+
+.tablewrapp
+  %table.GralTable.TwoColumn.CleanTable.ItemsTable
+    %tr
+      %th My Polls
+      %th
+    - @polls.each do |poll|
+      %tr.link{'data-url' => poll_path(poll)}
+        %td.mactive
+          = poll.title
+        %td
+          - if poll.respondents.any?
+            = progress_bar poll.questions_answered, poll.answers_expected
+          %button.farrow
+    %tr.link{'data-url' => new_poll_path}
+      %td Create Poll
+      %td
+        %button.cadd

@@ -1,6 +1,11 @@
 #formeditor
   padding-top: 20px
 
+  /* ------- General ------------ */
+
+  .nodisplay
+    display: none
+
   /* ------- Redefined Tags ------------ */
 
   label
@@ -339,19 +344,19 @@
     a.addoption
       outline: 0
       display: block
-      background-image: url('/images/fieldsform/buttons/addSimpleButton.png')
+      background-image: url('<%= images_path %>buttons/addSimpleButton.png')
       height: 20px
       width: 20px
       
     a.removeoption
       outline: 0
       display: block
-      background-image: url('/images/fieldsform/buttons/removeSimpleButton.png')
+      background-image: url('<%= images_path %>buttons/removeSimpleButton.png')
       height: 20px
       width: 20px
 
   .fieldslock
-    background: url('/images/fieldsform/padlockIcon.png') no-repeat 10px 3px
+    background: url('<%= images_path %>padlockIcon.png') no-repeat 10px 3px
     background-color: #EEE
     padding: 3px 0px 3px 30px
     color: #777777

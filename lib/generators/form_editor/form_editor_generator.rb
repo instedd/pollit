@@ -9,6 +9,15 @@ class FormEditorGenerator < Rails::Generators::Base
   class_option :images, :type => :boolean, :default => true, :desc => "Whether to copy images to assets folder"
   class_option :views_folder, :type => :string, :desc => "Target folder for views, by default a subfolder 'form_editor' in the parent class views folder"
 
+  class_option :item_type_enum, :type => :string, :desc => "Enum name for the type of a form item, such as numeric, text or option; defaults to [item_name]_type"
+  class_option :item_type_has_options_method, :type => :string, :desc => "Method for querying whether an item supports options, defaults to [item_name]_type_has_options?"
+
+  class_option :item_name_attr, :type => :string, :default => 'name', :desc => "Attribute name for the field's name"
+  class_option :item_hint_attr, :type => :string, :default => 'hint', :desc => "Attribute name for the field's hint"
+  class_option :item_opts_attr, :type => :string, :default => 'options', :desc => "Attribute name for the field's options array"
+
+  class_option :item_has_required, :type => :boolean, :default => true, :desc => "Whether there is a required flag for the item"
+
   def generate_form_editor
     copy_file 'form_editor.js', "app/assets/javascripts/form_editor.js"
     directory 'images', File.join("app/assets/images", images_path) if options.images?
@@ -23,14 +32,46 @@ class FormEditorGenerator < Rails::Generators::Base
     template 'views/_field_add.haml.erb',    app_views_path("_#{field_add_view_name}.haml")
     template 'views/_field_form.haml.erb',   app_views_path("_#{field_form_view_name}.haml")
     template 'views/_field_option.haml.erb', app_views_path("_#{field_option_view_name}.haml")
+
+    puts <<FINISH
+
+To use the #{form_editor_name.humanize.downcase}, create a form for your #{parent_class} class with the following code:
+
+  = form_for @#{parent_class.underscore} do |form_builder|
+    = render :partial => '#{views_path(fields_view_name)}', :locals => { :f => form_builder }
+
+Class #{parent_class.classify} must define a method for obtaining all #{item_name.pluralize.humanize.downcase}:
+
+    #{items}
+
+Class #{item_class.classify} must define the following attributes:
+
+  #{item_name_attribute}
+  #{item_hint_attribute}
+  #{item_opts_attribute}
+  #{item_type_has_options}
+  #{'required' if handle_required?}
+
+And the following enum_attr:
+
+  #{item_type}
+
+FINISH
+
   end
 
   private
 
+  # Misc
+
+  def handle_required?
+    options.item_has_required?
+  end
+
   # Paths
 
   def images_path(filename=nil)
-    path = "#{options.images_folder.underscore}"
+    path = "#{options.images_folder.underscore}/"
     return path if not filename
     File.join(path, filename)
   end
@@ -89,22 +130,36 @@ class FormEditorGenerator < Rails::Generators::Base
     item_name.pluralize.humanize.downcase
   end
 
-  # Item methods
-
-  def item_type_has_options
-    "#{item_type}_has_options?"
-  end
+  # Item types
 
   def item_type
-    "#{item_name}_type"
+    options[:item_type_enum] || "#{item_name}_type"
+  end
+
+  def item_type_has_options
+    options[:item_type_has_options_method] || "#{item_type}_has_options?"
   end
 
   def item_type_label
-    "#{item_type}_label"
+    "#{item_types}.label"
   end
 
   def item_types
-    "#{item_type}s"
+    "#{item_class}.new.#{item_type}s"
+  end
+
+  # Item attributes
+
+  def item_name_attribute
+    options[:item_name_attr]
+  end
+
+  def item_hint_attribute
+    options[:item_hint_attr]
+  end
+
+  def item_opts_attribute
+    options[:item_opts_attr]
   end
 
 end

@@ -1,6 +1,6 @@
-class <%=form_editor_name.classify%>Helper
+module <%=form_editor_name.classify%>Helper
   
-  def link_to_add_option(f, opts={})
+  def link_to_add_<%=item%>_option(f, opts={})
     content = render :partial => '<%=views_path(field_option_view_name)%>', :object => "new_option", :locals => {:f => f}
     opts = {:onclick => %Q<
       add_field_option(this, "new_option", "#{escape_javascript(content)}");
@@ -13,23 +13,23 @@ class <%=form_editor_name.classify%>Helper
     end
   end
   
-  def link_to_add_field(f, <%=item_type%>, opts={})
-    new_object = <%=item_class%>.new(:name => "New <%=item_pretty%>", :<%=item_type%> => <%=item_type%>)
+  def link_to_add_<%=item%>(f, <%=item_type%>, opts={})
+    new_object = <%=item_class%>.new(:<%=item_name_attribute%> => "New <%=item_pretty%>", :<%=item_type%> => <%=item_type%>)
     index = "new_field_index"
-    new_index = rand(10000000000000)
     
     field_container = '#formeditor .fieldspresenter'
     field_content = render('<%=views_path(field_view_name)%>', :<%=item%> => new_object, :<%=item%>_counter => index)
     
     form_container = '#formeditor .fieldsidebar'
-    form_content = f.fields_for(:fields, new_object, :child_index => index) do |builder|
+    form_content = f.fields_for(:<%=items%>, new_object, :child_index => index) do |builder|
       render :partial => '<%=views_path(field_form_view_name)%>', :object => builder, :locals => {:index => index}
     end
     
     link_to "#", {:onclick => %Q<
-      add_field("#{index}", "#{new_index}", "#{field_container}", "#{escape_javascript(field_content)}");
-      add_field("#{index}", "#{new_index}", "#{form_container}", "#{escape_javascript(form_content)}");
-      select_field("#{new_index}");
+      var new_index = Math.floor(Math.random() * 1073741824);
+      add_field("#{index}", new_index, "#{field_container}", "#{escape_javascript(field_content)}");
+      add_field("#{index}", new_index, "#{form_container}", "#{escape_javascript(form_content)}");
+      select_field(new_index);
       return false;>}.merge(opts) do
       yield if block_given?
     end

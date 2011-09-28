@@ -8,11 +8,13 @@ describe PollsController do
     3.times do controller.current_user.polls.make end
     get :index
     assigns(:polls).should have(3).items
+    response.should be_success
   end
 
   it "should get new poll form" do
     get :new
     assigns(:poll).should_not be_nil
+    response.should be_success
   end
 
   it "should create new poll" do
@@ -38,6 +40,7 @@ describe PollsController do
     stub_request(:get, url).to_return_file('google-form.html')
     post :import_form, :poll => Poll.plan(:title => "Manual title", :description => "Manual description", :form_url => "http://#{url}", :questions => [])
 
+    response.should be_success
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Manual title")
     assigns(:poll).description.should eq("Manual description")
@@ -48,6 +51,7 @@ describe PollsController do
     stub_request(:get, url).to_return_file('google-form.html')
     post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
 
+    response.should be_success
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Test Form")
     assigns(:poll).description.should eq('The description of the form')
@@ -60,6 +64,7 @@ describe PollsController do
     stub_request(:get, url).to_return_file('google-form.html')
     post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
 
+    response.should be_success  
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Test Form 2")
     assigns(:poll).description.should eq('The description of the form')
@@ -74,20 +79,28 @@ describe PollsController do
     stub_request(:get, url).to_return_file('google-form.html')
     post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
 
+    response.should be_success
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Test Form 4")
     assigns(:poll).description.should eq('The description of the form')
   end
 
-
   it "should render show page" do
-    p = Poll.make
+    p = Poll.make :owner => controller.current_user
     get :show, :id => p.id
+    response.should be_success
+    assigns(:poll).class.name.should eq("Poll")
+  end
+
+  it "should not render show page if unauthorized" do
+    p = Poll.make :owner => User.make
+    get :show, :id => p.id
+    response.should redirect_to('/')
     assigns(:poll).class.name.should eq("Poll")
   end
 
   it "shoud start poll" do
-    p = Poll.make :with_questions
+    p = Poll.make :with_questions, :owner => controller.current_user
     post :start, :id => p.id
     Poll.find(p.id).status.should eq("started")
   end

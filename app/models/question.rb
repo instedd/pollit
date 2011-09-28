@@ -42,4 +42,9 @@ class Question < ActiveRecord::Base
       nil
     end
   end
+
+  def kind_has_options?
+    return kind_options?
+  end
+
 end

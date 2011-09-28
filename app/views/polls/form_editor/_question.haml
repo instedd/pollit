@@ -1,0 +1,21 @@
+.field{:id => "field_#{question_counter}", "data-field-index" => question_counter}
+  .fieldtop
+    .fieldbot
+      .fielddel
+        = link_to_function "", "remove_field(#{question_counter})", :class => 'remove_field' if question.new_record?
+      .fieldimg{:class => ("selected" if question_counter == 0)}
+        = link_to_function "", "select_field('#{question_counter}')", :class => question.kind        
+        
+      .fieldcontent
+        %span.fieldtitle.fieldname
+          = question.title
+          
+        .fielddesc
+          %span.fieldhint.left
+            = "Description: #{question.description}" unless question.description.blank?
+          
+          .clear
+      
+
+
+

@@ -1,0 +1,4 @@
+.fieldoption
+  = f.text_field 'option[]', :value => question_option, :class => 'small'
+  = link_to_function "", "remove_field_option(this)", :class => "right removeoption"
+  .clear

@@ -1,5 +1,6 @@
 class NuntiumController < ApplicationController
   def receive_at
+    # TODO: Check nuntium auth
     logger.debug "Received nuntium message: #{params.inspect}"
     
     begin

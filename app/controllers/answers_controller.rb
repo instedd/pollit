@@ -1,8 +1,11 @@
 class AnswersController < ApplicationController
 
-  before_filter_load_poll
+  add_breadcrumb "Polls", :polls_path
+  
+  before_filter :load_poll
 
   def index
+    add_breadcrumb "Answers", poll_answers_path(@poll)
   end
 
 end

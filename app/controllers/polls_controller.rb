@@ -1,14 +1,18 @@
 class PollsController < ApplicationController
 
-  before_filter :authenticate_user!
   add_breadcrumb "Polls", :polls_path
+
+  before_filter :authenticate_user!
+  
+  before_filter :only => [:show, :edit, :update, :start, :destroy, :register_channel] do
+    load_poll(params[:id])
+  end
 
   def index
     @polls = current_user.polls
   end
  
   def show
-    @poll = Poll.find(params[:id])
   end
 
   def new
@@ -27,12 +31,9 @@ class PollsController < ApplicationController
   end
 
   def edit
-    @poll = Poll.find(params[:id])
   end
 
   def update
-    @poll = Poll.find(params[:id])
-
     if @poll.update_attributes(params[:poll])
       redirect_to :action => 'index'
     else
@@ -41,9 +42,7 @@ class PollsController < ApplicationController
   end
 
   def start
-    @poll = Poll.find(params[:id])
-    @poll.start unless @poll.status == "started"
-    
+    @poll.start unless @poll.status == "started"    
     redirect_to :action => 'show'
   end
 
@@ -56,14 +55,11 @@ class PollsController < ApplicationController
   end
 
   def destroy
-    poll = Poll.find(params[:id])
-    poll.destroy
-
-    redirect_to polls_path, :notice => "Poll #{poll.title} has been deleted"
+    @poll.destroy
+    redirect_to polls_path, :notice => "Poll #{@poll.title} has been deleted"
   end
 
   def register_channel
-    poll = Poll.find(params[:id])
-    poll.register_channel(params[:ticket_code])
+    @poll.register_channel(params[:ticket_code])
   end
 end

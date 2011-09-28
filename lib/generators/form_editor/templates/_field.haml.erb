@@ -1,0 +1,23 @@
+.field{:id => "field_#{<%=item%>_counter}", "data-field-index" => <%=item%>_counter}
+  .fieldtop
+    .fieldbot
+      .fielddel
+        = link_to_function "", "remove_field(#{<%=item%>_counter})", :class => 'remove_field' if <%=item%>.new_record?
+      .fieldimg{:class => ("selected" if <%=item%>_counter == 0)}
+        = link_to_function "", "select_field('#{<%=item%>_counter}')", :class => <%=item%>.<%=item_type%>        
+        
+      .fieldcontent
+        %span.fieldtitle.fieldname
+          = <%=item%>.name
+          
+        .fielddesc
+          %span.fieldhint.left
+            = "Hint: #{<%=item%>.hint}" unless <%=item%>.hint.blank?
+          %span.fieldrequired.left{:class => ('nodisplay' unless <%=item%>.required?)}
+            = "Required"
+            = image_tag '<%=images_path('tilde.png')%>'
+          .clear
+      
+
+
+

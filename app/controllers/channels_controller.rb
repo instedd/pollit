@@ -1,5 +1,9 @@
 class ChannelsController < ApplicationController
-  before_filter_load_poll
+  
+  add_breadcrumb "Polls", :polls_path
+
+  before_filter :authenticate_user!
+  before_filter :load_poll
 
   def new
     @channel = Channel.new

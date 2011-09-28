@@ -11,4 +11,8 @@ module ApplicationHelper
     URI.join url, path
   end
 
+  def file_form_for(record, options={}, &proc)
+    options.merge!(:method => :post, :html => {:multipart => true})
+    form_for(record, options, &proc)
+  end
 end

@@ -1,0 +1,12 @@
+defaults: &defaults
+  theme_url: http://theme.instedd.org.s3.amazonaws.com/
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  theme_url: http://theme.instedd.org/

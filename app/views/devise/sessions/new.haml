@@ -1,0 +1,18 @@
+.box.centered.w30
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+    %h2 Log In
+    %hr.shadow
+    .field.w30
+      = f.label :email
+      = f.email_field :email
+    .field.w30
+      = f.label :password
+      = f.password_field :password
+    - if devise_mapping.rememberable?
+      .field
+        = f.check_box :remember_me
+        = f.label :remember_me, :class => 'checkbox'
+    .actions
+      %button.white{:type => "submit"} Log In
+
+  = render :partial => "devise/shared/links"

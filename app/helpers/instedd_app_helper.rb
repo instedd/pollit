@@ -90,6 +90,16 @@ module InsteddAppHelper
     raw render_breadcrumbs :builder => BreadcrumbBuilder
   end
 
+  def removable_crud_item(name, value, options={})
+    options.merge!(:class => "w30 ux-clist remove")
+    text_field_tag name, value, options
+  end
+
+  def new_crud_item(name, placeholder, options={})
+    options.merge!(:class => "w30 ux-clist", :placeholder => placeholder)
+    text_field_tag name, "", options
+  end
+
   def progress_bar(completed_amount, total_amount)
     return if total_amount == 0
     percentage = ((completed_amount.to_f/total_amount.to_f)*100).round(0).to_s

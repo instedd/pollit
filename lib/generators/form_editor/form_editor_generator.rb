@@ -11,17 +11,18 @@ class FormEditorGenerator < Rails::Generators::Base
 
   def generate_form_editor
     copy_file 'form_editor.js', "app/assets/javascripts/form_editor.js"
-    template 'form_editor.sass.erb', "app/assets/stylesheets/form_editor.sass"
-    
     directory 'images', File.join("app/assets/images", images_path) if options.images?
+
+    template 'form_editor.sass.erb', "app/assets/stylesheets/form_editor.sass"
+    template 'form_editor_helper.rb.erb', "app/helpers/#{form_editor_name.underscore}_helper.rb"
 
     empty_directory app_views_path
 
-    template '_fields.haml.erb',       app_views_path("_#{fields_view_name}.haml")
-    template '_field.haml.erb',        app_views_path("_#{field_view_name}.haml")
-    template '_field_add.haml.erb',    app_views_path("_#{field_add_view_name}.haml")
-    template '_field_form.haml.erb',   app_views_path("_#{field_form_view_name}.haml")
-    template '_field_option.haml.erb', app_views_path("_#{field_option_view_name}.haml")
+    template 'views/_fields.haml.erb',       app_views_path("_#{fields_view_name}.haml")
+    template 'views/_field.haml.erb',        app_views_path("_#{field_view_name}.haml")
+    template 'views/_field_add.haml.erb',    app_views_path("_#{field_add_view_name}.haml")
+    template 'views/_field_form.haml.erb',   app_views_path("_#{field_form_view_name}.haml")
+    template 'views/_field_option.haml.erb', app_views_path("_#{field_option_view_name}.haml")
   end
 
   private

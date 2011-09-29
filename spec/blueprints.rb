@@ -23,7 +23,7 @@ end
 
 Channel.blueprint do
   ticket_code {1111}
-  name {"testing"}
+  name        {"testing"}
 end
 
 Poll.blueprint do
@@ -34,7 +34,7 @@ Poll.blueprint do
   owner           {User.make}
   welcome_message {"welcome, press yes"}
   goodbye_message {"goodbye!"}
-  questions {[Question.make]}
+  questions       {[Question.make]}
 end
 
 Poll.blueprint(:with_questions) do
@@ -159,4 +159,21 @@ Answer.blueprint do
   question      {Question.make}
   respondent    {Respondent.make}
   response      
+end
+
+class Poll
+  def self.plan_with_nesting(*args)
+    plan = self.plan_without_nesting(*args)
+    plan.delete :channel
+    questions = plan.delete :questions
+    plan["questions_attributes"] = {}
+    questions.each_with_index do |question,index|
+      plan["questions_attributes"][index.to_s] = Question.plan(question.attributes)
+    end
+    plan
+  end
+
+  class << self
+    alias_method_chain :plan, :nesting
+  end
 end

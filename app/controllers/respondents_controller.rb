@@ -20,18 +20,10 @@ class RespondentsController < ApplicationController
   end
 
   def import_csv
-    if @poll.started?
-      redirect_to @poll, :notice => "poll already started"
-    end
-
-    unless params[:csv].content_type == "text/csv"
-      redirect_to @poll, :notice => "file should be in csv format"
-    end
-
     phones = CSV.read(params[:csv].tempfile).map(&:first)
-    update_phone_list(phones)
+    phones.map! { |phone| {:number => phone.gsub(/[^0-9]/,"")} }
 
-    redirect_to @poll, :notice => "csv phones has been imported"
+    render :text => phones.to_json
   end
 
   private

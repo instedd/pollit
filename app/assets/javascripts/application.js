@@ -6,4 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.validate.min.js
+//= require additional-methods.min.js
 //= require_directory .

@@ -1,20 +1,30 @@
 - f = question_form
-- disabled = !f.object.new_record?
 
 .fieldform{:id => "field_form_#{index}", "data-field-index" => index}
   = f.hidden_field :kind
-  
+  = f.hidden_field :id
+  = f.hidden_field :field_name
+  = f.hidden_field :position
+
   = f.label :title, "Question Title"
   %p The name of this question as it is presented.
-  = f.text_field :title, :disabled => disabled, :class => 'fieldname required'
+  = f.text_field :title, :readonly => disabled, :class => 'fieldname required'
   %hr
   
   = f.label :description
   %p Additional help for this question.
-  = f.text_field :description, :disabled => false, :class => 'fieldhint'
+  = f.text_field :description, :readonly => disabled, :class => 'fieldhint'
   %hr
 
-  
+  - if f.object.kind_numeric?
+    = f.label :range
+    %p Range of values accepted for this question
+    .range
+      = f.text_field :numeric_min, :readonly => disabled
+      %span to
+      = f.text_field :numeric_max, :readonly => disabled
+      .clear
+    %hr
 
   - if f.object.kind_has_options?
     = f.label :options
@@ -23,11 +33,12 @@
     .fieldoptions
       - if f.object.options
         - f.object.options.each do |opt|
-          = render :partial => 'question_option', :object => opt, :locals => {:f => f}
+          = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
     .clear
-    .newfieldoption.require_from_group
-      = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new options'
-      = link_to_add_question_option f, :class => 'right addoption'
-      .clear
+    - unless disabled
+      .newfieldoption.require_from_group
+        = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
+        = link_to_add_question_option f, :class => 'right addoption'
+        .clear
 
 

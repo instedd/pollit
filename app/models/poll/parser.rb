@@ -56,7 +56,8 @@ module Poll::Parser
         when /ss-text/, /ss-paragraph-text/ then :text
         when /ss-radio/, /ss-select/ then :options
         when /ss-scale/ then :numeric
-        else nil
+        when /ss-navigate/ then nil 
+        else :unsupported
       end
     end
 

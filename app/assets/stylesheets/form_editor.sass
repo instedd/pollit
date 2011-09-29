@@ -1,11 +1,6 @@
 #formeditor
   padding-top: 20px
 
-  /* ------- General ------------ */
-
-  .nodisplay
-    display: none
-
   /* ------- Redefined Tags ------------ */
 
   label
@@ -22,6 +17,7 @@
   .fieldslist
     padding: 10px 0 10px 0
     float: left
+
   .fieldslist.large
     width: 100%
 
@@ -130,6 +126,7 @@
     width: 55px
     height: 55px
     display: block
+
   /* --------- Widgets ----------- */
 
   .fieldtop
@@ -208,6 +205,9 @@
       font-style: italic
       .fieldhint
         padding-right: 20px
+      .fielderror
+        padding-right: 20px
+        color: #ff6600
     .fieldrequired
       font-style: normal
       img
@@ -234,6 +234,8 @@
     background: url(form_editor/Back_ArrBox_Bottom2.png) no-repeat center bottom
     width: 620px
     height: 120px
+    &.empty
+      height: 30px
 
   .addnewcontent
     font-size: 10px
@@ -257,7 +259,7 @@
     height: 55px
     display: block
 
-  .number
+  .numeric
     background: url(form_editor/icons/NumberIcon.png) no-repeat
     width: 55px
     height: 55px
@@ -269,7 +271,7 @@
     height: 55px
     display: block
 
-  .choose_one
+  .options
     background: url(form_editor/icons/selectOneIcon.png) no-repeat
     width: 55px
     height: 55px
@@ -293,6 +295,12 @@
     height: 55px
     display: block
 
+  .unsupported
+    background: url(form_editor/icons/alertBig.png) no-repeat
+    width: 55px
+    height: 55px
+    display: block
+
   /* --------- Sidebar -----------*/
 
   .fieldsidebar
@@ -305,7 +313,7 @@
     border-radius: 5px
     font-size: 10px
     color: #666666
-    margin: 15px 25px 40px 0px
+    margin: 3px 25px 40px 0px
     padding: 10px 10px
     float: right
     width: 240px
@@ -366,7 +374,17 @@
     border-radius: 8px
   
   .field
-    cursor: pointer 
+    cursor: pointer
+
+  .range
+    input
+      float: left
+      width: 20px
+    span
+      float: left
+      font-size: 14px
+      margin: 5px 5px 0 5px
+
 
   /* --------- Gral Classes -----------*/
   .left
@@ -377,3 +395,6 @@
 
   .clear
     clear: both
+
+  .nodisplay
+    display: none

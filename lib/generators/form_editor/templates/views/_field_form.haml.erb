@@ -33,7 +33,7 @@
           = render :partial => '<%=field_option_view_name%>', :object => opt, :locals => {:f => f}
     .clear
     .newfieldoption.require_from_group
-      = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new <%=item_opts_attribute.humanize.downcase%>'
+      = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new <%=item_opts_attribute.singularize.humanize.downcase%>'
       = link_to_add_<%=item%>_option f, :class => 'right addoption'
       .clear
 

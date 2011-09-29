@@ -1,12 +1,14 @@
 .addnewtop
-  .addnewbot
-    .addnewcontent
-      %label
-        Add a new question
-      - Question.new.kinds.each do |question_type|
-        .fieldimg
-          = link_to_add_question(question_add, question_type) do
-            %span{:class => question_type}
-            = Question.new.kinds.label(question_type)
-            
+  - if disabled
+    .addnewbot.empty
+  -else
+    .addnewbot
+      .addnewcontent
+        %label
+          Add a new question
+        - Question.new.kinds.each do |question_type|
+          .fieldimg
+            = link_to_add_question(question_add, question_type) do
+              %span{:class => question_type}
+              = Question.new.kinds.label(question_type)
 

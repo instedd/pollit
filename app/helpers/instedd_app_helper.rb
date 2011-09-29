@@ -67,7 +67,7 @@ module InsteddAppHelper
   end
 
   def fancy_button(content, kind, options={})
-    options.merge!(:class => kind, :type => 'button')
+    options.merge!(:class => "#{kind} #{options[:class]}", :type => 'button')
     button_tag content, options
   end
 

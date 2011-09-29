@@ -2,3 +2,19 @@ table div {
   display: inline-block;
   vertical-align: middle;
 }
+
+.block {
+  display: block;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.nodisplay {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}

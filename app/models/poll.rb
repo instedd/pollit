@@ -184,6 +184,8 @@ class Poll < ActiveRecord::Base
 
   def default_values
     self.confirmation_word ||= "Yes"
+    self.welcome_message ||= "Answer 'yes' if you want to participate in this poll."
+    self.goodbye_message ||= "Thank you for your answers!"
   rescue
     true
   end

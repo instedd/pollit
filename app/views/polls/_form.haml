@@ -1,5 +1,5 @@
 #poll_form_container
-  = form_for @poll do |f|
+  = form_for @poll, :html => {:id => 'poll_form'} do |f|
     = errors_for @poll
 
     %h3 Import poll from google forms
@@ -8,42 +8,38 @@
     .field
       = f.label :form_url
       = f.text_field :form_url
-      = orange_link_to 'Import form', '#', :id => 'import_form_action'
+      = orange_link_to 'Import form', '#', :class => 'import_form_action'
       = f.hidden_field :post_url
 
     %h2 Poll information
 
     .field.w30
       = f.label :title
-      = f.text_field :title
+      = f.text_field :title, :class => 'required'
     .field.w30
       = f.label :description
       = f.text_field :description
 
     %h2 Poll questions
-    -# HACK: Store questions as json for now to be sent back to the server, use standard input fields or a javascript viewmodel when applying actual design
-    = hidden_field_tag :questions, @poll.questions.to_json
-
-    %ul
-      - @poll.questions.each do |question|
-        %li
-          = question.title
-          - if question.kind_options?
-            %ol
-              - question.options.each do |option|
-                %li= option
+    - if f.object.questions.empty?
+      %p Import a form from Google to load its questions
+    -else
+      = link_to 'Reload from Google', '#', :class => 'import_form_action reload_from_google block'
+      -#HACK: Use this hidden field to run client-side validation on all questions checking for errors
+      = hidden_field_tag :questions_validation, ''
+      = render :partial => 'polls/form_editor/questions', :locals => { :f => f, :disabled => true }
 
     %h2 Poll details
 
     .field.w30
       = f.label :welcome_message
-      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
+      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required ux-wajbar'
     .field.w30
       = f.label :goodbye_message
-      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
+      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'ux-wajbar'
     .field.w30
       = f.label :confirmation_word
-      = f.text_field :confirmation_word
+      = f.text_field :confirmation_word, :class => 'required'
 
     = grey_button "Create"
     = white_link_to "Cancel", polls_path

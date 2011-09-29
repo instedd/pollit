@@ -18,7 +18,6 @@ class Channel < ActiveRecord::Base
 
   def register_nuntium_channel
     @nuntium = Nuntium.new_from_config
-    puts "ejecuta aca"
     begin
       channel_info = @nuntium.create_channel({ 
         :name => name,
@@ -37,7 +36,6 @@ class Channel < ActiveRecord::Base
       e.properties.each do |error|
         self.errors.add(:ticket_code, error[1])
       end
-      p e.properties
       raise e
     end
   end

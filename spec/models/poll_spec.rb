@@ -30,6 +30,12 @@ describe Poll do
       Poll.parse_form "http://#{url}"
     end
 
+    let(:invalid_poll) do
+      url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=INVALID'
+      stub_request(:get, url).to_return_file('google-form-invalid.html')
+      Poll.parse_form "http://#{url}"
+    end
+
     def should_parse_question(name, index, kind, opts)
       question = poll.questions[index]
       question.title.should eq(opts[:title] || "Test #{name}")
@@ -66,6 +72,16 @@ describe Poll do
       poll.description.should eq('The description of the form')
       poll.post_url.should eq('https://docs.google.com/spreadsheet/formResponse?formkey=FORMKEY&ifq')
       poll.questions.length.should eq(6)
+    end
+
+    it "can parse public google form with unsupported questions" do
+      invalid_poll.questions.length.should eq(3)
+      q = invalid_poll.questions[0]
+      q.title.should eq('Grid Question')
+      q.kind.should eq(:unsupported)
+      q = invalid_poll.questions[2]
+      q.title.should eq('Checkboxes Question')
+      q.kind.should eq(:unsupported)
     end
 
     it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'

@@ -21,7 +21,7 @@ class PollsController < ApplicationController
 
   def create
     @poll = current_user.polls.build params[:poll]
-    @poll.questions_attributes = JSON.parse params[:questions]
+    #@poll.questions_attributes = JSON.parse params[:questions]
 
     if @poll.save
       redirect_to :action => 'index'
@@ -47,11 +47,17 @@ class PollsController < ApplicationController
   end
 
   def import_form
-    @poll = Poll.new params[:poll]
-    @poll.owner_id = current_user.id
-    @poll.parse_form
-    @poll.generate_unique_title! if params[:poll][:title].blank?
-    render :partial => 'form'
+    begin
+      @poll = Poll.new params[:poll]
+      @poll.owner_id = current_user.id
+      @poll.questions.clear
+      @poll.parse_form
+      @poll.generate_unique_title! if params[:poll][:title].blank?
+    rescue => error
+      @error = error
+    ensure
+      render 'import_form', :layout => false
+    end
   end
 
   def destroy

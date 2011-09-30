@@ -1,49 +1,48 @@
 #poll_form_container
-  = form_for @poll do |f|
+  = form_for @poll, :html => {:id => 'poll_form'} do |f|
     = errors_for @poll
 
-    %h3 Import poll from google forms
-    
-    %span Copy the live form URL (not the spreadsheet's URL) making sure the form does not require sign-in
+    = render :partial => 'form_import', :locals => {f:f}
+
+    %h2 Properties
+
     .field
-      = f.label :form_url
-      = f.text_field :form_url
-      = orange_link_to 'Import form', '#', :id => 'import_form_action'
-      = f.hidden_field :post_url
-
-    %h2 Poll information
-
-    .field.w30
       = f.label :title
-      = f.text_field :title
-    .field.w30
+      = f.text_field :title, :class => 'required w60'
+    
+    .field
       = f.label :description
-      = f.text_field :description
+      = f.text_area :description, :class => 'w60', :rows => 5
+    
+    .field
+      = f.label :welcome_message
+      %p This message will be sent to all respondents asking them if they agree to participate in the poll
+      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required ux-wajbar w60'
+    .field
+      = f.label :confirmation_word
+      %p Respondents must answer with the confirmation word in order to agree to participate in the poll
+      = f.text_field :confirmation_word, :class => 'w60'
+    .field
+      = f.label :goodbye_message
+      %p This message will be sent to respondents when they complete the poll
+      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'ux-wajbar w60'
+    
+    %hr
 
     %h2 Poll questions
-    -# HACK: Store questions as json for now to be sent back to the server, use standard input fields or a javascript viewmodel when applying actual design
-    = hidden_field_tag :questions, @poll.questions.to_json
+    
+    = hidden_field_tag :empty_questions_validation, ''
 
-    %ul
-      - @poll.questions.each do |question|
-        %li
-          = question.title
-          - if question.kind_options?
-            %ol
-              - question.options.each do |option|
-                %li= option
-
-    %h2 Poll details
-
-    .field.w30
-      = f.label :welcome_message
-      = f.text_area :welcome_message, :size => "28x5", :maxlength => 140
-    .field.w30
-      = f.label :goodbye_message
-      = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
-    .field.w30
-      = f.label :confirmation_word
-      = f.text_field :confirmation_word
+    - if f.object.questions.empty?
+      .field
+        %p 
+          %a{:href => '#', :onclick => '$("input[name=\'poll[form_url]\']").focus(); return false;'}
+            Import a form from Google 
+          to load its questions
+    -else
+      = fancy_button 'Reload form from Google', 'fsync', :class => 'import_form_action reload_from_google block'
+      = hidden_field_tag :questions_validation, ''
+      = render :partial => 'polls/form_editor/questions', :locals => { :f => f, :disabled => true }
 
     = grey_button "Create"
     = white_link_to "Cancel", polls_path

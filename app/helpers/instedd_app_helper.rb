@@ -55,15 +55,20 @@ module InsteddAppHelper
   end
 
   def colored_button(color, text, options={})
-    options.merge!(:class => color)
+    options.merge!(:class => "#{color} #{options[:class]}")
     button_tag options do
       content_tag :span, text
     end
   end
 
   def colored_link_to(color, text, url, options={})
-    options.merge!(:class => "button #{color}")
+    options.merge!(:class => "button #{color} #{options[:class]}")
     link_to text, url, options
+  end
+
+  def fancy_button(content, kind, options={})
+    options.merge!(:class => "#{kind} #{options[:class]}", :type => 'button')
+    button_tag content, options
   end
 
   ['orange', 'grey', 'white'].each do |color|

@@ -3,3 +3,23 @@ table div {
   display: inline-block;
   vertical-align: middle;
 }
+
+/* line 6, ../../app/assets/stylesheets/global.scss */
+.block {
+  display: block;
+}
+
+/* line 10, ../../app/assets/stylesheets/global.scss */
+.hidden {
+  visibility: hidden;
+}
+
+/* line 14, ../../app/assets/stylesheets/global.scss */
+.nodisplay {
+  display: none;
+}
+
+/* line 18, ../../app/assets/stylesheets/global.scss */
+.clear {
+  clear: both;
+}

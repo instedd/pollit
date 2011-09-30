@@ -8,14 +8,16 @@
         
       .fieldcontent
         %span.fieldtitle.fieldname
-          = <%=item%>.name
+          = <%=item%>.<%=item_name_attribute%>
           
         .fielddesc
           %span.fieldhint.left
-            = "Hint: #{<%=item%>.hint}" unless <%=item%>.hint.blank?
+            = "<%=item_hint_attribute.humanize%>: #{<%=item%>.<%=item_hint_attribute%>}" unless <%=item%>.<%=item_hint_attribute%>.blank?
+          <% if handle_required? %>
           %span.fieldrequired.left{:class => ('nodisplay' unless <%=item%>.required?)}
             = "Required"
             = image_tag '<%=images_path('tilde.png')%>'
+          <% end %>
           .clear
       
 

@@ -10,8 +10,8 @@ Example:
         app/assets/javascripts/form_editor.js
         app/assets/stylesheets/form_editor.sass
         app/assets/images/form_editor/...
-        
-        app/views/forms/form_editor
+        app/helpers/form_editor_helper.rb
+        app/views/forms/form_editor/
         app/views/forms/form_editor/_fields.haml
         app/views/forms/form_editor/_field.haml
         app/views/forms/form_editor/_field_add.haml

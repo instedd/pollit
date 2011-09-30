@@ -9,12 +9,15 @@ class Question < ActiveRecord::Base
   validates :position, :presence => true
   validates :options, :presence => true, :if => :kind_options?
   validates :message, :length => {:maximum => 140}
+  
+  validate  :kind_supported
+
   validates_numericality_of :numeric_min, :only_integer => true, :if => lambda{|q| q.kind_numeric? && q.numeric_min }
   validates_numericality_of :numeric_max, :only_integer => true, :if => lambda{|q| q.kind_numeric? && q.numeric_max }
 
   acts_as_list :scope => :poll
   serialize :options, Array
-  enum_attr :kind, %w(^text options numeric)
+  enum_attr :kind, %w(^text options numeric unsupported)
 
   def message
     if kind_text?
@@ -42,4 +45,15 @@ class Question < ActiveRecord::Base
       nil
     end
   end
+
+  def kind_has_options?
+    return kind_options?
+  end
+
+  private
+
+  def kind_supported
+    errors.add(:kind, "is not supported") if kind_unsupported?
+  end
+
 end

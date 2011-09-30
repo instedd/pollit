@@ -22,6 +22,8 @@ class Poll < ActiveRecord::Base
   accepts_nested_attributes_for :questions
     
   after_initialize :default_values
+
+  enum_attr :status, %w(^created started paused)
   
   include Parser
 
@@ -57,10 +59,6 @@ class Poll < ActiveRecord::Base
 
   def can_be_started?
     (!started?) && channel && respondents.any?
-  end
-
-  def started?
-    self.status.to_s == "started"
   end
 
   def as_channel_name

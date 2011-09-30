@@ -42,7 +42,7 @@ class PollsController < ApplicationController
   end
 
   def start
-    @poll.start unless @poll.status == "started"    
+    @poll.start unless @poll.status_started?
     redirect_to :action => 'show'
   end
 

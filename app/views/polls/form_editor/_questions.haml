@@ -1,0 +1,14 @@
+#formeditor
+  .fieldslist{:class =>("nodisplay" if f.object.questions.empty?)}
+    .fieldspresenter
+      = render :partial => 'polls/form_editor/question', :collection => f.object.questions, :locals => {:disabled => disabled}
+    
+    .fieldadd{:id =>("large" if f.object.questions.empty?)}
+      = render :partial => 'polls/form_editor/question_add', :object => f, :locals => {:disabled => disabled}
+            
+  .fieldsidebar{:class => ("nodisplay" if f.object.questions.empty?)}
+    - f.object.questions.each_with_index do |question, index|
+      = f.fields_for :questions, question, :child_index => index do |question_builder|
+        = render :partial => 'polls/form_editor/question_form', :object => question_builder, :locals => {:index => index, :disabled => disabled}
+    
+  .clear

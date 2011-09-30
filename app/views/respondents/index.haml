@@ -1,0 +1,100 @@
+- add_breadcrumb "Respondents", poll_respondents_path(@poll)
+
+- content_for :head do
+  = angular_js_include_tag
+
+%div{:class => :content}
+  %h1 Bulk phone numbers importing
+  .whitebox{:style => "margin-top:-12px;"}
+    Add phone numbers manually or upload a CSV file
+    %br
+    %br
+    #export_csv
+      = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
+        %b Download a sample csv file 
+        and fill it with the phone numbers
+    #import_csv
+      = button_tag :type => :button, :class => :fimport do
+        %b Upload it for bulk account creation
+
+= content_tag :div, "ng:controller" => "PhonesCtrl" do
+  %ul{:class => "clist w30"}
+    %li{"ng:repeat" => "phone in phones"}
+      = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
+      = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
+    %li
+      = content_tag :form, "ng:submit" => "addPhone()" do
+        = text_field_tag "numberText", "", :class => "ux-text", :placeholder => "Add a new phone..."
+        = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
+  %br
+  %hr
+  %br
+  = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+  = white_link_to "Cancel", @poll
+
+:javascript
+  $(document).ready(function() {
+    $(":input[type=text]").live('focus', function() {
+      $(this).numeric({ decimal: false, negative: false });
+    });
+  });
+
+  function PhonesCtrl() {
+    var scope = this;
+    scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};
+
+    $(document).ready(function() {
+      new AjaxUpload($('#import_csv'), {
+        action: '#{import_csv_poll_respondents_path(@poll)}',
+        name: 'csv',
+        onSubmit: function(file, ext){
+          if(ext != 'csv') {
+            $.status.showError('Error! File should be in csv format!')
+            return false;
+          }
+        },
+        onComplete: function(file, response){
+          var data = eval(response);
+          $.each(data, function(i, phone) {
+            if (!scope.phoneExists(phone)) {
+              scope.phones.push(phone);
+            }
+          });
+          scope.$eval();
+        }
+      });
+    });
+
+    scope.phoneExists = function(phoneNumber) {
+      return _.any(scope.phones, function(phone) { 
+        return phone.number == phoneNumber;
+      });
+    }
+
+    scope.addPhone = function() {
+      if ((!scope.phoneExists(scope.numberText)) && scope.numberText.trim() != '') {
+        scope.phones.push({number:scope.numberText});
+        scope.numberText = '';
+      }
+    };
+
+    scope.removePhone = function(phoneNumber) {
+      scope.phones = _.reject(scope.phones, function(phone) {
+        return phone.number == phoneNumber;
+      })
+    }
+
+    scope.removeEmptyPhones = function() {
+      scope.phones = _.reject(scope.phones, function(phone) {
+        return phone.number.trim() == '';
+      })
+    }
+
+    scope.saveChanges = function() {
+      scope.removeEmptyPhones();
+
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
+      $.status.showNotice('Phones saved succesfully!');
+    };
+  }

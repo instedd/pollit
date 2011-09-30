@@ -1,0 +1,482 @@
+/* line 1, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor {
+  padding-top: 20px;
+  /* ------- Redefined Tags ------------ */
+  /* ------- Structure ------------ */
+  /* ------- Gray Box ------------ */
+  /* ------- Icons ------------ */
+  /* --------- Widgets ----------- */
+  /* --------- Widgets list ----------- */
+  /* --------- Sidebar ----------- */
+  /* --------- Gral Classes ----------- */
+}
+/* line 6, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor label {
+  font-size: 14px;
+  color: #777777;
+  margin-bottom: 2px;
+  display: block;
+}
+/* line 12, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor img {
+  border: 0;
+}
+/* line 17, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldslist {
+  padding: 10px 0 10px 0;
+  float: left;
+}
+/* line 21, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldslist.large {
+  width: 100%;
+}
+/* line 26, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .BoxGray {
+  background: #eeeeee;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  padding: 10px 22px 4px 70px;
+  margin-bottom: 10px;
+  position: relative;
+}
+/* line 38, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .BoxGray.Small {
+  font-size: 14px;
+  color: #777777;
+  padding: 8px 0 10px 10px;
+}
+/* line 42, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .BoxGray .IconImg {
+  background: #e1e1e1;
+  /* old browsers */
+  background: -moz-linear-gradient(top, white 0%, #e1e1e1 100%);
+  /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e1e1e1));
+  /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e1e1e1',GradientType=0 );
+  left: 4px;
+  top: 4px;
+  height: 55px;
+  width: 55px;
+  border: 1px solid #e9e9e9;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+}
+/* line 60, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .AddDel {
+  right: 4px;
+  top: 6px;
+  position: absolute;
+}
+/* line 65, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Field {
+  width: 250px;
+  margin: 0 12px 15px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 71, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .TextInput {
+  background: white;
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  width: 98%;
+}
+/* line 78, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .TextInput2 {
+  background: white;
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  width: 100%;
+}
+/* line 85, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Separator {
+  margin: 20px 0;
+  border-bottom: 1px solid #eeeeee;
+  clear: both;
+}
+/* line 90, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Condition {
+  color: #777777;
+  line-height: 18px;
+  margin: 0 0 5px 0;
+  position: relative;
+}
+/* line 96, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .AddCondition {
+  position: absolute;
+  right: -16px;
+}
+/* line 100, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Condition select {
+  width: 250px;
+  margin: 0 12px 5px 0;
+}
+/* line 106, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .RSSl {
+  background: url(form_editor/icons/rssAuthenticationIcon.png) no-repeat center;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 112, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .RSS {
+  background: url(form_editor/icons/rssAuthenticationIcon.png) no-repeat center;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 118, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Filter {
+  background: url(form_editor/icons/filterIcon.png) no-repeat center;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 124, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .Filterl {
+  background: url(form_editor/icons/filterAuthenticationIcon.png) no-repeat center;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 132, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldtop {
+  background: url(form_editor/Back_ArrBox_Top2.png) no-repeat center top;
+  padding-top: 12px;
+  width: 620px;
+  margin-top: -8px;
+}
+/* line 133, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldtop.First {
+  background: url(form_editor/Back_ArrBox_Top1.png) no-repeat center top;
+  padding-top: 8px;
+  width: 620px;
+  margin-top: 0;
+}
+/* line 143, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldbot {
+  background: url(form_editor/Back_ArrBox_Bottom.png) no-repeat center bottom;
+  width: 620px;
+  padding-bottom: 22px;
+  position: relative;
+}
+/* line 149, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldimg {
+  background: #e1e1e1;
+  /* old browsers */
+  background: -moz-linear-gradient(top, white 0%, #e1e1e1 100%);
+  /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e1e1e1));
+  /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e1e1e1',GradientType=0 );
+  left: 4px;
+  top: 4px;
+  height: 55px;
+  width: 55px;
+  border: 1px solid #e9e9e9;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0 0 0 10px;
+  vertical-align: top;
+}
+/* line 168, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldimg.selected {
+  background: #d1d1d1;
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2) inset;
+}
+/* line 174, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldmid {
+  position: relative;
+}
+/* line 177, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fielddel {
+  position: absolute;
+  right: 8px;
+  top: -4px;
+}
+/* line 181, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fielddel a {
+  outline: none;
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+/* line 186, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fielddel .remove_field {
+  background: url(form_editor/buttons/removeButton.png) no-repeat 0 0;
+}
+/* line 188, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fielddel .remove_field:hover {
+  background-position-y: -30px;
+}
+/* line 190, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fielddel .remove_field:active {
+  background-position-y: -60px;
+}
+/* line 193, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent {
+  font-size: 12px;
+  padding: 5px 0 0 4px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 198, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fieldtitle {
+  font-size: 18px;
+  color: black;
+  margin-right: 4px;
+}
+/* line 202, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fielddesc {
+  font-size: 12px;
+  color: #777777;
+  font-style: italic;
+}
+/* line 206, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fielddesc .fieldhint {
+  padding-right: 20px;
+}
+/* line 208, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fielddesc .fielderror {
+  padding-right: 20px;
+  color: #ff6600;
+}
+/* line 211, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fieldrequired {
+  font-style: normal;
+}
+/* line 213, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldcontent .fieldrequired img {
+  position: relative;
+  top: 2px;
+}
+/* line 218, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor #large .addnewtop {
+  background: url(form_editor/editor/addNewItemBackground_topMarkLarge.png) no-repeat center top;
+  width: 100%;
+  position: relative;
+  left: -20px;
+}
+/* line 223, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor #large .addnewbot {
+  background: url(form_editor/editor/addNewItemBackground_bottomLarge.png) no-repeat center bottom;
+  width: 100%;
+}
+/* line 227, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewtop {
+  background: url(form_editor/Back_ArrBox_Top3.png) no-repeat center top;
+  padding-top: 12px;
+  width: 620px;
+  margin-top: -8px;
+}
+/* line 233, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewbot {
+  background: url(form_editor/Back_ArrBox_Bottom2.png) no-repeat center bottom;
+  width: 620px;
+  height: 120px;
+}
+/* line 237, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewbot.empty {
+  height: 30px;
+}
+/* line 240, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewcontent {
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+}
+/* line 244, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewcontent label {
+  font-size: 16px;
+  margin-bottom: 14px;
+  padding-top: 5px;
+}
+/* line 248, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .addnewcontent a {
+  color: black;
+  text-decoration: none;
+  outline: none;
+}
+/* line 256, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .text {
+  background: url(form_editor/icons/textIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 262, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .numeric {
+  background: url(form_editor/icons/NumberIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 268, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .date {
+  background: url(form_editor/icons/dateIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 274, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .options {
+  background: url(form_editor/icons/selectOneIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 280, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .select_multiple {
+  background: url(form_editor/icons/selectMultipleIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 286, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .paragraph_text {
+  background: url(form_editor/icons/paragraphIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 292, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .location {
+  background: url(form_editor/icons/locationIcon.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 298, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .unsupported {
+  background: url(form_editor/icons/alertBig.png) no-repeat;
+  width: 55px;
+  height: 55px;
+  display: block;
+}
+/* line 306, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar {
+  background: white;
+  -webkit-box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #666666;
+  margin: 3px 25px 40px 0px;
+  padding: 10px 10px;
+  float: right;
+  width: 240px;
+}
+/* line 321, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar p {
+  margin: 0;
+  padding: 0;
+}
+/* line 325, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar label {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+/* line 329, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar label.error {
+  display: block;
+  color: #ff6600;
+  padding-right: 15px;
+}
+/* line 334, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar hr {
+  padding: 0;
+  border: none;
+  border-top: 1px solid #eeeeee;
+  margin: 10px 0px 15px 0px;
+  width: 100%;
+}
+/* line 342, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar .required input {
+  width: auto;
+}
+/* line 345, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar input {
+  width: 236px;
+  margin: 3px 0 0 0;
+}
+/* line 348, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar input.small {
+  width: 176px;
+  margin: 0;
+}
+/* line 352, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar a.addoption {
+  outline: 0;
+  display: block;
+  background-image: url("form_editor/buttons/addSimpleButton.png");
+  height: 20px;
+  width: 20px;
+}
+/* line 359, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldsidebar a.removeoption {
+  outline: 0;
+  display: block;
+  background-image: url("form_editor/buttons/removeSimpleButton.png");
+  height: 20px;
+  width: 20px;
+}
+/* line 366, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .fieldslock {
+  background: url("form_editor/padlockIcon.png") no-repeat 10px 3px;
+  background-color: #eeeeee;
+  padding: 3px 0px 3px 30px;
+  color: #777777;
+  margin-top: -10px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+/* line 376, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .field {
+  cursor: pointer;
+}
+/* line 380, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .range input {
+  float: left;
+  width: 20px;
+}
+/* line 383, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .range span {
+  float: left;
+  font-size: 14px;
+  margin: 5px 5px 0 5px;
+}
+/* line 390, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .left {
+  float: left;
+}
+/* line 393, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .right {
+  float: right;
+}
+/* line 396, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .clear {
+  clear: both;
+}
+/* line 399, ../../app/assets/stylesheets/form_editor.sass */
+#formeditor .nodisplay {
+  display: none;
+}

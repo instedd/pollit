@@ -56,7 +56,11 @@ class PollsController < ApplicationController
     rescue => error
       @error = error
     ensure
-      render 'import_form', :layout => false
+      if request.xhr?
+        render 'import_form', :layout => false
+      else
+        render :partial => 'form'
+      end
     end
   end
 

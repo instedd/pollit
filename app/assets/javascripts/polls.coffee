@@ -5,18 +5,16 @@
 $ ->
   setupValidation()
   $('.import_form_action').live 'click', ->
-    if $('#poll_form_url').val() isnt ''
-      $.post(
-        "/polls/import_form"
-        $('#poll_form_container form').serialize()
-        (res) -> 
-          $('#poll_form_container').replaceWith(res)
-          window.reinitialize()
-          formValidate()
-          select_field(0)
+    if $('#poll_form_url').valid()
+      $.ajax(
+        url: "/polls/import_form"
+        data: $('#poll_form_container form').serialize()
+        type: 'post'
+        dataType: 'script'
       )
+    else
+      $('#poll_form_url').focus()
     false
-
 
 setupValidation = () ->
   jQuery.validator.addMethod(
@@ -33,20 +31,30 @@ setupValidation = () ->
     jQuery.format("There are invalid questions in the poll.")
   )
 
-  formValidate()
+  window.formValidate()
 
-formValidate = () ->
-  $('#poll_form').validate(
+window.validator = null
+window.formValidate = () ->
+  window.validator = $('#poll_form').validate(
     onfocusout: false
     onkeyup: false
     onclick: false
     errorPlacement: (error, element) ->
-      error.insertAfter(element)
-      if element.attr('id') == 'questions_validation'
+      if element.attr('id') == 'poll_form_url'
+        error.insertAfter('#poll_post_url')
+      else if element.attr('id') == 'questions_validation'
         $('.reload_from_google').focus()
-        
+        error.insertAfter(element)
+      else if element.attr('id') == 'has_questions'
+        error.insertAfter('#poll_form_url')
+        $('#poll_form_url').focus()        
+      else
+        error.insertAfter(element)
     rules:
       'poll[form_url]': 
+        required: true
+        url: true
+      'empty_questions_validation':
         hasChildren: ["poll", "question", '#formeditor .field']
       'questions_validation':
         questionsValid: true

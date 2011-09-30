@@ -18,8 +18,6 @@
         %b Upload it for bulk account creation
 
 = content_tag :div, "ng:controller" => "PhonesCtrl" do
-  %div{:style => "display:none;"}
-
   %ul{:class => "clist w30"}
     %li{"ng:repeat" => "phone in phones"}
       = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
@@ -35,6 +33,12 @@
   = white_link_to "Cancel", @poll
 
 :javascript
+  $(document).ready(function() {
+    $(":input[type=text]").live('focus', function() {
+      $(this).numeric({ decimal: false, negative: false });
+    });
+  });
+
   function PhonesCtrl() {
     var scope = this;
     scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};

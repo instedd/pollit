@@ -1,5 +1,7 @@
 - add_breadcrumb "Edit", edit_poll_path(@path)
 
+= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'settings' }
+
 #poll_form_container
   = form_for @poll do |f|
     = errors_for @poll

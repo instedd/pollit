@@ -1,5 +1,7 @@
 - add_breadcrumb "Add channel", new_poll_channel_path(@poll)
 
+= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'channel' }
+
 %h1 
   Add channel for
   = @poll.title

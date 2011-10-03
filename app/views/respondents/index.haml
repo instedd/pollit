@@ -1,5 +1,7 @@
 - add_breadcrumb "Respondents", poll_respondents_path(@poll)
 
+= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
+
 - content_for :head do
   = angular_js_include_tag
 

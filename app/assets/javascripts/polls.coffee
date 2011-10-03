@@ -27,7 +27,7 @@ setupValidation = () ->
   jQuery.validator.addMethod(
     "questionsValid"
     (value, element, options) ->
-      return $("#formeditor .field[data-error=true]", element.form).length == 0
+      return $("#form-editor .field[data-error=true]", element.form).length == 0
     jQuery.format("There are invalid questions in the poll.")
   )
 
@@ -55,7 +55,7 @@ window.formValidate = () ->
         required: true
         url: true
       'empty_questions_validation':
-        hasChildren: ["poll", "question", '#formeditor .field']
+        hasChildren: ["poll", "question", '#form-editor .feditor']
       'questions_validation':
         questionsValid: true
   )

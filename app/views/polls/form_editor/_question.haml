@@ -1,24 +1,23 @@
-.field{:id => "field_#{question_counter}", "data-field-index" => question_counter, "data-error" => question.invalid?.to_s}
-  .fieldtop
-    .fieldbot
-      - unless disabled
-        .fielddel
-          = link_to_function "", "remove_field(#{question_counter})", :class => 'remove_field' if question.new_record?
-      .fieldimg{:class => ("selected" if question_counter == 0)}
-        = link_to_function "", "select_field('#{question_counter}')", :class => question.kind        
+.feditor{:id => "feditor-#{question_counter}", "data-field-index" => question_counter, "data-error" => question.invalid?.to_s, :class => order_class(question_counter, question_count)}
+  .feditor-top
+  .feditor-container
+    -# unless disabled
+      -# link_to_function "", "remove_field(#{question_counter})", :class => 'remove_field' if question.new_record?
+    .feditor-button
+      %button{:type => :button, :class => form_editor_class_for(question.kind)}
+      
+    .feditor-content
+      %h1.feditor-field-name
+        = question.title
+      %span.hint.feditor-field-hint
+        = "Description: #{question.description}" unless question.description.blank?
         
-      .fieldcontent
-        %span.fieldtitle.fieldname
-          = question.title
-          
-        .fielddesc
-          %span.fieldhint.left
-            = "Description: #{question.description}" unless question.description.blank?
-          .clear
-          - if question.invalid?
-            %span.fielderror.left
-              = question.errors.full_messages.to_sentence
-            .clear
+      - if question.invalid?
+        - unless question.description.blank?
+          %br
+        %label.error
+          = question.errors.full_messages.to_sentence
+        .clear
       
 
 

@@ -50,6 +50,10 @@ class Question < ActiveRecord::Base
     return kind_options?
   end
 
+  def kind_valid?
+    kind && !kind_unsupported?
+  end
+
   private
 
   def kind_supported

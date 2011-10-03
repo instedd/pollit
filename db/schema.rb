@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110913191741) do
+ActiveRecord::Schema.define(:version => 20110930180959) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20110913191741) do
     t.string   "pushed_status"
     t.boolean  "confirmed"
     t.integer  "current_question_id"
+    t.boolean  "current_question_sent"
   end
 
   create_table "users", :force => true do |t|

@@ -19,6 +19,8 @@ User.blueprint do
   name
   password
   password_confirmation {password}
+  confirmed_at {DateTime.now}
+  confirmation_sent_at {DateTime.now}
 end
 
 Channel.blueprint do

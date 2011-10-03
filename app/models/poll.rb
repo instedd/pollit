@@ -50,6 +50,10 @@ class Poll < ActiveRecord::Base
     save
   end
 
+  def editable?
+    status_created?
+  end
+
   def can_be_started?
     status_created? && channel && respondents.any?
   end

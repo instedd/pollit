@@ -66,6 +66,7 @@ Poll.blueprint(:with_text_questions) do
 end
 
 Poll.blueprint(:with_option_questions) do
+  channel       {Channel.make}
   title         {Sham.title}
   description
   form_url      {Sham.url}
@@ -78,7 +79,8 @@ Poll.blueprint(:with_option_questions) do
 end
 
 Poll.blueprint(:with_numeric_questions) do
-  title          {Sham.title}
+  channel       {Channel.make}
+  title         {Sham.title}
   description
   form_url      {Sham.url}
   post_url      {Sham.url}

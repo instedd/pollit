@@ -21,5 +21,7 @@
       = f.label :goodbye_message
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140
 
+    = render :partial => 'polls/form_editor/questions', :locals => { :f => f, :disabled => true }
+
     = grey_button "Save"
     = white_link_to "Cancel", polls_path

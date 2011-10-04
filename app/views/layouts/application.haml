@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %title Pollit
+    = yield(:head)
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')
+    = javascript_include_tag instedd_theme_url_for('theme/javascripts/theme.js')
+    = csrf_meta_tags
+  %body
+    = flash_message
+    #wrapper
+      #toolbar
+        %ul#instedd-pulldown
+        #NavMenu
+          %ul
+            %li
+              = link_to "Home", root_path
+            - if user_signed_in?
+              %li
+                = link_to "Polls", polls_path
+
+        %ul.RightMenu
+          - if user_signed_in?
+            %li
+              #User
+                = current_user.email
+                %br
+                %br
+                .container
+                  = link_to "Logout", destroy_user_session_path
+            %li
+              = link_to '', edit_user_registration_path, :class => 'fsettings'
+          - else
+            %li
+              = link_to "Create account", new_user_registration_path, :class => 'fedit'
+            %li
+              = link_to "Log in", new_user_session_path, :class => 'fuser'
+      #header
+        .left
+          %a{:href => "/"}
+            %img{:src => "http://theme.instedd.org/theme/images/header/logos/pollit.png"}
+        
+        = breadcrumb
+              
+      #container
+        = yield
+
+      #footer-span
+        #footer
+          = render :partial => "shared/footer"

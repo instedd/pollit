@@ -1,0 +1,19 @@
+= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'overview' }
+
+.whitebox.w30
+  = "Completed #{@poll.completion_percentage} of the questions."
+  %br
+  %br
+
+- if @poll.can_be_started?
+  = orange_link_to "Start Poll", start_poll_path(@poll.id), :method => :post
+  %br
+- else
+  - if @poll.respondents.empty?
+    %p
+      = label_tag :respondents, "There are no respondents assigned.", :class => :error
+  - if @poll.channel.nil?
+    %p
+      = label_tag :channel, "There is no channel set.", :class => :error
+  - if @poll.started?
+    %p= "Poll has been started!"

@@ -113,6 +113,76 @@ module InsteddAppHelper
     end
   end
 
+  def wizard(steps, current_step)
+    step_index = steps.index(current_step)
+
+    content_tag :div, :class => "box plain grey" do
+      content_tag :div, :class => "steps-line" do
+        content_tag :div, :class => "steps-container s#{steps.count}" do
+          steps.each_with_index do |step, i|
+            css_pos = (i == 0) ? "first" : (i == steps.count - 1) ? "last" : ""
+            color = (i <= step_index) ? 'green' : ''
+            concat("\n")
+
+            unless i == 0
+              concat(content_tag(:span, :class => "line-fill #{color}") { })
+            end
+            concat(content_tag(:span, :class => "circle #{css_pos} #{color}") do
+              content_tag(:span, :class => "inner") do
+                content_tag(:span, :class => "step-name") { step }
+              end
+            end)
+          end
+        end
+      end
+    end
+  end
+
+  def dotted_wizard(steps, current_step)
+    step_index = steps.index(current_step)
+
+    content_tag :div, :class => "box plain grey" do
+      content_tag :div, :class => "steps-line" do
+        content_tag :div, :class => "steps-container s#{steps.count} dotted" do
+          steps.each_with_index do |step, i|
+            if (i == 0)
+              css_pos = "first"
+            elsif (i == steps.count - 1)
+              css_pos = "last"
+            else
+              css_pos = ""
+            end
+
+            if ((i <= 1) || (i == steps.count - 1))
+              line_style = "dotted"
+              if (i <= 1)
+                color = "green"
+              else
+                color = ""
+              end
+              
+            elsif (i <= step_index)
+              line_style = "green"
+              color = "green"
+            else
+              color = ""
+            end
+
+            concat("\n")
+
+            unless i == 0
+              concat(content_tag(:span, :class => "line-fill #{line_style}") { })
+            end
+            concat(content_tag(:span, :class => "circle #{css_pos} #{color}") do
+              content_tag(:span, :class => "inner") do
+                content_tag(:span, :class => "step-name") { step }
+              end
+            end)
+          end
+        end
+      end
+    end
+  end
 end
 
 module DeviseHelper  

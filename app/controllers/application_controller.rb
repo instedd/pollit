@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+  
+  rescue_from ActionController::RedirectBackError do
+    redirect_to root_url
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message

@@ -2,7 +2,7 @@ class Poll < ActiveRecord::Base
   MESSAGE_FROM = "sms://0"
 
   belongs_to :owner, :class_name => User.name
-  has_many :questions, :order => "position"
+  has_many :questions, :order => "position", :dependent => :destroy
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
   has_one :channel, :dependent => :destroy

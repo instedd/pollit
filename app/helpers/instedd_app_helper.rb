@@ -34,21 +34,27 @@ module InsteddAppHelper
     end
   end
 
-  def instedd_table_for(data, headers, &block)
+  def instedd_table_for(data, headers, empty=nil, &block)
     val = content_tag :table, :class => "GralTable" do
       content_tag :tbody do
-        head = content_tag :tr do
+        concat (content_tag :tr do
           raw(headers.map { |x| content_tag :th, x }.join)
-        end
+        end)
 
-        concat(head)
+        if data.empty?
+          empty_opts = {:class => "EmptyData", :text => "There are no records to display"}
+          empty = empty.kind_of?(Hash) ? empty : {text: empty || empty_opts[:text]}
+          empty_opts.merge! empty
 
-        data.each do |row|
-          tr = content_tag :tr do
-            capture(row, &block)
+          concat (content_tag :tr do
+            content_tag :td, empty_opts[:text], :colspan => 0, :class => empty_opts[:class]
+          end)
+        else
+          data.each do |row|
+            concat (content_tag :tr do
+              capture(row, &block)
+            end)
           end
-
-          concat(tr)
         end
       end
     end

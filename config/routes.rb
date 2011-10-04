@@ -12,6 +12,8 @@ Pollit::Application.routes.draw do
     member do
       post 'start'
       post 'register_channel/:ticket_code', :action => 'register_channel'
+      post 'pause'
+      post 'resume'
     end
     resources :channels, :only => [:new, :create]
     resources :respondents, :only => [:index] do

@@ -15,5 +15,18 @@
   - if @poll.channel.nil?
     %p
       = label_tag :channel, "There is no channel set.", :class => :error
+  
   - if @poll.started?
-    %p= "Poll has been started!"
+    %p
+      This poll is active and is receiving messages from its respondents
+    = link_to "Pause this poll", pause_poll_path(@poll), :method => :post, :class => 'fpause'
+  - elsif @poll.paused?
+    %p
+      This poll is paused and will not send new questions to its respondents
+    = link_to "Resume this poll", resume_poll_path(@poll), :method => :post, :class => 'fplay'
+    
+  %hr
+  
+  = link_to "Delete this poll", poll_path(@poll), :method => :delete, :confirm => "Are you sure you want to delete poll '#{@poll.title}'?", :class => 'fdelete'
+
+  

@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(:version => 20110930182842) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "welcome_message"
-    t.string   "status"
     t.string   "post_url"
     t.string   "confirmation_word"
+    t.string   "status"
     t.string   "goodbye_message"
   end
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20110930182842) do
     t.string   "pushed_status"
     t.boolean  "confirmed"
     t.integer  "current_question_id"
+    t.boolean  "current_question_sent"
   end
 
   create_table "users", :force => true do |t|

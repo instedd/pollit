@@ -18,12 +18,15 @@ RSpec.configure do |config|
   config.before(:each) do 
     Sham.reset
 
-    @nuntium = mock("nuntium")
-    Nuntium.stubs(:new_from_config).returns(@nuntium)
+    Nuntium.stubs(:new_from_config).returns(@nuntium = mock('nuntium'))
     @nuntium.stubs(:create_channel).returns({:address => ""})
     @nuntium.stubs(:update_channel)
     @nuntium.stubs(:delete_channel)
-    @nuntium.stubs(:send_ao)
+    
+    @nuntium_ao_messages = []
+    @nuntium.stubs(:send_ao).with do |args|
+      @nuntium_ao_messages += args; true
+    end.returns(true)
   end    
 end
 

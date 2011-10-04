@@ -81,6 +81,16 @@ module InsteddAppHelper
     end
   end
 
+  def order_class(index, total)
+    if index == 0
+      "first"
+    elsif index == total-1
+      "last"
+    else
+      ""
+    end
+  end
+
   class BreadcrumbBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
     def render
       return "" if @elements.empty?

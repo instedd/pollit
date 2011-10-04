@@ -1,5 +1,15 @@
 module FormEditorHelper
   
+  def form_editor_class_for(kind)
+    case kind
+      when :text then 'ltext'
+      when :options then 'lsingleoption'
+      when :numeric then 'lnumber'
+      when :unsupported then 'lunknown' 
+      else ''
+    end
+  end
+
   def link_to_add_question_option(f, opts={})
     content = render :partial => 'polls/form_editor/question_option', :object => "new_option", :locals => {:f => f}
     opts = {:onclick => %Q<
@@ -17,10 +27,10 @@ module FormEditorHelper
     new_object = Question.new(:title => "New question", :kind => kind)
     index = "new_field_index"
     
-    field_container = '#formeditor .fieldspresenter'
+    field_container = '#form-editor .fields-list'
     field_content = render('polls/form_editor/question', :question => new_object, :question_counter => index)
     
-    form_container = '#formeditor .fieldsidebar'
+    form_container = '#form-editor .fieldsidebar'
     form_content = f.fields_for(:questions, new_object, :child_index => index) do |builder|
       render :partial => 'polls/form_editor/question_form', :object => builder, :locals => {:index => index}
     end

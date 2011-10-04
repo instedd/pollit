@@ -10,6 +10,11 @@ class Channel < ActiveRecord::Base
   before_validation :register_nuntium_channel, :on => :create
   before_destroy :delete_nuntium_channel
 
+  def unprefixed_address
+    return nil if not address
+    address.gsub(/^sms:\/\//, '')
+  end
+
   private
 
   def poll_not_started

@@ -18,3 +18,52 @@ table div {
 .clear {
   clear: both;
 }
+
+.box.green { 
+  background:#eeffc9; 
+  color:#799823;
+  border:0;
+}
+
+.box.overview {
+  display: inline-block;
+  width: 190px;
+  margin-right:10px;
+  
+  .content {
+    display: inline-block;
+    width: 130px;
+    vertical-align: top;
+    padding-top: 5px;
+  }
+
+  .icon {
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+  }
+
+  .respondents {
+    @extend .icon;
+    background: url(http://theme.instedd.org/theme/images/icons/48/gradient/users.png) no-repeat;
+  }
+
+  .channel {
+    @extend .icon;
+    background: url(http://theme.instedd.org/theme/images/icons/48/gradient/channel.png) no-repeat;
+  }
+
+  .google {
+    @extend .icon;
+    background: url(http://theme.instedd.org/theme/images/icons/48/gradient/googleDocs.png) no-repeat;
+  }
+
+  &.incomplete {
+    .content {
+      color: #FF6600;
+    }
+    .icon {
+      background-position: 0px -48px;
+    }
+  }
+}

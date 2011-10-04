@@ -15,7 +15,7 @@ Pollit::Application.routes.draw do
       post 'pause'
       post 'resume'
     end
-    resources :channels, :only => [:new, :create]
+    resources :channels, :only => [:new, :create, :show]
     resources :respondents, :only => [:index] do
       collection do
         post 'batch_update'

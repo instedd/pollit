@@ -1,8 +1,5 @@
 class Poll < ActiveRecord::Base
   MESSAGE_FROM = "sms://0"
-  INVALID_REPLY_OPTIONS = "Your answer was not understood. Please answer with (%s)"
-  INVALID_REPLY_TEXT = "Your answer was not understood. Please answer with non empty string"
-  INVALID_REPLY_NUMERIC = "Your answer was not understood. Please answer with a number between %s and %s"
 
   belongs_to :owner, :class_name => User.name
   has_many :questions, :order => "position"
@@ -22,8 +19,11 @@ class Poll < ActiveRecord::Base
   accepts_nested_attributes_for :questions
     
   after_initialize :default_values
+
+  enum_attr :status, %w(^created started paused)
   
   include Parser
+  include AcceptAnswers
 
   def generate_unique_title!
     return unless self.title && self.owner_id
@@ -37,16 +37,11 @@ class Poll < ActiveRecord::Base
   end
 
   def start
-    return false unless can_be_started?
+    raise Exception.new("Cannot start question #{self.inspect}") unless can_be_started?
 
     messages = []
     respondents.each do |respondent|
-      messages << {
-        :from => MESSAGE_FROM,
-        :to => respondent.phone,
-        :body => welcome_message,
-        :poll_id => self.id.to_s
-      }
+      messages << message_to(respondent, welcome_message)
     end
 
     send_messages messages
@@ -56,11 +51,40 @@ class Poll < ActiveRecord::Base
   end
 
   def can_be_started?
-    (!started?) && channel && respondents.any?
+    status_created? && channel && respondents.any?
   end
 
-  def started?
-    self.status.to_s == "started"
+  def pause
+    raise Exception.new("Cannot pause unstarted question #{self.inspect}") unless self.status_started?
+    self.status = :paused
+    self.save
+  end
+
+  def resume
+    raise Exception.new("Cannot resume unpaused question #{self.inspect}") unless self.status_paused?
+    
+    messages = []
+    
+    # Sends next questions to users with a current question and without the current_question_sent mark
+    respondents_to_send_next_question = self.respondents.where(:current_question_sent => false).where('current_question_id IS NOT NULL')
+    respondents_to_send_next_question.each do |r|
+      messages << message_to(r, r.current_question.message)
+    end
+
+    # Must send goodbye to confirmed users without current question (finished poll) but already confirmed (to avoid sending to those unconfirmed)
+    respondents_to_goodbye = self.respondents.where(:current_question_sent => false).where(:confirmed => true).where('current_question_id IS NULL')
+    respondents_to_goodbye.each do |r|
+      messages << message_to(r, goodbye_message)
+    end
+
+    send_messages messages
+
+    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs| 
+      rs.update_all :current_question_sent => true
+    end
+
+    self.status = :started
+    self.save
   end
 
   def as_channel_name
@@ -97,82 +121,7 @@ class Poll < ActiveRecord::Base
     CGI::parse(query)['formkey'][0]
   end
 
-  def accept_answer(response, respondent)
-    if respondent.confirmed
-      return nil if respondent.current_question_id.nil?
-      
-      current_question = questions.find(respondent.current_question_id)
-      
-      if current_question.kind_text?
-        return accept_text_answer(response, respondent)
-      elsif current_question.numeric?
-        return accept_numeric_answer(response, respondent)
-      elsif current_question.kind_options?
-        return accept_options_answer(response, respondent)
-      end
-    else
-      if response.strip.downcase == confirmation_word.strip.downcase
-        respondent.confirmed = true
-        current_question = questions.first
-        respondent.current_question_id = current_question.id
-        respondent.save!
-        return current_question.message
-      else
-        return nil
-      end
-    end
-  end
-  
   private
-
-  def accept_text_answer(response, respondent)
-    question = questions.find(respondent.current_question_id)
-
-    if response.blank?
-      INVALID_REPLY_TEXT
-    else
-      Answer.create :question => question, :respondent => respondent, :response => response
-      next_question_for respondent
-    end
-  end
-
-  def accept_numeric_answer(response, respondent)
-    question = questions.find(respondent.current_question_id)
-
-    if(question.numeric_min..question.numeric_max).cover?(response.to_i)
-      Answer.create :question => question, :respondent => respondent, :response => response.to_i
-      next_question_for respondent
-    else
-      INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
-    end
-  end
-
-  def accept_options_answer(response, respondent)
-    question = questions.find(respondent.current_question_id)
-    option = question.option_for(response)
-
-    if option.nil?
-      INVALID_REPLY_OPTIONS % [question.options.join("|")]
-    else
-      Answer.create :question => question, :respondent => respondent, :response => option
-      next_question_for respondent
-    end
-  end
-
-  def next_question_for(respondent)
-    question = questions.find(respondent.current_question_id)
-
-    next_question = question.lower_item
-    respondent.current_question_id = next_question.try(:id)
-    respondent.save!
-
-    if next_question.nil?
-      respondent.push_answers
-      goodbye_message
-    else
-      next_question.message
-    end
-  end
 
   def send_messages(messages)
     begin
@@ -188,5 +137,14 @@ class Poll < ActiveRecord::Base
     self.goodbye_message ||= "Thank you for your answers!"
   rescue
     true
+  end
+
+  def message_to(respondent, body)
+    return {
+      :from => MESSAGE_FROM,
+      :to => respondent.phone,
+      :body => body,
+      :poll_id => self.id.to_s
+    }
   end
 end

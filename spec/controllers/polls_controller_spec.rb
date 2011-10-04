@@ -102,7 +102,7 @@ describe PollsController do
   it "shoud start poll" do
     p = Poll.make :with_questions, :owner => controller.current_user
     post :start, :id => p.id
-    Poll.find(p.id).status.should eq("started")
+    Poll.find(p.id).status.should eq(:started)
   end
 
 end

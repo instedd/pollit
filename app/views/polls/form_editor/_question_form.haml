@@ -1,44 +1,47 @@
 - f = question_form
 
-.fieldform{:id => "field_form_#{index}", "data-field-index" => index}
+.feditor-form{:id => "feditor-form-#{index}", "data-field-index" => index}
   = f.hidden_field :kind
   = f.hidden_field :id
   = f.hidden_field :field_name
   = f.hidden_field :position
 
-  = f.label :title, "Question Title"
-  %p The name of this question as it is presented.
-  = f.text_field :title, :readonly => disabled, :class => 'fieldname required'
+  .field
+    = f.label :title, "Question Title"
+    %p The name of this question as it is presented.
+    = f.text_field :title, :readonly => disabled, :class => 'feditor-field-name required'
   %hr
   
-  = f.label :description
-  %p Additional help for this question.
-  = f.text_field :description, :readonly => disabled, :class => 'fieldhint'
+  .field
+    = f.label :description
+    %p Additional help for this question.
+    = f.text_field :description, :readonly => disabled, :class => 'feditor-field-hint'
   %hr
 
   - if f.object.kind_numeric?
-    = f.label :range
-    %p Range of values accepted for this question
-    .range
-      = f.text_field :numeric_min, :readonly => disabled
-      %span to
-      = f.text_field :numeric_max, :readonly => disabled
-      .clear
+    .field
+      = f.label :range
+      %p Range of values accepted for this question
+      .range
+        = f.text_field :numeric_min, :readonly => disabled
+        %span to
+        = f.text_field :numeric_max, :readonly => disabled
+        .clear
     %hr
 
   - if f.object.kind_has_options?
-    = f.label :options
-    %p Possible values for this question.
-    %br
-    .fieldoptions
-      - if f.object.options
-        - f.object.options.each do |opt|
-          = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
-    .clear
-    - unless disabled
-      .newfieldoption.require_from_group
-        = f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
-        = link_to_add_question_option f, :class => 'right addoption'
-        .clear
+    .field
+      = f.label :options
+      %p Possible values for this question.
+      .feditor-form-options
+        - if f.object.options
+          - f.object.options.each do |opt|
+            = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
+  .clear
+    -# unless disabled
+      -#.feditor-form-option-new.require_from_group
+        -#= f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
+        -#= link_to_add_question_option f, :class => 'right addoption'
+        -#.clear
 
 

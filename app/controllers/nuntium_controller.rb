@@ -7,17 +7,18 @@ class NuntiumController < ApplicationController
       poll = Poll.includes(:channel).where("channels.name = ?", params[:channel]).first
       respondent = poll.respondents.find_by_phone(params[:from])
 
-      if (respondent.nil? || poll.nil?)
+      if respondent.nil? || poll.nil?
+        render :nothing => true and return
+      end
+
+      next_message = poll.accept_answer(params[:body], respondent)
+
+      if next_message.nil?
         render :nothing => true
       else
-        next_message = poll.accept_answer(params[:body], respondent)
-
-        if next_message.nil?
-          render :nothing => true
-        else
-          render :content_type => "text/plain", :text => next_message
-        end
+        render :content_type => "text/plain", :text => next_message
       end
+
     rescue Exception => e
       render :nothing => true
     end

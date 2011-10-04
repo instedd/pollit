@@ -1,6 +1,7 @@
 #poll_form_container
   = form_for @poll, :html => {:id => 'poll_form'} do |f|
     = errors_for @poll
+    = hidden_field_tag :id, @poll.id
 
     - if @poll.editable?
       = render :partial => 'form_import', :locals => {f:f}
@@ -35,5 +36,5 @@
     %hr
 
     .actions
-      = grey_button @poll.new_record? ? "Create" : "Save"
-      = white_link_to "Cancel", @poll.new_record? ? polls_path : poll_path(@poll)
+      = grey_button (!@poll.new_record?) ? "Save" :  "Create"
+      = white_link_to "Cancel", (!@poll.new_record?) ? poll_path(@poll) : polls_path

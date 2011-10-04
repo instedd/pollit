@@ -7,7 +7,7 @@ Pollit::Application.routes.draw do
   
   resources :polls do
     collection do
-      post 'import_form'
+      match 'import_form'
     end
     member do
       post 'start'

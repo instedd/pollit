@@ -2,7 +2,7 @@
     
 - if @poll.editable?
   = hidden_field_tag :empty_questions_validation, ''
-  - if f.object.questions.empty?
+  - if (@questions || f.object.questions).empty?
     .field
       %p 
         %a{:href => '#', :onclick => '$("input[name=\'poll[form_url]\']").focus(); return false;'}

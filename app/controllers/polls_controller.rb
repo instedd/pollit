@@ -21,10 +21,9 @@ class PollsController < ApplicationController
 
   def create
     @poll = current_user.polls.build params[:poll]
-    #@poll.questions_attributes = JSON.parse params[:questions]
 
     if @poll.save
-      redirect_to :action => 'index'
+      redirect_to @poll, :notice => "Poll #{@poll.title} has been created"
     else
       render 'new'
     end
@@ -34,8 +33,15 @@ class PollsController < ApplicationController
   end
 
   def update
+    # Mark for destruction all missing questions
+    qs_attrs = params[:poll][:questions_attributes]
+    @poll.questions.each do |q|
+      q.mark_for_destruction unless qs_attrs.any?{|k,v| v['id'] == q.id.to_s}
+    end
+
+    # Update
     if @poll.update_attributes(params[:poll])
-      redirect_to :action => 'index'
+      redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
     else
       render :action => 'edit'
     end
@@ -48,11 +54,15 @@ class PollsController < ApplicationController
 
   def import_form
     begin
-      @poll = Poll.new params[:poll]
-      @poll.owner_id = current_user.id
-      @poll.questions.clear
-      @poll.parse_form
-      @poll.generate_unique_title! if params[:poll][:title].blank?
+      attrs = params[:poll].merge(:questions_attributes => {})      
+      imported = Poll.new attrs
+      imported.owner_id = current_user.id
+      imported.questions = []
+      imported.parse_form
+      imported.generate_unique_title! if params[:poll][:title].blank?
+      
+      @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
+      @questions = imported.questions
     rescue => error
       @error = error
     ensure

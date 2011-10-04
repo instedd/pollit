@@ -5,15 +5,20 @@
     %tr
       %th My Polls
       %th
-    - @polls.each do |poll|
-      %tr.link{'data-url' => poll_path(poll)}
-        %td.mactive
-          = poll.title
+    - if @polls.empty?
+      %tr.link{'data-url' => new_poll_path}
+        %td.EmptyDataPie{colspan:0}
+          You have no polls yet. Click here to create a new one.
+    - else
+      - @polls.each do |poll|
+        %tr.link{'data-url' => poll_path(poll)}
+          %td.mactive
+            = poll.title
+          %td
+            - if poll.respondents.any?
+              = progress_bar poll.questions_answered, poll.answers_expected
+            %button.farrow
+      %tr.link{'data-url' => new_poll_path}
+        %td Create Poll
         %td
-          - if poll.respondents.any?
-            = progress_bar poll.questions_answered, poll.answers_expected
-          %button.farrow
-    %tr.link{'data-url' => new_poll_path}
-      %td Create Poll
-      %td
-        %button.cadd
+          %button.cadd

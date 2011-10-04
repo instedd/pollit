@@ -1,13 +1,13 @@
 = render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'answers' }
 
 %h1
-  Answers for
-  = @poll.title
+  Answers
 
-= instedd_table_for(@poll.answers, headers=["Respondent", "Question", "Answer", "Date", "Pushed"]) do |answer|
-  %td= answer.respondent.unprefixed_phone
-  %td= answer.question.title
-  %td= answer.response
-  %td= answer.created_at.strftime("%Y-%m-%d %H:%M:%S")
-  %td= answer.respondent.pushed_status
+.tablewrapp
+  = instedd_table_for(@poll.answers, headers=["Respondent", "Question", "Answer", "Date", "Pushed"]) do |answer|
+    %td= answer.respondent.unprefixed_phone
+    %td= answer.question.title
+    %td= answer.response
+    %td= answer.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    %td= answer.respondent.pushed_status
   

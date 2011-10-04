@@ -4,7 +4,7 @@ class PollsController < ApplicationController
 
   before_filter :authenticate_user!
   
-  before_filter :only => [:show, :edit, :update, :start, :destroy, :register_channel] do
+  before_filter :except => [:index, :new, :create, :import_form] do
     load_poll(params[:id])
   end
 
@@ -47,11 +47,6 @@ class PollsController < ApplicationController
     end
   end
 
-  def start
-    @poll.start unless @poll.status_started?
-    redirect_to :action => 'show'
-  end
-
   def import_form
     begin
       attrs = params[:poll].merge(:questions_attributes => {})      
@@ -82,4 +77,29 @@ class PollsController < ApplicationController
   def register_channel
     @poll.register_channel(params[:ticket_code])
   end
+
+  def start
+    if @poll.start
+      redirect_to :back, :notice => "Poll #{@poll.title} has been started"
+    else
+      redirect_to :back, :alert => "Poll #{@poll.title} has failed to start"
+    end
+  end
+
+  def pause
+    if @poll.pause
+      redirect_to :back, :notice => "Poll #{@poll.title} has been paused"
+    else
+      redirect_to :back, :alert => "Poll #{@poll.title} has failed to pause"
+    end
+  end
+
+  def resume
+    if @poll.resume
+      redirect_to :back, :notice => "Poll #{@poll.title} has been resumed"
+    else
+      redirect_to :back, :alert => "Poll #{@poll.title} has failed to resume"
+    end
+  end
+
 end

@@ -87,12 +87,3 @@ table div {
 .box.overview.incomplete .icon, .box.overview.incomplete .respondents, .box.overview.incomplete .channel, .box.overview.incomplete .google {
   background-position: 0px -48px;
 }
-
-/* line 87, ../../app/assets/stylesheets/global.scss */
-.feditor-sidebar .range span {
-  color: #555555;
-}
-/* line 90, ../../app/assets/stylesheets/global.scss */
-.feditor-sidebar .range input[type="text"] {
-  width: 40px;
-}

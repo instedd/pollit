@@ -1,0 +1,13 @@
+- add_breadcrumb "Respondents", poll_respondents_path(@poll)
+
+= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
+
+%div.content
+  %ul.clist.w30
+    - @poll.respondents.each do |r|
+      %li= r.unprefixed_phone
+
+  %br
+  %hr
+  .actions
+    = white_link_to "Back", @poll

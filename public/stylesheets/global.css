@@ -25,48 +25,65 @@ table div {
 }
 
 /* line 22, ../../app/assets/stylesheets/global.scss */
+.box.unstartedPoll {
+  border-top: 0px !important;
+  width: 650px;
+  margin-bottom: 5px;
+}
+/* line 26, ../../app/assets/stylesheets/global.scss */
+.box.unstartedPoll .farrow {
+  margin-top: -3px;
+}
+
+/* line 31, ../../app/assets/stylesheets/global.scss */
+.box.orange {
+  background-color: #fff0bd;
+  color: #FF6600;
+}
+
+/* line 36, ../../app/assets/stylesheets/global.scss */
 .box.green {
   background: #eeffc9;
   color: #799823;
   border: 0;
 }
 
-/* line 28, ../../app/assets/stylesheets/global.scss */
+/* line 42, ../../app/assets/stylesheets/global.scss */
 .box.overview {
   display: inline-block;
   width: 190px;
   margin-right: 10px;
 }
-/* line 33, ../../app/assets/stylesheets/global.scss */
+/* line 47, ../../app/assets/stylesheets/global.scss */
 .box.overview .content {
   display: inline-block;
   width: 130px;
   vertical-align: top;
   padding-top: 5px;
 }
-/* line 40, ../../app/assets/stylesheets/global.scss */
+/* line 54, ../../app/assets/stylesheets/global.scss */
 .box.overview .icon, .box.overview .respondents, .box.overview .channel, .box.overview .google {
   display: inline-block;
   height: 48px;
   width: 48px;
 }
-/* line 46, ../../app/assets/stylesheets/global.scss */
+/* line 60, ../../app/assets/stylesheets/global.scss */
 .box.overview .respondents {
   background: url(http://theme.instedd.org/theme/images/icons/48/gradient/users.png) no-repeat;
 }
-/* line 51, ../../app/assets/stylesheets/global.scss */
+/* line 65, ../../app/assets/stylesheets/global.scss */
 .box.overview .channel {
   background: url(http://theme.instedd.org/theme/images/icons/48/gradient/channel.png) no-repeat;
 }
-/* line 56, ../../app/assets/stylesheets/global.scss */
+/* line 70, ../../app/assets/stylesheets/global.scss */
 .box.overview .google {
   background: url(http://theme.instedd.org/theme/images/icons/48/gradient/googleDocs.png) no-repeat;
 }
-/* line 62, ../../app/assets/stylesheets/global.scss */
+/* line 76, ../../app/assets/stylesheets/global.scss */
 .box.overview.incomplete .content {
   color: #FF6600;
 }
-/* line 65, ../../app/assets/stylesheets/global.scss */
+/* line 79, ../../app/assets/stylesheets/global.scss */
 .box.overview.incomplete .icon, .box.overview.incomplete .respondents, .box.overview.incomplete .channel, .box.overview.incomplete .google {
   background-position: 0px -48px;
 }

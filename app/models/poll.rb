@@ -37,7 +37,7 @@ class Poll < ActiveRecord::Base
   end
 
   def start
-    raise Exception.new("Cannot start question #{self.inspect}") unless can_be_started?
+    raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
 
     messages = []
     respondents.each do |respondent|
@@ -59,13 +59,13 @@ class Poll < ActiveRecord::Base
   end
 
   def pause
-    raise Exception.new("Cannot pause unstarted question #{self.inspect}") unless self.status_started?
+    raise Exception.new("Cannot pause unstarted poll #{self.id}") unless self.status_started?
     self.status = :paused
     self.save
   end
 
   def resume
-    raise Exception.new("Cannot resume unpaused question #{self.inspect}") unless self.status_paused?
+    raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
     
     messages = []
     

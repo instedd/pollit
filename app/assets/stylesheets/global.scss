@@ -19,6 +19,20 @@ table div {
   clear: both;
 }
 
+.box.unstartedPoll {
+  border-top: 0px !important;
+  width: 650px;  
+  margin-bottom: 5px;
+  .farrow {
+    margin-top: -3px;
+  }
+}
+
+.box.orange {
+  background-color: #fff0bd;
+  color: #FF6600;
+}
+
 .box.green { 
   background:#eeffc9; 
   color:#799823;

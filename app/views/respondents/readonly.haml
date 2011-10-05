@@ -2,10 +2,14 @@
 
 = render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
 
+%p The list of respondents cannot be modified as the poll has already started.
+
 %div.content
   %ul.clist.w30
     - @poll.respondents.each do |r|
-      %li= r.unprefixed_phone
+      %li
+        = text_field_tag 'phone.number', r.unprefixed_phone, :disabled => true
+        = button_tag "", :type => :button, :class => "clist-remove", :disabled => true
 
   %br
   %hr

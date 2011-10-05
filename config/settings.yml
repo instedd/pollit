@@ -1,5 +1,5 @@
 defaults: &defaults
-  theme_url: http://theme.instedd.org.s3.amazonaws.com/
+  theme_url: http://theme.instedd.org.s3.amazonaws.com/  
 
 development:
   <<: *defaults

@@ -1,6 +1,7 @@
 class NuntiumController < ApplicationController
+  before_filter :authenticate_nuntium_at_post
+
   def receive_at
-    # TODO: Check nuntium auth
     logger.debug "Received nuntium message: #{params.inspect}"
     
     begin
@@ -21,6 +22,14 @@ class NuntiumController < ApplicationController
 
     rescue Exception => e
       render :nothing => true
+    end
+  end
+
+  private
+
+  def authenticate_nuntium_at_post
+    authenticate_or_request_with_http_basic do |username, password|
+      Nuntium.authenticate_at_post(username, password)
     end
   end
 end

@@ -3,13 +3,19 @@ development:
   account: pollit-dev
   password: pollit
   application: pollit
+  at_post_user: 
+  at_post_pass: 
 test:
   url: http://nuntium.instedd.org
   account: 
   password:
   application:
+  at_post_user: test_user
+  at_post_pass: test_pass
 production:
   url: http://nuntium.instedd.org
   account:
   password:
   application: 
+  at_post_user: 
+  at_post_pass: 

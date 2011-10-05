@@ -19,11 +19,9 @@
   - if f.object.kind_numeric?
     %p.title Range
     %p.smalltext Range of values accepted for this question
-    .range
-      = f.text_field :numeric_min, :readonly => disabled
-      %span.smalltext to
-      = f.text_field :numeric_max, :readonly => disabled
-      .clear
+    = f.text_field :numeric_min, :readonly => disabled, :class => "w13"
+    %span.smalltext to
+    = f.text_field :numeric_max, :readonly => disabled, :class => "w13"
     %hr
 
   - if f.object.kind_has_options?

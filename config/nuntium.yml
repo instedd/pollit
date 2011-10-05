@@ -5,11 +5,11 @@ development:
   application: pollit
 test:
   url: http://nuntium.instedd.org
-  account: pollit-dev
-  password: pollit
-  application: pollit
+  account: 
+  password:
+  application:
 production:
   url: http://nuntium.instedd.org
-  account: pollit
-  password: pollit
-  application: pollit
+  account:
+  password:
+  application: 

@@ -4,7 +4,7 @@
   Answers
 
 .tablewrapp
-  = instedd_table_for @poll.answers, ["Respondent", "Question", "Answer", "Date", "Pushed"], :empty => (@poll.status_created? ? "This poll has not commenced yet; start the poll to receive answers from your respondents." : "No answers have been received yet.") do |answer|
+  = instedd_table_for @poll.answers, ["Respondent", "Question", "Answer", "Date", "Pushed"], :empty => (@poll.status_configuring? ? "This poll has not commenced yet; start the poll to receive answers from your respondents." : "No answers have been received yet.") do |answer|
     %tr
       %td= answer.respondent.unprefixed_phone
       %td= answer.question.title

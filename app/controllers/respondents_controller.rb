@@ -8,7 +8,7 @@ class RespondentsController < ApplicationController
   before_filter :load_poll
 
   def index
-    render 'readonly' unless @poll.status_created?
+    render 'readonly' unless @poll.status_configuring?
   end
 
   def batch_update

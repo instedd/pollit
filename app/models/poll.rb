@@ -20,7 +20,7 @@ class Poll < ActiveRecord::Base
     
   after_initialize :default_values
 
-  enum_attr :status, %w(^created started paused)
+  enum_attr :status, %w(^configuring started paused)
   
   include Parser
   include AcceptAnswers
@@ -51,11 +51,11 @@ class Poll < ActiveRecord::Base
   end
 
   def editable?
-    status_created?
+    status_configuring?
   end
 
   def can_be_started?
-    status_created? && channel && respondents.any?
+    status_configuring? && channel && respondents.any?
   end
 
   def pause

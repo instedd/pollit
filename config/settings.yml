@@ -1,5 +1,6 @@
 defaults: &defaults
   theme_url: http://theme.instedd.org.s3.amazonaws.com/  
+  contact_us: http://instedd.org/contact-us/
 
 development:
   <<: *defaults

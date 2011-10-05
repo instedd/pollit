@@ -1,5 +1,5 @@
-.feditor-form-option
-  = text_field_tag "#{f.object_name}[options][]", question_option, :readonly => disabled
+%li.feditor-form-option
+  = text_field_tag "#{f.object_name}[options][]", question_option, :readonly => disabled, :class => "ux-clist"
   -# unless disabled
     -# link_to_function "", "remove_field_option(this)", :class => "right removeoption"
   .clear

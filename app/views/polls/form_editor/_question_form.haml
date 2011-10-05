@@ -6,37 +6,33 @@
   = f.hidden_field :field_name
   = f.hidden_field :position
 
-  .field
-    = f.label :title, "Question Title"
-    %p The name of this question as it is presented.
-    = f.text_field :title, :readonly => disabled, :class => 'feditor-field-name required'
+  %p.title Title
+  %p.smalltext The name of this question as it is presented.
+  = f.text_field :title, :readonly => disabled, :class => 'feditor-field-name required'
   %hr
   
-  .field
-    = f.label :description
-    %p Additional help for this question.
-    = f.text_field :description, :readonly => disabled, :class => 'feditor-field-hint'
+  %p.title Description
+  %p.smalltext Additional help for this question.
+  = f.text_field :description, :readonly => disabled, :class => 'feditor-field-hint'
   %hr
 
   - if f.object.kind_numeric?
-    .field
-      = f.label :range
-      %p Range of values accepted for this question
-      .range
-        = f.text_field :numeric_min, :readonly => disabled
-        %span to
-        = f.text_field :numeric_max, :readonly => disabled
-        .clear
+    %p.title Range
+    %p.smalltext Range of values accepted for this question
+    .range
+      = f.text_field :numeric_min, :readonly => disabled
+      %span.smalltext to
+      = f.text_field :numeric_max, :readonly => disabled
+      .clear
     %hr
 
   - if f.object.kind_has_options?
-    .field
-      = f.label :options
-      %p Possible values for this question.
-      .feditor-form-options
-        - if f.object.options
-          - f.object.options.each do |opt|
-            = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
+    %p.title Options
+    %p.smalltext Possible values for this question.
+    %ul.feditor-form-options.clist.w30
+      - if f.object.options
+        - f.object.options.each do |opt|
+          = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
   .clear
     -# unless disabled
       -#.feditor-form-option-new.require_from_group

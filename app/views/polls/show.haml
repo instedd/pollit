@@ -5,7 +5,7 @@
 - if @poll.can_be_started?
   .box.plain.orange.unstartedPoll
     This poll has not been started yet
-    = link_to "Start Poll", start_poll_path(@poll), :method => :post, :class => 'farrow right'
+    = link_to "Start Poll", start_poll_path(@poll), :method => :post, :confirm => "Are you sure you want to start this poll? Once started, you may not modify its questions or add new respondents.", :class => 'farrow right'
   .clear
     
 .box.overview{:class => ('incomplete' if @poll.respondents.empty?)}  

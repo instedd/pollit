@@ -19,6 +19,8 @@
       = button_tag :type => :button, :class => :fimport do
         %b Upload it for bulk account creation
 
+%br
+
 = content_tag :div, "ng:controller" => "PhonesCtrl" do
   %ul{:class => "clist w30"}
     %li{"ng:repeat" => "phone in phones"}
@@ -30,9 +32,9 @@
         = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
   %br
   %hr
-  %br
-  = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
-  = white_link_to "Cancel", @poll
+  .actions
+    = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+    = white_link_to "Cancel", @poll
 
 :javascript
   $(document).ready(function() {

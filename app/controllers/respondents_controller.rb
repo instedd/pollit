@@ -8,7 +8,7 @@ class RespondentsController < ApplicationController
   before_filter :load_poll
 
   def index
-    redirect_to @poll if @poll.started?
+    render 'readonly' unless @poll.status_configuring?
   end
 
   def batch_update

@@ -1,0 +1,3 @@
+<% partial =  render(:partial => "channels/wizard/#{@step}") %>
+$('.user_channel').html("<%= escape_javascript(partial)%>")
+window.reinitialize();

@@ -1,0 +1,22 @@
+<%= wizard @steps, "Install" %>
+
+<div class="ChannelWizard">
+	<h1 class="orange">Go to Android Market and install Nuntium Local Gateway</h1>
+	<p class="w30 grey">
+		Use the following QR code to access the app or
+		<br /><br />
+		use the search engine with the keyword
+		<span class="box plain grey">Nuntium</span>
+	</p>
+	<br />
+	<div class="AndroidQR"></div>
+	<br />
+	<a href="market.android.com/details?id=org.instedd.geochat.lgw">market.android.com/details?id=org.instedd.geochat.lgw</a>
+	<br /><br />
+</div>
+<hr />
+
+<div class="ChannelWizardNavigation">
+	<%=back_to :a_choose_local_gateway %>
+	<%=next_to :c_a_new_android_channel %>
+</div>

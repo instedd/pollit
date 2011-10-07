@@ -10,6 +10,15 @@ class Channel < ActiveRecord::Base
   before_validation :register_nuntium_channel, :on => :create
   before_destroy :delete_nuntium_channel
 
+  def unprefixed_address
+    return nil if not address
+    address.gsub(/^sms:\/\//, '')
+  end
+
+  def last_activity
+    nuntium_info['last_activity_at'] rescue nil
+  end
+
   private
 
   def poll_not_started
@@ -34,9 +43,9 @@ class Channel < ActiveRecord::Base
       self.address = "sms://#{channel_info[:address]}"
     rescue Nuntium::Exception => e
       e.properties.each do |error|
-        self.errors.add(:ticket_code, error[1])
+        self.errors.add(:ticket_code, "invalid code")
       end
-      raise e
+      false
     end
   end
 
@@ -47,5 +56,9 @@ class Channel < ActiveRecord::Base
 
   def delete_nuntium_channel
     Nuntium.new_from_config.delete_channel(name)
+  end
+
+  def nuntium_info
+    @nuntium_info ||= Nuntium.new_from_config.channel(name)
   end
 end

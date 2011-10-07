@@ -23,3 +23,8 @@ table div {
 .clear {
   clear: both;
 }
+
+/* line 22, ../../app/assets/stylesheets/global.scss */
+.field_with_errors {
+  display: inline;
+}

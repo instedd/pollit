@@ -1,0 +1,31 @@
+<% gateway_letter = (gateway == "android") ? "a" : "b" %>
+<%= form_for :channel, :url => poll_channels_path(@poll), :html => { :class => :validate}, :remote => true do |f| %>
+
+  <%= hidden_field_tag :next_step, "c_#{gateway_letter}_new_#{gateway}_channel" %>
+  <div class="ChannelWizard">
+    <h1 class="orange">Enter the gateway code from your mobile phone</h1>
+    
+    <div class="<%=gateway.capitalize%>Screen left"></div>
+    <br />
+    <div class="GreyArrow <%=gateway.capitalize%>Arrow left"></div>
+    <br />
+    <div class="left <%=gateway.capitalize%>ChannelCreation">
+      <p class="w30">
+        Asperiores molestiae sint ipsum et quidem enim nulla.
+        Aliquid animi atque quia sed a et in.
+        Nam doloribus neque et sunt cumque.
+        Tempora animi amet ipsa.
+      </p>
+      
+      <div class="field">
+        <%= f.text_field :ticket_code, :placeholder => 'Enter gateway code', :class => "required", :size => 19 %>
+        <%= error_message_for @channel, :ticket_code %>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="ChannelWizardNavigation">
+    <%= back_to "b_#{gateway_letter}_download_#{gateway}_local_gateway" %>
+    <button type="submit" class="grey">Next</button>
+  </div>
+<% end %>

@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  layout proc {|controller| controller.request.xhr? ? false: "application" }
+  
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   rescue_from CanCan::AccessDenied do |exception|

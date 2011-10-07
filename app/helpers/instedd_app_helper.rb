@@ -18,18 +18,31 @@ module InsteddAppHelper
   end
   
   def errors_for(object, options = {})
-    if object.errors.any?
-       # TODO change on rails 3.1 to ActiveModel::Naming.param_key(object)
-      object_name = options[:as].try(:to_s) || ActiveModel::Naming.singular(object)
-          
-      content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
-        (content_tag :h2 do
-          "#{pluralize(object.errors.count, 'error')} prohibited this #{object_name.humanize} from being saved:"
-        end) \
-        + \
-        (content_tag :ul do
-          raw object.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
-        end)
+    unless object.nil?
+      if object.errors.any?
+         # TODO change on rails 3.1 to ActiveModel::Naming.param_key(object)
+        object_name = options[:as].try(:to_s) || ActiveModel::Naming.singular(object)
+            
+        content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
+          (content_tag :h2 do
+            "#{pluralize(object.errors.count, 'error')} prohibited this #{object_name.humanize} from being saved:"
+          end) \
+          + \
+          (content_tag :ul do
+            raw object.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
+          end)
+        end
+      end
+    end
+  end
+
+  def error_message_for(object, field)
+    unless object.nil?
+      if object.errors[field].any?
+        field_id = "#{object.class.to_s.downcase}_#{field.to_s}"
+        content_tag :label, :for => field_id, :class => :error do
+          object.errors[field].first.to_s
+        end
       end
     end
   end

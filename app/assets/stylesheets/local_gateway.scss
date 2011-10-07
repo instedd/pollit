@@ -1,0 +1,181 @@
+.LocalGatewayLogo {	
+ 	background: url(http://theme.instedd.org/theme/images/interface/logos/nuntiumLocalGateway.png);
+  background-repeat: no-repeat;
+  width: 107px;
+  height: 40px;
+  padding-top: 0px;
+  margin-top: 3px;
+}
+
+.LocalGatewayText {
+	padding-top: 14px;
+	font-size:12px;
+	color: #555555;
+}
+
+.LocalGatewayText > a {
+	color: black
+}
+
+.LocalGatewayArrow {
+    background: url(http://theme.instedd.org/theme/images/interface/logos/nuntiumLocalGateway.png);
+    background-repeat: no-repeat;
+    width: 6px;
+    height: 40px;
+    padding-top: 0px;
+}
+
+.LocalGatewayBox {
+	height:40px;
+	padding-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 3px;
+	border-top-width: 0px;
+	width: 620px;
+}
+
+.user_channel {
+	margin-top: 21px;
+}
+
+.LocalGatewayBox > a.button {
+	padding-left: 8px !important;
+	font-size: 14px;
+}
+
+.ChannelWizard > h1 {
+	color: #ff6600;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.ChannelWizard > p , .ChannelWizard > div, .ChannelWizard > a {
+	font-size:12px;
+	color: #555555;
+}
+
+.ChannelWizard > p {
+	margin-top: 15px !important;
+}
+
+.ChannelWizard .description {
+	margin-left: 26px;
+	padding-top: 4px;
+}
+
+
+.ChannelWizard > a.fimport {
+	color: #000000;
+}
+
+.ChannelWizard > input {
+	left-margin: 0px;
+}
+
+.ChannelWizard > label {
+	font-size: 15px;
+}
+.ChannelWizard .AndroidLogo {
+   	background: url(/assets/android.png);
+    background-repeat: no-repeat;
+    width: 37px;
+    height: 35px;
+	margin-left: 5px;
+	margin-top: -10px;
+}
+
+.ChannelWizard .DesktopLogo {
+   	background: url(/assets/pc.png);
+    background-repeat: no-repeat;
+    width: 37px;
+    height: 30px;
+	margin-left: 5px;
+	margin-top: -4px;
+}
+
+.ChannelWizard {
+	margin-top: 27px;
+	height: 430px;
+}
+
+.ChannelWizard .AndroidQR {
+   	background: url(/assets/android_local_gateway.png);
+    background-repeat: no-repeat;
+    width: 270px;
+    height: 270px;
+}
+
+.ChannelWizard .box {
+	padding: 1px 2px;
+	color: black;
+}
+
+.ChannelWizard .AndroidScreen {
+   	background: url(/assets/androidPreview.png);
+    background-repeat: no-repeat;
+    width: 254px;
+    height: 375px;
+}
+
+.ChannelWizard .GreyArrow {
+   	background: url(/assets/arrow.png);
+    background-repeat: no-repeat;
+    width: 46px;
+    height: 17px;
+}
+
+.ChannelWizard .DesktopScreen {
+   	background: url(/assets/pcPreview.png);
+    background-repeat: no-repeat;
+    width: 258px;
+    height: 374px;
+}
+
+.ChannelWizard .AndroidArrow {
+	margin-top: 115px;
+}
+
+.ChannelWizard .DesktopArrow {
+	margin-top: 254px;
+}
+
+.ChannelWizard .DesktopChannelCreation {
+	margin-top: 160px;
+	margin-left: 5px;
+}
+
+.ChannelWizard .AndroidChannelCreation {
+	margin-left: 5px;
+	margin-top: 21px;
+}
+.ChannelWizardNavigation {
+	margin-top: 16px;
+	margin-bottom: 7px;
+}
+
+.ChannelWizard .ChannelConfigured{
+   	background: url(/assets/finish.png);
+    background-repeat: no-repeat;
+    width: 461px;
+    height: 302px;
+}
+
+.CurrentChannelBox {
+	height: 44px;
+	margin-bottom: 20px;
+	height: 40px;
+	padding-top: 4px;
+	padding-left: 9px;
+	padding-right: 4px;
+	padding-bottom: 0px;
+}
+
+.CurrentChannelBox > div > p{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.CurrentChannelBox .black{
+	color:black;
+}

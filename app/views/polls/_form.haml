@@ -1,5 +1,5 @@
 #poll_form_container
-  = form_for @poll, :html => {:id => 'poll_form'} do |f|
+  = form_for @poll, :html => {:id => 'poll_form', :class => 'validate'} do |f|
     = errors_for @poll
 
     = render :partial => 'form_import', :locals => {f:f}

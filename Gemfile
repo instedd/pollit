@@ -27,12 +27,12 @@ group :assets do
 end
 
 gem 'rspec-rails', :group => [:test, :development]
+gem 'faker', :group => [:test, :development]
 
 group :test do
   # Pretty printed test output
   gem 'turn', :require => false
   gem 'machinist'
-  gem 'faker'
   gem 'mocha'
   gem 'webmock'
   gem 'ci_reporter'

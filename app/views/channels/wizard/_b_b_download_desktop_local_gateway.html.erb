@@ -1,0 +1,16 @@
+<%= wizard @steps, "Install" %>
+
+<div class="ChannelWizard">
+	<h1 class="orange">Donwload and install Nuntium Local Gateway</h1>
+
+	<p class="w30"><%= Faker::Lorem.paragraph %></p>
+	<p class="w30"><%= Faker::Lorem.paragraph %></p>
+	<a href="http://instedd.org/technologies/nuntium/" class="fimport">Download Nuntium Local Gateway</a>
+</div>
+
+<hr />
+
+<div class="ChannelWizardNavigation">
+	<%= back_to :a_choose_local_gateway %>
+	<%= next_to :c_b_new_desktop_channel %>
+</div>

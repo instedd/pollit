@@ -1,0 +1,11 @@
+<%= wizard @steps, "Finish" %>
+
+<div class="ChannelWizard">
+	<h1>Congratulations! you have successfully created a channel</h1>
+	<p class="w30"><%= Faker::Lorem.paragraph %></p>
+	<div class="ChannelConfigured"></div>
+</div>
+<hr>
+<div class="ChannelWizardNavigation">
+	<%= white_link_to 'Finish', poll_new_channel_path(@poll) %>
+</div>

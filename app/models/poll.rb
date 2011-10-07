@@ -2,7 +2,7 @@ class Poll < ActiveRecord::Base
   MESSAGE_FROM = "sms://0"
 
   belongs_to :owner, :class_name => User.name
-  has_many :questions, :order => "position"
+  has_many :questions, :order => "position", :dependent => :destroy
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
   has_one :channel, :dependent => :destroy
@@ -20,7 +20,7 @@ class Poll < ActiveRecord::Base
     
   after_initialize :default_values
 
-  enum_attr :status, %w(^created started paused)
+  enum_attr :status, %w(^configuring started paused)
   
   include Parser
   include AcceptAnswers
@@ -37,7 +37,7 @@ class Poll < ActiveRecord::Base
   end
 
   def start
-    raise Exception.new("Cannot start question #{self.inspect}") unless can_be_started?
+    raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
 
     messages = []
     respondents.each do |respondent|
@@ -50,18 +50,22 @@ class Poll < ActiveRecord::Base
     save
   end
 
+  def editable?
+    status_configuring?
+  end
+
   def can_be_started?
-    status_created? && channel && respondents.any?
+    status_configuring? && channel && respondents.any?
   end
 
   def pause
-    raise Exception.new("Cannot pause unstarted question #{self.inspect}") unless self.status_started?
+    raise Exception.new("Cannot pause unstarted poll #{self.id}") unless self.status_started?
     self.status = :paused
     self.save
   end
 
   def resume
-    raise Exception.new("Cannot resume unpaused question #{self.inspect}") unless self.status_paused?
+    raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
     
     messages = []
     

@@ -1,9 +1,11 @@
+- questions = @questions || f.object.questions
+
 #form-editor
-  .feditor-list
-    = render :partial => 'polls/form_editor/question', :collection => f.object.questions, :locals => {:disabled => disabled, :question_count => f.object.questions.size}
+  .feditor-list.left
+    = render :partial => 'polls/form_editor/question', :collection => questions, :locals => {:disabled => disabled, :question_count => questions.size}
             
-  .feditor-sidebar{:class => ("nodisplay" if f.object.questions.empty?)}
-    - f.object.questions.each_with_index do |question, index|
+  .feditor-sidebar.box.right.w30{:class => ("nodisplay" if questions.empty?)}
+    - questions.each_with_index do |question, index|
       = f.fields_for :questions, question, :child_index => index do |question_builder|
         = render :partial => 'polls/form_editor/question_form', :object => question_builder, :locals => {:index => index, :disabled => disabled}
             

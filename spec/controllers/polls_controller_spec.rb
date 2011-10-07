@@ -20,7 +20,7 @@ describe PollsController do
   it "should create new poll" do
     post :create, :poll => Poll.plan
     Poll.all.should have(1).poll
-    response.should redirect_to(:action => 'index')
+    response.should redirect_to(:action => 'show', :id => Poll.first.id)
   end
 
   it "should not create new poll if invalid" do
@@ -103,6 +103,27 @@ describe PollsController do
     p = Poll.make :with_questions, :owner => controller.current_user
     post :start, :id => p.id
     Poll.find(p.id).status.should eq(:started)
+  end
+
+  it "shoud pause poll" do
+    p = Poll.make :with_questions, :owner => controller.current_user
+    p.start
+    post :pause, :id => p.id
+    Poll.find(p.id).status.should eq(:paused)
+  end
+
+  it "shoud resume poll" do
+    p = Poll.make :with_questions, :owner => controller.current_user
+    p.start
+    p.pause
+    post :resume, :id => p.id
+    Poll.find(p.id).status.should eq(:started)
+  end
+
+  it "should destroy poll" do
+    p = Poll.make :with_questions, :owner => controller.current_user
+    delete :destroy, :id => p.id
+    Poll.find_by_id(p.id).should be_nil
   end
 
 end

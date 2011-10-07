@@ -7,22 +7,26 @@ Pollit::Application.routes.draw do
   
   resources :polls do
     collection do
-      post 'import_form'
+      match 'import_form'
     end
     member do
       post 'start'
       post 'register_channel/:ticket_code', :action => 'register_channel'
+      post 'pause'
+      post 'resume'
     end
     
     resources :channels, :path => :channel, :only => [:create, :destroy]    
-    get 'channel/(/:step)' => 'channels#new', :as => 'new_channel'
     
+    get 'channel/(/:step)' => 'channels#new', :as => 'new_channel'
+
     resources :respondents, :only => [:index] do
       collection do
         post 'batch_update'
         post 'import_csv'
       end
     end
+
     resources :answers, :only => [:index]
   end
 

@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   layout proc {|controller| controller.request.xhr? ? false: "application" }
   
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+  
+  rescue_from ActionController::RedirectBackError do
+    redirect_to root_url
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -11,23 +15,14 @@ class ApplicationController < ActionController::Base
 
   include BreadcrumbsOnRails::ControllerMixin
 
-  def self.before_filter_load_poll(opts = {})
-    raise "Foo"
-    before_filter opts do
-      @poll = Poll.find params[:poll_id]
-      
-      authorize! 
-      add_breadcrumb "Polls", :polls_path
-      add_breadcrumb @poll.title, poll_path(@poll)
-    end
-  end
-
   private
 
-  def load_poll(poll_id=nil)
+  def load_poll(poll_id=nil, attributes=nil)
     @poll = Poll.find (poll_id || params[:poll_id])
     authorize! :manage, @poll
     add_breadcrumb @poll.title, poll_path(@poll)
+    @poll.attributes = attributes if attributes
+    @poll
   end
   
   def record_not_found

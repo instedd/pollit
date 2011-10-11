@@ -1,7 +1,9 @@
 Pollit::Application.routes.draw do
   get "answers/index"
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations' } do
+    get 'users/registrations/success', :to => 'users/registrations#success' 
+  end
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   

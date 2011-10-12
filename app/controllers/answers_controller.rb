@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
 
   def index
     add_breadcrumb "Answers", poll_answers_path(@poll)
+    @answers = @poll.answers.page(params[:page])
   end
 
 end

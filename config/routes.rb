@@ -24,7 +24,11 @@ Pollit::Application.routes.draw do
         post 'import_csv'
       end
     end
-    resources :answers, :only => [:index]
+    resources :answers, :only => [:index] do
+      collection do
+        get 'page/:page', :action => :index
+      end
+    end
   end
 
   root :to => "home#index"

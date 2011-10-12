@@ -1,7 +1,9 @@
 Pollit::Application.routes.draw do
   get "answers/index"
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations' } do
+    get 'users/registrations/success', :to => 'users/registrations#success' 
+  end
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   
@@ -27,10 +29,14 @@ Pollit::Application.routes.draw do
       end
     end
 
-    resources :answers, :only => [:index]
+    resources :answers, :only => [:index] do
+      collection do
+        get 'page/:page', :action => :index
+      end
+    end
   end
 
-   match 'tour/:page_number' => 'tour#show', :as => :tour
+  match 'tour/:page_number' => 'tour#show', :as => :tour
 
   root :to => "home#index"
 end

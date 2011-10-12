@@ -1,0 +1,10 @@
+<% if params[:wizard] %>
+  <% if @dotted_steps %>
+    <%= dotted_wizard @dotted_steps, @wizard_step if @wizard_step %>
+  <% else %>
+    <%= wizard @steps, @wizard_step %>
+  <% end %>
+<br />
+<% end %>
+
+<%= yield %>

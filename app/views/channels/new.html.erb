@@ -1,9 +1,13 @@
 <% add_breadcrumb "Add channel", poll_new_channel_path(@poll.id) %>
 
+<%= hidden_field_tag "referer", params[:referer], :id => :referer %>
+
 <%= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'channel' } %>
 
-<% if @step %>
-  <%= render :partial => "channels/wizard/#{@step}" %>
-<% else %>
-  <%= render :partial => "detail" %>
-<% end %>
+<div class="user_channel">
+  <% if @step %>
+    <%= render :partial => "channels/wizard/#{@step}" %>
+  <% else %>
+    <%= render :partial => "detail" %>
+  <% end %>
+</div>

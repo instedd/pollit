@@ -3,6 +3,7 @@ class PollsController < ApplicationController
   add_breadcrumb "Polls", :polls_path
 
   before_filter :authenticate_user!
+  before_filter :set_steps
   
   before_filter :except => [:index, :new, :create, :import_form] do
     load_poll(params[:id])
@@ -17,19 +18,24 @@ class PollsController < ApplicationController
 
   def new
     @poll = Poll.new
+    params[:wizard] = true
+    render :layout => "wizard"
   end
 
   def create
     @poll = current_user.polls.build params[:poll]
 
     if @poll.save
-      redirect_to @poll, :notice => "Poll #{@poll.title} has been created"
+      redirect_to poll_new_channel_path(@poll, "a_choose_local_gateway", :wizard => 1)
     else
+      params[:wizard] = true
       render 'new'
     end
   end
 
   def edit
+    
+    render :layout => "wizard"
   end
 
   def update
@@ -41,7 +47,11 @@ class PollsController < ApplicationController
 
     # Update
     if @poll.update_attributes(params[:poll])
-      redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
+      if params[:wizard]
+        redirect_to poll_new_channel_path(@poll, "a_choose_local_gateway", :wizard => 1)
+      else
+        redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
+      end
     else
       render :action => 'edit'
     end
@@ -102,4 +112,10 @@ class PollsController < ApplicationController
     end
   end
 
+  private
+
+  def set_steps
+    @steps = ['Properties','Channel','Respondents','Finish']
+    @wizard_step = 'Properties'
+  end
 end

@@ -1,3 +1,10 @@
+- if params[:wizard]
+  %h1.green
+    New Poll successfully created
+  = wizard ["Properties", "Channel", "Respondents", "Finish"], "Finish"
+  %br
+
+
 = render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'overview' }
 
 %h1 Properties

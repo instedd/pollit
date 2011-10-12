@@ -1,6 +1,10 @@
 - add_breadcrumb "Respondents", poll_respondents_path(@poll)
 
-= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
+- if params[:wizard]
+  = wizard ["Properties", "Channel", "Respondents", "Finish"], "Respondents"
+  %br
+- else
+  = render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
 
 - content_for :head do
   = angular_js_include_tag
@@ -33,8 +37,12 @@
   %br
   %hr
   .actions
-    = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
-    = white_link_to "Cancel", @poll
+    - if params[:wizard]
+      = white_link_to "Back", step_path("a_choose_local_gateway")
+      = grey_button "Next", :type => :button, "ng:click" => "nextStep()"
+    - else
+      = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+      = white_link_to "Cancel", @poll
 
 :javascript
   $(document).ready(function() {
@@ -101,4 +109,9 @@
       $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
       $.status.showNotice('Phones saved succesfully!');
     };
+
+    scope.nextStep = function() {
+      scope.saveChanges();
+      location.href = '#{poll_path(@poll, :wizard => 1)}';
+    }
   }

@@ -45,7 +45,7 @@
         = breadcrumb
               
       #container
-        = yield
+        = yield(:content).presence or yield
 
       #footer-span
         #footer

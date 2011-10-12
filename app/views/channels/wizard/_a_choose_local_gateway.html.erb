@@ -7,7 +7,9 @@
 	});
 </script>
 
-<%= wizard @steps, "Choose" %>
+<% unless params[:wizard] %>
+	<%= wizard @steps, @wizard_step %>
+<% end %>
 
 <div class="ChannelWizard">
 	<h1>Choose your type of mobile phone</h1>

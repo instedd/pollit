@@ -1,7 +1,9 @@
-<%= wizard @steps, "Install" %>
+<% unless params[:wizard] %>
+  <%= wizard @steps, @wizard_step %>
+<% end %>
 
 <div class="ChannelWizard">
-	<h1 class="orange">Donwload and install Nuntium Local Gateway</h1>
+	<h1 class="orange">Download and install Nuntium Local Gateway</h1>
 
 	<p class="w30"><%= Faker::Lorem.paragraph %></p>
 	<p class="w30"><%= Faker::Lorem.paragraph %></p>

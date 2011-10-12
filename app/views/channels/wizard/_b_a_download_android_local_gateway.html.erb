@@ -1,4 +1,6 @@
-<%= wizard @steps, "Install" %>
+<% unless params[:wizard] %>
+	<%= wizard @steps, @wizard_step %>
+<% end %>
 
 <div class="ChannelWizard">
 	<h1 class="orange">Go to Android Market and install Nuntium Local Gateway</h1>

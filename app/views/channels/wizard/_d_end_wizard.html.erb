@@ -1,4 +1,6 @@
-<%= wizard @steps, "Finish" %>
+<% unless params[:wizard] %>
+  <%= wizard @steps, @wizard_step %>
+<% end %>
 
 <div class="ChannelWizard">
 	<h1>Congratulations! you have successfully created a channel</h1>

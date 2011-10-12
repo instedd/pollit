@@ -18,7 +18,7 @@ Pollit::Application.routes.draw do
     
     resources :channels, :path => :channel, :only => [:create, :destroy]    
     
-    get 'channel/(/:step)' => 'channels#new', :as => 'new_channel'
+    get 'channel(/:step)' => 'channels#new', :as => 'new_channel'
 
     resources :respondents, :only => [:index] do
       collection do

@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
 
   include BreadcrumbsOnRails::ControllerMixin
 
+  layout proc { |controller| controller.request.xhr? ? false : "application" }
+
   private
 
   def load_poll(poll_id=nil, attributes=nil)

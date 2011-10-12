@@ -1,4 +1,13 @@
 %p
-  Welcome #{@resource.email}!
-%p You can confirm your account through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+  Hello #{@resource.email},
+%p 
+  You are almost ready to start using Pollit! Please click on 
+  = link_to 'this link', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+  to confirm that this user account really does belong to you.
+%p
+  If the above does not work, please copy and paste the following URL on your browser: 
+  = confirmation_url(@resource, :confirmation_token => @resource.confirmation_token).html_safe
+%p
+  Thanks!
+%p
+  The Pollit team

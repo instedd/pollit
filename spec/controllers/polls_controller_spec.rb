@@ -38,7 +38,7 @@ describe PollsController do
   it "should import poll form" do
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
-    post :import_form, :poll => Poll.plan(:title => "Manual title", :description => "Manual description", :form_url => "http://#{url}", :questions => [])
+    post :import_form, :poll => Poll.plan(:title => "Manual title", :description => "Manual description", :form_url => "http://#{url}", :questions => []), :wizard => true
 
     response.should be_success
     assigns(:poll).should have(6).questions
@@ -49,7 +49,7 @@ describe PollsController do
   it "should get title and description when importing poll form if were empty" do
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
-    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
+    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => []), :wizard => true
 
     response.should be_success
     assigns(:poll).should have(6).questions
@@ -62,7 +62,7 @@ describe PollsController do
 
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
-    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
+    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => []), :wizard => true
 
     response.should be_success  
     assigns(:poll).should have(6).questions
@@ -77,7 +77,7 @@ describe PollsController do
 
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
-    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => [])
+    post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => []), :wizard => true
 
     response.should be_success
     assigns(:poll).should have(6).questions

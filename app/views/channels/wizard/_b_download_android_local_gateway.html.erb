@@ -21,5 +21,5 @@
 <div class="ChannelWizardNavigation actions">
 	<%=back_to :a_choose_local_gateway %>
 	<%=next_to :c_new_android_channel %>
-	<%= link_to "Skip this step", poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" %>
+	<%= link_to "Skip this step", poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" if wizard? %>
 </div>

@@ -37,6 +37,7 @@
     - if wizard?
       = white_link_to "Back", poll_channel_path(@poll, :wizard => true)
       = grey_button "Next", :type => :button, "ng:click" => "nextStep()"
+      = link_to "Skip this step", poll_path(@poll, :wizard => true), :class => "wizard-skip"
     - else
       = grey_button "Save", :type => :button, "ng:click" => "saveChanges(true)"
       = white_link_to "Cancel", @poll

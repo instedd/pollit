@@ -105,3 +105,8 @@ label.placeholder {
 .box.overview.incomplete .icon, .box.overview.incomplete .respondents, .box.overview.incomplete .channel, .box.overview.incomplete .google {
   background-position: 0px -48px;
 }
+
+/* line 102, ../../app/assets/stylesheets/global.scss */
+.bottom-actions.registration {
+  margin-top: 20px;
+}

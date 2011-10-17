@@ -18,7 +18,7 @@ Pollit::Application.routes.draw do
       post 'resume'
     end
     
-    resources :channels, :path => :channel, :only => [:create, :destroy]    
+    resources :channels, :path => :channel, :only => [:new, :create, :destroy]    
     
     get 'channel(/:step)' => 'channels#new', :as => 'new_channel'
 

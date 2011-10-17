@@ -1,9 +1,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('input[name=localGateway]').click(function () {
-			$('#next').attr('data-remote', 'true')
-			$('#next').attr('href', $(this).data('url'));
-		});
+			$('#next').removeAttr('onclick').removeAttr('disabled').attr('data-remote', 'true').attr('href', $(this).data('url'));
+		}).filter(':checked').each(function() { $(this).click(); });
 	});
 </script>
 
@@ -18,14 +17,15 @@
 	<div class="left AndroidLogo"></div>
 	<%= label_tag :androidLocalGateway, "Android mobile phone" , :class => "left" %>
 	<p class="w30 clear description">
-		If you have an Android powered mobile phone, you don't need a computer to set up your schedules. Just download the application, enter your text messages, and set your delivery schedule, Remindem handles the rest.
+		If you have an Android powered mobile phone, you don't need a computer to set up your gateway. Just download the application and follow the configuration steps, and the phone will be used for sending questions and receiving answers.
 	</p>
+	
 	<!-- Desktop Local Gateway -->
 	<%= radio_button_tag :localGateway, :desktop, checked=false, :id => :desktopLocalGateway, 'data-url' => step_path(:b_b_download_desktop_local_gateway), :class => :left %>
 	<div class="left DesktopLogo"></div>
 	<%= label_tag :desktopLocalGateway, "Other mobile phone", :class => "left" %>
 	<p class="w30 clear description">
-		If you use another type of mobile phone all you need to do is plug your phone into your computer and bridge the gap between your text messages and the internet application that sends them out.
+		If you use another type of mobile phone all you need to do is plug your phone into your computer, download the client, and it will be used for sending and receiving messages.
 	</p>
 </div>
 
@@ -33,5 +33,5 @@
 
 <div class="ChannelWizardNavigation">
 	<%= back_to_start %>
-	<%= grey_link_to 'Next', '#', :id => "next" %>
+	<%= grey_link_to 'Next', '#', :id => "next", :disabled => true, :onclick => 'return false;' %>
 </div>

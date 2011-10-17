@@ -1,0 +1,10 @@
+- unless wizard?
+  = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'channel' }
+  - add_breadcrumb "Add channel", poll_new_channel_path(@poll.id) unless wizard?
+
+= hidden_field_tag "referer", params[:referer], :id => :referer
+.user_channel
+  - if @step && wizard?
+    = render :partial => "channels/wizard/#{@step}", :layout => "channels/wizard/layout"
+  - else
+    = render :partial => "detail"

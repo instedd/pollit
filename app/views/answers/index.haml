@@ -1,4 +1,4 @@
-= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'answers' }
+= render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'answers' }
 
 %h1 Answers
 = render :partial => 'answers/list'

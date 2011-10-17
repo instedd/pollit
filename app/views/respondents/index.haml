@@ -1,10 +1,6 @@
-- add_breadcrumb "Respondents", poll_respondents_path(@poll)
-
-- if params[:wizard]
-  = wizard ["Properties", "Channel", "Respondents", "Finish"], "Respondents"
-  %br
-- else
-  = render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
+- unless wizard?
+  - add_breadcrumb "Respondents", poll_respondents_path(@poll)
+  = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'respondents' }
 
 - content_for :head do
   = angular_js_include_tag

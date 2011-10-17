@@ -5,9 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_steps
 
-  layout proc { |controller| 
-    controller.request.xhr? ? false : "application" 
-  }
+  layout :set_layout
   
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   
@@ -21,13 +19,17 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def set_layout
+    request.xhr? ? false : "application"
+  end
+
   def wizard?
     params[:wizard]
   end
 
   def set_steps
     @steps = ['Properties','Channel','Respondents','Finish']
-    @wizard_step = 'Properties'
+    @wizard_step ||= 'Properties'
   end
 
   private

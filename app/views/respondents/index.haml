@@ -32,12 +32,13 @@
         = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
   %br
   %hr
+  
   .actions
-    - if params[:wizard]
-      = white_link_to "Back", step_path("a_choose_local_gateway")
+    - if wizard?
+      = white_link_to "Back", poll_channel_path(@poll, :wizard => true)
       = grey_button "Next", :type => :button, "ng:click" => "nextStep()"
     - else
-      = grey_button "Save", :type => :button, "ng:click" => "saveChanges()"
+      = grey_button "Save", :type => :button, "ng:click" => "saveChanges(true)"
       = white_link_to "Cancel", @poll
 
 :javascript
@@ -107,8 +108,15 @@
       $.status.showNotice('Phones saved succesfully!');
     };
 
+    scope.saveChanges = function(showNotice) {
+      scope.removeEmptyPhones();
+      var phones = _.map(scope.phones, function(phone) { return phone.number });
+      $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
+      if (showNotice) $.status.showNotice('Phones saved succesfully!');
+    };
+
     scope.nextStep = function() {
-      scope.saveChanges();
-      location.href = '#{poll_path(@poll, :wizard => 1)}';
+      scope.saveChanges(false);
+      location.href = '#{poll_path(@poll, :wizard => true)}';
     }
   }

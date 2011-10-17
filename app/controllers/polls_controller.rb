@@ -18,7 +18,7 @@ class PollsController < ApplicationController
 
   def new
     @poll = Poll.new
-    render_wizard('new')
+    params[:wizard] = true
   end
 
   def create
@@ -27,12 +27,11 @@ class PollsController < ApplicationController
     if @poll.save
       redirect_to new_poll_channel_path(@poll, :wizard => true)
     else
-      render_wizard('new')
+      render 'new'
     end
   end
 
   def edit
-    render :layout => "wizard"
   end
 
   def update
@@ -45,7 +44,7 @@ class PollsController < ApplicationController
     # Update
     if @poll.update_attributes(params[:poll])
       if params[:wizard]
-        redirect_to new_poll_channel_path(@poll, :wizard => 1)
+        redirect_to poll_channel_path(@poll, :wizard => true)
       else
         redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
       end
@@ -109,11 +108,14 @@ class PollsController < ApplicationController
     end
   end
 
-  private
+  protected
 
-  def render_wizard(page)
-    params[:wizard] = true
-    render page, :layout => 'wizard'
+  def set_layout
+    if !request.xhr? && [:new, :create, :edit, :update].include?(params[:action].to_sym)
+      'wizard'
+    else
+      super
+    end
   end
-  
+
 end

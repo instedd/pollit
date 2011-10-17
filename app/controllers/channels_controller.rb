@@ -5,8 +5,9 @@ class ChannelsController < ApplicationController
   before_filter :load_poll
 
   def show
-    redirect_to 'new' unless @poll.channel
+    redirect_to :action => 'new', :wizard => params[:wizard] unless @poll.channel
     @channel = @poll.channel
+    render :layout => 'wizard' if params[:wizard]
   end
 
   def new
@@ -40,6 +41,11 @@ class ChannelsController < ApplicationController
   protected
 
   def set_steps
+    if params[:action].to_sym == :show
+      @wizard_step = "Channel"
+      return super
+    end
+
     @steps = ["Choose", "Install", "Connect", "Finish"]
     @dotted_steps = ["Properties", "Choose", "Install", "Connect", "Respondents"]
     @wizard_step = 'Choose'

@@ -1,7 +1,9 @@
-- add_breadcrumb "Channel", poll_channel_path(@poll.id)
-= render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'channel' }
+- unless wizard?
+  - add_breadcrumb "Channel", poll_channel_path(@poll.id)
+  = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'channel' }
 
 %h1 Channel
+
 %div{:style => "margin-top:-10px;margin-bottom:15px;"}
   A channel created on Nuntium Local Gateway enables you to send polls from your mobile phone
 - if @poll.channel
@@ -11,11 +13,19 @@
       %p.grey
         Bidirectional (#{@channel.unprefixed_address})
         \#{", last activity #{time_ago_in_words @poll.channel.last_activity} ago" if @channel.last_activity}
-    = link_to '', poll_channel_path(@poll, @poll.channel), :method => :delete, :class => 'icon fdelete right', :confirm => "Are you sure you want to delete this channel?"
+    = link_to_unless wizard?, '', poll_channel_path(@poll), :method => :delete, :class => 'icon fdelete right', :confirm => "Are you sure you want to delete this channel?"
+
 .LocalGatewayBox.box
   .LocalGatewayLogo.left
   .LocalGatewayText.left
     will help you to send polls from your mobile phone,
     \#{link_to 'learn More', tour_path(1)}.
   .LocalGatewayArrow.left
-  = grey_link_to 'Change channel', new_poll_channel_path(@poll)
+  = grey_link_to 'Change channel', new_poll_channel_path(@poll, :wizard => wizard?)
+
+- if wizard?
+  %br
+  %hr
+  .actions
+    = white_link_to 'Back', edit_poll_path(@poll, :wizard => true)
+    = grey_link_to "Next", poll_respondents_path(@poll, :wizard => true)

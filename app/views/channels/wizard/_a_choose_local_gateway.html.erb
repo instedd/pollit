@@ -34,5 +34,5 @@
 <div class="ChannelWizardNavigation actions">
 	<%= back_to_start %>
 	<%= grey_link_to 'Next', '#', :id => "next", :disabled => true, :onclick => 'return false;' %>
-	<%= link_to "Skip this step", poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" %>
+	<%= link_to "Skip this step", poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" if wizard? %>
 </div>

@@ -37,9 +37,10 @@
     %hr
 
     .actions
+      - back_path = @poll.new_record? ? polls_path : poll_path(@poll)
       - if wizard?
-        = white_link_to "Back", @poll.new_record? ? polls_path : poll_path(@poll)
+        = white_link_to "Back", back_path
         = grey_button "Next"
       - else
         = grey_button "Save"
-        = white_link_to "Cancel", poll_path(@poll)
+        = white_link_to "Cancel", back_path

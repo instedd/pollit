@@ -18,23 +18,20 @@ class PollsController < ApplicationController
 
   def new
     @poll = Poll.new
-    params[:wizard] = true
-    render :layout => "wizard"
+    render_wizard('new')
   end
 
   def create
     @poll = current_user.polls.build params[:poll]
 
     if @poll.save
-      redirect_to poll_new_channel_path(@poll, "a_choose_local_gateway", :wizard => 1)
+      redirect_to poll_new_channel_path(@poll, :wizard => true)
     else
-      params[:wizard] = true
-      render 'new'
+      render_wizard('new')
     end
   end
 
   def edit
-    
     render :layout => "wizard"
   end
 
@@ -48,7 +45,7 @@ class PollsController < ApplicationController
     # Update
     if @poll.update_attributes(params[:poll])
       if params[:wizard]
-        redirect_to poll_new_channel_path(@poll, "a_choose_local_gateway", :wizard => 1)
+        redirect_to poll_new_channel_path(@poll, :wizard => 1)
       else
         redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
       end
@@ -114,8 +111,9 @@ class PollsController < ApplicationController
 
   private
 
-  def set_steps
-    @steps = ['Properties','Channel','Respondents','Finish']
-    @wizard_step = 'Properties'
+  def render_wizard(page)
+    params[:wizard] = true
+    render page, :layout => 'wizard'
   end
+  
 end

@@ -3,13 +3,10 @@ class ChannelsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :load_poll
-  before_filter :set_steps
 
   def new
-    @step = params[:step]
     @channel = @poll.channel
-    set_current_step if @step
-    render :layout => "wizard" unless request.xhr?
+    set_current_step(params[:step] || "a_choose_local_gateway")
   end
 
   def create
@@ -18,13 +15,15 @@ class ChannelsController < ApplicationController
 
     if @channel.valid?
       if params[:wizard]
-        redirect_to poll_respondents_path(@poll, :wizard => 1)
+        redirect_to poll_respondents_path(@poll, :wizard => true)
+      elsif request.xhr?
+        set_current_step("d_end_wizard")
+        render 'new'
       else
-        redirect_to poll_new_channel_path(@poll, "d_end_wizard", :wizard => 1)
+        redirect_to poll_new_channel_path(@poll, "d_end_wizard")
       end
     else
-      @step = params[:next_step]
-      set_current_step
+      set_current_step(params[:next_step])
       render "new"
     end
   end
@@ -34,17 +33,19 @@ class ChannelsController < ApplicationController
     redirect_to poll_new_channel_path(@poll)
   end
 
-  private
+  protected
 
   def set_steps
     @steps = ["Choose", "Install", "Connect", "Finish"]
     @dotted_steps = ["Properties", "Choose", "Install", "Connect", "Respondents"]
+    @wizard_step = 'Choose'
   end
 
-  def set_current_step
-    { 
-      "a" => "Choose", "b" => "Install", "c" => "Connect", "d" => "Finish"
-    }.each_pair do |k,v|
+  private
+
+  def set_current_step(step)
+    @step = step
+    {"a" => "Choose", "b" => "Install", "c" => "Connect", "d" => "Finish"}.each_pair do |k,v|
       @wizard_step = v if @step.start_with?(k)
     end
   end

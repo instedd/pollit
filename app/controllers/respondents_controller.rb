@@ -9,13 +9,15 @@ class RespondentsController < ApplicationController
 
   def index
     render 'readonly' unless @poll.status_configuring?
+    if wizard?
+      @wizard_step = "Respondents"
+      render :layout => 'wizard'
+    end
   end
 
   def batch_update
     return if @poll.started?
-
     update_phone_list(params[:phones])
-
     head :ok
   end
 

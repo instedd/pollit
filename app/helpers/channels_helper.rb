@@ -11,7 +11,7 @@ module ChannelsHelper
 
   def back_to_start
     if params[:wizard]
-      white_link_to 'Back', edit_poll_path(@poll)
+      white_link_to 'Back', edit_poll_path(@poll, :wizard => true)
     else
       white_link_to 'Back', step_path
     end
@@ -19,7 +19,7 @@ module ChannelsHelper
 
   def step_path(step=nil)
     if params[:wizard]
-      poll_new_channel_path(@poll, step, :wizard => 1)
+      poll_new_channel_path(@poll, step, :wizard => true)
     else
       poll_new_channel_path(@poll, step)
     end

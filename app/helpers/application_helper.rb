@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def wizard?
+    params[:wizard]
+  end
+
   def angular_js_include_tag
     raw(content_tag(:script, nil, {
       "ng:autobind" => "", 

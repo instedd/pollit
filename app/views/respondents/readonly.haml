@@ -1,6 +1,6 @@
 - add_breadcrumb "Respondents", poll_respondents_path(@poll)
 
-= render :partial => 'shared/form_header', :locals => { :poll => @poll, :active_tab => 'respondents' }
+= render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'respondents' }
 
 %p The list of respondents cannot be modified as the poll has already started.
 

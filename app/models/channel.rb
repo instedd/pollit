@@ -55,7 +55,11 @@ class Channel < ActiveRecord::Base
   end
 
   def delete_nuntium_channel
-    Nuntium.new_from_config.delete_channel(name)
+    begin
+      Nuntium.new_from_config.delete_channel(name)
+    rescue Nuntium::Exception => e
+      logger.warn("Error deleting nuntium channel #{name}: #{e}")
+    end
   end
 
   def nuntium_info

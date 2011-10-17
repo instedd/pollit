@@ -2,7 +2,7 @@
   = form_for @poll, :html => {:id => 'poll_form', :class => 'validate'} do |f|
     = errors_for @poll
     = hidden_field_tag :id, @poll.id
-    = hidden_field_tag :wizard, 1 if params[:wizard]
+    = hidden_field_tag :wizard, true if wizard?
 
     - if @poll.editable?
       = render :partial => 'form_import', :locals => {f:f}
@@ -37,7 +37,8 @@
     %hr
 
     .actions
-      - if params[:wizard]
+      - if wizard?
+        = white_link_to "Back", @poll.new_record? ? polls_path : poll_path(@poll)
         = grey_button "Next"
       - else
         = grey_button "Save"

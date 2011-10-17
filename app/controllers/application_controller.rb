@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
+  include BreadcrumbsOnRails::ControllerMixin
+  
   protect_from_forgery
 
-  layout proc { |controller| controller.request.xhr? ? false : "application" }
+  before_filter :set_steps
+
+  layout proc { |controller| 
+    controller.request.xhr? ? false : "application" 
+  }
   
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
   
@@ -13,16 +19,23 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
-  include BreadcrumbsOnRails::ControllerMixin
+  protected
 
-  layout proc { |controller| controller.request.xhr? ? false : "application" }
+  def wizard?
+    params[:wizard]
+  end
+
+  def set_steps
+    @steps = ['Properties','Channel','Respondents','Finish']
+    @wizard_step = 'Properties'
+  end
 
   private
 
   def load_poll(poll_id=nil, attributes=nil)
     @poll = Poll.find (poll_id || params[:poll_id])
     authorize! :manage, @poll
-    add_breadcrumb @poll.title, poll_path(@poll)
+    add_breadcrumb @poll.title, poll_path(@poll) unless params[:wizard]
     @poll.attributes = attributes if attributes
     @poll
   end

@@ -29,6 +29,13 @@ table div {
   display: inline; 
 }
 
+label.placeholder {
+  cursor: text;
+  padding: 4px 4px 4px 4px;
+  color: #999999;
+  font-style: italic;
+}
+
 .box.unstartedPoll {
   border-top: 0px !important;
   width: 650px;  

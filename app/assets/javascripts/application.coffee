@@ -7,3 +7,4 @@ window.reinitialize = () ->
     window.location = url;
 
   $('form.validate').validate()
+  $('input[placeholder],textarea[placeholder]').placeholder()

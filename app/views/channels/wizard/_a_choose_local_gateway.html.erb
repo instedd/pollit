@@ -13,7 +13,7 @@
 <div class="ChannelWizard">
 	<h1>Choose your type of mobile phone</h1>
 	<!-- Android Local Gateway -->
-	<%= radio_button_tag :localGateway, :android, checked=false, :id => :androidLocalGateway, 'data-url' =>  step_path(:b_a_download_android_local_gateway), :class => :left %>
+	<%= radio_button_tag :localGateway, :android, checked=false, :id => :androidLocalGateway, 'data-url' =>  step_path(:b_download_android_local_gateway), :class => :left %>
 	<div class="left AndroidLogo"></div>
 	<%= label_tag :androidLocalGateway, "Android mobile phone" , :class => "left" %>
 	<p class="w30 clear description">
@@ -21,7 +21,7 @@
 	</p>
 	
 	<!-- Desktop Local Gateway -->
-	<%= radio_button_tag :localGateway, :desktop, checked=false, :id => :desktopLocalGateway, 'data-url' => step_path(:b_b_download_desktop_local_gateway), :class => :left %>
+	<%= radio_button_tag :localGateway, :desktop, checked=false, :id => :desktopLocalGateway, 'data-url' => step_path(:b_download_desktop_local_gateway), :class => :left %>
 	<div class="left DesktopLogo"></div>
 	<%= label_tag :desktopLocalGateway, "Other mobile phone", :class => "left" %>
 	<p class="w30 clear description">

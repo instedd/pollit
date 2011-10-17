@@ -1,0 +1,34 @@
+<% unless params[:wizard] %>
+  <%= wizard @steps, @wizard_step %>
+<% end %>
+
+<div class="ChannelWizard">
+	<h1 class="orange">Download and install Nuntium Local Gateway</h1>
+
+	<p class="w30">Nuntium Local Gateway is a program that runs on your local computer and requires a mobile phone to be plugged in. The Gateway will use the plugged-in phone for sending and receiving text messsages.</p>
+	<p class="w30">Download the client corresponding to your operating system and install it.</p>
+  <hr />
+	<a href="https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway-MacOS.tar.gz" class="fapple">Download for MacOS</a>
+  <br/>
+  <hr />
+  <a href="https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway.exe" class="fwindows">Download for Windows</a>
+  <br/>
+  <hr />
+  <a href="https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway.deb" class="fimport">Download for Ubuntu</a>
+  <div class="download-instructions">
+    Alternatively, you can install the Gateway running the following commands:
+    <div class="code">
+      sudo add-apt-repository ppa:instedd/nuntium-local-gateway <br/>
+      sudo apt-get update <br/>
+      sudo apt-get install nuntium-local-gateway <br/>
+    </div>
+  </div>
+  <br/>  
+</div>
+
+<hr />
+
+<div class="ChannelWizardNavigation">
+	<%= back_to :a_choose_local_gateway %>
+	<%= next_to :c_new_desktop_channel %>
+</div>

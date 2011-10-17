@@ -25,7 +25,7 @@ class PollsController < ApplicationController
     @poll = current_user.polls.build params[:poll]
 
     if @poll.save
-      redirect_to poll_new_channel_path(@poll, :wizard => true)
+      redirect_to new_poll_channel_path(@poll, :wizard => true)
     else
       render_wizard('new')
     end
@@ -45,7 +45,7 @@ class PollsController < ApplicationController
     # Update
     if @poll.update_attributes(params[:poll])
       if params[:wizard]
-        redirect_to poll_new_channel_path(@poll, :wizard => 1)
+        redirect_to new_poll_channel_path(@poll, :wizard => 1)
       else
         redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
       end

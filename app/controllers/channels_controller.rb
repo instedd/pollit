@@ -4,8 +4,12 @@ class ChannelsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_poll
 
-  def new
+  def show
+    redirect_to 'new' unless @poll.channel
     @channel = @poll.channel
+  end
+
+  def new
     set_current_step(params[:step] || "a_choose_local_gateway")
   end
 
@@ -20,7 +24,7 @@ class ChannelsController < ApplicationController
         set_current_step("d_end_wizard")
         render 'new'
       else
-        redirect_to poll_new_channel_path(@poll, "d_end_wizard")
+        redirect_to new_poll_channel_path(@poll, "d_end_wizard")
       end
     else
       set_current_step(params[:next_step])
@@ -30,7 +34,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     Channel.find(params[:id]).destroy
-    redirect_to poll_new_channel_path(@poll)
+    redirect_to new_poll_channel_path(@poll)
   end
 
   protected

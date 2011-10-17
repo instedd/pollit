@@ -32,7 +32,7 @@
 	padding-bottom: 0px;
 	padding-right: 3px;
 	border-top-width: 0px;
-	width: 620px;
+	width: 600px;
 }
 
 .user_channel {
@@ -42,6 +42,11 @@
 .LocalGatewayBox > a.button {
 	padding-left: 8px !important;
 	font-size: 14px;
+}
+
+.ChannelWizard .instructions {
+  color: #555555;
+  display: inline;
 }
 
 .ChannelWizard > h1 {
@@ -59,13 +64,27 @@
 	margin-top: 15px !important;
 }
 
+.ChannelWizard > hr {
+  width: 420px;
+}
+
 .ChannelWizard .description {
 	margin-left: 26px;
 	padding-top: 4px;
 }
 
+.ChannelWizard .download-instructions {
+  margin-left: 5px;
+  .code {
+    margin-top: 3px;
+    padding: 2px;
+    background-color: #F0F0F0;
+    font-family: monospace;
+    width: 410px;
+  }
+}
 
-.ChannelWizard > a.fimport {
+.ChannelWizard > a, .ChannelWizard > .fimport > a {
 	color: #000000;
 }
 

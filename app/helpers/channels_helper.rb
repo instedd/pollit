@@ -18,10 +18,6 @@ module ChannelsHelper
   end
 
   def step_path(step=nil)
-    if params[:wizard]
-      poll_new_channel_path(@poll, step, :wizard => true)
-    else
-      poll_new_channel_path(@poll, step)
-    end
+    new_poll_channel_path(@poll, :step => step, :wizard => params[:wizard])
   end
 end

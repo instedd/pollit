@@ -23,8 +23,9 @@
     </div>
   </div>
   <hr />
-  <div class="ChannelWizardNavigation">
+  <div class="ChannelWizardNavigation actions">
     <%= back_to "b_download_#{gateway}_local_gateway" %>
     <%= button_tag "Next", :class => 'grey' %>
+    <%= link_to "Skip this step", poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" %>
   </div>
 <% end %>

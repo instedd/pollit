@@ -6,8 +6,9 @@
 -#    remote:        data-remote
 -#    paginator:     the paginator that renders the pagination tags inside
 = paginator.render do
-  .pagination
-    = prev_page_tag
-    - each_page do |page|
-      = page_tag page
-    = next_page_tag
+  .pagination-container
+    .pagination
+      = prev_page_tag
+      - each_page do |page|
+        = page_tag page
+      = next_page_tag

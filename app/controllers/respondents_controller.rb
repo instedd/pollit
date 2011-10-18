@@ -7,6 +7,8 @@ class RespondentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_poll
 
+  skip_before_filter :verify_authenticity_token, :only => [:import_csv]
+
   def index
     render 'readonly' unless @poll.status_configuring?
     if wizard?

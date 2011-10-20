@@ -5,7 +5,7 @@ class ChannelsController < ApplicationController
   before_filter :load_poll
 
   def show
-    redirect_to :action => 'new', :wizard => params[:wizard] unless @poll.channel
+    redirect_to :action => 'new', :wizard => params[:wizard] and return unless @poll.channel
     @channel = @poll.channel
     render :layout => 'wizard' if params[:wizard]
   end

@@ -14,13 +14,9 @@
     <%= f.password_field :current_password %>
   </div>
 
-  <div class="ux-collapsible collapsed w30" data-on-expanded="box grey">
-    <span><a href="#" class="fsettings">Change my password</a></span>
-    <div class="ux-content">
-      
+  <div class="box grey w30" >
       <div class="field w30">
         <%= f.label :password, "New password" %> 
-        <p>(leave blank if you don't want to change it)</p>
         <%= f.password_field :password %>
       </div>
 
@@ -29,7 +25,6 @@
         <%= f.password_field :password_confirmation %>
       </div>
   
-    </div>
   </div>
   
   <div class="registration bottom-actions">

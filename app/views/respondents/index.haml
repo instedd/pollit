@@ -66,7 +66,7 @@
         onComplete: function(file, response){
           var data = eval(response);
           $.each(data, function(i, phone) {
-            if (!scope.phoneExists(phone)) {
+            if (!scope.phoneExists(phone.number)) {
               scope.phones.push(phone);
             }
           });

@@ -60,7 +60,7 @@ module InsteddAppHelper
           empty_opts.merge! empty
 
           concat (content_tag :tr do
-            content_tag :td, empty_opts[:text], :colspan => 0, :class => empty_opts[:class]
+            content_tag :td, empty_opts[:text], :colspan => 100, :class => empty_opts[:class]
           end)
         else
           data.each do |row|

@@ -110,3 +110,8 @@ label.placeholder {
 .bottom-actions.registration {
   margin-top: 20px;
 }
+
+/* line 106, ../../app/assets/stylesheets/global.scss */
+.LocalGatewayBox.box {
+  width: 620px !important;
+}

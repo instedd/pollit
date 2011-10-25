@@ -71,6 +71,7 @@
             }
           });
           scope.$eval();
+          $(".ng-directive #numberText").focus().blur();
           $.status.showNotice('File successfully uploaded');
         }
       });
@@ -92,7 +93,8 @@
     scope.removePhone = function(phoneNumber) {
       scope.phones = _.reject(scope.phones, function(phone) {
         return phone.number == phoneNumber;
-      })
+      });
+      $(".ng-directive #numberText").focus().blur();
     }
 
     scope.removeEmptyPhones = function() {

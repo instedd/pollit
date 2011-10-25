@@ -101,23 +101,20 @@
       })
     }
 
-    scope.saveChanges = function() {
-      scope.removeEmptyPhones();
-
-      var phones = _.map(scope.phones, function(phone) { return phone.number });
-      $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
-      $.status.showNotice('Phones saved succesfully!');
-    };
-
-    scope.saveChanges = function(showNotice) {
+    scope.saveChanges = function(showNotice, nextUrl) {
       scope.removeEmptyPhones();
       var phones = _.map(scope.phones, function(phone) { return phone.number });
-      $.post('#{batch_update_poll_respondents_path}', {'phones': phones});
-      if (showNotice) $.status.showNotice('Phones saved succesfully!');
+      $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
+        if (textStatus == "success") {
+          if (showNotice) $.status.showNotice('Phones saved succesfully!');
+          if (nextUrl) location.href = nextUrl;
+        } else {
+          $.status.showError('Error saving phones');
+        }
+      });
     };
 
     scope.nextStep = function() {
-      scope.saveChanges(false);
-      location.href = '#{poll_path(@poll, :wizard => true)}';
+      scope.saveChanges(false, '#{poll_path(@poll, :wizard => true)}');
     }
   }

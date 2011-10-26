@@ -59,7 +59,7 @@
         name: 'csv',
         onSubmit: function(file, ext){
           if(ext != 'csv') {
-            $.status.showError('Error: file should be in csv format')
+            $.status.showError('Error: file should be in csv format', 6000)
             return false;
           }
         },
@@ -72,7 +72,7 @@
           });
           scope.$eval();
           $(".ng-directive #numberText").focus().blur();
-          $.status.showNotice('File successfully uploaded');
+          $.status.showNotice('File successfully uploaded', 6000);
         }
       });
     });
@@ -108,10 +108,10 @@
       var phones = _.map(scope.phones, function(phone) { return phone.number });
       $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
         if (textStatus == "success") {
-          if (showNotice) $.status.showNotice('Phones saved succesfully!');
+          if (showNotice) $.status.showNotice('Phones saved succesfully!', 6000);
           if (nextUrl) location.href = nextUrl;
         } else {
-          $.status.showError('Error saving phones');
+          $.status.showError('Error saving phones', 6000);
         }
       });
     };

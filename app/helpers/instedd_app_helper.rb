@@ -6,7 +6,7 @@ module InsteddAppHelper
     
     keys.each do |key, value|
       if flash[key]
-        res = content_tag :div, :class => "flash #{value}" do
+        res = content_tag :div, :class => "flash #{value}", 'data-hide-timeout' => 6000 do
           content_tag :div do
             flash[key]
           end

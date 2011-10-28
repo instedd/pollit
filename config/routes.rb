@@ -36,6 +36,7 @@ Pollit::Application.routes.draw do
   end
 
   get 'tour/:page_number' => 'tour#show', :as => :tour
+  get 'community', :action => :index, :controller => :community
 
   root :to => "home#index"
 end

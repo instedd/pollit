@@ -2,6 +2,9 @@ defaults: &defaults
   theme_url: http://theme.instedd.org.s3.amazonaws.com/  
   contact_us: http://instedd.org/contact-us/
   report_bug: support@instedd.org
+  suscribe_url: http://instedd.us2.list-manage.com/subscribe/post?u=b1404e482b02edd641e6506cf&id=6e0ca202fc
+  source_code_url: https://bitbucket.org/instedd/pollit/overview
+  backlog_url: https://bitbucket.org/instedd/pollit/issues?status=new&status=open
 
 development:
   <<: *defaults

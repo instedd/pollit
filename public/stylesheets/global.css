@@ -115,3 +115,8 @@ label.placeholder {
 .LocalGatewayBox.box {
   width: 620px !important;
 }
+
+/* line 110, ../../app/assets/stylesheets/global.scss */
+.leftmargin {
+  margin-left: 15px !important;
+}

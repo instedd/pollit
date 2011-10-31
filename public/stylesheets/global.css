@@ -120,3 +120,8 @@ label.placeholder {
 .leftmargin {
   margin-left: 15px !important;
 }
+
+/* line 114, ../../app/assets/stylesheets/global.scss */
+.black {
+  color: black !important;
+}

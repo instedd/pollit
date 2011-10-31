@@ -1,1 +1,164 @@
-%h1 Welcome to Poll It!
+.homepage
+  .right
+    .people
+    -#%button.fpdf.right Download brochure (1.15 MB)
+  %h1.home Collect opinions,
+  %p.sub get instant feedback and track status from people wherever you are
+  %p With Pollit, you can conduct surveys via text messages. You design a simple survey and Pollit guides each participant through it step-by-step, collecting results in real time.  Using Pollit, your survey has the power to reach an unlimited number of participants anytime, anywhere. Pollit can be used anywhere in the world where there are mobile phones.
+  %br/
+  %br/
+  %br/
+  %br/
+  - if current_user
+    %p
+      Get started: #{link_button_to 'View your polls', polls_path, :class => "orange"}
+    %p
+  - else
+    %p
+      Get started: #{link_button_to 'Create an account', new_user_registration_path, :class => "orange"}
+    %p
+    %p
+      Already a member? #{link_to 'Log in', new_user_session_path}
+  .clear
+  / #container
+  .home-middle-bar
+    .benefits
+      %ul#benefits-container
+        %li
+          %span.i48grad-directions.left
+          %h3 Make decisions
+          %p based on data from your audience
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-dataBase.left
+          %h3 Collect
+          %p structured information without the need for smartphones
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-pie.left
+          %h3 See and analyze
+          %p results of your poll in real time
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-mountain.left
+          %h3 Let your audience
+          %p answer anywhere, anytime, on any phone
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-plug.left
+          %h3 Eliminate the need
+          %p for email or paper based survey collection
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-claim.left
+          %h3 Reduce
+          %p the staff time required
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-mobile.left
+          %h3 Conduct
+          %p your surveys from anywhere
+          %br{:clear => "all"}/
+        %li
+          %span.i48grad-openSource.left
+          %h3 Open Source
+          %p code for developers to use to improve its design and functionality
+          %br{:clear => "all"}/
+      / #benefits-container
+    / #benefits
+  / #home-middle-bar
+  #container
+    %h1 What can I use it for?
+    %p.desc
+      Pollit can help you in many different scenarios where you need to collect surveys.
+    .left.w45
+      %h2 Collect Virtual Signatures for a Petition
+      .icon-container.left
+        %span.i96grad-signature
+      %p Reaching enough people to sign your petition can be a time consuming and daunting task.  With Pollit, all you need to do is gather a list of cell phone numbers which can act as your contact list.  Send the petition to your contacts and their responses can act as virtual signatures for your campaign.
+    / #left w45
+    .right.w45
+      %h2 Identify Community Needs
+      .icon-container.left
+        %span.i96grad-teach
+      %p To determine how best to allocate your resources, it's important to understand the needs of your community. With Pollit, you can conduct a community survey, assessing the most important community needs and assets while identifying a critical mass of people who are willing to take action.
+    / #left w45
+    .clear
+    / #clear
+    %br/
+    .left.w45
+      %h2 Project Evaluations
+      .icon-container.left
+        %span.i96grad-folder
+      %p Ongoing evaluations can help you to assess satisfaction, gather suggestions for continuous improvement, and measure impact of your programs. With Pollit, you can collect monitoring and evaluation data with a few key strokes.
+    / #left w45
+    .right.w45
+      %h2 Assessing Evaluations
+      .icon-container.left
+        %span.i96grad-ok
+      %p Assessing knowledge is a powerful way to make sure that you are having an impact on learners. Using Pollit, you can measure knowledge before and after your class, program, or intervention. Even a short multiple-choice question can help you to assess what knowledge stuck and when it's time to provide more educational support.
+    / #left w45
+    .clear
+    / #clear
+    %br/
+    .box.plain.grey.features
+      %h2 Features
+      .left.w45
+        %div
+          %span.r-arrow>
+          Works with any phone capable of sending and receiving text messages
+        %div
+          %span.r-arrow>
+          Download your results as a spreadsheet
+      / #left w45
+      .right.w45
+        %div
+          %span.r-arrow>
+          Create as many questions per poll as you need
+        %div
+          %span.r-arrow>
+          Reach an unlimited number of participants
+      / #right w45
+      .clear
+      / #clear
+    / #box plain grey
+    %br/
+    %br/
+    .w45.left
+      %h1 How does it work?
+      %p To conduct a poll you need two things: a questionnaire and a list with the mobile phone numbers of the participants. You can create a questionnaire by defining numeric, text, or multiple choice questions. 
+      %p Once your questionnaire is complete, Pollit will send a text message to each of the phone numbers in your list, asking if they would like to participate. Once they accept, they will receive the first question. As they reply, their answers get stored in a spreadsheet, that you can see in real time. You can then analyze the answers, or export the results to another format.  Once the participant answers a question, the next question in the queue is sent for them to answer.
+      -# link_to 'Take a tour', tour_path(:start), :class=>'button grey'
+    / #w45 left
+    .w45.right
+      .InfoGraphic
+      / #InfoGraphic
+    / #w45 right
+    .clear
+    / #clear
+    %br/
+    %br/
+    %hr/
+    .box.plain.orange.w45.left
+      %h2 Where do I start?
+      %p Create an account, create your survey in google form, copy paste the public link to Pollit, connect your phone and start the survey.
+      %p Contact us with your need and we will help you get started.
+      %a.button.fmessage.black{:href => "mailto:#{Pollit::Application.config.report_bug}"} Get in touch with our team
+    / #box plain orange w45 left
+    .w45.right.support
+      %h2 How can I support it?
+      .w22.left
+        %p If you have ideas, needs or suggestions
+        %a.button.fchat{:href => Pollit::Application.config.email_group_url}
+          %span Join our discussion list
+      / #w22 left
+      .w22.right
+        %p If you are a developer, contribute with some of the features
+        %a.button.fbulb{:href => Pollit::Application.config.backlog_url}
+          %span Visit our backlog
+      / #w22 right
+      .clear
+      / #clear
+    / #w45 right
+    .clear
+    / #clear

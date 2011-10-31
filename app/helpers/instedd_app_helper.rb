@@ -1,4 +1,10 @@
 module InsteddAppHelper
+
+  def link_button_to(body, url, html_options = {})
+    default_options = { :type => 'button', :class => 'white' }
+    onclick = "window.location='#{url}';return false;"
+    content_tag(:button, body, default_options.merge(html_options.merge(:onclick => onclick)))
+  end
   
   def flash_message
     res = nil

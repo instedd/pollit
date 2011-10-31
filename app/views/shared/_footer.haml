@@ -11,11 +11,11 @@
   %div
     .left
       %a{:href => "http://instedd.org"} &copy; 2011 InSTEDD
-      %a{:href => "#"} Terms and conditions
+      -#%a{:href => "#"} Terms and conditions
       %a{:href => Pollit::Application.config.contact_us} Contact us
     .right
       = link_to "Home", root_path
-      %a{:href => "#"} Tour
+      -#%a{:href => "#"} Tour
       = link_to "Community", community_path
       %a{:href => "#"} Help
       -#%a{:href => "#"} Language: English

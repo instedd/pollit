@@ -54,6 +54,10 @@
     scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};
 
     $(document).ready(function() {
+      window.setTimeout(function() {
+        $("#numberText").focus().blur();
+      }, 200);
+
       new AjaxUpload($('#import_csv'), {
         action: '#{import_csv_poll_respondents_path(@poll)}',
         name: 'csv',
@@ -84,7 +88,7 @@
     }
 
     scope.addPhone = function() {
-      if ((!scope.phoneExists(scope.numberText)) && scope.numberText.trim() != '') {
+      if ((!scope.phoneExists(scope.numberText)) && $.trim(scope.numberText) != '') {
         scope.phones.push({number:scope.numberText});
         scope.numberText = '';
       }
@@ -99,7 +103,7 @@
 
     scope.removeEmptyPhones = function() {
       scope.phones = _.reject(scope.phones, function(phone) {
-        return phone.number.trim() == '';
+        return $.trim(phone.number) == '';
       })
     }
 

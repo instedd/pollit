@@ -1,7 +1,9 @@
 .homepage
   .right
-    = image_tag 'illustration.png'
-    -#%button.fpdf.right Download brochure (1.15 MB)
+    .illustration
+    -#= image_tag 'illustration.png'
+    %a.button.fpdf.right{:href => "/docs/instedd-pollit.pdf", :target=>"_blank"}
+      Download brochure (~400 KB)
   %h1.home Collect opinions,
   %p.sub get instant feedback and track status from people wherever you are
   %p With Pollit, you can conduct surveys via text messages. You design a simple survey and Pollit guides each participant through it step-by-step, collecting results in real time.  Using Pollit, your survey has the power to reach an unlimited number of participants anytime, anywhere. Pollit can be used anywhere in the world where there are mobile phones.
@@ -45,20 +47,20 @@
           %p answer anywhere, anytime, on any phone
           %br{:clear => "all"}/
         %li
-          %span.i48grad-plug.left
-          %h3 Eliminate the need
-          %p for email or paper based survey collection
+          %span.i48grad-shred.left
+          %h3 Eliminate
+          %p the need for email or paper based survey collection
           %br{:clear => "all"}/
         %li
-          %span.i48grad-claim.left
-          %h3 Reduce
-          %p the staff time required
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-mobile.left
+          %span.i48grad-internet.left
           %h3 Conduct
           %p your surveys from anywhere
           %br{:clear => "all"}/
+        %li
+          %span.i48grad-free.left
+          %h3 Free
+          %p for anyone to use to help increase their social impact
+          %br{:clear => "all"}/          
         %li
           %span.i48grad-openSource.left
           %h3 Open Source

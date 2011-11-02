@@ -125,3 +125,10 @@ label.placeholder {
 .black {
   color: black !important;
 }
+
+/* line 118, ../../app/assets/stylesheets/global.scss */
+.homepage .illustration {
+  background: url("illustration.png") no-repeat scroll 0 0 transparent;
+  height: 406px;
+  width: 438px;
+}

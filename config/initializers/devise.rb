@@ -3,7 +3,7 @@
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = "noreply@instedd.org"
+  config.mailer_sender = "Pollit <noreply@instedd.org>"
 
   # Configure the class responsible to send e-mails.
   config.mailer = "UserMailer"

@@ -8,6 +8,7 @@
     = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')
     = javascript_include_tag instedd_theme_url_for('theme/javascripts/theme.js')
     = csrf_meta_tags
+    = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
   %body
     = flash_message
     #wrapper

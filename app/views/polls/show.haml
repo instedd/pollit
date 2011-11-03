@@ -16,7 +16,7 @@
   .clear
     
 .box.overview{:class => ('incomplete' if @poll.respondents.empty?)}  
-  .respondents
+  .i48grad-users.icon
   .content
     - if @poll.respondents.empty?
       No respondents allocated
@@ -27,7 +27,7 @@
   = link_to "Manage Respondents", poll_respondents_path(@poll), :class => 'farrow'
 
 .box.overview{:class => ('incomplete' if @poll.channel.nil?)}  
-  .channel
+  .i48grad-channel.icon
   .content
     - if @poll.channel.nil?
       There is no channel set for this poll
@@ -38,7 +38,7 @@
   = link_to "Manage Channel", poll_channel_path(@poll), :class => 'farrow'
 
 .box.overview
-  .google
+  .i48grad-googleDocs.icon
   .content
     Questions from Google Docs Form
   = link_to "Go to live form", @poll.form_url, :class => 'farrow'

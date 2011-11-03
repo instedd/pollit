@@ -44,6 +44,7 @@
 
 :javascript
   $(document).ready(function() {
+    $('#numberText').placeholder();
     $(":input[type=text]").live('focus', function() {
       $(this).numeric({ decimal: false, negative: false });
     });

@@ -1,5 +1,6 @@
 <%unless @error%>
   $('#poll_form_container').replaceWith('<%=escape_javascript(render :partial => 'form')%>');
+  $.instedd.init_components($('#poll_form_container'));
   window.reinitialize();
   window.formValidate();
   select_field(0);

@@ -12,6 +12,10 @@ class ChannelsController < ApplicationController
 
   def new
     set_current_step(params[:step] || "a_choose_local_gateway")
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

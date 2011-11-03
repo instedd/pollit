@@ -79,61 +79,43 @@ label.placeholder {
   vertical-align: top;
   padding-top: 5px;
 }
-/* line 71, ../../app/assets/stylesheets/global.scss */
-.box.overview .icon, .box.overview .respondents, .box.overview .channel, .box.overview .google {
-  display: inline-block;
-  height: 48px;
-  width: 48px;
-}
-/* line 77, ../../app/assets/stylesheets/global.scss */
-.box.overview .respondents {
-  background: url(http://theme.instedd.org/theme/images/icons/48/gradient/users.png) no-repeat;
-}
-/* line 82, ../../app/assets/stylesheets/global.scss */
-.box.overview .channel {
-  background: url(http://theme.instedd.org/theme/images/icons/48/gradient/channel.png) no-repeat;
-}
-/* line 87, ../../app/assets/stylesheets/global.scss */
-.box.overview .google {
-  background: url(http://theme.instedd.org/theme/images/icons/48/gradient/googleDocs.png) no-repeat;
-}
-/* line 93, ../../app/assets/stylesheets/global.scss */
+/* line 72, ../../app/assets/stylesheets/global.scss */
 .box.overview.incomplete .content {
   color: #FF6600;
 }
-/* line 96, ../../app/assets/stylesheets/global.scss */
-.box.overview.incomplete .icon, .box.overview.incomplete .respondents, .box.overview.incomplete .channel, .box.overview.incomplete .google {
-  background-position: 0px -48px;
+/* line 75, ../../app/assets/stylesheets/global.scss */
+.box.overview.incomplete .icon {
+  background-position: 0px -50px;
 }
 
-/* line 102, ../../app/assets/stylesheets/global.scss */
+/* line 81, ../../app/assets/stylesheets/global.scss */
 .bottom-actions.registration {
   margin-top: 20px;
 }
 
-/* line 106, ../../app/assets/stylesheets/global.scss */
+/* line 85, ../../app/assets/stylesheets/global.scss */
 .LocalGatewayBox.box {
   width: 620px !important;
 }
 
-/* line 110, ../../app/assets/stylesheets/global.scss */
+/* line 89, ../../app/assets/stylesheets/global.scss */
 .leftmargin {
   margin-left: 15px !important;
 }
 
-/* line 114, ../../app/assets/stylesheets/global.scss */
+/* line 93, ../../app/assets/stylesheets/global.scss */
 .black {
   color: black !important;
 }
 
-/* line 118, ../../app/assets/stylesheets/global.scss */
+/* line 97, ../../app/assets/stylesheets/global.scss */
 .homepage .illustration {
   background: url("illustration.png") no-repeat scroll 0 0 transparent;
   height: 406px;
   width: 438px;
 }
 
-/* line 124, ../../app/assets/stylesheets/global.scss */
+/* line 103, ../../app/assets/stylesheets/global.scss */
 .EmptyDataPie {
   cursor: default !important;
   color: gray !important;

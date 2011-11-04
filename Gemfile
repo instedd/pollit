@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 gem 'mysql2', '0.3.6'
-gem 'pg'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'compass'

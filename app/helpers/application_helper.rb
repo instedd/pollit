@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   def instedd_theme_url_for(path)
-    url = Pollit::Application.config.instedd_theme_url rescue "http://theme.instedd.org.s3.amazonaws.com/"
+    url = Pollit::Application.config.theme_url
     URI.join url, path
   end
 

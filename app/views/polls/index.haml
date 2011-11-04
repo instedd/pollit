@@ -20,7 +20,7 @@
           %td
             - if poll.respondents.any?
               = progress_bar poll.questions_answered, poll.answers_expected
-            %button.farrow
+            %button.farrow{:type => :button}
       %tr.link{'data-url' => new_poll_path}
         %td Create Poll
         %td

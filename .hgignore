@@ -9,3 +9,4 @@ coverage.data
 spec/reports/*
 **.orig
 .git
+public/assets

@@ -14,9 +14,18 @@ Pollit::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = true
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
+  # Defaults to Rails.root.join("public/assets")
+  # config.assets.manifest = YOUR_PATH
+
   # Specifies the header that your server uses for sending files
-  # (comment out if your front-end server doesn't support this)
-  config.action_dispatch.x_sendfile_header = "X-Sendfile" # Use 'X-Accel-Redirect' for nginx
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
+  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -38,7 +47,9 @@ Pollit::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => 'pollit-stg.heroku.com' }
+
+  # Action mailer config
+  config.action_mailer.default_url_options = { :host => 'pollit.instedd.org' }
   ActionMailer::Base.default :from => "Pollit <noreply@instedd.org>"
 
   # Enable threaded mode

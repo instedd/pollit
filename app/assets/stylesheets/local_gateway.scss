@@ -97,7 +97,7 @@
 	font-size: 15px;
 }
 .ChannelWizard .AndroidLogo {
-   	background: url(/assets/android.png);
+   	background: image-url('android.png');
     background-repeat: no-repeat;
     width: 37px;
     height: 35px;
@@ -106,7 +106,7 @@
 }
 
 .ChannelWizard .DesktopLogo {
-   	background: url(/assets/pc.png);
+   	background: image-url('pc.png');
     background-repeat: no-repeat;
     width: 37px;
     height: 30px;
@@ -120,7 +120,7 @@
 }
 
 .ChannelWizard .AndroidQR {
-   	background: url(/assets/android_local_gateway.png);
+   	background: image-url('android_local_gateway.png');
     background-repeat: no-repeat;
     width: 270px;
     height: 270px;
@@ -132,21 +132,21 @@
 }
 
 .ChannelWizard .AndroidScreen {
-   	background: url(/assets/androidPreview.png);
+   	background: image-url('androidPreview.png');
     background-repeat: no-repeat;
     width: 254px;
     height: 375px;
 }
 
 .ChannelWizard .GreyArrow {
-   	background: url(/assets/arrow.png);
+   	background: image-url('arrow.png');
     background-repeat: no-repeat;
     width: 46px;
     height: 17px;
 }
 
 .ChannelWizard .DesktopScreen {
-   	background: url(/assets/pcPreview.png);
+   	background: image-url('pcPreview.png');
     background-repeat: no-repeat;
     width: 258px;
     height: 374px;
@@ -175,7 +175,7 @@
 }
 
 .ChannelWizard .ChannelConfigured{
-   	background: url(/assets/finish.png);
+   	background: image-url('finish.png');
     background-repeat: no-repeat;
     width: 461px;
     height: 302px;

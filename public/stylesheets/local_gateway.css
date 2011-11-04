@@ -78,19 +78,20 @@
 /* line 67, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard > hr {
   width: 420px;
+  text-align: left;
 }
 
-/* line 71, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 72, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .description {
   margin-left: 26px;
   padding-top: 4px;
 }
 
-/* line 76, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 77, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .download-instructions {
   margin-left: 5px;
 }
-/* line 78, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 79, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .download-instructions .code {
   margin-top: 3px;
   padding: 2px;
@@ -99,22 +100,22 @@
   width: 410px;
 }
 
-/* line 87, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 88, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard > a, .ChannelWizard > .fimport > a {
   color: #000000;
 }
 
-/* line 91, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 92, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard > input {
   left-margin: 0px;
 }
 
-/* line 95, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 96, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard > label {
   font-size: 15px;
 }
 
-/* line 98, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 99, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .AndroidLogo {
   background: url(/assets/android.png);
   background-repeat: no-repeat;
@@ -124,7 +125,7 @@
   margin-top: -10px;
 }
 
-/* line 107, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 108, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .DesktopLogo {
   background: url(/assets/pc.png);
   background-repeat: no-repeat;
@@ -134,13 +135,13 @@
   margin-top: -4px;
 }
 
-/* line 116, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 117, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard {
   margin-top: 27px;
   height: 430px;
 }
 
-/* line 121, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 122, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .AndroidQR {
   background: url(/assets/android_local_gateway.png);
   background-repeat: no-repeat;
@@ -148,13 +149,13 @@
   height: 270px;
 }
 
-/* line 128, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 129, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .box {
   padding: 1px 2px;
   color: black;
 }
 
-/* line 133, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 134, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .AndroidScreen {
   background: url(/assets/androidPreview.png);
   background-repeat: no-repeat;
@@ -162,7 +163,7 @@
   height: 375px;
 }
 
-/* line 140, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 141, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .GreyArrow {
   background: url(/assets/arrow.png);
   background-repeat: no-repeat;
@@ -170,7 +171,7 @@
   height: 17px;
 }
 
-/* line 147, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 148, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .DesktopScreen {
   background: url(/assets/pcPreview.png);
   background-repeat: no-repeat;
@@ -178,35 +179,35 @@
   height: 374px;
 }
 
-/* line 154, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 155, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .AndroidArrow {
   margin-top: 115px;
 }
 
-/* line 158, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 159, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .DesktopArrow {
   margin-top: 254px;
 }
 
-/* line 162, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 163, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .DesktopChannelCreation {
   margin-top: 160px;
   margin-left: 5px;
 }
 
-/* line 167, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 168, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .AndroidChannelCreation {
   margin-left: 5px;
   margin-top: 21px;
 }
 
-/* line 171, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 172, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizardNavigation {
   margin-top: 16px;
   margin-bottom: 7px;
 }
 
-/* line 176, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 177, ../../app/assets/stylesheets/local_gateway.scss */
 .ChannelWizard .ChannelConfigured {
   background: url(/assets/finish.png);
   background-repeat: no-repeat;
@@ -214,7 +215,7 @@
   height: 302px;
 }
 
-/* line 183, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 184, ../../app/assets/stylesheets/local_gateway.scss */
 .CurrentChannelBox {
   height: 44px;
   margin-bottom: 20px;
@@ -225,13 +226,13 @@
   padding-bottom: 0px;
 }
 
-/* line 193, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 194, ../../app/assets/stylesheets/local_gateway.scss */
 .CurrentChannelBox > div > p {
   margin-top: 0px;
   margin-bottom: 0px;
 }
 
-/* line 198, ../../app/assets/stylesheets/local_gateway.scss */
+/* line 199, ../../app/assets/stylesheets/local_gateway.scss */
 .CurrentChannelBox .black {
   color: black;
 }

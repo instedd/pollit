@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007183427) do
+ActiveRecord::Schema.define(:version => 20111104143252) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -32,15 +32,15 @@ ActiveRecord::Schema.define(:version => 20111007183427) do
 
   create_table "polls", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "owner_id"
     t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "welcome_message"
-    t.string   "status"
     t.string   "post_url"
     t.string   "confirmation_word"
+    t.string   "status"
     t.string   "goodbye_message"
   end
 

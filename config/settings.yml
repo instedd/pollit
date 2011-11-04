@@ -6,6 +6,7 @@ defaults: &defaults
   source_code_url: https://bitbucket.org/instedd/pollit/overview
   backlog_url: https://bitbucket.org/instedd/pollit/issues?status=new&status=open
   email_group_url: https://groups.google.com/group/instedd-tech
+  google_analytics: 
 
 development:
   <<: *defaults
@@ -15,4 +16,3 @@ test:
 
 production:
   <<: *defaults
-  theme_url: http://theme.instedd.org/

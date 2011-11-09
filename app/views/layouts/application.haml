@@ -17,11 +17,11 @@
         %ul#instedd-pulldown
         #NavMenu
           %ul
-            %li
-              = link_to "Home", root_path
+            = section "Home", root_path, :home
             - if user_signed_in?
-              %li
-                = link_to "Polls", polls_path
+              = section "Polls", polls_path, :polls, [:polls, :answers, :channels, :respondents]
+            = section "Tour", tour_path, :tour
+            = section "Community", community_path, :community
 
         %ul.RightMenu
           - if user_signed_in?

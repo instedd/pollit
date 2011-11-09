@@ -149,7 +149,7 @@ module InsteddAppHelper
   def wizard(steps, current_step)
     step_index = steps.index(current_step)
 
-    content_tag :div, :class => "box plain grey" do
+    content_tag :div, :class => "box plain grey w60" do
       content_tag :div, :class => "steps-line" do
         content_tag :div, :class => "steps-container s#{steps.count}" do
           steps.each_with_index do |step, i|
@@ -174,7 +174,7 @@ module InsteddAppHelper
   def dotted_wizard(steps, current_step)
     step_index = steps.index(current_step)
 
-    content_tag :div, :class => "box plain grey" do
+    content_tag :div, :class => "box plain grey w60" do
       content_tag :div, :class => "steps-line" do
         content_tag :div, :class => "steps-container s#{steps.count} dotted" do
           steps.each_with_index do |step, i|

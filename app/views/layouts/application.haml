@@ -22,7 +22,7 @@
               = section "Polls", polls_path, :polls, [:polls, :answers, :channels, :respondents]
             = section "Tour", tour_path, :tour
             = section "Community", community_path, :community
-
+            = section "Help", help_path, :help
         %ul.RightMenu
           - if user_signed_in?
             %li

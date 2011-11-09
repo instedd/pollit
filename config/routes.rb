@@ -9,9 +9,9 @@ Pollit::Application.routes.draw do
   get  'discuss',       :to => redirect(Pollit::Application.config.email_group_url)
   get  'backlog',       :to => redirect(Pollit::Application.config.backlog_url)
 
-  #get 'tour/:page_number' => 'tour#show', :as => :tour
-  get 'tour',      :action => :index, :controller => :tour,      :as => 'tour'
-  get 'community', :action => :index, :controller => :community, :as => 'community'
+  get 'help',         :action => :index, :controller => :help,      :as => 'help'
+  get 'tour(/:page)', :action => :show,  :controller => :tour,      :as => 'tour'
+  get 'community',    :action => :index, :controller => :community, :as => 'community'
 
   post 'nuntium/receive_at' => 'nuntium#receive_at'
   

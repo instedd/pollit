@@ -6,7 +6,7 @@ Pollit::Application.routes.draw do
   end
 
   get  'createAccount', :to => redirect('/users/sign_up')
-  get  'discuss',       :to => redirect(Pollit::Application.config.email_group_url)
+  get  'discuss',       :to => redirect(Pollit::Application.config.user_group_url)
   get  'backlog',       :to => redirect(Pollit::Application.config.backlog_url)
 
   get 'help',         :action => :index, :controller => :help,      :as => 'help'

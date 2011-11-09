@@ -1,0 +1,18 @@
+= render :partial => 'tour_navigation', :selected => :create
+
+.TourContent.left
+  %h2.w50 Create polls in minutes
+  .instructions.left.w40
+    %p.advertised Once you've signed into your Google account, navigate to docs.google.com.
+    %p.advertised Click the Create button, select Form, and then create your poll using the browser-based tool. 
+    %p With Google Form, you can choose from short and long answer, multiple choice, and other question types. Please note that though there's no limit to the number of questions you can ask, you'll need to keep each question at or under the standard SMS 140-character limit for use with Pollit. 
+  = image_tag 'arrow-thick.png', :class => 'arrow left'
+  = image_tag 'createForm.png', :class => 'createForm left'
+  .clear
+  %br/
+  %hr
+  %br/
+  %p.w60 When you're finished entering questions, copy the live URL displayed at the bottom of your browser window. This URL links to the form you just created and will be used by Pollit to conduct your poll.
+  %p= image_tag 'upload.png', :class => 'upload-form'
+
+.clear

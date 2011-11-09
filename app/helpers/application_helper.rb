@@ -19,4 +19,9 @@ module ApplicationHelper
     options.merge!(:method => :post, :html => {:multipart => true})
     form_for(record, options, &proc)
   end
+
+  def section title, url, name, active_controllers = [name]
+    active = active_controllers.any?{|controller| controller_name == controller.to_s }
+    raw "<li class=\"#{active ? "active" : ""}\">#{link_to title, url}</li>"
+  end
 end

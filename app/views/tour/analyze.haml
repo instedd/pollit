@@ -1,0 +1,17 @@
+= render :partial => 'tour_navigation', :selected => :analyze
+.TourContent.left.w70
+  .left.w40
+    %h2
+      Study responses in a variety of formats
+    %p.advertised Pollit stores answers to your poll questions in a Google spreadsheet, so you can analyze your results right in your browser or download them in Excel, PDF, or Word format.
+  = image_tag 'formats.png', :class => 'formats left'
+  .clear
+  %br/
+  %hr/
+  %br/
+  %h3 Ready to get started?
+  %p.w60
+    Sign up for your #{link_to 'free Pollit account', new_user_registration_path} and begin taking the pulse of your people today. 
+  %p.w60
+    Need a little more info? Visit our #{link_to 'Help page', help_path} or subscribe to our #{link_to 'user discussion group', Pollit::Application.config.user_group_url, :target=>"_blank"}, where we'll be happy to answer any questions you might have and get you going with Pollit!
+.clear

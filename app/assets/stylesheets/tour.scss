@@ -1,0 +1,65 @@
+.TourContent .pc {
+  background: image-url("pc-gray.png");
+  background-repeat: no-repeat;
+  padding-top: 35px;
+}
+.TourContent .android {
+  background: image-url("android-gray.png");
+  background-repeat: no-repeat;
+  padding-top: 41px;
+}
+
+.TourContent .createForm {
+  height: 308px;
+  width: 278px;
+  margin-top: 33px;
+}
+
+.TourContent .arrow {
+  width: 36px; 
+  height: 17px;
+  margin-top: 58px;
+}
+
+.TourContent .upload-form {
+  width: 644px;
+  height: 96px;
+}
+
+.TourContent .startPoll {
+  width: 623px;
+  height: 41px;
+}
+
+.TourContent .messages {
+  margin-left:20px; 
+  width:320px; 
+  height: 448px;
+}
+
+.TourContent h2 {
+  line-height: 35px;
+}
+
+.TourContent .formats {
+  height: 387px;
+  width: 298px;
+}
+
+
+ul.TourNavigation > li.start > a {
+  background: image-url("start.png");
+}
+
+ul.TourNavigation > li.create > a {
+  background: image-url("create.png");
+}
+
+ul.TourNavigation > li.poll > a {
+  background: image-url("poll.png");
+}
+
+ul.TourNavigation > li.analyze > a {
+  background: image-url("analize.png");
+}
+

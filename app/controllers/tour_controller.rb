@@ -1,4 +1,5 @@
 class TourController < ApplicationController
-  def index
+  def show
+    render (params[:page] || 'start')
   end
 end

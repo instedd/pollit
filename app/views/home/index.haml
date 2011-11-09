@@ -144,8 +144,7 @@
       
       %p 
         %span Step 1
-        %button.fedit{'data-url' => new_user_registration_path}
-          Create an account 
+        =link_button_to 'Create an account', new_user_registration_path, :class => 'fedit'
         and log in
       %hr
       
@@ -153,8 +152,7 @@
         %span Step 2
         Create your poll using Google Forms
         %br/
-        %a.button.black.fhelp{:href => "http://google.com"}
-          Learn more
+        =link_button_to "Learn more", 'http://docs.google.com/support/bin/answer.py?answer=87809', :class => 'fhelp'
       %hr
       
       %p 

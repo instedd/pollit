@@ -1,7 +1,7 @@
 .box.centered.w30
   = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
     %h2 Log In
-    %hr.shadow
+    %hr.shadow/
     .field.w30
       = f.label :email
       = f.email_field :email

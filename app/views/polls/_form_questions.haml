@@ -1,0 +1,16 @@
+%h2 Poll questions
+    
+- if @poll.editable?
+  = hidden_field_tag :empty_questions_validation, ''
+  - if (@questions || f.object.questions).empty?
+    .field
+      %p 
+        %a{:href => '#', :onclick => '$("input[name=\'poll[form_url]\']").focus(); return false;'}
+          Import a form from Google 
+        to load its questions
+  -else
+    = fancy_button 'Reload form from Google', 'fsync', :class => 'import_form_action reload_from_google block'
+    = hidden_field_tag :questions_validation, ''
+    = render :partial => 'polls/form_editor/questions', :locals => { :f => f, :disabled => true }
+- else
+  = render :partial => 'polls/form_editor/questions', :locals => { :f => f, :disabled => true }

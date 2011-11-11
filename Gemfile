@@ -17,6 +17,7 @@ gem 'nuntium_api', :require => 'nuntium'
 gem 'breadcrumbs_on_rails'
 gem 'cancan', "~> 1.6.7"
 gem 'kaminari'
+gem 'gettext_i18n_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

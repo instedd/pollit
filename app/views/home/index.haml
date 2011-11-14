@@ -1,181 +1,22 @@
+Start
 .homepage
   .right
     .illustration
     %a.button.fpdf.right{:href => "/docs/instedd-pollit.pdf", :target=>"_blank"}
       Download brochure (~400 KB)
   %h1.home Collect opinions,
-  %p.sub real-time feedback and status updates from people, wherever they roam.
-  %p Pollit is a free, open-source tool for conducting polls using text messages. Step-by-step, Pollit guides participants through polls and collects real-time results. Pollit shrinks the gap between audiences and pollers, taking the pulse of the people anytime and anywhere there's mobile phone service.
-  %br/
-  %br/
-  %br/
-  %br/
-  %br/
-  - if current_user
-    %p
-      Get started: #{link_button_to 'View your polls', polls_path, :class => "orange"}
-    %p
-  - else
-    %p
-      Get started: #{link_button_to 'Create an account', new_user_registration_path, :class => "orange"}
-    %p
-    %p
-      Already a member? #{link_to 'Log in', new_user_session_path}
-  .clear
-  / #container
-  .home-middle-bar
-    .benefits
-      %ul#benefits-container
-        %li
-          %span.i48grad-directions.left
-          %h3 Make decisions
-          %p based on data directly from your audience
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-dataBase.left
-          %h3 Collect
-          %p structured information without the need for smartphones
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-pie.left
-          %h3 See and analyze
-          %p poll results in real time
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-internet.left
-          %h3 Conduct
-          %p polls from anywhere
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-mountain.left
-          %h3 Make it easy
-          %p for participants to answer anywhere, anytime, using any phone
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-shred.left
-          %h3 Eliminate
-          %p email or paper-based poll collection
-          %br{:clear => "all"}/
-        %li
-          %span.i48grad-free.left
-          %h3 Free
-          %p for anyone to use to help increase their social impact
-          %br{:clear => "all"}/          
-        %li
-          %span.i48grad-openSource.left
-          %h3 Open Source
-          %p code for developers to use to improve its design and functionality
-          %br{:clear => "all"}/
-      / #benefits-container
-    / #benefits
-  / #home-middle-bar
-  #container
-    %h1 What can I use it for?
-    %p.desc
-      Pollit is a great way to find out in real time what's on your audience's mind. Here are a few ways Pollit can help you take the pulse of your people:
-    .left.w45
-      %h2 Collecting Petition Signatures Virtually
-      .icon-container.left
-        %span.i96grad-signature
-      %p In a world as busy as ours, catching up to people for petition signatures can be tough. Make a time-consuming and frustrating task easy and quick with Pollit. Just gather a list of cell phone contact numbers, send your petition via text message, and collect signatures virtually. Pollit stores signatures in an online spreadsheet and handles all the other details, so you can carry on with changing the world.
-    / #left w45
-    .right.w45
-      %h2 Identify Community Needs
-      .icon-container.left
-        %span.i96grad-teach
-      %p Before allocating limited resources, it's important to understand the most pressing needs of your community. And no one knows those needs better than the people who make up that community. With Pollit, you can conduct a community poll with a minimum of time and other resources, assessing high-priority needs and interventions while identifying a critical mass of people willing to take action.
-    / #left w45
-    .clear
-    / #clear
-    %br/
-    .left.w45
-      %h2 Evaluating Program Success Rates
-      .icon-container.left
-        %span.i96grad-folder
-      %p Oftentimes, the best way to know if you're making a difference is simply to ask. Ongoing evaluations can help you assess satisfaction, gather suggestions for continuous improvement, and measure program impact. With Pollit, you can collect monitoring and evaluation data at any time, in just a few easy steps, allowing you to frequently and cost-effectively evaluate -- and if needed, correct -- your current course.
-    / #left w45
-    .right.w45
-      %h2 Assessing Knowledge
-      .icon-container.left
-        %span.i96grad-ok
-      %p Today's learning builds on yesterday's, and that's why it's so important to ensure that students are keeping up. Regular knowledge assessment gives confidence to learners on the right track and highlights students who need a little more guidance. Using Pollit, you can measure knowledge before and after your class, program, or intervention, without extending class time or otherwise inconveniencing students.
-    / #left w45
-    .clear
-    / #clear
-    %br/
-    .box.plain.grey.features
-      %h2 Features
-      .left.w45
-        %div
-          %span.r-arrow>
-          Use any phone capable of sending and receiving text messages
-        %div
-          %span.r-arrow>
-          View and download results as a spreadsheet and in other formats
-      / #left w45
-      .right.w45
-        %div
-          %span.r-arrow>
-          Create unlimited questions per poll
-        %div
-          %span.r-arrow>
-          Reach an unlimited number of participants worldwide
-      / #right w45
-      .clear
-      / #clear
-    / #box plain grey
-    %br/
-    %br/
-    .w45.left
-      %h1 How does it work?
-      %p All you need to get started is a questionnaire and a list of mobile phone numbers. You can create questionnaires using numeric, short answer, and/or multiple-choice questions. Once your questionnaire is ready to go, Pollit sends a text message invitation to each number on your list. Pollit sends your first question, waiting for an answer before sending another. Answers are stored in a spreadsheet, where you can review them in real time and export them for analysis in other applications.
-      = link_to 'Take a tour', tour_path, :class=>'button grey'
-    / #w45 left
-    .w45.right
-      = image_tag 'infographic.png'
-    / #w45 right
-    .clear
-    / #clear
-    %br/
-    %br/
-    %hr/
-    .box.plain.orange.w45.left
-      %h2 Where do I start?
-      
-      %p 
-        %span Step 1
-        =link_button_to 'Create an account', new_user_registration_path, :class => 'fedit'
-        and log in
-      %hr
-      
-      %p 
-        %span Step 2
-        Create your poll using Google Forms
-        %br/
-        =link_button_to "Learn more", 'http://docs.google.com/support/bin/answer.py?answer=87809', :class => 'fhelp'
-      %hr
-      
-      %p 
-        %span Step 3
-        Paste your form's public link to Pollit
-      %hr
-
-      %p 
-        %span Step 4
-        Connect your phone and start the poll
-
-    .w45.right.support
-      %h2 How can I help?
-      %span
-      %p 
-        Got suggestions or feature requests? Join the discussion.
-        %br/
-        %a.button.black.fchat{:href => Pollit::Application.config.user_group_url}
-          %span Join our discussion list
-      %p 
-        Got a way with code? Help us develop our tools (and make the world a better place at the same time).
-        %br/
-        %a.button.black.fbulb{:href => Pollit::Application.config.backlog_url}
-          %span Visit our backlog      
-    .clear
-    / #clear
+  %p
+    Safe 1?
+    = (_"Get started: %s").html_safe?
+    Safe 2?
+    = link_button_to(_('View your polls'), polls_path, :class => "orange").html_safe?
+    Safe 3?
+    = ((_"Get started: %s") % link_button_to(_('View your polls'), polls_path, :class => "orange")).html_safe?
+    = _("Test string 1")
+    = _ "Test 2"
+    - s1= _ "Translate silent"
+    - s2= _ "Translate silent 2"
+    - s3= _("Translate silent 3")
+    = s1
+    = s2
+    = s3

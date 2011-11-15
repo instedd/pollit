@@ -31,7 +31,7 @@ module InsteddAppHelper
             
         content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
           (content_tag :h2 do
-            "#{pluralize(object.errors.count, 'error')} prohibited this #{object_name.humanize} from being saved:"
+            _("%{count} %{errors} prohibited this %{object} from being saved:") % {:object => _(object_name).humanize, :count => object.errors.count, :errors => n_('error', 'errors', object.errors.count)}
           end) \
           + \
           (content_tag :ul do
@@ -61,8 +61,8 @@ module InsteddAppHelper
         end)
 
         if data.empty?
-          empty_opts = {:class => "EmptyData", :text => "There are no records to display"}
-          empty = opts[:empty].kind_of?(Hash) ? opts[:empty] : {text: opts[:empty] || empty_opts[:text]}
+          empty_opts = {:class => "EmptyData", :text => _("There are no records to display")}
+          empty = opts[:empty].kind_of?(Hash) ? opts[:empty] : {:text => opts[:empty] || empty_opts[:text]}
           empty_opts.merge! empty
 
           concat (content_tag :tr do
@@ -222,7 +222,7 @@ module DeviseHelper
   def devise_error_messages!(html_options = {})
     return if resource.errors.full_messages.empty?
     (content_tag :div, :class => "box error_description #{html_options[:class] || 'w60'}"  do
-      (content_tag :h2, 'The following errors occurred') \
+      (content_tag :h2, _('The following errors occurred')) \
       + \
       (content_tag :ul do
         raw resource.errors.full_messages.map { |msg| content_tag(:li, msg) }.join

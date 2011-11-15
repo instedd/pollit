@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
   def success
-    @email = params[:email].presence || "you"
+    @email = params[:email].presence || _("you")
   end
   
   protected

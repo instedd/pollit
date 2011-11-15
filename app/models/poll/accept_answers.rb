@@ -1,9 +1,5 @@
 module Poll::AcceptAnswers
 
-  INVALID_REPLY_OPTIONS = "Your answer was not understood. Please answer with (%s)"
-  INVALID_REPLY_TEXT = "Your answer was not understood. Please answer with non empty string"
-  INVALID_REPLY_NUMERIC = "Your answer was not understood. Please answer with a number between %s and %s"
-
   def accept_answer(response, respondent)
     if respondent.confirmed
       return nil if respondent.current_question_id.nil?
@@ -40,7 +36,7 @@ module Poll::AcceptAnswers
     question = questions.find(respondent.current_question_id)
 
     if response.blank?
-      INVALID_REPLY_TEXT
+      invalid_reply_text
     else
       Answer.create :question => question, :respondent => respondent, :response => response
       next_question_for respondent
@@ -54,7 +50,7 @@ module Poll::AcceptAnswers
       Answer.create :question => question, :respondent => respondent, :response => response.to_i
       next_question_for respondent
     else
-      INVALID_REPLY_NUMERIC % [question.numeric_min, question.numeric_max]
+      invalid_reply_numeric % [question.numeric_min, question.numeric_max]
     end
   end
 
@@ -63,11 +59,23 @@ module Poll::AcceptAnswers
     option = question.option_for(response)
 
     if option.nil?
-      INVALID_REPLY_OPTIONS % [question.options.join("|")]
+      invalid_reply_options % [question.options.join("|")]
     else
       Answer.create :question => question, :respondent => respondent, :response => option
       next_question_for respondent
     end
+  end
+
+  def invalid_reply_options
+    _("Your answer was not understood. Please answer with (%s)")
+  end
+  
+  def invalid_reply_text
+    _("Your answer was not understood. Please answer with non empty string")
+  end
+  
+  def invalid_reply_numeric
+    _("Your answer was not understood. Please answer with a number between %s and %s")
   end
 
 end

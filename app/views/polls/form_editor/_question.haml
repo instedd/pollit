@@ -10,8 +10,9 @@
       %h1.feditor-field-name
         = question.title
       %span.hint.feditor-field-hint
-        = "Description: #{question.description}" unless question.description.blank?
-        
+        - unless question.description.blank?
+          Description:
+          = question.description
       - if question.invalid?
         - unless question.description.blank?
           %br

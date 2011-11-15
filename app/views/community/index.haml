@@ -24,6 +24,6 @@
     %hr/
     %form{:action => Pollit::Application.config.suscribe_url, :method => "post", :target => "_blank"}
       .w50.left
-        %input{:name => "EMAIL", :placeholder => "Enter your email", :type => "email"}/
+        %input{:name => "EMAIL", :placeholder => _("Enter your email"), :type => "email"}/
       %button.white.right{:type => "submit"} Subscribe
       .clear

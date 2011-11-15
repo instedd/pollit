@@ -57,7 +57,7 @@ class Question < ActiveRecord::Base
   private
 
   def kind_supported
-    errors.add(:kind, "is not supported") if kind_unsupported?
+    errors.add(:kind, _("is not supported")) if kind_unsupported?
   end
 
 end

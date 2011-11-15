@@ -1,9 +1,9 @@
 #poll_form_import
   .box.plain.green.w60
     .field{:style => 'margin: 0'}
-      = f.label :form_url, "Import form from Google Forms"
+      = f.label :form_url, _("Import form from Google Forms")
       %p Copy the live form URL (not the spreadsheet's URL) making sure the form does not require sign-in
       = f.text_field :form_url, :class => 'w50'
-      = fancy_button 'Import', 'fimport', :class => 'import_form_action'
+      = fancy_button _('Import'), 'fimport', :class => 'import_form_action'
       = f.hidden_field :post_url
 %br

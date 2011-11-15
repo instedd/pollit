@@ -5,7 +5,7 @@ class Channel < ActiveRecord::Base
 
   validates :ticket_code, :presence => true
   validates :name, :presence => true
-  validate :poll_not_started, :message => "poll has already started"
+  validate :poll_not_started, :message => _("poll has already started")
 
   before_validation :register_nuntium_channel, :on => :create
   before_destroy :delete_nuntium_channel
@@ -43,7 +43,7 @@ class Channel < ActiveRecord::Base
       self.address = "sms://#{channel_info[:address]}"
     rescue Nuntium::Exception => e
       e.properties.each do |error|
-        self.errors.add(:ticket_code, "invalid code")
+        self.errors.add(:ticket_code, _("invalid code"))
       end
       false
     end

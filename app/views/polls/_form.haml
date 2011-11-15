@@ -39,8 +39,8 @@
     .actions
       - back_path = @poll.new_record? ? polls_path : poll_path(@poll)
       - if wizard?
-        = white_link_to "Back", back_path
-        = grey_button "Next"
+        = white_link_to _("Back"), back_path
+        = grey_button _("Next")
       - else
-        = grey_button "Save"
-        = white_link_to "Cancel", back_path
+        = grey_button _("Save")
+        = white_link_to _("Cancel"), back_path

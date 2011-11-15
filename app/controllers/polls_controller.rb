@@ -1,6 +1,6 @@
 class PollsController < ApplicationController
 
-  add_breadcrumb "Polls", :polls_path
+  add_breadcrumb _("Polls"), :polls_path
 
   before_filter :authenticate_user!
   before_filter :set_steps
@@ -77,7 +77,7 @@ class PollsController < ApplicationController
 
   def destroy
     @poll.destroy
-    redirect_to polls_path, :notice => "Poll #{@poll.title} has been deleted"
+    redirect_to polls_path, :notice => _("Poll %{title} has been deleted") % {:title => @poll.title}
   end
 
   def register_channel
@@ -86,25 +86,25 @@ class PollsController < ApplicationController
 
   def start
     if @poll.start
-      redirect_to :back, :notice => "Poll #{@poll.title} has been started"
+      redirect_to :back, :notice => _("Poll %{title} has been started") % {:title => @poll.title}
     else
-      redirect_to :back, :alert => "Poll #{@poll.title} has failed to start"
+      redirect_to :back, :alert => _("Poll %{title} has failed to start") % {:title => @poll.title}
     end
   end
 
   def pause
     if @poll.pause
-      redirect_to :back, :notice => "Poll #{@poll.title} has been paused"
+      redirect_to :back, :notice => _("Poll %{title} has been paused") % {:title => @poll.title}
     else
-      redirect_to :back, :alert => "Poll #{@poll.title} has failed to pause"
+      redirect_to :back, :alert => _("Poll %{title} has failed to pause") % {:title => @poll.title}
     end
   end
 
   def resume
     if @poll.resume
-      redirect_to :back, :notice => "Poll #{@poll.title} has been resumed"
+      redirect_to :back, :notice => _("Poll %{title} has been resumed") % {:title => @poll.title}
     else
-      redirect_to :back, :alert => "Poll #{@poll.title} has failed to resume"
+      redirect_to :back, :alert => _("Poll %{title} has failed to resume") % {:title => @poll.title}
     end
   end
 

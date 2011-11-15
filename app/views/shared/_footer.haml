@@ -2,22 +2,26 @@
   %div
     .left.platform
       InSTEDD has created an evolving platform of free and open source technologies to support humanitarian causes. These tools can be used individually or as building blocks for larger solutions.
-      %a{:href => "http://instedd.org/technologies/"} Click here
+      %a{:href => "http://instedd.org/technologies/"} 
+        Click here
       to learn more.
     .right
-      %a.more{:href => "http://instedd.org/technologies/"} Learn more
+      %a.more{:href => "http://instedd.org/technologies/"} 
+        Learn more
       #instedd-footer{"data-app-name" => "pollit"}
     .clear
   %div
     .left
-      %a{:href => "http://instedd.org"} &copy; 2011 InSTEDD
+      %a{:href => "http://instedd.org"} 
+        &copy; 2011 InSTEDD
       -#%a{:href => "#"} Terms and conditions
-      %a{:href => Pollit::Application.config.contact_us} Contact us
+      %a{:href => Pollit::Application.config.contact_us} 
+        Contact us
     .right
-      = link_to "Home", root_path
-      -#%a{:href => "#"} Tour
-      = link_to "Community", community_path
-      %a{:href => "#"} Help
+      = link_to _("Home"), root_path
+      = link_to _("Tour"), tour_path            
+      = link_to _("Community"), community_path
+      = link_to _("Help"), help_path
       -#%a{:href => "#"} Language: English
       %a{:href => "#"}
         Version

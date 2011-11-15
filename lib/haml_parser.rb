@@ -1,6 +1,3 @@
-#This module used for crating the .pot file and
-# this file conatins all views in pain text.
-
 require 'rubygems'
 require 'haml'
 require 'gettext/tools'
@@ -9,22 +6,25 @@ class Haml::Engine
   
   attr_accessor :gettext_code
 
-  def parse_tag(line)
-    tag_name, attributes, attributes_hash, object_ref,
-    nuke_outer_whitespace, nuke_inner_whitespace,
-    action, value = super(line)
-
-    push_gettext(value)
-    
-    [tag_name, attributes, attributes_hash, object_ref, nuke_outer_whitespace, nuke_inner_whitespace, action, value]
+  def tag(line)
+    node = super(line)
+    if !node.value[:parse]
+      #puts "Pushing tag #{node.value[:value]}"
+      push_gettext(node.value[:value])
+    else
+      push_gettext_script(node.value[:value])
+    end
+    node
   end
 
   def plain(text, escape_html=nil)
     #push_gettext(text)
+    #puts "Silent #{text}"
     super(text, escape_html)
   end
 
   def push_text(text, tab_change=0)
+    #puts "Pushing text #{text}"
     push_gettext(text)
   end
 
@@ -40,17 +40,23 @@ class Haml::Engine
     push_gettext_script(text)
   end
 
-  def push_gettext(text)
-    gettext_code  << "_(\"#{text}\")" unless text.blank? || text.include?('#{')
-  end
-
-  def push_gettext_script(text)
-    gettext_code << text
-  end
-
   def gettext_code
     (@gettext_code ||= [])
   end
+
+  private
+
+  def push_gettext(text)
+    gettext_code  << "_(\"#{text}\")\n" unless text.blank? || text.include?('#{') || text.include?('<!--')
+  end
+
+  def push_gettext_script(text)
+    unless text.blank?
+      gettext_code << text 
+      gettext_code << "\n" unless text.end_with?("\n")
+    end
+  end
+  
 end
 
 # Haml gettext parser
@@ -62,17 +68,13 @@ module HamlParser
   end
 
   def parse(file, ary = [])
-    puts "HamlParser:#{file}"
+    puts "HamlParser: #{file}"
     haml = Haml::Engine.new(IO.readlines(file).join)
     result = nil
     begin
       code = haml.gettext_code
-      puts "Tha code:"
-      code.each do |line|
-        puts line
-      end
+      code.each { |line| puts " #{line}" }
       result = GetText::RubyParser.parse_lines(file, code, ary)
-      # result = RubyGettextExtractor.parse_string(haml.precompiled, file, ary)
     rescue Exception => e
       puts "Error:#{file}"
       raise e

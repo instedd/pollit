@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def default_url_options(options={})
+    {:locale => I18n.locale.to_s}
+  end
+
   def set_layout
     request.xhr? ? false : "application"
   end

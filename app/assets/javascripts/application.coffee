@@ -6,9 +6,10 @@ $ ->
   $('.link').live 'click', ->
     url = $(this).data('url')
     window.location = url
-  
-  $('.language li').live 'click', ->
+
+  $('.language li a').live 'click', ->
     req_locale = $(this).data('lang')
     window.location = '/locale/update?requested_locale=' + req_locale
+    return false
 
   window.reinitialize()

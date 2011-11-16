@@ -3,5 +3,5 @@
     %ul.language
       - Locales.available.each do |key,name|
         %li{:class => ('selected' if I18n.locale == key)}
-          %a{:href => '#'}
+          %a{:href => '#', 'data-lang' => key}
             = name

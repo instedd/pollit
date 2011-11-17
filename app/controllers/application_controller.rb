@@ -57,6 +57,17 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
+    user = resource_or_scope
+    if user.lang
+      I18n.locale = user.lang.to_sym 
+    elsif I18n.locale
+      user.lang = I18n.locale.to_s
+      user.save
+    end
     (session[:return_to] || polls_path).to_s
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    home_path
   end
 end

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
-"POT-Creation-Date: 2011-11-15 17:49-0300\n"
+"POT-Creation-Date: 2011-11-17 17:54-0300\n"
 "PO-Revision-Date: 2011-11-14 16:34-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,12 +117,28 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: app/views/polls/show.haml:1 app/views/polls/_form.haml:1
+#: app/views/polls/show.haml:1 app/views/polls/show.haml:4
+#: app/views/polls/_form.haml:1
 msgid "Properties"
 msgstr ""
 
 #: app/views/polls/show.haml:3
 msgid "New Poll successfully created"
+msgstr ""
+
+#: app/views/polls/show.haml:4 app/views/polls/show.haml:23
+#: app/views/channels/show.haml:1 app/views/channels/show.haml:4
+#: app/views/shared/_poll_tabs.haml:7
+msgid "Channel"
+msgstr ""
+
+#: app/views/polls/show.haml:4 app/views/respondents/index.haml:5
+#: app/views/respondents/readonly.haml:2 app/views/shared/_poll_tabs.haml:6
+msgid "Respondents"
+msgstr ""
+
+#: app/views/polls/show.haml:4 app/views/channels/wizard/_d_end_wizard.haml:6
+msgid "Finish"
 msgstr ""
 
 #: app/views/polls/show.haml:8
@@ -153,11 +169,6 @@ msgstr ""
 
 #: app/views/polls/show.haml:21
 msgid "There is no channel set for this poll"
-msgstr ""
-
-#: app/views/polls/show.haml:23 app/views/channels/show.haml:1
-#: app/views/channels/show.haml:4 app/views/shared/_poll_tabs.haml:7
-msgid "Channel"
 msgstr ""
 
 #: app/views/polls/show.haml:26
@@ -215,6 +226,39 @@ msgstr ""
 #: app/views/polls/edit.haml:2 app/views/layouts/application.haml:2
 #: app/views/layouts/application.haml:24 app/views/shared/_poll_tabs.haml:8
 msgid "Settings"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:1
+msgid "Start"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:2
+msgid "with a free account"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:3
+msgid "Create"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:4
+msgid "unlimited polls"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:5
+msgid "Poll"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:6
+#, fuzzy
+msgid "your people"
+msgstr "Ver encuestas"
+
+#: app/views/tour/_tour_navigation.haml:7
+msgid "Analyze"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:8
+msgid "your results"
 msgstr ""
 
 #: app/views/tour/create.haml:1
@@ -417,11 +461,24 @@ msgid "Change your password"
 msgstr ""
 
 #: app/views/devise/passwords/edit.haml:2
+#: app/views/user_mailer/reset_password_instructions.haml:3
 msgid "Change my password"
 msgstr ""
 
 #: app/views/devise/confirmations/new.haml:1
 msgid "Resend confirmation instructions"
+msgstr ""
+
+#: app/views/devise/shared/_links.haml:3
+msgid "Reset it"
+msgstr ""
+
+#: app/views/devise/shared/_links.haml:6
+msgid "Didn't receive confirmation instructions?"
+msgstr ""
+
+#: app/views/devise/shared/_links.haml:9
+msgid "Didn't receive unlock instructions?"
 msgstr ""
 
 #: app/views/channels/new.haml:3
@@ -455,7 +512,102 @@ msgid "Back"
 msgstr ""
 
 #: app/views/channels/show.haml:18
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:21
 msgid "Next"
+msgstr ""
+
+#: app/views/channels/wizard/_d_end_wizard.haml:1
+msgid "Congratulations! you have successfully created a channel"
+msgstr ""
+
+#: app/views/channels/wizard/_d_end_wizard.haml:2
+msgid ""
+"The phone you have configured will be used for sending and receiving text "
+"messages. Ensure the phone is running and has credit for sending messages."
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:1
+msgid "Go to Android Market and install Nuntium Local Gateway"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:2
+msgid "Nuntium"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:6
+msgid ""
+"Use the following QR code to access the app or use the search engine with "
+"the keyword"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:10
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:16
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:22
+msgid "Skip this step"
+msgstr ""
+
+#: app/views/channels/wizard/_c_new_channel.haml:1
+msgid "Enter the gateway code from your mobile phone"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:1
+msgid "Download and install Nuntium Local Gateway"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:2
+msgid ""
+"Nuntium Local Gateway is a program that runs on your local computer and "
+"requires a mobile phone to be plugged in. The Gateway will use the plugged-"
+"in phone for sending and receiving text messsages."
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:3
+msgid ""
+"Download the client corresponding to your operating system and install it."
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:4
+msgid "Download for MacOS"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:5
+msgid "Download for Windows"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:6
+msgid "Download for Ubuntu"
+msgstr ""
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:10
+msgid ""
+"Alternatively, you can install the Gateway running the following commands:"
+msgstr ""
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:1
+msgid "Choose your type of mobile phone"
+msgstr ""
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:15
+msgid "Android mobile phone"
+msgstr ""
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:16
+msgid ""
+"If you have an Android powered mobile phone, you don't need a computer to "
+"set up your gateway. Just download the application and follow the "
+"configuration steps, and the phone will be used for sending questions and "
+"receiving answers."
+msgstr ""
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:18
+msgid "Other mobile phone"
+msgstr ""
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:19
+msgid ""
+"If you use another type of mobile phone all you need to do is plug your "
+"phone into your computer, download the client, and it will be used for "
+"sending and receiving messages."
 msgstr ""
 
 #: app/views/layouts/application.haml:1
@@ -511,9 +663,9 @@ msgid "Collect opinions,"
 msgstr "Reúne opiniones,"
 
 #: app/views/home/index.haml:2
-msgid ""
-"feedback en tiempo real y actualizaciones de la gente, donde sea que estén."
+msgid "real-time feedback and status updates from people, wherever they roam."
 msgstr ""
+"feedback en tiempo real y actualizaciones de la gente, donde sea que estén."
 
 #: app/views/home/index.haml:3
 msgid ""
@@ -590,12 +742,12 @@ msgid "code for developers to use to improve its design and functionality"
 msgstr ""
 
 #: app/views/home/index.haml:20
-msgid "Para qué puedo usarlo?"
-msgstr ""
+msgid "What can I use it for?"
+msgstr "Para qué puedo usarlo?"
 
 #: app/views/home/index.haml:21
-msgid "Reúne firmas de forma virtual"
-msgstr ""
+msgid "Collecting Petition Signatures Virtually"
+msgstr "Reúne firmas de forma virtual"
 
 #: app/views/home/index.haml:22
 msgid ""
@@ -788,11 +940,6 @@ msgstr ""
 msgid "Upload it for bulk account creation"
 msgstr ""
 
-#: app/views/respondents/index.haml:5 app/views/respondents/readonly.haml:2
-#: app/views/shared/_poll_tabs.haml:6
-msgid "Respondents"
-msgstr ""
-
 #: app/views/respondents/index.haml:11
 msgid "Add phone numbers manually or upload a CSV file"
 msgstr ""
@@ -816,6 +963,14 @@ msgstr ""
 
 #: app/views/users/registrations/success.haml:3
 msgid "Almost there!"
+msgstr ""
+
+#: app/views/users/registrations/edit.haml:1
+msgid "(we need your current password to confirm your changes)"
+msgstr ""
+
+#: app/views/users/registrations/edit.haml:2
+msgid "Update"
 msgstr ""
 
 #: app/views/help/index.haml:1
@@ -867,7 +1022,10 @@ msgstr ""
 msgid ""
 "Because of the technical and financial burdens of sending text messages "
 "directly from Pollit, we rely on your phone and sim card for this part of "
-"our service, using our Nuntium Gateway app to "
+"our service, using our Nuntium Gateway app to 'couple' your phone to Pollit "
+"so that it can conduct polls created using the Pollit Web application. That "
+"way, we can offer Pollit at no charge to everyone, no matter where in the "
+"world you are."
 msgstr ""
 
 #: app/views/help/index.haml:11
@@ -888,12 +1046,20 @@ msgstr ""
 msgid "let us know"
 msgstr ""
 
+#: app/views/user_mailer/confirmation_instructions.haml:3
+msgid "Confirm my account"
+msgstr ""
+
 #: app/views/shared/_poll_tabs.haml:4
 msgid "Overview"
 msgstr ""
 
 #: app/views/shared/_poll_tabs.haml:5 app/views/answers/index.haml:1
 msgid "Answers"
+msgstr ""
+
+#: app/views/shared/_langs_bubble.haml:1
+msgid "Change Language"
 msgstr ""
 
 #: app/views/shared/_wizard.haml:1
@@ -923,7 +1089,7 @@ msgstr ""
 msgid "Contact us"
 msgstr ""
 
-#: app/views/shared/_footer.haml:13
+#: app/views/shared/_footer.haml:15
 msgid "Version"
 msgstr ""
 
@@ -992,15 +1158,3 @@ msgstr ""
 #: app/views/answers/_list.haml:5
 msgid "No answers have been received yet."
 msgstr ""
-
-#~ msgid ""
-#~ "real-time feedback and status updates from people, wherever they roam."
-#~ msgstr ""
-#~ "feedback en tiempo real y actualizaciones de la gente, donde sea que "
-#~ "estén."
-
-#~ msgid "What can I use it for?"
-#~ msgstr "Para qué puedo usarlo?"
-
-#~ msgid "Collecting Petition Signatures Virtually"
-#~ msgstr "Reúne firmas de forma virtual"

@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_steps
-    @steps = ['Properties','Channel','Respondents','Finish']
-    @wizard_step ||= 'Properties'
+    @steps = [_('Properties'),_('Channel'),_('Respondents'),_('Finish')]
+    @wizard_step ||= _('Properties')
   end
 
   private

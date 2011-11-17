@@ -1,0 +1,19 @@
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+.ChannelWizard
+  %h1.orange Go to Android Market and install Nuntium Local Gateway
+  %p.w60.grey
+    Use the following QR code to access the app or use the search engine with the keyword
+    %span.box.plain.grey Nuntium
+  %br/
+  .AndroidQR
+  %br/
+  %a{:href => "http://market.android.com/details?id=org.instedd.geochat.lgw"}
+    = "market.android.com/details?id=org.instedd.geochat.lgw"
+  %br/
+  %br/
+%hr/
+.ChannelWizardNavigation.actions
+  = back_to :a_choose_local_gateway
+  = next_to :c_new_android_channel
+  = link_to _("Skip this step"), poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" if wizard?

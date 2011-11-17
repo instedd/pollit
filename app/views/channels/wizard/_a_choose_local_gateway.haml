@@ -1,0 +1,27 @@
+:javascript
+  $(document).ready(function () {
+  	$('input[name=localGateway]').click(function () {
+  		$('#next').removeAttr('onclick').removeAttr('disabled').attr('data-remote', 'true').attr('href', $(this).data('url'));
+  	}).filter(':checked').each(function() { $(this).click(); });
+  });
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+.ChannelWizard
+  %h1 Choose your type of mobile phone
+  / Android Local Gateway
+  = radio_button_tag :localGateway, :android, checked=false, :id => :androidLocalGateway, 'data-url' =>  step_path(:b_download_android_local_gateway), :class => :left
+  .left.AndroidLogo
+  = label_tag :androidLocalGateway, _("Android mobile phone") , :class => "left"
+  %p.w30.clear.description
+    If you have an Android powered mobile phone, you don't need a computer to set up your gateway. Just download the application and follow the configuration steps, and the phone will be used for sending questions and receiving answers.
+  / Desktop Local Gateway
+  = radio_button_tag :localGateway, :desktop, checked=false, :id => :desktopLocalGateway, 'data-url' => step_path(:b_download_desktop_local_gateway), :class => :left
+  .left.DesktopLogo
+  = label_tag :desktopLocalGateway, _("Other mobile phone"), :class => "left"
+  %p.w30.clear.description
+    If you use another type of mobile phone all you need to do is plug your phone into your computer, download the client, and it will be used for sending and receiving messages.
+%hr/
+.ChannelWizardNavigation.actions
+  = back_to_start
+  = grey_link_to _('Next'), '#', :id => "next", :disabled => true, :onclick => 'return false;'
+  = link_to _("Skip this step"), poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" if wizard?

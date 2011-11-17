@@ -3,14 +3,14 @@
     %h2 Log In
     %hr.shadow/
     .field.w30
-      = f.label :email
+      = f.label :email, _('Email')
       = f.email_field :email
     .field.w30
-      = f.label :password
+      = f.label :password, _('Password')
       = f.password_field :password
     - if devise_mapping.rememberable?
       .field
-        = f.check_box :remember_me
+        = f.check_box :remember_me, _('Remember me')
         = f.label :remember_me, :class => 'checkbox'
     .actions
       %button.white{:type => "submit"} Log In

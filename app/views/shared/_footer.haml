@@ -22,7 +22,11 @@
       = link_to _("Tour"), tour_path            
       = link_to _("Community"), community_path
       = link_to _("Help"), help_path
-      -#%a{:href => "#"} Language: English
+      
+      %a#lang_bubble_trigger{:href => '#'}
+        = Locales.available[I18n.locale]
+      = render :partial => 'shared/langs_bubble'
+
       %a{:href => "#"}
         Version
         = Pollit::Application.config.version

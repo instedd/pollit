@@ -1,0 +1,9 @@
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+.ChannelWizard
+  %h1 Congratulations! you have successfully created a channel
+  %p.w30 The phone you have configured will be used for sending and receiving text messages. Ensure the phone is running and has credit for sending messages.
+  .ChannelConfigured
+%hr/
+.ChannelWizardNavigation.actions
+  = white_link_to _('Finish'), poll_channel_path(@poll)

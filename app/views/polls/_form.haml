@@ -10,23 +10,23 @@
     %h2 Properties
 
     .field
-      = f.label :title
+      = f.label :title, _('Title')
       = f.text_field :title, :class => 'required w60'
     
     .field
-      = f.label :description
+      = f.label :description, _('Description')
       = f.text_area :description, :class => 'w60', :rows => 5
     
     .field
-      = f.label :welcome_message
+      = f.label :welcome_message, _('Welcome message')
       %p This message will be sent to all respondents asking them if they agree to participate in the poll
       = f.text_area :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required ux-wajbar w60', :readonly => !@poll.editable?
     .field
-      = f.label :confirmation_word
+      = f.label :confirmation_word, _('Confirmation word')
       %p Respondents must answer with the confirmation word in order to agree to participate in the poll
       = f.text_field :confirmation_word, :class => 'w60', :readonly => !@poll.editable?
     .field
-      = f.label :goodbye_message
+      = f.label :goodbye_message, _('Goodbye message')
       %p This message will be sent to respondents when they complete the poll
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'ux-wajbar w60'
     

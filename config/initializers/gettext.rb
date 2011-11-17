@@ -1,6 +1,6 @@
 TestTranslations = false
 
-if TestTranslations && Rails.env.development?
+if TestTranslations
   def _(msgid)
     "[#{I18n.locale}] #{msgid}"
   end

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
-"POT-Creation-Date: 2011-11-17 17:54-0300\n"
+"POT-Creation-Date: 2011-11-18 14:14-0300\n"
 "PO-Revision-Date: 2011-11-14 16:34-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,7 +118,9 @@ msgid "Import"
 msgstr ""
 
 #: app/views/polls/show.haml:1 app/views/polls/show.haml:4
-#: app/views/polls/_form.haml:1
+#: app/views/polls/_form.haml:1 app/controllers/channels_controller.rb:54
+#: app/controllers/application_controller.rb:41
+#: app/controllers/application_controller.rb:42
 msgid "Properties"
 msgstr ""
 
@@ -129,15 +131,22 @@ msgstr ""
 #: app/views/polls/show.haml:4 app/views/polls/show.haml:23
 #: app/views/channels/show.haml:1 app/views/channels/show.haml:4
 #: app/views/shared/_poll_tabs.haml:7
+#: app/controllers/channels_controller.rb:49
+#: app/controllers/application_controller.rb:41
 msgid "Channel"
 msgstr ""
 
 #: app/views/polls/show.haml:4 app/views/respondents/index.haml:5
 #: app/views/respondents/readonly.haml:2 app/views/shared/_poll_tabs.haml:6
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/application_controller.rb:41
 msgid "Respondents"
 msgstr ""
 
 #: app/views/polls/show.haml:4 app/views/channels/wizard/_d_end_wizard.haml:6
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:62
+#: app/controllers/application_controller.rb:41
 msgid "Finish"
 msgstr ""
 
@@ -508,11 +517,14 @@ msgid "Change channel"
 msgstr ""
 
 #: app/views/channels/show.haml:17 app/views/respondents/readonly.haml:8
+#: app/helpers/channels_helper.rb:4 app/helpers/channels_helper.rb:14
+#: app/helpers/channels_helper.rb:16
 msgid "Back"
 msgstr ""
 
 #: app/views/channels/show.haml:18
 #: app/views/channels/wizard/_a_choose_local_gateway.haml:21
+#: app/helpers/channels_helper.rb:9
 msgid "Next"
 msgstr ""
 
@@ -630,7 +642,10 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: app/views/layouts/application.haml:17
+#: app/views/layouts/application.haml:17 app/controllers/polls_controller.rb:3
+#: app/controllers/respondents_controller.rb:5
+#: app/controllers/channels_controller.rb:2
+#: app/controllers/answers_controller.rb:3
 msgid "Polls"
 msgstr ""
 
@@ -1055,6 +1070,7 @@ msgid "Overview"
 msgstr ""
 
 #: app/views/shared/_poll_tabs.haml:5 app/views/answers/index.haml:1
+#: app/controllers/answers_controller.rb:8
 msgid "Answers"
 msgstr ""
 
@@ -1157,4 +1173,148 @@ msgstr ""
 
 #: app/views/answers/_list.haml:5
 msgid "No answers have been received yet."
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:34
+msgid "%{count} %{errors} prohibited this %{object} from being saved:"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:34
+msgid "error"
+msgid_plural "errors"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/helpers/instedd_app_helper.rb:64
+msgid "There are no records to display"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:225
+msgid "The following errors occurred"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:80
+msgid "Poll %{title} has been deleted"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:89
+msgid "Poll %{title} has been started"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:91
+msgid "Poll %{title} has failed to start"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:97
+msgid "Poll %{title} has been paused"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:99
+msgid "Poll %{title} has failed to pause"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:105
+msgid "Poll %{title} has been resumed"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:107
+msgid "Poll %{title} has failed to resume"
+msgstr ""
+
+#: app/controllers/users/registrations_controller.rb:4
+msgid "you"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:55
+#: app/controllers/channels_controller.rb:62
+msgid "Choose"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:62
+msgid "Install"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:62
+msgid "Connect"
+msgstr ""
+
+#: app/controllers/home_controller.rb:3
+msgid "\"Foo #{params}\""
+msgstr ""
+
+#: app/models/poll.rb:139
+msgid "Yes"
+msgstr ""
+
+#: app/models/poll.rb:140
+msgid "Answer 'yes' if you want to participate in this poll."
+msgstr ""
+
+#: app/models/poll.rb:141
+msgid "Thank you for your answers!"
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:70
+msgid "Your answer was not understood. Please answer with (%s)"
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:74
+msgid "Your answer was not understood. Please answer with non empty string"
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:78
+msgid ""
+"Your answer was not understood. Please answer with a number between %s and %s"
+msgstr ""
+
+#: app/models/question.rb:60
+msgid "is not supported"
+msgstr ""
+
+#: app/models/channel.rb:8
+msgid "poll has already started"
+msgstr ""
+
+#: app/models/channel.rb:46
+msgid "invalid code"
+msgstr ""
+
+#: app/views/polls/import_form.js.erb:7
+msgid "Invalid public Google Form URL."
+msgstr ""
+
+#: app/views/layouts/mail.text.erb:7 app/views/layouts/mail.html.erb:12
+msgid "Do you have questions or need help? Contact us at"
+msgstr ""
+
+#: app/views/user_mailer/confirmation_instructions.text.erb:1
+msgid "You are almost done!"
+msgstr ""
+
+#: app/views/user_mailer/confirmation_instructions.text.erb:3
+msgid ""
+"To verify your account and complete the registration process please click in "
+"the link below or copy paste the URL into your browser"
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:1
+msgid "Hello %{email}!"
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:3
+msgid ""
+"Someone has requested a link to change your password, and you can do this "
+"through the link below."
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:7
+msgid ""
+"If you didn't request this, please ignore this email. Your password won't "
+"change until you access the link above and create a new one."
 msgstr ""

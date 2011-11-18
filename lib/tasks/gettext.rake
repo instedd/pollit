@@ -6,7 +6,7 @@ namespace :gettext do
       require 'haml_parser'
       begin
         GetText.update_pofiles(FastGettext.default_text_domain,
-            Dir.glob("{app}/**/*.{haml}"),
+            Dir.glob("{app}/**/*.{haml,rb,erb}"),
             Pollit::Application.config.version,
             :po_root => 'config/locales')
       rescue Exception => e

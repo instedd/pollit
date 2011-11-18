@@ -9,7 +9,6 @@ class Haml::Engine
   def tag(line)
     node = super(line)
     if !node.value[:parse]
-      #puts "Pushing tag #{node.value[:value]}"
       push_gettext(node.value[:value])
     else
       push_gettext_script(node.value[:value])
@@ -18,13 +17,10 @@ class Haml::Engine
   end
 
   def plain(text, escape_html=nil)
-    #push_gettext(text)
-    #puts "Silent #{text}"
     super(text, escape_html)
   end
 
   def push_text(text, tab_change=0)
-    #puts "Pushing text #{text}"
     push_gettext(text)
   end
 
@@ -47,7 +43,7 @@ class Haml::Engine
   private
 
   def push_gettext(text)
-    gettext_code  << "_(\"#{text}\")\n" unless text.blank? || text.include?('#{') || text.include?('<!--')
+    gettext_code  << "_(\"#{text.gsub(/"/,'\"')}\")\n" unless text.blank? || text.include?('#{') || text.include?('<!--')
   end
 
   def push_gettext_script(text)

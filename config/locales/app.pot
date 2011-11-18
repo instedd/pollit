@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1.0\n"
-"POT-Creation-Date: 2011-11-18 14:14-0300\n"
+"POT-Creation-Date: 2011-11-18 14:28-0300\n"
 "PO-Revision-Date: 2011-11-15 13:36-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -631,7 +631,9 @@ msgid "Sign Out"
 msgstr ""
 
 #: app/views/layouts/application.haml:5
-msgid "<!DOCTYPE html PUBLIC "
+msgid ""
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://"
+"www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
 msgstr ""
 
 #: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:8
@@ -1234,10 +1236,6 @@ msgstr ""
 #: app/controllers/channels_controller.rb:54
 #: app/controllers/channels_controller.rb:62
 msgid "Connect"
-msgstr ""
-
-#: app/controllers/home_controller.rb:3
-msgid "\"Foo #{params}\""
 msgstr ""
 
 #: app/models/poll.rb:139

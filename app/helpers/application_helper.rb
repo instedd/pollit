@@ -1,4 +1,10 @@
 module ApplicationHelper
+  
+  def image_tag(source, options = {})
+    source = File.join(I18n.locale.to_s, source) if options.delete(:localized)
+    super(source, options)
+  end
+
   def wizard?
     params[:wizard]
   end

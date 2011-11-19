@@ -22,12 +22,17 @@
       = link_to _("Tour"), tour_path            
       = link_to _("Community"), community_path
       = link_to _("Help"), help_path
-      
-      %a#lang_bubble_trigger{:href => '#'}
-        = Locales.available[I18n.locale]
-      = render :partial => 'shared/langs_bubble'
+      %span.lang-menu
+        %ul.language{:style => "height: #{20 * Locales.available.count + 15}px"}
+          - Locales.available.each do |key,name|
+            %li
+              %a{:href => '#', 'data-lang' => key}
+                = name
+        %span
+          Language:
+          = Locales.available[I18n.locale]
 
-      %span.VersionNumber
+      %span
         Version
         = Pollit::Application.config.version
     .clear

@@ -12,15 +12,4 @@ $ ->
     window.location = '/locale/update?requested_locale=' + req_locale
     return false
 
-  $('#lang_bubble_trigger').bubble
-    position : 'top'
-    content: $("#lang_bubble_content")
-    closeSelector: '#lang_bubble_close'
-    themeName:  'bubble'
-    innerHtmlStyle:
-      color:'#000000',
-      'background-color': 'white'
-    themePath: 'http://theme.instedd.org/theme/images/'
-    click: true
-
   window.reinitialize()

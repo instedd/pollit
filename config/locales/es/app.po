@@ -883,7 +883,7 @@ msgstr "Ver encuestas"
 
 #: app/views/home/index.haml:46 app/views/home/index.haml:57
 msgid "Create an account"
-msgstr ""
+msgstr "Crea una cuenta"
 
 #: app/views/home/index.haml:47
 msgid "Already a member?"

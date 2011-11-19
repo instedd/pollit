@@ -85,6 +85,7 @@ GEM
     gettext_i18n_rails (0.3.0)
       fast_gettext
     haml (3.1.3)
+    haml-magic-translations (0.2.2)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
@@ -218,6 +219,7 @@ DEPENDENCIES
   fast_gettext
   gettext!
   gettext_i18n_rails
+  haml-magic-translations
   haml-rails
   hpricot
   jquery-rails

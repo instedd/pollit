@@ -16,10 +16,6 @@ class Haml::Engine
     node
   end
 
-  def plain(text, escape_html=nil)
-    super(text, escape_html)
-  end
-
   def push_text(text, tab_change=0)
     push_gettext(text)
   end

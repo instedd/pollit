@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(:version => 20111104143252) do
     t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "welcome_message"
+    t.string   "welcome_message",   :default => "YES"
+    t.string   "status"
     t.string   "post_url"
     t.string   "confirmation_word"
-    t.string   "status"
     t.string   "goodbye_message"
   end
 

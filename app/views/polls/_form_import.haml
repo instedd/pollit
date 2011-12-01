@@ -1,18 +1,19 @@
 #poll_form_import
   .box.plain.green.w60
     .field{:style => 'margin: 0'}
-      = f.label :form_url, "Import Poll from Google Forms"
-
       %div.left{:style => 'width:480px'}
+        = f.label :form_url, "Import Poll from Google Forms"
         %p Copy the live URL (not the spreadsheet's URL) displayed at the bottom of your form edition window making sure the form does not require sign-in. 
-        = f.text_field :form_url, :class => 'w40'
+        = image_tag "loading.gif",:class => 'loading', :style=>'display:none'
+
+        = f.text_field :form_url, :class => 'w35'  
         = fancy_button 'Import', 'fimport', :class => 'import_form_action'
+        
         = f.hidden_field :post_url
       %div.right
         %a#preview{:href=>image_path("preview.png")}
           = image_tag("preview_small.png")
       .clear
-        
 %br
 
 :javascript

@@ -1,0 +1,41 @@
+- f = question_form
+
+.feditor-form{:id => "feditor-form-#{index}", "data-field-index" => index}
+  = f.hidden_field :kind
+  = f.hidden_field :id
+  = f.hidden_field :field_name
+  = f.hidden_field :position
+
+  %p.title Title
+  %p.smalltext The name of this question as it is presented.
+  = f.text_field :title, :readonly => disabled, :class => 'feditor-field-name required'
+  %hr
+  
+  %p.title Description
+  %p.smalltext Additional help for this question.
+  = f.text_field :description, :readonly => disabled, :class => 'feditor-field-hint'
+  %hr
+
+  - if f.object.kind_numeric?
+    %p.title Range
+    %p.smalltext Range of values accepted for this question
+    = f.text_field :numeric_min, :readonly => disabled, :class => "w13"
+    %span.smalltext to
+    = f.text_field :numeric_max, :readonly => disabled, :class => "w13"
+    %hr
+
+  - if f.object.kind_has_options?
+    %p.title Options
+    %p.smalltext Possible values for this question.
+    %ul.feditor-form-options.clist.w30
+      - if f.object.options
+        - f.object.options.each do |opt|
+          = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
+  .clear
+    -# unless disabled
+      -#.feditor-form-option-new.require_from_group
+        -#= f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
+        -#= link_to_add_question_option f, :class => 'right addoption'
+        -#.clear
+
+

@@ -1,0 +1,7 @@
+- if Locales.many? && controller.controller_name == 'home'
+  .right.homepage
+    %ul.language
+      - Locales.available.each do |key,name|
+        %li{:class => ('selected' if I18n.locale == key)}
+          %a{:href => '#', 'data-lang' => key}
+            = name

@@ -1,0 +1,8 @@
+<%unless @error%>
+  $('#poll_form_container').replaceWith('<%=escape_javascript(render :partial => 'form')%>');
+  window.reinitialize('#poll_form_container');
+  window.formValidate();
+  select_field(0);
+<%else%>
+  window.validator.showErrors({'poll[form_url]': '<%= _("Invalid public Google Form URL.") %>'});
+<%end%>

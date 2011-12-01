@@ -1,0 +1,122 @@
+h1 {
+  &.green {
+    color:#739524;
+  }
+}
+
+table div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.block {
+  display: block;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.nodisplay {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.field_with_errors { 
+  display: inline; 
+}
+
+label.placeholder {
+  cursor: text;
+  padding: 4px 4px 4px 4px;
+  color: #999999;
+  font-style: italic;
+}
+
+.box.unstartedPoll {
+  border-top: 0px !important;
+  width: 650px;  
+  margin-bottom: 5px;
+  .farrow {
+    margin-top: -3px;
+  }
+}
+
+.box.orange {
+  background-color: #fff0bd;
+  color: #FF6600;
+}
+
+.box.green { 
+  background:#eeffc9; 
+  color:#799823;
+  border:0;
+}
+
+.box.overview {
+  display: inline-block;
+  width: 190px;
+  margin-right:10px;
+  
+  .content {
+    display: inline-block;
+    width: 130px;
+    vertical-align: top;
+    padding-top: 5px;
+  }
+
+  &.incomplete {
+    .content {
+      color: #FF6600;
+    }
+    .icon {
+      background-position: 0px -50px;
+    }
+  }
+}
+
+.bottom-actions.registration {
+  margin-top: 20px;
+}
+
+.LocalGatewayBox.box {
+  width: 620px ! important;
+}
+
+.leftmargin {
+  margin-left: 15px ! important;
+}
+
+.black {
+  color: black ! important;
+}
+
+.homepage .illustration {
+  background: image-url("illustration.png") no-repeat scroll 0 0 transparent;
+  height: 406px;
+  width: 438px;
+}
+
+.EmptyDataPie {
+  cursor: default !important;
+  color: gray !important;
+}
+
+.w80 {
+  width: 800px ! important; 
+}
+
+.w70 {
+  width: 700px ! important; 
+}
+
+.w35 {
+  width: 350px !important;
+}
+
+.loading {
+  background: image-url("loading.gif") no-repeat scroll 0 0 transparent !important;
+}

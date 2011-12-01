@@ -1,0 +1,11 @@
+= devise_error_messages! :class => 'centered w30'
+
+.box.centered.w30
+  = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f|
+    %h2 Resend confirmation instructions
+    .field.w30
+      = f.label :email, _('Email')
+      = f.email_field :email
+    .actions
+      = grey_button _("Resend confirmation instructions")
+  = render :partial => "devise/shared/links"

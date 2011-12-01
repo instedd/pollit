@@ -1,0 +1,27 @@
+%h2 Your polls:
+
+.tablewrapp.w60
+  %table.GralTable.TwoColumn.CleanTable.ItemsTable{:class => ('empty' if @polls.empty?)}
+    %tr
+      %th My Polls
+      %th
+    - if @polls.empty?
+      %tr
+        %td.EmptyDataPie{:colspan => 100}
+          %br
+          You have no polls yet.
+          %br
+          = link_button_to 'Create Poll', new_poll_path, :class => 'EmptyAddButton button cadd'
+    - else
+      - @polls.each do |poll|
+        %tr.link{'data-url' => poll_path(poll)}
+          %td.mactive
+            = poll.title
+          %td
+            - if poll.respondents.any?
+              = progress_bar poll.questions_answered, poll.answers_expected
+            %button.farrow{:type => :button}
+      %tr.link{'data-url' => new_poll_path}
+        %td Create Poll
+        %td
+          %button.cadd

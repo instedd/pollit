@@ -1,0 +1,29 @@
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+.ChannelWizard
+  %h1.orange Download and install Nuntium Local Gateway
+  %p.w30 Nuntium Local Gateway is a program that runs on your local computer and requires a mobile phone to be plugged in. The Gateway will use the plugged-in phone for sending and receiving text messsages.
+  %p.w30 Download the client corresponding to your operating system and install it.
+  %hr/
+  %a.fapple{:href => "https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway-MacOS.tar.gz"} Download for MacOS
+  %br/
+  %hr/
+  %a.fwindows{:href => "https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway.exe"} Download for Windows
+  %br/
+  %hr/
+  %a.fubuntu{:href => "https://bitbucket.org/instedd/local-gateway/downloads/LocalGateway.deb"} Download for Ubuntu
+  .download-instructions
+    Alternatively, you can install the Gateway running the following commands:
+    .code
+      = "sudo add-apt-repository ppa:instedd/nuntium-local-gateway"
+      %br/
+      = "sudo apt-get update"
+      %br/
+      = "sudo apt-get install nuntium-local-gateway"
+      %br/
+  %br/
+%hr/
+.ChannelWizardNavigation.actions
+  = back_to :a_choose_local_gateway
+  = next_to :c_new_desktop_channel
+  = link_to _("Skip this step"), poll_respondents_path(@poll, :wizard => wizard?), :class => "wizard-skip" if wizard?

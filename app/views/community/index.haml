@@ -1,0 +1,29 @@
+.community
+  .w60.header
+    %h1 Community
+    %p Get involved with the project! We welcome any feedback, ideas and requests or features. Get in touch and help us build a better and more helpfull tool for you.
+  %hr/
+  %p 
+    If you have ideas, needs or suggestions.
+    %br/
+    %a.button.black.fchat{:href => Pollit::Application.config.user_group_url}
+      %span Join our discussion list
+  %p 
+    If you are a developer you can contribute with some of the features or check our code repository
+    %br/
+    %a.button.black.fbulb{:href => Pollit::Application.config.backlog_url}
+      %span Visit our backlog      
+    %a.button.fimport.leftmargin{:href => Pollit::Application.config.source_code_url}
+      %span Check the source code
+  %br
+  .w60.box.white.emailInput
+    .subscribe
+      .i48grad-message.left
+      %h2 Subscribe to our newsletter
+      %p Stay up to date on the latest news about new tools, features or ideas on how to use our technologies. We will send you between 1 and 2 emails a month and won't sell your email or spam you!
+    %hr/
+    %form{:action => Pollit::Application.config.suscribe_url, :method => "post", :target => "_blank"}
+      .w50.left
+        %input{:name => "EMAIL", :placeholder => _("Enter your email"), :type => "email"}/
+      %button.white.right{:type => "submit"} Subscribe
+      .clear

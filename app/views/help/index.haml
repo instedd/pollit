@@ -1,0 +1,22 @@
+.faq
+  .w60
+    %h1 Got questions?
+    %p
+      = _("Got a question or two about Pollit? We've got an answer or two! Check out the Frequently Asked Questions on this page or subscribe to our %{group}, where we'll be happy to answer any questions.") % {:group => link_to(_('user discussion group'), Pollit::Application.config.user_group_url, :target=>"_blank")}
+  %hr
+  .w60
+    %h3 Can I use any phone with Pollit?
+    %p Yes. As long as you -- and poll participants -- have a mobile phone that can send and receive text messages, you're all set.
+
+    %h3 Is there any charge for using Pollit?
+    %p Pollit is free to use and open source. Keep in mind that your mobile service provider's fees apply, so be sure to check with them if you have any questions about charges.
+
+    %h3 What browsers are supported by Pollit?
+    %p 
+    = _("Any modern browser, including the latest versions of Firefox, Safari, Internet Explorer, Chrome, and others should work fine. If you run across a browser that doesn't seem to play nice with Pollit, please %{letusknow}.") % {:letusknow => link_to(_('let us know'), Pollit::Application.config.user_group_url, :target=>"_blank")}
+
+    %h3 What is the Local Nuntium Gateway?
+    %p It’s a small application that serves as a bridge between your phone and the Pollit Web application. Because Pollit doesn't directly send or receive text messages, this app helps your phone to communicate with Pollit so that it can conduct your polls.
+
+    %h3 Why doesn't Pollit send and receive text messages directly?
+    %p Because of the technical and financial burdens of sending text messages directly from Pollit, we rely on your phone and sim card for this part of our service, using our Nuntium Gateway app to 'couple' your phone to Pollit so that it can conduct polls created using the Pollit Web application. That way, we can offer Pollit at no charge to everyone, no matter where in the world you are.

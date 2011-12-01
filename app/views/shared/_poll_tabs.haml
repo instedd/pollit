@@ -1,0 +1,21 @@
+%h1= poll.title
+.whitebox.w60
+  = poll.description
+%br
+
+%ul.tabs.top
+  %li#overview
+    = link_to "Overview", poll
+  %li#answers
+    = link_to "Answers", poll_answers_path(poll)
+  %li#respondents
+    = link_to "Respondents", poll_respondents_path(poll)
+  %li#channel
+    = link_to "Channel", poll_channel_path(poll)
+  %li#settings
+    = link_to "Settings", edit_poll_path(poll)
+
+.tabsline
+
+:javascript
+  $('##{active_tab}').addClass('active');

@@ -1,0 +1,13 @@
+<% unless params[:wizard] %>
+  <%= wizard @steps, @wizard_step %>
+<% end %>
+
+<div class="ChannelWizard">
+	<h1>Congratulations! you have successfully created a channel</h1>
+	<p class="w30">The phone you have configured will be used for sending and receiving text messages. Ensure the phone is running and has credit for sending messages.</p>
+	<div class="ChannelConfigured"></div>
+</div>
+<hr>
+<div class="ChannelWizardNavigation actions">
+	<%= white_link_to 'Finish', poll_channel_path(@poll) %>
+</div>

@@ -1,0 +1,59 @@
+!!!
+%html{"xmlns:ng" => "http://angularjs.org"}
+  %head
+    %title Pollit
+    = yield(:head)
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')
+    = javascript_include_tag instedd_theme_url_for('theme/javascripts/theme.js')
+    = csrf_meta_tags
+    = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
+    = render :partial =>"shared/analytics"
+  %body
+    = flash_message
+    #wrapper
+      #toolbar
+        %ul#instedd-pulldown
+        #NavMenu
+          %ul
+            = section "Home", root_path, :home
+            - if user_signed_in?
+              = section "Polls", polls_path, :polls, [:polls, :answers, :channels, :respondents]
+            = section "Tour", tour_path, :tour
+            = section "Community", community_path, :community
+            = section "Help", help_path, :help
+        %ul.RightMenu
+          - if user_signed_in?
+            %li
+              #User
+                = current_user.email
+                %br
+                %br
+                .container
+                  %ul
+                    %li= link_to "Settings", edit_user_registration_path
+                    %li= link_to "Report a bug", "mailto:#{Pollit::Application.config.report_bug}?subject=[Pollit]%20Bug%20report"
+                  %hr
+                  %ul
+                    %li= link_to "Sign Out", destroy_user_session_path
+            %li
+              = link_to '', edit_user_registration_path, :class => 'fsettings'
+          - else
+            %li
+              = link_to "Create account", new_user_registration_path, :class => 'fedit'
+            %li
+              = link_to "Log in", new_user_session_path, :class => 'fuser'
+      #header
+        .left
+          %a{:href => "/"}
+            %img{:src => "http://theme.instedd.org/theme/images/header/logos/pollit.png"}
+        
+        = breadcrumb
+              
+      #container
+        = yield(:content).presence or yield
+
+      #footer-span
+        #footer
+          = render :partial => "shared/footer"

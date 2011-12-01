@@ -15,7 +15,9 @@
     
     .field
       = f.label :description, _('Description')
+      %p This is an internal description of the Poll, it will not be sent to your users
       = f.text_area :description, :class => 'w60', :rows => 5
+
     
     .field
       = f.label :welcome_message, _('Welcome message')

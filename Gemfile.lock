@@ -80,6 +80,8 @@ GEM
       multi_json (~> 1.0)
     faker (1.0.1)
       i18n (~> 0.4)
+    fancybox-rails (0.1.4)
+      railties (>= 3.1.0)
     fast_gettext (0.6.2)
     fssm (0.2.7)
     gettext_i18n_rails (0.3.0)
@@ -215,6 +217,7 @@ DEPENDENCIES
   devise
   enumerated_attribute
   faker
+  fancybox-rails
   fast_gettext
   gettext!
   gettext_i18n_rails

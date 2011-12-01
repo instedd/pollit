@@ -113,12 +113,10 @@ label.placeholder {
   width: 700px ! important; 
 }
 
-#lang_bubble {
-  width: 250px;
-  h1 {
-    margin-top: 4px;
-  }
-  li {
-    text-align: left;
-  }
+.w35 {
+  width: 350px !important;
+}
+
+.loading {
+  background: image-url("loading.gif") no-repeat scroll 0 0 transparent !important;
 }

@@ -9,3 +9,5 @@
 //= require jquery.validate.min.js
 //= require additional-methods.min.js
 //= require_directory .
+//= require fancybox
+

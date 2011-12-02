@@ -13,14 +13,17 @@
   %br/
   - if current_user
     %p
-      Get started: #{link_button_to 'View your polls', polls_path, :class => "orange"}
+      Get started: 
+      =link_button_to _('View your polls'), polls_path, :class => "orange"
     %p
   - else
     %p
-      Get started: #{link_button_to 'Create an account', new_user_registration_path, :class => "orange"}
+      Get started: 
+      = link_button_to _('Create an account'), new_user_registration_path, :class => "orange"
     %p
     %p
-      Already a member? #{link_to 'Log in', new_user_session_path}
+      Already a member? 
+      = link_to _('Log in'), new_user_session_path
   .clear
   / #container
   .home-middle-bar
@@ -129,10 +132,10 @@
     .w45.left
       %h1 How does it work?
       %p All you need to get started is a questionnaire and a list of mobile phone numbers. You can create questionnaires using numeric, short answer, and/or multiple-choice questions. Once your questionnaire is ready to go, Pollit sends a text message invitation to each number on your list. Pollit sends your first question, waiting for an answer before sending another. Answers are stored in a spreadsheet, where you can review them in real time and export them for analysis in other applications.
-      = link_to 'Take a tour', tour_path, :class=>'button grey'
+      = link_to _('Take a tour'), tour_path, :class=>'button grey'
     / #w45 left
     .w45.right
-      = image_tag 'infographic.png'
+      = image_tag 'infographic.png', :localized => true
     / #w45 right
     .clear
     / #clear
@@ -144,7 +147,7 @@
       
       %p 
         %span Step 1
-        =link_button_to 'Create an account', new_user_registration_path, :class => 'fedit'
+        =link_button_to _('Create an account'), new_user_registration_path, :class => 'fedit'
         and log in
       %hr
       
@@ -152,7 +155,7 @@
         %span Step 2
         Create your poll using Google Forms
         %br/
-        =link_button_to "Learn more", 'http://docs.google.com/support/bin/answer.py?answer=87809', :class => 'fhelp'
+        =link_button_to _("Learn more"), 'http://docs.google.com/support/bin/answer.py?answer=87809', :class => 'fhelp'
       %hr
       
       %p 

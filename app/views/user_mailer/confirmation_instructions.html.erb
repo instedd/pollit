@@ -1,8 +1,0 @@
-<%= h1 do %>
-	You are almost done!
-<% end %>
-<%= h2 do %>
-	To verify your account and complete the registration process please click in the link below or copy paste the URL into your browser
-<% end  %>
-<br/>
-<%= advertised_link 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %>

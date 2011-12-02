@@ -1,0 +1,3 @@
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+= render :partial => "channels/wizard/c_new_channel", :locals => { :gateway => "android" }

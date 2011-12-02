@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  add_breadcrumb "Polls", :polls_path
+  add_breadcrumb _("Polls"), :polls_path
 
   before_filter :authenticate_user!
   before_filter :load_poll
@@ -46,20 +46,20 @@ class ChannelsController < ApplicationController
 
   def set_steps
     if params[:action].to_sym == :show
-      @wizard_step = "Channel"
+      @wizard_step = _("Channel")
       return super
     end
 
-    @steps = ["Choose", "Install", "Connect", "Finish"]
-    @dotted_steps = ["Properties", "Choose", "Install", "Connect", "Respondents"]
-    @wizard_step = 'Choose'
+    @steps = [_("Choose"), _("Install"), _("Connect"), _("Finish")]
+    @dotted_steps = [_("Properties"), _("Choose"), _("Install"), _("Connect"), _("Respondents")]
+    @wizard_step = _('Choose')
   end
 
   private
 
   def set_current_step(step)
     @step = step
-    {"a" => "Choose", "b" => "Install", "c" => "Connect", "d" => "Finish"}.each_pair do |k,v|
+    {"a" => _("Choose"), "b" => _("Install"), "c" => _("Connect"), "d" => _("Finish")}.each_pair do |k,v|
       @wizard_step = v if @step.start_with?(k)
     end
   end

@@ -1,5 +1,5 @@
 - if params[:wizard]
-  - add_breadcrumb "New poll", '#'
+  - add_breadcrumb _("New poll"), '#'
   %h1 New Poll
   - if @dotted_steps
     = dotted_wizard @dotted_steps, @wizard_step if @wizard_step

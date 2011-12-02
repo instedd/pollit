@@ -1,5 +1,5 @@
 - unless wizard?
-  - add_breadcrumb "Respondents", poll_respondents_path(@poll)
+  - add_breadcrumb _("Respondents"), poll_respondents_path(@poll)
   = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'respondents' }
 
 - content_for :head do
@@ -35,12 +35,12 @@
   
   .actions
     - if wizard?
-      = white_link_to "Back", poll_channel_path(@poll, :wizard => true)
-      = grey_button "Next", :type => :button, "ng:click" => "nextStep()"
-      = link_to "Skip this step", poll_path(@poll, :wizard => true), :class => "wizard-skip"
+      = grey_button _("Next"), :type => :button, "ng:click" => "nextStep()"
+      = white_link_to _("Back"), poll_channel_path(@poll, :wizard => true)
+      = link_to _("Skip this step"), poll_path(@poll, :wizard => true), :class => "wizard-skip"
     - else
-      = grey_button "Save", :type => :button, "ng:click" => "saveChanges(true)"
-      = white_link_to "Cancel", @poll
+      = grey_button _("Save"), :type => :button, "ng:click" => "saveChanges(true)"
+      = white_link_to _("Cancel"), @poll
 
 :javascript
   $(document).ready(function() {

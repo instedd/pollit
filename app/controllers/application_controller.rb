@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
 
+  before_filter :set_gettext_locale
+  before_filter :redirect_to_localized_url
   before_filter :set_steps
 
   layout :set_layout
@@ -19,6 +21,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def redirect_to_localized_url
+    redirect_to params unless params[:locale]
+  end
+
+  def default_url_options(options={})
+    {:locale => I18n.locale.to_s}
+  end
+
   def set_layout
     request.xhr? ? false : "application"
   end
@@ -28,8 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_steps
-    @steps = ['Properties','Channel','Respondents','Finish']
-    @wizard_step ||= 'Properties'
+    @steps = [_('Properties'),_('Channel'),_('Respondents'),_('Finish')]
+    @wizard_step ||= _('Properties')
   end
 
   private
@@ -47,6 +57,17 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource_or_scope)
+    user = resource_or_scope
+    if user.lang
+      I18n.locale = user.lang.to_sym 
+    elsif I18n.locale
+      user.lang = I18n.locale.to_s
+      user.save
+    end
     (session[:return_to] || polls_path).to_s
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    home_path
   end
 end

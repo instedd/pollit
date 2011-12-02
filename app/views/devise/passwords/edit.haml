@@ -5,10 +5,10 @@
     %hr.shadow
     = f.hidden_field :reset_password_token
     .field.w30
-      = f.label :password, "New password"
+      = f.label :password, _("New password")
       = f.password_field :password
     .field.w30
-      = f.label :password_confirmation, "Confirm new password"
+      = f.label :password_confirmation, _("Confirm new password")
       = f.password_field :password_confirmation
     .actions
       %button.white{:type => "submit"} Change my password

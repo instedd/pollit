@@ -6,6 +6,9 @@ $ ->
   setupValidation()
   $('.import_form_action').live 'click', ->
     if $('#poll_form_url').valid()
+      $(this).text('Importing...')
+      $(this).attr('disabled','disabled')
+      $(this).addClass('loading');
       $.ajax(
         url: "/polls/import_form"
         data: $('#poll_form_container form').serialize()

@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def redirect_to_localized_url
-    redirect_to params unless params[:locale]
+    redirect_to params if params[:locale].nil? && request.get?
   end
 
   def default_url_options(options={})

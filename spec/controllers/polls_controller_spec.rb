@@ -95,7 +95,7 @@ describe PollsController do
   it "should not render show page if unauthorized" do
     p = Poll.make :owner => User.make
     get :show, :id => p.id
-    response.should redirect_to('/')
+    response.should redirect_to('/?locale=en')
     assigns(:poll).class.name.should eq("Poll")
   end
 

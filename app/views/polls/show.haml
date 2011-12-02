@@ -1,7 +1,7 @@
 - if params[:wizard]
   %h1.green
     New Poll successfully created
-  = wizard ["Properties", "Channel", "Respondents", "Finish"], "Finish"
+  = wizard [_("Properties"), _("Channel"), _("Respondents"), _("Finish")], _("Finish")
   %br
 
 
@@ -12,7 +12,7 @@
 - if @poll.can_be_started?
   .box.plain.orange.unstartedPoll
     This poll has not been started yet
-    = link_to "Start Poll", start_poll_path(@poll), :method => :post, :confirm => "Are you sure you want to start this poll? Once started, you may not modify its questions or add new respondents.", :class => 'farrow right'
+    = link_to _("Start Poll"), start_poll_path(@poll), :method => :post, :confirm => _("Are you sure you want to start this poll? Once started, you may not modify its questions or add new respondents."), :class => 'farrow right'
   .clear
     
 .box.overview{:class => ('incomplete' if @poll.respondents.empty?)}  
@@ -24,7 +24,7 @@
       = @poll.respondents.count
       %br
       respondents
-  = link_to "Manage Respondents", poll_respondents_path(@poll), :class => 'farrow'
+  = link_to _("Manage Respondents"), poll_respondents_path(@poll), :class => 'farrow'
 
 .box.overview{:class => ('incomplete' if @poll.channel.nil?)}  
   .i48grad-channel.icon
@@ -35,13 +35,13 @@
       Channel
       %br
       = @poll.channel.unprefixed_address
-  = link_to "Manage Channel", poll_channel_path(@poll), :class => 'farrow'
+  = link_to _("Manage Channel"), poll_channel_path(@poll), :class => 'farrow'
 
 .box.overview
   .i48grad-googleDocs.icon
   .content
     Questions from Google Docs Form
-  = link_to "Go to live form", @poll.form_url, :class => 'farrow'
+  = link_to _("Go to live form"), @poll.form_url, :class => 'farrow'
 
 %br
 %br
@@ -50,15 +50,15 @@
   %span
     This poll is active and is receiving messages from its respondents
   %br
-  = link_to "Pause this poll", pause_poll_path(@poll), :method => :post, :class => 'fpause'
+  = link_to _("Pause this poll"), pause_poll_path(@poll), :method => :post, :class => 'fpause'
 - elsif @poll.paused?
   %span
     This poll is paused and will not send new questions to its respondents
   %br
-  = link_to "Resume this poll", resume_poll_path(@poll), :method => :post, :class => 'fplay'
+  = link_to _("Resume this poll"), resume_poll_path(@poll), :method => :post, :class => 'fplay'
     
 %hr
 
-= link_to "Delete this poll", poll_path(@poll), :method => :delete, :confirm => "Are you sure you want to delete poll '#{@poll.title}'?", :class => 'fdelete'
+= link_to _("Delete this poll"), poll_path(@poll), :method => :delete, :confirm => _("Are you sure you want to delete poll %{title}?") % {:title => @poll.title}, :class => 'fdelete'
 
   

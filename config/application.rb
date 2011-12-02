@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -50,6 +52,21 @@ module Pollit
       g.test_framework :rspec
       g.fixture_replacement :machinist
     end
+
+    # Languages
+    config.available_locales = {
+      :en => "English",
+      :es => "Español"
+    }
+
+    # Default language
+    config.default_locale = :en
+
+    # Gettext configuration
+    FastGettext.add_text_domain 'app', :path => 'config/locales', :type => :po, :ignore_fuzzy => true, :ignore_obsolte => true
+    FastGettext.default_available_locales = config.available_locales.keys.map(&:to_s)
+    FastGettext.default_text_domain = 'app'
+    FastGettext.default_locale = 'en'
 
   end
 end

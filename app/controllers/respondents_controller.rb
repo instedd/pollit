@@ -10,7 +10,6 @@ class RespondentsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:import_csv]
 
   def index
-    render 'readonly' unless @poll.status_configuring?
     if wizard?
       @wizard_step = "Respondents"
       render :layout => 'wizard'
@@ -18,7 +17,6 @@ class RespondentsController < ApplicationController
   end
 
   def batch_update
-    return if @poll.started?
     update_phone_list(params[:phones])
     head :ok
   end
@@ -33,12 +31,16 @@ class RespondentsController < ApplicationController
   private
 
   def update_phone_list(phones)
-    Respondent.delete_all :poll_id => @poll.id
+    if @poll.status_configuring?
+      Respondent.delete_all :poll_id => @poll.id
+    end
 
     phones.each do |phone|
       prefixed_phone = "sms://#{phone.gsub(/[^0-9]/,"")}"
       @poll.respondents.create(:phone => prefixed_phone)
     end
+    
+    @poll.on_respondents_added
   end
 
 end

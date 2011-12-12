@@ -124,6 +124,10 @@ class Poll < ActiveRecord::Base
     query = URI.parse(form_url || post_url).query
     CGI::parse(query)['formkey'][0]
   end
+  
+  def on_respondents_added
+    # trigger invitation for new users
+  end
 
   private
 

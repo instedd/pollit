@@ -11,6 +11,10 @@
     Add phone numbers manually or upload a CSV file
     %br
     %br
+    - unless can_edit
+      Because the poll has already started, you can only add respondents. New respondents will be invited after you click 'Save'.
+      %br
+      %br
     #export_csv
       = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
         %b Download a sample csv file 
@@ -23,6 +27,9 @@
 
 = content_tag :div, "ng:controller" => "PhonesCtrl" do
   %ul{:class => "clist w30"}
+    %li{"ng:repeat" => "phone in fixed_phones"}
+      = text_field_tag "phone.number", "{{phone.number}}", :disabled => true
+      = button_tag "", :type => :button, :class => "clist-remove", :disabled => true
     %li{"ng:repeat" => "phone in phones"}
       = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
       = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
@@ -52,7 +59,9 @@
 
   function PhonesCtrl() {
     var scope = this;
-    scope.phones = #{@poll.respondents.map{|x| {:number => x.unprefixed_phone}}.to_json};
+    scope.phones = #{phones_list.to_json};
+    scope.fixed_phones = #{fixed_phones_list.to_json};
+    scope.only_add = #{can_edit ? "false" : "true"} ;
 
     $(document).ready(function() {
       window.setTimeout(function() {
@@ -83,7 +92,8 @@
     });
 
     scope.phoneExists = function(phoneNumber) {
-      return _.any(scope.phones, function(phone) { 
+      var all_phones = _.union(scope.fixed_phones, scope.phones);
+      return _.any(all_phones, function(phone) { 
         return phone.number == phoneNumber;
       });
     }
@@ -113,6 +123,7 @@
       var phones = _.map(scope.phones, function(phone) { return phone.number });
       $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
         if (textStatus == "success") {
+          scope.onSaved();
           if (showNotice) $.status.showNotice('Phones saved succesfully!', 6000);
           if (nextUrl) location.href = nextUrl;
         } else {
@@ -120,6 +131,16 @@
         }
       });
     };
+    
+    scope.onSaved = function() {
+      if (scope.only_add) {
+        var current_phones = scope.phones;
+        scope.phones = [];
+        angular.forEach(current_phones, function(phone) {
+          scope.fixed_phones.push(phone);
+        });
+      }
+    }
 
     scope.nextStep = function() {
       scope.saveChanges(false, '#{poll_path(@poll, :wizard => true)}');

@@ -22,8 +22,13 @@ module Poll::AcceptAnswers
     end
 
     respondent.current_question_id = next_question.try(:id)
+    p "Before update #{respondent.current_question_sent}"
     respondent.current_question_sent = self.status_is_not_paused?
+    p "Before save #{respondent.current_question_sent}"
     respondent.save!
+    p "After save #{respondent.current_question_sent}"
+    respondent.reload
+    p "After reload #{respondent.current_question_sent}"
 
     respondent.push_answers if next_question.nil?
     

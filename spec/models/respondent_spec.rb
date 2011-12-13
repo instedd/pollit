@@ -33,6 +33,14 @@ describe Respondent do
     respondent.answers.make :question => poll.questions.first
     respondent.answer_for(poll.questions.second).should be_nil
   end
+  
+  it "should default confirmed to false" do
+    Respondent.new.confirmed.should be_false
+  end
+  
+  it "should default current_question_sent to false" do
+    Respondent.new.current_question_sent.should be_false
+  end
 
   context "pusher" do
 

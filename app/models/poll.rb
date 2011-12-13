@@ -39,14 +39,9 @@ class Poll < ActiveRecord::Base
   def start
     raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
 
-    messages = []
-    respondents.each do |respondent|
-      messages << message_to(respondent, welcome_message)
-    end
-
-    send_messages messages
-    self.status = :started
+    invite respondents
     
+    self.status = :started
     save
   end
 
@@ -68,6 +63,10 @@ class Poll < ActiveRecord::Base
     raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
     
     messages = []
+    
+    # Invite respondents that were added while the poll was paused
+    respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
+    invite respondents_to_invite
     
     # Sends next questions to users with a current question and without the current_question_sent mark
     respondents_to_send_next_question = self.respondents.where(:current_question_sent => false).where('current_question_id IS NOT NULL')
@@ -126,10 +125,28 @@ class Poll < ActiveRecord::Base
   end
   
   def on_respondents_added
-    # trigger invitation for new users
+    invite_new_respondents if status_started?
+  end
+  
+  def invite_new_respondents
+    respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
+    invite respondents_to_invite
   end
 
   private
+  
+  def invite(respondents)
+    messages = []
+    
+    respondents.each do |respondent|
+      messages << message_to(respondent, welcome_message)
+    end
+
+    # mark respondents as invited
+    respondents.update_all :current_question_sent => true
+    
+    send_messages messages
+  end
 
   def send_messages(messages)
     begin

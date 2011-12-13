@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ruby-debug'
 
 describe Poll do
   it "can be instantiated" do
@@ -211,6 +212,8 @@ describe Poll do
         poll.accept_answer("yes", r1)
         poll.pause.should be_true
         messages.clear
+        
+        poll.reload
 
         # Confirmation from r2 arrives and r1 answers, no messages should be dispatched
         poll.accept_answer("answer to q1", r1).should be_nil

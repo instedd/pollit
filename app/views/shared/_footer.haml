@@ -2,24 +2,21 @@
   %div
     .left.platform
       InSTEDD has created an evolving platform of free and open source technologies to support humanitarian causes. These tools can be used individually or as building blocks for larger solutions.
-      %a{:href => "http://instedd.org/technologies/"} 
-        Click here
+      = link_to_instedd(_("Click here"), :latam => "http://www.ilabamericalatina.org/herramientas", :instedd => "http://instedd.org/technologies/")
       to learn more.
     .right
-      %a.more{:href => "http://instedd.org/technologies/"} 
-        Learn more
+      = link_to_instedd(_("Learn more"), :latam => "http://www.ilabamericalatina.org/herramientas", :instedd => "http://instedd.org/technologies/")
       #instedd-footer{"data-app-name" => "pollit"}
     .clear
   %div
     .left
-      %a{:href => "http://instedd.org"} 
+      %a{:href => "http://instedd.org"}
         &copy; 2011 InSTEDD
       -#%a{:href => "#"} Terms and conditions
-      %a{:href => Pollit::Application.config.contact_us} 
-        Contact us
+      = link_to_instedd(_("Contact us"), :latam => Pollit::Application.config.contact_us_ilab, :instedd => Pollit::Application.config.contact_us)
     .right
       = link_to _("Home"), home_path
-      = link_to _("Tour"), tour_path            
+      = link_to _("Tour"), tour_path
       = link_to _("Community"), community_path
       = link_to _("Help"), help_path
       %span.lang-menu

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2011-12-19 20:44+0200\n"
+"PO-Revision-Date: 2011-12-19 21:03+0200\n"
 "Last-Translator:  <boris@instedd.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -416,9 +416,8 @@ msgid "small app"
 msgstr "mini-aplicación"
 
 #: app/views/tour/start.haml:6
-#, fuzzy
 msgid "sign up for a free Pollit account"
-msgstr "cuenta gratuita de Pollit"
+msgstr "registrado para obtener tu cuenta gratuita de Pollit"
 
 #: app/views/tour/start.haml:6
 msgid "here"

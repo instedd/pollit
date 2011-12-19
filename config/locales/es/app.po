@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.1.0\n"
+"Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-15 17:49-0300\n"
-"PO-Revision-Date: 2011-12-18 01:37+0200\n"
+"POT-Creation-Date: 2011-12-19 15:33-0300\n"
+"PO-Revision-Date: 2011-12-19 20:44+0200\n"
 "Last-Translator:  <boris@instedd.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -18,140 +18,217 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.1\n"
 
-#: app/views/home/index.haml:46 app/views/home/index.haml:57
-msgid "Create an account"
-msgstr "Crea una cuenta"
-
-#: app/views/shared/_footer.haml:5
-msgid "&copy; 2011 InSTEDD"
-msgstr "&copy; 2011 InSTEDD"
-
-#: app/views/polls/index.haml:2
-msgid "My Polls"
-msgstr "Mis Encuestas"
+#: app/views/polls/form_editor/_question.haml:5
+msgid "Description:"
+msgstr "Descripción:"
 
 #: app/views/polls/form_editor/_question_form.haml:1
 msgid "Title"
 msgstr "Título"
 
-#: app/views/tour/poll.haml:6
-msgid ""
-"After all, we know you've got better things to do than babysit a poll -- "
-"you've got a world to change!"
-msgstr ""
-"Después de todo, sabemos que tienes mejores cosas que hacer que andar "
-"vigilando el desarrollo de una encuesta... ¡Tienes un mundo que cambiar!"
+#: app/views/polls/form_editor/_question_form.haml:2
+msgid "The name of this question as it is presented."
+msgstr "El nombre de esta pregunta tal como se la presenta."
 
-#~ msgid ""
-#~ "Because of the technical and financial burdens of sending text messages "
-#~ "directly from Pollit, we rely on your phone and sim card for this part of "
-#~ "our service, using our Nuntium Gateway app to "
-#~ msgstr ""
+#: app/views/polls/form_editor/_question_form.haml:3
+msgid "Description"
+msgstr "Descripción"
 
-#: app/views/tour/analyze.haml:2
-msgid "Ready to get started?"
-msgstr "¿Estás preparado para comenzar?"
+#: app/views/polls/form_editor/_question_form.haml:4
+msgid "Additional help for this question."
+msgstr "Ayuda adicional para esta pregunta."
 
-#: app/views/shared/_footer.haml:3
-msgid "to learn more."
-msgstr "para aprender más."
+#: app/views/polls/form_editor/_question_form.haml:5
+msgid "Range"
+msgstr "Rango"
 
-#: app/views/polls/show.haml:36
-msgid "Delete this poll"
-msgstr "Borrar esta encuesta"
-
-#: app/views/home/index.haml:59
-msgid "Create your poll using Google Forms"
-msgstr "Crea tu encuesta usando Google Forms"
-
-#: app/views/tour/analyze.haml:7
-msgid "free Pollit account"
-msgstr "cuenta gratuita de Pollit"
-
-#: app/views/tour/analyze.haml:5
-msgid "of formats"
-msgstr "de formatos"
-
-#: app/views/users/registrations/success.haml:1
-#: app/views/users/registrations/success.haml:4
-msgid ""
-"You have signed up successfully. However, we could not sign you in because "
-"your account is unconfirmed. We have just sent an email to %{email} with an "
-"activation link."
-msgstr ""
-"Te has registrado correctamente. Sin embargo, no hemos podido darte el alta "
-"porque tu cuenta aún no ha sido confirmada. Acabamos de enviar un e-mail a %"
-"{email} que contiene un enlace de activación."
-
-#: app/views/shared/_footer.haml:7
-msgid "Contact us"
-msgstr "Contáctanos"
-
-#: app/views/help/index.haml:2
-msgid "Can I use any phone with Pollit?"
-msgstr "¿Puedo usar cualquier tipo de teléfono con Pollit?"
-
-#: app/views/polls/_form_import.haml:2
-msgid "Import form from Google Forms"
-msgstr "Importar formulario de Google Forms"
-
-#~ msgid "Para qué puedo usarlo?"
-#~ msgstr ""
-
-#: app/views/help/index.haml:3
-msgid ""
-"Yes. As long as you -- and poll participants -- have a mobile phone that can "
-"send and receive text messages, you're all set."
-msgstr ""
-"Si. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
-"celulares capaces de enviar y recibir mensajes de texto, estará todo listo."
-
-#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:25
-msgid "Report a bug"
-msgstr "Reporta un error"
-
-#: app/views/devise/mailer/confirmation_instructions.haml:5
-#: app/views/devise/mailer/reset_password_instructions.haml:5
-msgid ""
-"If the above does not work, please copy and paste the following URL on your "
-"browser:"
-msgstr ""
-"Si lo anterior no te ha funcionado, por favor copia y pega la siguiente URL "
-"en la barra de direcciones de tu navegador:"
-
-#: app/views/home/index.haml:63
-msgid "Got suggestions or feature requests? Join the discussion."
-msgstr ""
-"¿Tienes sugerencias o requerimientos acerca de nuevas funcionalidades que te "
-"gustaría formularnos? Únete a la discusión."
-
-#: app/views/home/index.haml:3
-msgid ""
-"Pollit is a free, open-source tool for conducting polls using text messages. "
-"Step-by-step, Pollit guides participants through polls and collects real-"
-"time results. Pollit shrinks the gap between audiences and pollers, taking "
-"the pulse of the people anytime and anywhere there's mobile phone service."
-msgstr ""
-"Pollit es una herramienta gratuita de código abierto que permite gestionar "
-"encuestas mediante mensajes de texto. Paso a paso, Pollit va guiando a los "
-"participantes a través de encuestas y recolectando los resultados en tiempo "
-"real. Pollit reduce la brecha entre el público y los encuestadores, "
-"registrando las impresiones de la gente en todo momento y en cualquier lugar "
-"que disponga de servicio de telefonía móvil."
+#: app/views/polls/form_editor/_question_form.haml:6
+msgid "Range of values accepted for this question"
+msgstr "Rango de valores aceptados para esta pregunta"
 
 #: app/views/polls/form_editor/_question_form.haml:7
 msgid "to"
 msgstr "a"
 
-#: app/views/home/index.haml:35
-msgid "Step 3"
-msgstr "Paso 3"
+#: app/views/polls/form_editor/_question_form.haml:8
+msgid "Options"
+msgstr "Opciones"
 
-#: app/views/devise/sessions/new.haml:1 app/views/devise/sessions/new.haml:2
-msgid "Log In"
-msgstr "Iniciar la sesión"
+#: app/views/polls/form_editor/_question_form.haml:9
+msgid "Possible values for this question."
+msgstr "Posibles valores para esta pregunta."
+
+#: app/views/polls/form_editor/_question_add.haml:3
+msgid "Add a new question"
+msgstr "Agregar una nueva pregunta"
+
+#: app/views/polls/index.haml:1
+msgid "Your polls:"
+msgstr "Tus encuestas:"
+
+#: app/views/polls/index.haml:2
+msgid "My Polls"
+msgstr "Mis Encuestas"
+
+#: app/views/polls/index.haml:3
+msgid "Create Poll"
+msgstr "Crear una encuesta"
+
+#: app/views/polls/index.haml:7
+msgid "You have no polls yet."
+msgstr "Aún no has generado ninguna encuesta."
+
+#: app/views/polls/new.haml:1
+msgid "Create a new poll"
+msgstr "Crea una nueva encuesta"
+
+#: app/views/polls/new.haml:2 app/views/shared/_wizard.haml:3
+msgid "New poll"
+msgstr "Nueva encuesta"
+
+#: app/views/polls/_form_questions.haml:1
+msgid "Poll questions"
+msgstr "Preguntas de la encuesta"
+
+#: app/views/polls/_form_questions.haml:6
+msgid "Import a form from Google"
+msgstr "Importa un formulario de Google"
+
+#: app/views/polls/_form_questions.haml:7
+msgid "to load its questions"
+msgstr "para cargar sus preguntas"
+
+#: app/views/polls/_form_questions.haml:9
+msgid "Reload form from Google"
+msgstr "Actualizar el formulario de Google"
+
+#: app/views/polls/_form_import.haml:1
+#, fuzzy
+msgid ""
+"Copy the live URL (not the spreadsheet's URL) displayed at the bottom of "
+"your form edition window making sure the form does not require sign-in."
+msgstr ""
+"Copia la URL del formulario (no la URL de la hoja de cálculo), asegurándote "
+"de que el formulario no requiera registrarse"
+
+#: app/views/polls/_form_import.haml:2
+msgid "Import form from Google Forms"
+msgstr "Importar formulario de Google Forms"
+
+#: app/views/polls/show.haml:1 app/views/polls/show.haml:4
+#: app/views/polls/_form.haml:1 app/controllers/channels_controller.rb:54
+#: app/controllers/application_controller.rb:41
+#: app/controllers/application_controller.rb:42
+msgid "Properties"
+msgstr "Propiedades"
+
+#: app/views/polls/show.haml:3
+msgid "New Poll successfully created"
+msgstr "La Nueva Encuesta ha sido creada exitosamente"
+
+#: app/views/polls/show.haml:4 app/views/polls/show.haml:23
+#: app/views/channels/show.haml:1 app/views/channels/show.haml:4
+#: app/views/shared/_poll_tabs.haml:7
+#: app/controllers/channels_controller.rb:49
+#: app/controllers/application_controller.rb:41
+msgid "Channel"
+msgstr "Canal"
+
+#: app/views/polls/show.haml:4 app/views/respondents/index.haml:5
+#: app/views/shared/_poll_tabs.haml:6
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/application_controller.rb:41
+msgid "Respondents"
+msgstr "Encuestados"
+
+#: app/views/polls/show.haml:4 app/views/channels/wizard/_d_end_wizard.haml:6
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:62
+#: app/controllers/application_controller.rb:41
+msgid "Finish"
+msgstr "Finalizar"
+
+#: app/views/polls/show.haml:8
+msgid "This poll has not been started yet"
+msgstr "Esta encuesta aún no ha comenzado"
+
+#: app/views/polls/show.haml:9
+msgid "Start Poll"
+msgstr "Iniciar la encuesta"
+
+#: app/views/polls/show.haml:9
+msgid ""
+"Are you sure you want to start this poll? Once started, you may not modify "
+"its questions or add new respondents."
+msgstr ""
+"¿Estás seguro de que deseas comenzar esta encuesta? Una vez iniciada, ya no "
+"podrás modificarle las preguntas ni añadirle nuevos participantes. "
+
+#: app/views/polls/show.haml:13
+msgid "No respondents allocated"
+msgstr "No hay encuestados asignados"
+
+#: app/views/polls/show.haml:16
+msgid "respondents"
+msgstr "encuestados"
+
+#: app/views/polls/show.haml:18
+msgid "Manage Respondents"
+msgstr "Administrar Encuestados"
+
+#: app/views/polls/show.haml:21
+msgid "There is no channel set for this poll"
+msgstr "No se ha configurado ningún canal para esta encuesta"
+
+#: app/views/polls/show.haml:26
+msgid "Manage Channel"
+msgstr "Administrar el Canal"
+
+#: app/views/polls/show.haml:27
+msgid "Questions from Google Docs Form"
+msgstr "Preguntas desde un formulario de Google Docs"
+
+#: app/views/polls/show.haml:28
+msgid "Go to live form"
+msgstr "Ir al formulario online"
+
+#: app/views/polls/show.haml:30
+msgid "This poll is active and is receiving messages from its respondents"
+msgstr ""
+"Esta encuesta está activa, y se están recibiendo mensajes de los "
+"participantes"
+
+#: app/views/polls/show.haml:31
+msgid "Pause this poll"
+msgstr "Pausar esta encuesta"
+
+#: app/views/polls/show.haml:33
+msgid "This poll is paused and will not send new questions to its respondents"
+msgstr ""
+"Esta encuesta está en pausa, y no serán enviadas nuevas preguntas a los "
+"participantes"
+
+#: app/views/polls/show.haml:34
+msgid "Resume this poll"
+msgstr "Reanudar esta encuesta"
+
+#: app/views/polls/show.haml:36
+msgid "Delete this poll"
+msgstr "Borrar esta encuesta"
+
+#: app/views/polls/show.haml:36
+msgid "Are you sure you want to delete poll %{title}?"
+msgstr "¿Estás seguro de que deseas borrar la encuesta %{title}?"
 
 #: app/views/polls/_form.haml:2
+msgid ""
+"This is an internal description of the Poll, it will not be sent to your "
+"users"
+msgstr ""
+"Ésta es tan sólo una descripción interna de la encuesta, y no será enviada a "
+"tus encuestados"
+
+#: app/views/polls/_form.haml:3
 msgid ""
 "This message will be sent to all respondents asking them if they agree to "
 "participate in the poll"
@@ -159,26 +236,88 @@ msgstr ""
 "Este mensaje será enviado a todos los participantes para preguntárseles si "
 "están de acuerdo en responder a la encuesta"
 
-#: app/views/devise/mailer/confirmation_instructions.haml:7
-#: app/views/devise/mailer/reset_password_instructions.haml:8
-msgid "Thanks!"
-msgstr "¡Gracias!"
+#: app/views/polls/_form.haml:4
+msgid ""
+"Respondents must answer with the confirmation word in order to agree to "
+"participate in the poll"
+msgstr ""
+"Los destinatarios deberán responder con la palabra de confirmación a efectos "
+"de consentir su participación en la encuesta"
 
-#: app/views/shared/_wizard.haml:1
-msgid "New Poll"
-msgstr "Nueva Encuesta"
+#: app/views/polls/_form.haml:5
+msgid "This message will be sent to respondents when they complete the poll"
+msgstr ""
+"Este mensaje será enviado a los participantes cuando hayan completado la "
+"encuesta"
 
-#: app/views/community/index.haml:15
-msgid "Enter your email"
-msgstr "Ingresa tu dirección de e-mail"
+#: app/views/polls/edit.haml:2 app/views/layouts/application.haml:2
+#: app/views/layouts/application.haml:24 app/views/shared/_poll_tabs.haml:8
+msgid "Settings"
+msgstr "Configuración"
 
-#: app/views/polls/index.haml:1
-msgid "Your polls:"
-msgstr "Tus encuestas:"
+#: app/views/tour/_tour_navigation.haml:1
+msgid "Start"
+msgstr "Comienza"
 
-#: app/views/polls/show.haml:36
-msgid "Are you sure you want to delete poll %{title}?"
-msgstr "¿Estás seguro de que deseas borrar la encuesta %{title}?"
+#: app/views/tour/_tour_navigation.haml:2
+msgid "with a free account"
+msgstr "con una cuenta gratuita"
+
+#: app/views/tour/_tour_navigation.haml:3
+msgid "Create"
+msgstr "Crea"
+
+#: app/views/tour/_tour_navigation.haml:4
+msgid "unlimited polls"
+msgstr "una cantidad ilimitada de encuestas"
+
+#: app/views/tour/_tour_navigation.haml:5
+msgid "Poll"
+msgstr "Encuesta"
+
+#: app/views/tour/_tour_navigation.haml:6
+msgid "your people"
+msgstr "a tu gente"
+
+#: app/views/tour/_tour_navigation.haml:7
+msgid "Analyze"
+msgstr "Analiza"
+
+#: app/views/tour/_tour_navigation.haml:8
+msgid "your results"
+msgstr "tus resultados"
+
+#: app/views/tour/create.haml:1
+msgid "Create polls in minutes"
+msgstr "Crea encuestas en pocos minutos"
+
+#: app/views/tour/create.haml:2
+msgid ""
+"Once you've signed into your Google account, navigate to docs.google.com."
+msgstr ""
+"Una vez que hayas iniciado la sesión en tu cuenta de Google, ingresa a docs."
+"google.com."
+
+#: app/views/tour/create.haml:3
+msgid ""
+"Click the Create button, select Form, and then create your poll using the "
+"browser-based tool."
+msgstr ""
+"Haz click en el botón Crear, selecciona Formulario y luego crea tu encuesta "
+"usando la herramienta de búsqueda."
+
+#: app/views/tour/create.haml:4
+msgid ""
+"With Google Form, you can choose from short and long answer, multiple "
+"choice, and other question types. Please note that though there's no limit "
+"to the number of questions you can ask, you'll need to keep each question at "
+"or under the standard SMS 140-character limit for use with Pollit."
+msgstr ""
+"En Google Forms tú puedes escoger entre respuestas cortas o largas, de "
+"opción múltiple y otros modelos de preguntas. Por favor, ten en cuenta que a "
+"pesar de que no hay un límite para el número de preguntas que puedes "
+"formular, para usar Pollit deberás ajustar cada una de ellas al formato "
+"estándar para SMS, de 140 caracteres como máximo. "
 
 #: app/views/tour/create.haml:5
 msgid ""
@@ -191,34 +330,149 @@ msgstr ""
 "enlaza con el formulario que tú acabas de crear, y será utilizada por Pollit "
 "para gestionar tu encuesta."
 
-#: app/views/home/index.haml:6
-msgid "Collect"
-msgstr "Recolectar"
-
-#: app/views/polls/show.haml:28
-msgid "Go to live form"
-msgstr "Ir al formulario online"
-
-#: app/views/polls/show.haml:31
-msgid "Pause this poll"
-msgstr "Pausar esta encuesta"
-
-#: app/views/polls/_form_questions.haml:9
-msgid "Reload form from Google"
-msgstr "Actualizar el formulario de Google"
-
-#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:11
-msgid "Help"
-msgstr "Ayuda"
-
-#: app/views/home/index.haml:1
-msgid "Collect opinions,"
-msgstr "Recolectar opiniones,"
-
-#: app/views/devise/mailer/confirmation_instructions.haml:2
-msgid "You are almost ready to start using Pollit! Please click on"
+#: app/views/tour/analyze.haml:1
+msgid ""
+"Pollit stores answers to your poll questions in a Google spreadsheet, so you "
+"can analyze your results right in your browser or download them in Excel, "
+"PDF, or Word format."
 msgstr ""
-"¡Ya casi estás listo para empezar a usar Pollit! Por favor, haz click en"
+"Pollit almacena las respuestas a tu encuesta en una hoja de cálculo de "
+"Google, de manera que puedas analizar los resultados directamente en tu "
+"navegador, o bien después de haber descargado los datos en formato Excel, "
+"PDF o Word."
+
+#: app/views/tour/analyze.haml:2
+msgid "Ready to get started?"
+msgstr "¿Estás preparado para comenzar?"
+
+#: app/views/tour/analyze.haml:4
+msgid "Study responses in a variety"
+msgstr "Estudia las respuestas en una gran variedad"
+
+#: app/views/tour/analyze.haml:5
+msgid "of formats"
+msgstr "de formatos"
+
+#: app/views/tour/analyze.haml:7
+msgid ""
+"Sign up for your %{account} and begin taking the pulse of your people today."
+msgstr ""
+"Regístrate para obtener tu %{account}, y comienza hoy mismo a tomarle el "
+"pulso a tu gente."
+
+#: app/views/tour/analyze.haml:7
+msgid "free Pollit account"
+msgstr "cuenta gratuita de Pollit"
+
+# Puse "nuestro" por si "{discussion}" es "Foro de discusión"...
+#: app/views/tour/analyze.haml:8
+msgid ""
+"Need a little more info? Visit our %{help} or subscribe to our "
+"%{discussion}, where we'll be happy to answer any questions you might have "
+"and get you going with Pollit!"
+msgstr ""
+"¿Necesitas un poco más de información? Visita nuestra %{help} o suscríbete a "
+"nuestro %{discussion}, donde responderemos con todo gusto cualquier pregunta "
+"que desees formularnos, para que así puedas seguir utilizando Pollit."
+
+#: app/views/tour/analyze.haml:8
+msgid "Help page"
+msgstr "Página de ayuda"
+
+#: app/views/tour/analyze.haml:8 app/views/help/index.haml:11
+msgid "user discussion group"
+msgstr "grupo de discusión de usuario"
+
+#: app/views/tour/start.haml:1
+msgid "Get started with just an Internet connection and a mobile phone"
+msgstr ""
+"Comienza a utilizar Pollit con tan sólo una conexión a internet y un "
+"teléfono móvil"
+
+# ¿Por qué "More" en mayúscula..?
+#: app/views/tour/start.haml:2
+msgid "learn More"
+msgstr "aprende más"
+
+#: app/views/tour/start.haml:3
+msgid "."
+msgstr "."
+
+#: app/views/tour/start.haml:6
+msgid ""
+"Got 'Droid and an Internet connection? Download and install a %{smallapp} on "
+"your Android phone, then %{register} to get started. Next, sign in to your "
+"Google account to begin creating forms. Don't have a Google account? Sign up "
+"for a free account %{here}."
+msgstr ""
+"¿Tienes un Android y dispones de una conexión a internet? Descarga e instala "
+"esta %{smallapp} en tu teléfono Android, y luego %{register} para obtener "
+"tu cuenta gratuita en Pollit y comenzar a utilizarlo. Luego ingresa a tu "
+"cuenta de Google y empieza a crear tus formularios. ¿No tienes una cuenta de "
+"Google? Regístrate %{here} para obtenerla gratuitamente."
+
+#: app/views/tour/start.haml:6
+msgid "small app"
+msgstr "mini-aplicación"
+
+#: app/views/tour/start.haml:6
+#, fuzzy
+msgid "sign up for a free Pollit account"
+msgstr "cuenta gratuita de Pollit"
+
+#: app/views/tour/start.haml:6
+msgid "here"
+msgstr "aquí"
+
+#: app/views/tour/start.haml:7
+msgid ""
+"No 'Droid? No problem! Our small Nuntium app for PC or Mac bridges the gap "
+"between Pollit and your mobile phone. Once you %{register} and create your "
+"poll, Pollit takes care of the rest."
+msgstr ""
+"¿No tienes un Android? ¡No hay problema! Nuestra mini-aplicación Nuntium "
+"para PC o Mac superará la brecha entre Pollit y tu teléfono móvil. Una vez "
+"que te hayas %{register} y hayas creado tu encuesta, Pollit se hará cargo de "
+"todo lo demás."
+
+#: app/views/tour/start.haml:7
+#, fuzzy
+msgid "sign up for your free Pollit account"
+msgstr "cuenta gratuita de Pollit"
+
+#: app/views/tour/start.haml:8
+msgid "will manage the flow of incoming and outgoing messages,"
+msgstr "administrará el flujo de mensajes entrantes y salientes,"
+
+#: app/views/tour/start.haml:9
+msgid "Try it now!"
+msgstr "¡Pruébalo ahora!"
+
+#: app/views/tour/poll.haml:1
+#, fuzzy
+msgid "Reach all the people you want, anytime and anywhere <br/>you want"
+msgstr ""
+"Llega a todas las personas que desees, en cualquier momento <br/>y en "
+"cualquier lugar"
+
+#: app/views/tour/poll.haml:2
+msgid ""
+"To send a poll, first log into your Pollit account. Click the Polls tab, "
+"then Create Poll. Give Pollit the live link to your Google poll form, "
+"complete a few fields, and you're ready to go"
+msgstr ""
+"Para enviar una encuesta, primero inicia la sesión en tu cuenta de Pollit. "
+"Haz click en la solapa Encuestas, y luego, en Crear Encuesta. Consígnale a "
+"Pollit el enlace a tu formulario de encuestas de Google, completa unos pocos "
+"campos, y listo"
+
+#: app/views/tour/poll.haml:3
+msgid ""
+"Just click to start the poll, and Pollit sends your poll's first question to "
+"everyone on your list."
+msgstr ""
+"Simplemente haz click para comenzar la encuesta, y Pollit enviará la primera "
+"pregunta de ésta a todos los integrantes de tu lista."
 
 #: app/views/tour/poll.haml:5
 msgid ""
@@ -235,6 +489,65 @@ msgstr ""
 "hoja de cálculo de Google para su posterior revisión, de manera tal que tú "
 "también puedas continuar atendiendo tus tareas cotidianas."
 
+#: app/views/tour/poll.haml:6
+msgid ""
+"After all, we know you've got better things to do than babysit a poll -- "
+"you've got a world to change!"
+msgstr ""
+"Después de todo, sabemos que tienes mejores cosas que hacer que andar "
+"vigilando el desarrollo de una encuesta... ¡Tienes un mundo que cambiar!"
+
+#: app/views/devise/unlocks/new.haml:1 app/views/devise/unlocks/new.haml:2
+msgid "Resend unlock instructions"
+msgstr "Reenviar instrucciones de desbloqueo"
+
+#: app/views/devise/mailer/confirmation_instructions.haml:1
+#: app/views/devise/mailer/reset_password_instructions.haml:1
+msgid "Hello %s,"
+msgstr "Hola, %s,"
+
+#: app/views/devise/mailer/confirmation_instructions.haml:2
+msgid "You are almost ready to start using Pollit! Please click on"
+msgstr ""
+"¡Ya casi estás listo para empezar a usar Pollit! Por favor, haz click en"
+
+#: app/views/devise/mailer/confirmation_instructions.haml:4
+msgid "to confirm that this user account really does belong to you."
+msgstr "para confirmar que esta cuenta de usuario realmente te pertenece."
+
+#: app/views/devise/mailer/confirmation_instructions.haml:5
+#: app/views/devise/mailer/reset_password_instructions.haml:5
+msgid ""
+"If the above does not work, please copy and paste the following URL on your "
+"browser:"
+msgstr ""
+"Si lo anterior no te ha funcionado, por favor copia y pega la siguiente URL "
+"en la barra de direcciones de tu navegador:"
+
+#: app/views/devise/mailer/confirmation_instructions.haml:7
+#: app/views/devise/mailer/reset_password_instructions.haml:8
+msgid "Thanks!"
+msgstr "¡Gracias!"
+
+#: app/views/devise/mailer/confirmation_instructions.haml:8
+#: app/views/devise/mailer/reset_password_instructions.haml:9
+msgid "The Pollit team"
+msgstr "El equipo de Pollit"
+
+#: app/views/devise/mailer/reset_password_instructions.haml:2
+msgid "To reset your password, please click on"
+msgstr "Para restablecer tu contraseña, por favor haz click en"
+
+#: app/views/devise/mailer/reset_password_instructions.haml:7
+msgid ""
+"If you didn't request to reset your password, please ignore this email. Note "
+"that your password won't change until you access the link above and create a "
+"new one."
+msgstr ""
+"Si tú no has requerido que tu contraseña sea restablecida, por favor ignora "
+"este e-mail. Ten en cuenta que tu contraseña no será modificada hasta que "
+"accedas al enlace de arriba y te crees una nueva."
+
 #: app/views/devise/mailer/unlock_instructions.haml:1
 msgid ""
 "Your account has been locked due to an excessive amount of unsuccessful sign "
@@ -243,66 +556,366 @@ msgstr ""
 "Tu cuenta ha sido bloqueada debido a una excesiva cantidad de intentos "
 "infructuosos de registración."
 
-#: app/views/home/index.haml:65
-msgid ""
-"Got a way with code? Help us develop our tools (and make the world a better "
-"place at the same time)."
-msgstr ""
-"¿Se te ocurre alguna manera de mejorar nuestro código? Ayúdanos a "
-"desarrollar nuestras herramientas (y al mismo tiempo contribuye a que el "
-"mundo se transforme en un mejor lugar)."
+#: app/views/devise/mailer/unlock_instructions.haml:2
+msgid "Click the link below to unlock your account:"
+msgstr "Haz click en el enlace de abajo para desbloquear tu cuenta:"
 
-#: app/views/shared/_footer.haml:2
-msgid "Click here"
-msgstr "Haz click aquí"
+#: app/views/devise/mailer/unlock_instructions.haml:4
+#, fuzzy
+msgid "Hello %s!"
+msgstr "¡Hola, %{email}!"
 
-#: app/views/shared/_poll_tabs.haml:4
-msgid "Overview"
-msgstr "Generalidades"
+#: app/views/devise/sessions/new.haml:1 app/views/devise/sessions/new.haml:2
+msgid "Log In"
+msgstr "Iniciar la sesión"
 
-#: app/views/tour/analyze.haml:1
-msgid ""
-"Pollit stores answers to your poll questions in a Google spreadsheet, so you "
-"can analyze your results right in your browser or download them in Excel, "
-"PDF, or Word format."
-msgstr ""
-"Pollit almacena las respuestas a tu encuesta en una hoja de cálculo de "
-"Google, de manera que puedas analizar los resultados directamente en tu "
-"navegador, o bien después de haber descargado los datos en formato Excel, "
-"PDF o Word."
-
-#: app/views/home/index.haml:52
-msgid "View and download results as a spreadsheet and in other formats"
-msgstr ""
-"Visualiza y descarga los resultados en una hoja de cálculo y en otros "
-"formatos"
+#: app/views/devise/passwords/new.haml:1 app/views/devise/shared/_links.haml:2
+msgid "Forgot your password?"
+msgstr "¿Has olvidado tu contraseña?"
 
 #: app/views/devise/passwords/new.haml:2
 msgid "Send me reset password instructions"
 msgstr "Envíenme las instrucciones para restablecer mi contraseña"
 
-#: app/views/polls/show.haml:9
-msgid ""
-"Are you sure you want to start this poll? Once started, you may not modify "
-"its questions or add new respondents."
-msgstr ""
-"¿Estás seguro de que deseas comenzar esta encuesta? Una vez iniciada, ya no "
-"podrás modificarle las preguntas ni añadirle nuevos participantes. "
+#: app/views/devise/passwords/edit.haml:1
+msgid "Change your password"
+msgstr "Cambia tu contraseña"
 
-#: app/views/help/index.haml:12
-msgid ""
-"Any modern browser, including the latest versions of Firefox, Safari, "
-"Internet Explorer, Chrome, and others should work fine. If you run across a "
-"browser that doesn't seem to play nice with Pollit, please %{letusknow}."
-msgstr ""
-"Cualquier navegador moderno, incluyendo las últimas versiones de Firefox, "
-"Safari, Internet Explorer, Google Chrome y demás, debería funcionar "
-"perfectamente bien. Si estás utilizando algún navegador que pareciera no "
-"compatibilizar adecuadamente con Pollit, por favor %{letusknow}."
+#: app/views/devise/passwords/edit.haml:2
+#: app/views/user_mailer/reset_password_instructions.haml:3
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
 
-#: app/views/help/index.haml:12
-msgid "let us know"
-msgstr "háznoslo saber"
+#: app/views/devise/confirmations/new.haml:1
+msgid "Resend confirmation instructions"
+msgstr "Reenviar instrucciones de confirmación"
+
+#: app/views/devise/shared/_links.haml:3
+msgid "Reset it"
+msgstr "Restablecerla"
+
+#: app/views/devise/shared/_links.haml:6
+msgid "Didn't receive confirmation instructions?"
+msgstr "¿No has recibido las instrucciones de confirmación?"
+
+#: app/views/devise/shared/_links.haml:9
+msgid "Didn't receive unlock instructions?"
+msgstr "¿No has recibido las instrucciones de desbloqueo?"
+
+#: app/views/channels/new.haml:3
+msgid "Add channel"
+msgstr "Agregar un canal"
+
+#: app/views/channels/show.haml:2
+msgid "Local Gateway channel"
+msgstr "Canal de gateway local"
+
+#: app/views/channels/show.haml:7
+msgid ""
+"A channel created on Nuntium Local Gateway enables you to send polls from "
+"your mobile phone"
+msgstr ""
+"Un canal creado a través de un gateway local de Nuntium te permite enviar "
+"encuestas deste tu teléfono móvil"
+
+#: app/views/channels/show.haml:9
+msgid "Bidirectional (%s)"
+msgstr "Bidireccional (%s)"
+
+#: app/views/channels/show.haml:11
+msgid "last activity %s ago"
+msgstr "la última actividad fue hace %s días"
+
+#: app/views/channels/show.haml:13
+msgid "Are you sure you want to delete this channel?"
+msgstr "¿Estás seguro de que deseas eliminar este canal?"
+
+#: app/views/channels/show.haml:15
+#, fuzzy
+msgid "will help you to send polls from your mobile phone, %s."
+msgstr "te ayudará a enviar encuestas desde tu teléfono móvil,"
+
+#: app/views/channels/show.haml:16
+msgid "Change channel"
+msgstr "Cambiar el canal"
+
+#: app/views/channels/show.haml:18 app/helpers/channels_helper.rb:4
+#: app/helpers/channels_helper.rb:14 app/helpers/channels_helper.rb:16
+msgid "Back"
+msgstr "Atrás"
+
+#: app/views/channels/show.haml:19
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:21
+#: app/helpers/channels_helper.rb:9
+msgid "Next"
+msgstr "Siguiente"
+
+#: app/views/channels/wizard/_d_end_wizard.haml:1
+msgid "Congratulations! you have successfully created a channel"
+msgstr "¡Felicitaciones! Has creado un canal exitosamente "
+
+#: app/views/channels/wizard/_d_end_wizard.haml:2
+msgid ""
+"The phone you have configured will be used for sending and receiving text "
+"messages. Ensure the phone is running and has credit for sending messages."
+msgstr ""
+"El teléfono que acabas de configurar será usado para el envío y la recepción "
+"de mensajes de texto. Asegúrate de que esté funcionando correctamente y "
+"tenga crédito como para poder enviar SMS."
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:1
+msgid "Go to Android Market and install Nuntium Local Gateway"
+msgstr "Ir al Android Market e instalar el gateway local de Nuntium"
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:2
+msgid "Nuntium"
+msgstr "Nuntium"
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:6
+msgid ""
+"Use the following QR code to access the app or use the search engine with "
+"the keyword"
+msgstr ""
+"Utiliza el siguiente código QR para acceder a la aplicación, o recurre al "
+"motor de búsqueda con la palabra clave"
+
+#: app/views/channels/wizard/_b_download_android_local_gateway.haml:10
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:16
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:22
+msgid "Skip this step"
+msgstr "Saltear este paso"
+
+#: app/views/channels/wizard/_c_new_channel.haml:1
+msgid "Enter the gateway code from your mobile phone"
+msgstr "Ingresa el código de gateway desde tu teléfono móvil"
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:1
+msgid "Download and install Nuntium Local Gateway"
+msgstr "Descarga e instala el gateway local de Nuntium"
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:2
+msgid ""
+"Nuntium Local Gateway is a program that runs on your local computer and "
+"requires a mobile phone to be plugged in. The Gateway will use the plugged-"
+"in phone for sending and receiving text messsages."
+msgstr ""
+"El gateway local de Nuntium es un programa que se ejecuta en tu computadora "
+"y requiere que le conectes a ésta un teléfono móvil. El gateway se valdrá de "
+"este teléfono para enviar y recibir mensajes de texto."
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:3
+msgid ""
+"Download the client corresponding to your operating system and install it."
+msgstr ""
+"Descarga la aplicación correspondiente a tu sistema operativo e instálala."
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:4
+msgid "Download for MacOS"
+msgstr "Descarga para MacOS"
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:5
+msgid "Download for Windows"
+msgstr "Descarga para Windows"
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:6
+msgid "Download for Ubuntu"
+msgstr "Descarga para Ubuntu"
+
+#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:10
+msgid ""
+"Alternatively, you can install the Gateway running the following commands:"
+msgstr ""
+"Alternativamente, puedes instalar el gateway ejecutando los siguientes "
+"comandos:"
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:1
+msgid "Choose your type of mobile phone"
+msgstr "Selecciona tu tipo de teléfono móvil"
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:15
+msgid "Android mobile phone"
+msgstr "Teléfono móvil Android"
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:16
+msgid ""
+"If you have an Android powered mobile phone, you don't need a computer to "
+"set up your gateway. Just download the application and follow the "
+"configuration steps, and the phone will be used for sending questions and "
+"receiving answers."
+msgstr ""
+"Si tienes un teléfono móvil con sistema operativo Android, no necesitarás "
+"una computadora para instalar tu gateway. Tan sólo descarga la aplicación y "
+"sigue los pasos de configuración, y así tu teléfono será usado para enviar "
+"preguntas y recibir respuestas."
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:18
+msgid "Other mobile phone"
+msgstr "Otro tipo de teléfono móvil"
+
+#: app/views/channels/wizard/_a_choose_local_gateway.haml:19
+msgid ""
+"If you use another type of mobile phone all you need to do is plug your "
+"phone into your computer, download the client, and it will be used for "
+"sending and receiving messages."
+msgstr ""
+"Si utilizas algún otro tipo de teléfono móvil, todo lo que debes hacer es "
+"conectarlo a tu computadora y descargar la aplicación, y así podrás enviar y "
+"recibir mensajes de texto."
+
+#: app/views/layouts/application.haml:1
+msgid "Pollit"
+msgstr "Pollit"
+
+#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:25
+msgid "Report a bug"
+msgstr "Reporta un error"
+
+#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:26
+msgid "Sign Out"
+msgstr "Cerrar la sesión"
+
+#: app/views/layouts/application.haml:5
+msgid ""
+"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://"
+"www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
+msgstr ""
+
+#: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:7
+msgid "Home"
+msgstr "Inicio"
+
+#: app/views/layouts/application.haml:17 app/controllers/polls_controller.rb:3
+#: app/controllers/respondents_controller.rb:5
+#: app/controllers/channels_controller.rb:2
+#: app/controllers/answers_controller.rb:3
+msgid "Polls"
+msgstr "Encuestas"
+
+#: app/views/layouts/application.haml:19 app/views/shared/_footer.haml:8
+msgid "Tour"
+msgstr "Tour"
+
+#: app/views/layouts/application.haml:20 app/views/shared/_footer.haml:9
+#: app/views/community/index.haml:1
+msgid "Community"
+msgstr "Comunidad"
+
+#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:10
+msgid "Help"
+msgstr "Ayuda"
+
+#: app/views/layouts/application.haml:29
+#: app/views/users/registrations/new.haml:1
+#: app/views/users/registrations/new.haml:2
+msgid "Create account"
+msgstr "Crea una cuenta"
+
+#: app/views/layouts/application.haml:30 app/views/home/index.haml:48
+msgid "Log in"
+msgstr "Inicia la sesión"
+
+#: app/views/home/index.haml:1
+msgid "Collect opinions,"
+msgstr "Recolecta opiniones,"
+
+#: app/views/home/index.haml:2
+msgid "real-time feedback and status updates from people, wherever they roam."
+msgstr ""
+"feedback en tiempo real y actualizaciones de estado de las personas, "
+"dondequiera que éstas se encuentren."
+
+#: app/views/home/index.haml:3
+msgid ""
+"Pollit is a free, open-source tool for conducting polls using text messages. "
+"Step-by-step, Pollit guides participants through polls and collects real-"
+"time results. Pollit shrinks the gap between audiences and pollers, taking "
+"the pulse of the people anytime and anywhere there's mobile phone service."
+msgstr ""
+"Pollit es una herramienta gratuita de código abierto que permite gestionar "
+"encuestas mediante mensajes de texto. Paso a paso, Pollit va guiando a los "
+"participantes a través de encuestas y recolectando los resultados en tiempo "
+"real. Pollit reduce la brecha entre el público y los encuestadores, "
+"registrando las impresiones de la gente en todo momento y en cualquier lugar "
+"que disponga de servicio de telefonía móvil."
+
+#: app/views/home/index.haml:4
+msgid "Make decisions"
+msgstr "Toma decisiones"
+
+#: app/views/home/index.haml:5
+msgid "based on data directly from your audience"
+msgstr "basadas en datos obtenidos directamente de tu audiencia"
+
+#: app/views/home/index.haml:6
+msgid "Collect"
+msgstr "Recolecta"
+
+#: app/views/home/index.haml:7
+msgid "structured information without the need for smartphones"
+msgstr "información estructurada sin la necesidad de utilizar smartphones"
+
+#: app/views/home/index.haml:8
+msgid "See and analyze"
+msgstr "Visualiza y analiza"
+
+#: app/views/home/index.haml:9
+msgid "poll results in real time"
+msgstr "los resultados de tu encuesta en tiempo real"
+
+#: app/views/home/index.haml:10
+msgid "Conduct"
+msgstr "Gestiona"
+
+#: app/views/home/index.haml:11
+msgid "polls from anywhere"
+msgstr "encuestas desde cualquier lugar"
+
+#: app/views/home/index.haml:12
+msgid "Make it easy"
+msgstr "Facilítales"
+
+#: app/views/home/index.haml:13
+msgid "for participants to answer anywhere, anytime, using any phone"
+msgstr ""
+"a los participantes responder en cualquier lugar, en todo momento y usando "
+"cualquier teléfono"
+
+#: app/views/home/index.haml:14
+msgid "Eliminate"
+msgstr "Elimina"
+
+#: app/views/home/index.haml:15
+msgid "email or paper-based poll collection"
+msgstr "el papel o e-mail en la recolección de datos de encuestas"
+
+#: app/views/home/index.haml:16
+msgid "Free"
+msgstr "Gratis"
+
+#: app/views/home/index.haml:17
+msgid "for anyone to use to help increase their social impact"
+msgstr ""
+"para que cualquiera pueda utilizarlo a efectos de incrementar su impacto "
+"social"
+
+#: app/views/home/index.haml:18
+msgid "Open Source"
+msgstr "Código abierto"
+
+# No traduje la palabra "code", porque forma parte del título que aparece arriba de este apartadito, que es "Código abierto" ("Open Source").
+#: app/views/home/index.haml:19
+msgid "code for developers to use to improve its design and functionality"
+msgstr ""
+"que permite que los desarrolladores puedan mejorar su diseño y sus "
+"funcionalidades"
+
+#: app/views/home/index.haml:20
+msgid "What can I use it for?"
+msgstr "¿Para qué lo puedo usar?"
+
+#: app/views/home/index.haml:21
+msgid "Collecting Petition Signatures Virtually"
+msgstr "Recolectar virtualmente firmas de petitorios"
 
 # En el original este párrafo no finaliza con puntos suspensivos, pero para mí en este caso cabe ponérselos, por el sentido de la frase...
 #: app/views/home/index.haml:22
@@ -324,29 +937,30 @@ msgstr ""
 "todos los detalles restantes, de manera tal que tú puedas continuar "
 "ocupándote de cambiar al mundo..."
 
-#: app/views/polls/_form.haml:3
+#: app/views/home/index.haml:23
+msgid "Identify Community Needs"
+msgstr "Identificar las necesidades de tu comunidad"
+
+#: app/views/home/index.haml:24
 msgid ""
-"Respondents must answer with the confirmation word in order to agree to "
-"participate in the poll"
+"Before allocating limited resources, it's important to understand the most "
+"pressing needs of your community. And no one knows those needs better than "
+"the people who make up that community. With Pollit, you can conduct a "
+"community poll with a minimum of time and other resources, assessing high-"
+"priority needs and interventions while identifying a critical mass of people "
+"willing to take action."
 msgstr ""
-"Los destinatarios deberán responder con la palabra de confirmación a efectos "
-"de consentir su participación en la encuesta"
+"Antes de que te ocupes de asignar recursos limitados es importante que "
+"comprendas las necesidades más apremiantes de tu comunidad. Y nadie conoce "
+"mejor esos requerimientos que las personas que la componen. Pollit te "
+"permite gestionar una encuesta comunitaria en muy poco tiempo y con un "
+"mínimo de recursos, evaluando las necesidades e intervenciones  "
+"prioritarias, al tiempo que podrás identificar a una masa crítica de "
+"personas dispuestas a entrar en acción."
 
-#: app/views/polls/form_editor/_question_form.haml:2
-msgid "The name of this question as it is presented."
-msgstr "El nombre de esta pregunta tal como se la presenta."
-
-#: app/views/polls/show.haml:26
-msgid "Manage Channel"
-msgstr "Administrar el Canal"
-
-#: app/views/home/index.haml:55
-msgid "Take a tour"
-msgstr "Haz un recorrido"
-
-#: app/views/tour/analyze.haml:8
-msgid "Help page"
-msgstr "Página de ayuda"
+#: app/views/home/index.haml:25
+msgid "Evaluating Program Success Rates"
+msgstr "Evaluar los índices de éxito de determinado programa"
 
 #: app/views/home/index.haml:26
 msgid ""
@@ -366,417 +980,34 @@ msgstr ""
 "evaluar –y si es preciso, corregir– el curso de tus acciones, con frecuencia "
 "y a bajo costo. "
 
-#: app/views/channels/new.haml:3
-msgid "Add channel"
-msgstr "Agregar un canal"
-
-#: app/views/answers/_list.haml:5
-msgid "Question"
-msgstr "Pregunta"
-
-#: app/views/home/index.haml:37
-msgid "How can I help?"
-msgstr "¿Cómo puedo ayudar?"
-
-#: app/views/channels/show.haml:18
-msgid "Next"
-msgstr "Siguiente"
-
-#: app/views/shared/_footer.haml:13
-msgid "Version"
-msgstr "Versión"
-
-#: app/views/home/index.haml:13
-msgid "for participants to answer anywhere, anytime, using any phone"
-msgstr ""
-"a los participantes responder en cualquier lugar, en todo momento y usando "
-"cualquier teléfono"
-
-#: app/views/help/index.haml:11
-msgid ""
-"Got a question or two about Pollit? We've got an answer or two! Check out "
-"the Frequently Asked Questions on this page or subscribe to our %{group}, "
-"where we'll be happy to answer any questions."
-msgstr ""
-"¿Se te ocurren un par preguntas acerca de Pollit? ¡Nosotros tenemos un par "
-"de respuestas! Revisa las Preguntas Más Frecuentes en esta página, o "
-"suscríbete a nuestro %{group}, a través del cual responderemos con gusto "
-"cualquier pregunta que nos quieras formular."
-
-# No conozco el contexto... Supongo que está bien...
-#: app/views/users/registrations/success.haml:3
-msgid "Almost there!"
-msgstr "¡Ya casi terminas!"
-
-#: app/views/help/index.haml:6
-msgid "What browsers are supported by Pollit?"
-msgstr "¿Qué navegadores son compatibles con Pollit?"
-
-#: app/views/polls/show.haml:23 app/views/channels/show.haml:1
-#: app/views/channels/show.haml:4 app/views/shared/_poll_tabs.haml:7
-msgid "Channel"
-msgstr "Canal"
-
-#: app/views/respondents/index.haml:3
-msgid "Upload it for bulk account creation"
-msgstr ""
-
-#: app/views/tour/poll.haml:3
-msgid ""
-"Just click to start the poll, and Pollit sends your poll's first question to "
-"everyone on your list."
-msgstr ""
-"Simplemente haz click para comenzar la encuesta, y Pollit enviará la primera "
-"pregunta de ésta a todos los integrantes de tu lista."
-
-#: app/views/channels/show.haml:13
-msgid "will help you to send polls from your mobile phone,"
-msgstr "te ayudará a enviar encuestas desde tu teléfono móvil,"
-
-#: app/views/respondents/index.haml:11
-msgid "Add phone numbers manually or upload a CSV file"
-msgstr "Agrega números telefónicos manualmente, o sube un archivo CSV"
-
-#: app/views/polls/_form_questions.haml:6
-msgid "Import a form from Google"
-msgstr "Importa un formulario de Google"
-
-#: app/views/shared/_poll_tabs.haml:5 app/views/answers/index.haml:1
-msgid "Answers"
-msgstr "Respuestas"
-
-#: app/views/polls/form_editor/_question_form.haml:4
-msgid "Additional help for this question."
-msgstr "Ayuda adicional para esta pregunta."
-
-#: app/views/home/index.haml:33
-msgid "Step 1"
-msgstr "Paso 1"
-
-#: app/views/home/index.haml:34
-msgid "Step 2"
-msgstr "Paso 2"
-
-#: app/views/tour/create.haml:2
-msgid ""
-"Once you've signed into your Google account, navigate to docs.google.com."
-msgstr ""
-"Una vez que hayas iniciado la sesión en tu cuenta de Google, ingresa a "
-"docs.google.com."
-
-#: app/views/home/index.haml:36
-msgid "Step 4"
-msgstr "Paso 4"
-
-#: app/views/home/index.haml:62
-msgid "Connect your phone and start the poll"
-msgstr "Conecta tu teléfono y comienza la encuesta"
-
-#: app/views/devise/mailer/unlock_instructions.haml:2
-msgid "Click the link below to unlock your account:"
-msgstr "Haz click en el enlace de abajo para desbloquear tu cuenta:"
-
-#: app/views/devise/passwords/edit.haml:1
-msgid "Change your password"
-msgstr "Cambia tu contraseña"
-
-#: app/views/devise/confirmations/new.haml:1
-msgid "Resend confirmation instructions"
-msgstr "Reenviar instrucciones de confirmación"
-
-#: app/views/polls/form_editor/_question.haml:5
-msgid "Description:"
-msgstr "Descripción:"
-
-#: app/views/home/index.haml:47
-msgid "Already a member?"
-msgstr "¿Ya eres un miembro?"
-
-#: app/views/community/index.haml:2
-msgid ""
-"Get involved with the project! We welcome any feedback, ideas and requests "
-"or features. Get in touch and help us build a better and more helpfull tool "
-"for you."
-msgstr ""
-"¡Involúcrate con este proyecto! Tus comentarios, ideas, requerimientos o "
-"sugerencias serán bienvenidos. Contáctanos y ayúdanos a mejorar esta "
-"herramienta, de manera que te resulte más útil."
-
-#: app/views/polls/edit.haml:2 app/views/layouts/application.haml:2
-#: app/views/layouts/application.haml:24 app/views/shared/_poll_tabs.haml:8
-msgid "Settings"
-msgstr "Configuración"
-
-#: app/views/home/index.haml:11
-msgid "polls from anywhere"
-msgstr "encuestas desde cualquier lugar"
-
-#: app/views/devise/mailer/reset_password_instructions.haml:2
-msgid "To reset your password, please click on"
-msgstr "Para restablecer tu contraseña, por favor haz click en"
-
-#: app/views/polls/form_editor/_question_form.haml:5
-msgid "Range"
-msgstr ""
-
-#: app/views/tour/poll.haml:1
-msgid "Reach all the people you want - anytime and anywhere <br/>you want"
-msgstr ""
-
-#: app/views/layouts/application.haml:30 app/views/home/index.haml:48
-msgid "Log in"
-msgstr "Inicia la sesión"
-
-#: app/views/polls/index.haml:7
-msgid "You have no polls yet."
-msgstr "Aún no has generado ninguna encuesta."
-
-#: app/views/help/index.haml:7
-msgid "What is the Local Nuntium Gateway?"
-msgstr "¿Qué es el gateway local de Nuntium?"
-
-#: app/views/home/index.haml:58
-msgid "and log in"
-msgstr "e inicia la sesión"
-
-#: app/views/polls/form_editor/_question_form.haml:8
-msgid "Options"
-msgstr "Opciones"
-
-#: app/views/channels/show.haml:15
-msgid "Change channel"
-msgstr "Cambiar el canal"
-
-#~ msgid "Reúne firmas de forma virtual"
-#~ msgstr ""
-
-#: app/views/home/index.haml:9
-msgid "poll results in real time"
-msgstr "los resultados de tu encuesta en tiempo real"
-
-#: app/views/shared/_footer.haml:1
-msgid ""
-"InSTEDD has created an evolving platform of free and open source "
-"technologies to support humanitarian causes. These tools can be used "
-"individually or as building blocks for larger solutions."
-msgstr ""
-"InSTEDD ha creado una plataforma evolutiva de tecnologías gratuitas y de "
-"código abierto en apoyo de causas humanitarias. Estas herramientas pueden "
-"ser usadas individualmente, o bien a manera de módulos encastrables que "
-"permitan desarrollar soluciones más extensas."
-
-#: app/views/polls/new.haml:2 app/views/shared/_wizard.haml:3
-msgid "New poll"
-msgstr "Nueva encuesta"
-
-# No traduje la palabra "code", porque forma parte del título que aparece arriba de este apartadito, que es "Código abierto" ("Open Source").
-#: app/views/home/index.haml:19
-msgid "code for developers to use to improve its design and functionality"
-msgstr ""
-"que permite que los desarrolladores puedan mejorar su diseño y sus "
-"funcionalidades"
-
-#: app/views/users/registrations/success.haml:2
-msgid "Open the activation link and start using Pollit!"
-msgstr "¡Accede al enlace de activación y comienza a usar Pollit!"
-
-#: app/views/polls/show.haml:16
-msgid "respondents"
-msgstr "encuestados"
-
-#: app/views/devise/mailer/confirmation_instructions.haml:4
-msgid "to confirm that this user account really does belong to you."
-msgstr "para confirmar que esta cuenta de usuario realmente te pertenece."
-
-#: app/views/home/index.haml:12
-msgid "Make it easy"
-msgstr "Facilítales"
-
-# ¿Por qué "More" en mayúscula..?
-#: app/views/tour/start.haml:2
-msgid "learn More"
-msgstr "aprende más"
-
-#: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:8
-msgid "Home"
-msgstr "Inicio"
-
-#: app/views/home/index.haml:53
-msgid "Create unlimited questions per poll"
-msgstr "Crea una cantidad ilimitada de preguntas por encuesta"
-
-#: app/views/tour/start.haml:8
-msgid "will manage the flow of incoming and outgoing messages,"
-msgstr "administrará el flujo de mensajes entrantes y salientes,"
-
-#: app/views/tour/start.haml:1
-msgid "Get started with just an Internet connection and a mobile phone"
-msgstr ""
-"Comienza a utilizar Pollit con tan sólo una conexión a internet y un "
-"teléfono móvil"
-
-# Puse "nuestro" por si "{discussion}" es "Foro de discusión"...
-#: app/views/tour/analyze.haml:8
-msgid ""
-"Need a little more info? Visit our %{help} or subscribe to our "
-"%{discussion}, where we'll be happy to answer any questions you might have "
-"and get you going with Pollit!"
-msgstr ""
-"¿Necesitas un poco más de información? Visita nuestra %{help} o suscríbete a "
-"nuestro %{discussion}, donde responderemos con todo gusto cualquier "
-"pregunta que desees formularnos, para que así puedas seguir utilizando "
-"Pollit."
-
-#: app/views/polls/show.haml:3
-msgid "New Poll successfully created"
-msgstr "La Nueva Encuesta ha sido creada exitosamente"
-
-#: app/views/tour/start.haml:9
-msgid "Try it now!"
-msgstr "¡Pruébalo ahora!"
-
-#: app/views/polls/show.haml:33
-msgid "This poll is paused and will not send new questions to its respondents"
-msgstr ""
-"Esta encuesta está en pausa, y no serán enviadas nuevas preguntas a los "
-"participantes"
-
-#: app/views/answers/_list.haml:5
-msgid "No answers have been received yet."
-msgstr "No se ha recibido ninguna respuesta todavía."
-
-#: app/views/home/index.haml:54
-msgid "Reach an unlimited number of participants worldwide"
-msgstr "Llega a un número ilimitado de participantes en todo el mundo"
-
-#: app/views/home/index.haml:16
-msgid "Free"
-msgstr "Gratis"
-
-#: app/views/answers/_list.haml:5
-msgid "Answer"
-msgstr ""
-
-#: app/views/polls/_form_import.haml:4
-msgid "Import"
-msgstr "Importar"
-
-#: app/views/devise/passwords/new.haml:1 app/views/devise/shared/_links.haml:2
-msgid "Forgot your password?"
-msgstr "¿Has olvidado tu contraseña?"
-
-#: app/views/home/index.haml:42 app/views/home/index.haml:45
-msgid "Get started:"
-msgstr "Inicio:"
-
-#: app/views/polls/show.haml:30
-msgid "This poll is active and is receiving messages from its respondents"
-msgstr ""
-"Esta encuesta está activa, y se están recibiendo mensajes de los "
-"participantes"
-
-#: app/views/tour/create.haml:1
-msgid "Create polls in minutes"
-msgstr "Crea encuestas en pocos minutos"
-
-#: app/views/home/index.haml:7
-msgid "structured information without the need for smartphones"
-msgstr "información estructurada sin la necesidad de utilizar smartphones"
-
-#: app/views/devise/mailer/reset_password_instructions.haml:7
-msgid ""
-"If you didn't request to reset your password, please ignore this email. Note "
-"that your password won't change until you access the link above and create a "
-"new one."
-msgstr ""
-"Si tú no has requerido que tu contraseña sea restablecida, por favor ignora "
-"este e-mail. Ten en cuenta que tu contraseña no será modificada hasta que "
-"accedas al enlace de arriba y te crees una nueva."
-
-#: app/views/tour/start.haml:3
-msgid "."
-msgstr "."
-
-#: app/views/home/index.haml:50
-msgid ""
-"Pollit is a great way to find out in real time what's on your audience's "
-"mind. Here are a few ways Pollit can help you take the pulse of your people:"
-msgstr ""
-"Pollit es una magnífica manera de averiguar en tiempo real qué es lo que "
-"piensa tu audiencia. He aquí algunas de las formas en que Pollit te puede "
-"ayudar a tomarle el pulso a tu gente:"
-
-#~ msgid "<!DOCTYPE html PUBLIC "
-#~ msgstr ""
-
-#: app/views/polls/show.haml:27
-msgid "Questions from Google Docs Form"
-msgstr "Preguntas desde un formulario de Google Docs"
-
-#: app/views/polls/new.haml:1
-msgid "Create a new poll"
-msgstr "Crea una nueva encuesta"
-
-#: app/views/answers/_list.haml:5
-msgid "Date"
-msgstr "Fecha"
-
-#: app/views/devise/passwords/edit.haml:2
-msgid "Change my password"
-msgstr "Cambiar mi contraseña"
-
-#: app/views/polls/show.haml:1 app/views/polls/_form.haml:1
-msgid "Properties"
-msgstr "Propiedades"
-
-#: app/views/channels/show.haml:11
-msgid "Are you sure you want to delete this channel?"
-msgstr "¿Estás seguro de que deseas eliminar este canal?"
-
-#: app/views/answers/_list.haml:5
-msgid "Respondent"
-msgstr "Encuestado"
-
-#: app/views/polls/show.haml:18
-msgid "Manage Respondents"
-msgstr "Administrar Encuestados"
-
-#: app/views/home/index.haml:32
-msgid "Where do I start?"
-msgstr "¿Por dónde comienzo?"
-
-# Adapté la segunda oración para que se comprendiera mejor la idea...
-#: app/views/community/index.haml:7
-#, fuzzy
-msgid ""
-"Stay up to date on the latest news about new tools, features or ideas on how "
-"to use our technologies. We will send you between 1 and 2 emails a month and "
-"won't sell your email or spam you!"
-msgstr ""
-"Mantente al día sobre las últimas noticias acerca de nuevas herramientas, "
-"funcionalidades o ideas respecto de cómo aprovechar nuestras tecnologías. Te "
-"enviaremos uno o dos e-mails mensuales, y de ninguna manera comprometeremos "
-"tus datos de contacto ni recibirás correo basura de nuestra parte."
-
 #: app/views/home/index.haml:27
 msgid "Assessing Knowledge"
 msgstr "Evaluar el conocimiento"
 
-#: app/views/layouts/application.haml:17
-msgid "Polls"
-msgstr "Encuestas"
+#: app/views/home/index.haml:28
+msgid ""
+"Today's learning builds on yesterday's, and that's why it's so important to "
+"ensure that students are keeping up. Regular knowledge assessment gives "
+"confidence to learners on the right track and highlights students who need a "
+"little more guidance. Using Pollit, you can measure knowledge before and "
+"after your class, program, or intervention, without extending class time or "
+"otherwise inconveniencing students."
+msgstr ""
+"El aprendizaje de hoy se construye sobre el de ayer, y por eso es tan "
+"importante asegurarse de que los estudiantes continúen progresando. La "
+"evaluación frecuente de su nivel de conocimiento les da confianza a los "
+"alumnos que van por la buena senda y permite detectar a aquellos que "
+"necesitan un poco más de orientación. Usando Pollit tú podrás medir el grado "
+"de aprendizaje antes y después de tu clase, programa o intervención, sin "
+"tener que extender su tiempo de duración ni incomodar a tus alumnos."
 
-#: app/views/polls/_form_questions.haml:7
-msgid "to load its questions"
-msgstr "para cargar sus preguntas"
+#: app/views/home/index.haml:29
+msgid "Features"
+msgstr "Características"
 
-#: app/views/devise/unlocks/new.haml:1 app/views/devise/unlocks/new.haml:2
-msgid "Resend unlock instructions"
-msgstr "Reenviar instrucciones de desbloqueo"
-
-#: app/views/layouts/application.haml:1
-msgid "Pollit"
-msgstr "Pollit"
+#: app/views/home/index.haml:30
+msgid "How does it work?"
+msgstr "¿Cómo funciona?"
 
 #: app/views/home/index.haml:31
 msgid ""
@@ -798,194 +1029,215 @@ msgstr ""
 "podrás revisarlas en tiempo real y exportarlas para su análisis en otras "
 "aplicaciones."
 
-#: app/views/respondents/index.haml:2
-msgid "Download a sample csv file"
-msgstr "Descarga un archivo CSV de muestra"
+#: app/views/home/index.haml:32
+msgid "Where do I start?"
+msgstr "¿Por dónde comienzo?"
 
-#: app/views/polls/form_editor/_question_form.haml:6
-msgid "Range of values accepted for this question"
-msgstr "Rango de valores aceptados para esta pregunta"
+#: app/views/home/index.haml:33
+msgid "Step 1"
+msgstr "Paso 1"
 
-#: app/views/home/index.haml:28
-msgid ""
-"Today's learning builds on yesterday's, and that's why it's so important to "
-"ensure that students are keeping up. Regular knowledge assessment gives "
-"confidence to learners on the right track and highlights students who need a "
-"little more guidance. Using Pollit, you can measure knowledge before and "
-"after your class, program, or intervention, without extending class time or "
-"otherwise inconveniencing students."
-msgstr ""
-"El aprendizaje de hoy se construye sobre el de ayer, y por eso es tan "
-"importante asegurarse de que los estudiantes continúen progresando. La "
-"evaluación frecuente de su nivel de conocimiento les da confianza a los "
-"alumnos que van por la buena senda y permite detectar a aquellos que "
-"necesitan un poco más de orientación. Usando Pollit tú podrás medir el grado "
-"de aprendizaje antes y después de tu clase, programa o intervención, sin "
-"tener que extender su tiempo de duración ni incomodar a tus alumnos."
+#: app/views/home/index.haml:34
+msgid "Step 2"
+msgstr "Paso 2"
 
-#: app/views/tour/start.haml:7
-msgid ""
-"No 'Droid? No problem! Our small Nuntium app for PC or Mac bridges the gap "
-"between Pollit and your mobile phone. Once you %{register} and create your "
-"poll, Pollit takes care of the rest."
-msgstr ""
-"¿No tienes un Android? ¡No hay problema! Nuestra mini-aplicación Nuntium "
-"para PC o Mac superará la brecha entre Pollit y tu teléfono móvil. Una vez "
-"que te hayas %{register} y hayas creado tu encuesta, Pollit se hará cargo de "
-"todo lo demás."
+#: app/views/home/index.haml:35
+msgid "Step 3"
+msgstr "Paso 3"
 
-#: app/views/help/index.haml:1
-msgid "Got questions?"
-msgstr "¿Alguna pregunta?"
+#: app/views/home/index.haml:36
+msgid "Step 4"
+msgstr "Paso 4"
 
-#: app/views/home/index.haml:18
-msgid "Open Source"
-msgstr "Código abierto"
-
-#: app/views/home/index.haml:29
-msgid "Features"
-msgstr "Características"
-
-#: app/views/polls/show.haml:34
-msgid "Resume this poll"
-msgstr "Reanudar esta encuesta"
-
-#: app/views/polls/form_editor/_question_add.haml:3
-msgid "Add a new question"
-msgstr "Agregar una nueva pregunta"
-
-#: app/views/channels/show.haml:7
-msgid ""
-"A channel created on Nuntium Local Gateway enables you to send polls from "
-"your mobile phone"
-msgstr ""
-"Un canal creado a través de un gateway local de Nuntium te permite enviar "
-"encuestas deste tu teléfono móvil"
-
-#: app/views/respondents/index.haml:1
-msgid "Bulk phone numbers importing"
-msgstr "Importación masiva de números telefónicos"
-
-#: app/views/community/index.haml:6
-msgid "Subscribe to our newsletter"
-msgstr "Suscríbete a nuestro Newsletter"
-
-#: app/views/home/index.haml:60 app/views/shared/_footer.haml:4
-msgid "Learn more"
-msgstr "Aprende más"
-
-#: app/views/community/index.haml:9
-msgid "If you have ideas, needs or suggestions."
-msgstr "Si tienes ideas, requerimientos o sugerencias."
-
-#: app/views/home/index.haml:40
-msgid "Download brochure (~400 KB)"
-msgstr "Descargar el folleto (~400 KB)"
-
-#: app/views/polls/show.haml:8
-msgid "This poll has not been started yet"
-msgstr "Esta encuesta aún no ha comenzado"
-
-#: app/views/tour/create.haml:3
-msgid ""
-"Click the Create button, select Form, and then create your poll using the "
-"browser-based tool."
-msgstr ""
-"Haz click en el botón Crear, selecciona Formulario y luego crea tu encuesta "
-"usando la herramienta de búsqueda."
-
-#: app/views/polls/show.haml:13
-msgid "No respondents allocated"
-msgstr "No hay encuestados asignados"
-
-#: app/views/community/index.haml:11
-msgid ""
-"If you are a developer you can contribute with some of the features or check "
-"our code repository"
-msgstr ""
-
-#: app/views/tour/analyze.haml:8 app/views/help/index.haml:11
-msgid "user discussion group"
-msgstr "grupo de discusión de usuario"
-
-#: app/views/channels/show.haml:17 app/views/respondents/readonly.haml:8
-msgid "Back"
-msgstr "Atrás"
-
-#: app/views/tour/analyze.haml:7
-msgid ""
-"Sign up for your %{account} and begin taking the pulse of your people today."
-msgstr ""
-"Regístrate para obtener tu %{account}, y comienza hoy mismo a tomarle el "
-"pulso a tu gente."
-
-#: app/views/devise/mailer/confirmation_instructions.haml:8
-#: app/views/devise/mailer/reset_password_instructions.haml:9
-msgid "The Pollit team"
-msgstr "El equipo de Pollit"
-
-#: app/views/home/index.haml:14
-msgid "Eliminate"
-msgstr "Elimina"
-
-#: app/views/home/index.haml:39 app/views/community/index.haml:4
-msgid "Visit our backlog"
-msgstr ""
-
-#: app/views/tour/poll.haml:2
-msgid ""
-"To send a poll, first log into your Pollit account. Click the Polls tab, "
-"then Create Poll. Give Pollit the live link to your Google poll form, "
-"complete a few fields, and you're ready to go"
-msgstr ""
-"Para enviar una encuesta, primero inicia la sesión en tu cuenta de Pollit. "
-"Haz click en la solapa Encuestas, y luego, en Crear Encuesta. Consígnale a "
-"Pollit el enlace a tu formulario de encuestas de Google, completa unos pocos "
-"campos, y listo"
-
-#: app/views/home/index.haml:17
-msgid "for anyone to use to help increase their social impact"
-msgstr ""
-"para que cualquiera pueda utilizarlo a efectos de incrementar su impacto "
-"social"
+#: app/views/home/index.haml:37
+msgid "How can I help?"
+msgstr "¿Cómo puedo ayudar?"
 
 #: app/views/home/index.haml:38 app/views/community/index.haml:3
 msgid "Join our discussion list"
 msgstr "Únete a nuestra lista de discusión"
 
-#: app/views/layouts/application.haml:29
-#: app/views/users/registrations/new.haml:1
-#: app/views/users/registrations/new.haml:2
-msgid "Create account"
-msgstr "Crea una cuenta"
+#: app/views/home/index.haml:39 app/views/community/index.haml:4
+msgid "Visit our backlog"
+msgstr "Visita nuestro registro de trabajos pendientes"
+
+#: app/views/home/index.haml:40
+msgid "Download brochure (~400 KB)"
+msgstr "Descargar el folleto (~400 KB)"
+
+#: app/views/home/index.haml:42 app/views/home/index.haml:45
+msgid "Get started:"
+msgstr "Inicio:"
 
 #: app/views/home/index.haml:43
 msgid "View your polls"
 msgstr "Visualiza tus encuestas"
 
+#: app/views/home/index.haml:46 app/views/home/index.haml:57
+msgid "Create an account"
+msgstr "Crea una cuenta"
+
+#: app/views/home/index.haml:47
+msgid "Already a member?"
+msgstr "¿Ya eres un miembro?"
+
+#: app/views/home/index.haml:50
+msgid ""
+"Pollit is a great way to find out in real time what's on your audience's "
+"mind. Here are a few ways Pollit can help you take the pulse of your people:"
+msgstr ""
+"Pollit es una magnífica manera de averiguar en tiempo real qué es lo que "
+"piensa tu audiencia. He aquí algunas de las formas en que Pollit te puede "
+"ayudar a tomarle el pulso a tu gente:"
+
 #: app/views/home/index.haml:51
 msgid "Use any phone capable of sending and receiving text messages"
 msgstr "Utiliza cualquier teléfono capaz de enviar y recibir mensajes de texto"
 
-#: app/views/home/index.haml:23
-msgid "Identify Community Needs"
-msgstr "Identifica las necesidades de tu comunidad"
+#: app/views/home/index.haml:52
+msgid "View and download results as a spreadsheet and in other formats"
+msgstr ""
+"Visualiza y descarga los resultados en una hoja de cálculo y en otros "
+"formatos"
 
-#: app/views/community/index.haml:5
-msgid "Check the source code"
-msgstr "Examina el código fuente"
+#: app/views/home/index.haml:53
+msgid "Create unlimited questions per poll"
+msgstr "Crea una cantidad ilimitada de preguntas por encuesta"
 
-#: app/views/polls/show.haml:9
-msgid "Start Poll"
-msgstr "Iniciar la encuesta"
+#: app/views/home/index.haml:54
+msgid "Reach an unlimited number of participants worldwide"
+msgstr "Llega a un número ilimitado de participantes en todo el mundo"
 
-#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:26
-msgid "Sign Out"
-msgstr "Cerrar la sesión"
+#: app/views/home/index.haml:55
+msgid "Take a tour"
+msgstr "Haz un recorrido"
 
-#: app/views/polls/index.haml:3
-msgid "Create Poll"
-msgstr "Crear una encuesta"
+#: app/views/home/index.haml:58
+msgid "and log in"
+msgstr "e inicia la sesión"
+
+#: app/views/home/index.haml:59
+msgid "Create your poll using Google Forms"
+msgstr "Crea tu encuesta usando Google Forms"
+
+#: app/views/home/index.haml:60 app/views/shared/_footer.haml:4
+msgid "Learn more"
+msgstr "Aprende más"
+
+#: app/views/home/index.haml:61
+msgid "Paste your form's public link to Pollit"
+msgstr "Copia y pega en Pollit el enlace público a tu formulario"
+
+#: app/views/home/index.haml:62
+msgid "Connect your phone and start the poll"
+msgstr "Conecta tu teléfono y comienza la encuesta"
+
+#: app/views/home/index.haml:63
+msgid "Got suggestions or feature requests? Join the discussion."
+msgstr ""
+"¿Tienes sugerencias o requerimientos acerca de nuevas funcionalidades que te "
+"gustaría formularnos? Únete a la discusión."
+
+#: app/views/home/index.haml:65
+msgid ""
+"Got a way with code? Help us develop our tools (and make the world a better "
+"place at the same time)."
+msgstr ""
+"¿Se te ocurre alguna manera de mejorar nuestro código? Ayúdanos a "
+"desarrollar nuestras herramientas (y al mismo tiempo contribuye a que el "
+"mundo se transforme en un mejor lugar)."
+
+#: app/views/respondents/index.haml:1
+msgid "Bulk phone numbers importing"
+msgstr "Importación masiva de números telefónicos"
+
+#: app/views/respondents/index.haml:2
+msgid "Download a sample csv file"
+msgstr "Descarga un archivo CSV de muestra"
+
+#: app/views/respondents/index.haml:3
+msgid "Upload it for bulk account creation"
+msgstr "Súbelo para el alta masiva de cuentas"
+
+#: app/views/respondents/index.haml:11
+msgid "Add phone numbers manually or upload a CSV file"
+msgstr "Agrega números telefónicos manualmente, o sube un archivo CSV"
+
+#: app/views/respondents/index.haml:13
+msgid ""
+"Because the poll has already started, you can only add respondents. New "
+"respondents will be invited after you click 'Save'."
+msgstr ""
+"Debido a que la encuesta ya ha comenzado, sólo puedes agregar participantes. "
+"Los nuevos encuestados serán invitados una vez que hayas hecho click en "
+"\"Guardar\"."
+
+#: app/views/users/registrations/success.haml:1
+#: app/views/users/registrations/success.haml:4
+msgid ""
+"You have created your account successfully. However, we could not sign you "
+"in because your account is unconfirmed. We have just sent an email to "
+"%{email} with an activation link."
+msgstr ""
+"Te has registrado correctamente. Sin embargo, no hemos podido darte el alta "
+"porque tu cuenta aún no ha sido confirmada. Acabamos de enviar un e-mail a %"
+"{email} que contiene un enlace de activación."
+
+#: app/views/users/registrations/success.haml:2
+msgid "Open the activation link and start using Pollit!"
+msgstr "¡Accede al enlace de activación y comienza a usar Pollit!"
+
+# No conozco el contexto... Supongo que está bien...
+#: app/views/users/registrations/success.haml:3
+msgid "Almost there!"
+msgstr "¡Ya casi terminas!"
+
+#: app/views/users/registrations/edit.haml:1
+msgid "(we need your current password to confirm your changes)"
+msgstr "(necesitamos tu contraseña actual para confirmar tus modificaciones)"
+
+#: app/views/users/registrations/edit.haml:2
+msgid "Update"
+msgstr "Actualizar"
+
+#: app/views/help/index.haml:1
+msgid "Got questions?"
+msgstr "¿Alguna pregunta?"
+
+#: app/views/help/index.haml:2
+msgid "Can I use any phone with Pollit?"
+msgstr "¿Puedo usar cualquier tipo de teléfono con Pollit?"
+
+#: app/views/help/index.haml:3
+msgid ""
+"Yes. As long as you -- and poll participants -- have a mobile phone that can "
+"send and receive text messages, you're all set."
+msgstr ""
+"Si. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
+"celulares capaces de enviar y recibir mensajes de texto, estará todo listo."
+
+#: app/views/help/index.haml:4
+msgid "Is there any charge for using Pollit?"
+msgstr "¿Tiene algún costo el uso de Pollit?"
+
+#: app/views/help/index.haml:5
+msgid ""
+"Pollit is free to use and open source. Keep in mind that your mobile service "
+"provider's fees apply, so be sure to check with them if you have any "
+"questions about charges."
+msgstr ""
+"Pollit es un desarrollo gratuito y de código abierto. Ten en cuenta que tu "
+"proveedor de servicios de telefonía móvil aplicará sus tarifas habituales, "
+"por lo que deberás consultarle cualquier duda que tengas respecto de los "
+"costos."
+
+#: app/views/help/index.haml:6
+msgid "What browsers are supported by Pollit?"
+msgstr "¿Qué navegadores son compatibles con Pollit?"
+
+#: app/views/help/index.haml:7
+msgid "What is the Local Nuntium Gateway?"
+msgstr "¿Qué es el gateway local de Nuntium?"
 
 #: app/views/help/index.haml:8
 msgid ""
@@ -999,205 +1251,9 @@ msgstr ""
 "mensajes de texto directamente, esta aplicación le permite a tu teléfono "
 "comunicarse con Pollit, de manera que tú puedas gestionar tus encuestas."
 
-#: app/views/respondents/index.haml:5 app/views/respondents/readonly.haml:2
-#: app/views/shared/_poll_tabs.haml:6
-msgid "Respondents"
-msgstr "Encuestados"
-
-#~ msgid ""
-#~ "feedback en tiempo real y actualizaciones de la gente, donde sea que estén."
-#~ msgstr ""
-
-#: app/views/respondents/readonly.haml:1
-msgid ""
-"The list of respondents cannot be modified as the poll has already started."
-msgstr ""
-"La lista de participantes no puede ser modificada, debido a que la encuesta "
-"ya ha comenzado."
-
-#: app/views/home/index.haml:8
-msgid "See and analyze"
-msgstr "Visualiza y analiza"
-
-#: app/views/home/index.haml:15
-msgid "email or paper-based poll collection"
-msgstr ""
-
-#: app/views/polls/form_editor/_question_form.haml:9
-msgid "Possible values for this question."
-msgstr "Posibles valores para esta pregunta."
-
-#: app/views/help/index.haml:5
-msgid ""
-"Pollit is free to use and open source. Keep in mind that your mobile service "
-"provider's fees apply, so be sure to check with them if you have any "
-"questions about charges."
-msgstr ""
-"Pollit es un desarrollo gratuito y de código abierto. Ten en cuenta que tu "
-"proveedor de servicios de telefonía móvil aplicará sus tarifas habituales, "
-"por lo que deberás consultarle cualquier duda que tengas respecto de los "
-"costos."
-
-#: app/views/polls/show.haml:21
-msgid "There is no channel set for this poll"
-msgstr "No se ha configurado ningún canal para esta encuesta"
-
-#: app/views/polls/_form_questions.haml:1
-msgid "Poll questions"
-msgstr "Preguntas de la encuesta"
-
-#: app/views/polls/_form.haml:4
-msgid "This message will be sent to respondents when they complete the poll"
-msgstr ""
-"Este mensaje será enviado a los participantes cuando hayan completado la "
-"encuesta"
-
-#: app/views/tour/create.haml:4
-msgid ""
-"With Google Form, you can choose from short and long answer, multiple "
-"choice, and other question types. Please note that though there's no limit "
-"to the number of questions you can ask, you'll need to keep each question at "
-"or under the standard SMS 140-character limit for use with Pollit."
-msgstr ""
-"En Google Forms tú puedes escoger entre respuestas cortas o largas, de "
-"opción múltiple y otros modelos de preguntas. Por favor, ten en cuenta que a "
-"pesar de que no hay un límite para el número de preguntas que puedes "
-"formular, para usar Pollit deberás ajustar cada una de ellas al formato "
-"estándar para SMS, de 140 caracteres como máximo. "
-
-#: app/views/channels/show.haml:2
-msgid "Local Gateway channel"
-msgstr "Canal de gateway local"
-
-#: app/views/home/index.haml:61
-msgid "Paste your form's public link to Pollit"
-msgstr "Copia y pega en Pollit el enlace público a tu formulario"
-
-#: app/views/help/index.haml:4
-msgid "Is there any charge for using Pollit?"
-msgstr "¿Tiene algún costo el uso de Pollit?"
-
-#: app/views/answers/_list.haml:5
-msgid ""
-"This poll has not commenced yet; start the poll to receive answers from your "
-"respondents."
-msgstr ""
-"Esta encuesta aún no ha comenzado; inicia la encuesta para recibir las "
-"respuestas de los participantes."
-
-#: app/views/polls/form_editor/_question_form.haml:3
-msgid "Description"
-msgstr "Descripción"
-
-#: app/views/home/index.haml:25
-msgid "Evaluating Program Success Rates"
-msgstr "Evaluar los índices de éxito de determinado programa"
-
-#: app/views/home/index.haml:24
-msgid ""
-"Before allocating limited resources, it's important to understand the most "
-"pressing needs of your community. And no one knows those needs better than "
-"the people who make up that community. With Pollit, you can conduct a "
-"community poll with a minimum of time and other resources, assessing high-"
-"priority needs and interventions while identifying a critical mass of people "
-"willing to take action."
-msgstr ""
-"Antes de que te ocupes de asignar recursos limitados es importante que "
-"comprendas las necesidades más apremiantes de tu comunidad. Y nadie conoce "
-"mejor esos requerimientos que las personas que la componen. Pollit te "
-"permite gestionar una encuesta comunitaria en muy poco tiempo y con un "
-"mínimo de recursos, evaluando las necesidades e intervenciones  "
-"prioritarias, al tiempo que podrás identificar a una masa crítica de "
-"personas dispuestas a entrar en acción."
-
-#: app/views/home/index.haml:30
-msgid "How does it work?"
-msgstr "¿Cómo funciona?"
-
-#: app/views/layouts/application.haml:19 app/views/shared/_footer.haml:9
-msgid "Tour"
-msgstr "Tour"
-
-#: app/views/layouts/application.haml:20 app/views/shared/_footer.haml:10
-#: app/views/community/index.haml:1
-msgid "Community"
-msgstr "Comunidad"
-
 #: app/views/help/index.haml:9
 msgid "Why doesn't Pollit send and receive text messages directly?"
 msgstr "¿Por qué Pollit no envía ni recibe mensajes de texto directamente?"
-
-#: app/views/community/index.haml:8
-msgid "Subscribe"
-msgstr "Suscríbete"
-
-#: app/views/polls/_form_import.haml:1
-msgid ""
-"Copy the live form URL (not the spreadsheet's URL) making sure the form does "
-"not require sign-in"
-msgstr ""
-
-#: app/views/home/index.haml:5
-msgid "based on data directly from your audience"
-msgstr "basadas en datos obtenidos directamente de tu audiencia"
-
-#: app/views/home/index.haml:4
-msgid "Make decisions"
-msgstr "Toma decisiones"
-
-#: app/views/tour/analyze.haml:4
-msgid "Study responses in a variety"
-msgstr "Estudia las respuestas en una gran variedad"
-
-#: app/views/home/index.haml:10
-msgid "Conduct"
-msgstr "Gestiona"
-
-#: app/views/channels/wizard/_d_end_wizard.haml:1
-msgid "Congratulations! you have successfully created a channel"
-msgstr "¡Felicitaciones! Has creado un canal exitosamente "
-
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:19
-msgid ""
-"If you use another type of mobile phone all you need to do is plug your "
-"phone into your computer, download the client, and it will be used for "
-"sending and receiving messages."
-msgstr ""
-"Si utilizas algún otro tipo de teléfono móvil, todo lo que debes hacer es "
-"conectarlo a tu computadora y descargar la aplicación, y así podrás enviar y "
-"recibir mensajes de texto."
-
-#: app/views/channels/wizard/_b_download_android_local_gateway.haml:2
-msgid "Nuntium"
-msgstr "Nuntium"
-
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:16
-msgid ""
-"If you have an Android powered mobile phone, you don't need a computer to "
-"set up your gateway. Just download the application and follow the "
-"configuration steps, and the phone will be used for sending questions and "
-"receiving answers."
-msgstr ""
-"Si tienes un teléfono móvil con sistema operativo Android, no necesitarás "
-"una computadora para instalar tu gateway. Tan sólo descarga la aplicación y "
-"sigue los pasos de configuración, y así tu teléfono será usado para enviar "
-"preguntas y recibir respuestas."
-
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:18
-msgid "Other mobile phone"
-msgstr "Otro tipo de teléfono móvil"
-
-#: app/views/devise/shared/_links.haml:3
-msgid "Reset it"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:1
-msgid "Start"
-msgstr "Comienza"
-
-#: app/views/users/registrations/edit.haml:1
-msgid "(we need your current password to confirm your changes)"
-msgstr "(necesitamos tu contraseña actual para confirmar tus modificaciones)"
 
 #: app/views/help/index.haml:10
 msgid ""
@@ -1216,153 +1272,287 @@ msgstr ""
 "Pollit. De esta forma podemos ofrecer Pollit gratuitamente para cualquiera, "
 "sin importar en qué parte del mundo se encuentre."
 
-#: app/views/channels/wizard/_b_download_android_local_gateway.haml:6
+#: app/views/help/index.haml:11
 msgid ""
-"Use the following QR code to access the app or use the search engine with "
-"the keyword"
+"Got a question or two about Pollit? We've got an answer or two! Check out "
+"the Frequently Asked Questions on this page or subscribe to our %{group}, "
+"where we'll be happy to answer any questions."
 msgstr ""
-"Utiliza el siguiente código QR para acceder a la aplicación, o recurre al "
-"motor de búsqueda con la palabra clave"
+"¿Se te ocurren un par preguntas acerca de Pollit? ¡Nosotros tenemos un par "
+"de respuestas! Revisa las Preguntas Más Frecuentes en esta página, o "
+"suscríbete a nuestro %{group}, a través del cual responderemos con gusto "
+"cualquier pregunta que nos quieras formular."
 
-#: app/views/tour/_tour_navigation.haml:7
-msgid "Analyze"
-msgstr "Analiza"
-
-#: app/views/polls/show.haml:4 app/views/channels/wizard/_d_end_wizard.haml:6
-msgid "Finish"
-msgstr ""
-
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:1
-msgid "Download and install Nuntium Local Gateway"
-msgstr "Descarga e instala el gateway local de Nuntium"
-
-#: app/views/users/registrations/edit.haml:2
-msgid "Update"
-msgstr "Actualizar"
-
-#: app/views/devise/shared/_links.haml:9
-msgid "Didn't receive unlock instructions?"
-msgstr "¿No has recibido las instrucciones de desbloqueo?"
-
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:2
+#: app/views/help/index.haml:12
 msgid ""
-"Nuntium Local Gateway is a program that runs on your local computer and "
-"requires a mobile phone to be plugged in. The Gateway will use the plugged-"
-"in phone for sending and receiving text messsages."
+"Any modern browser, including the latest versions of Firefox, Safari, "
+"Internet Explorer, Chrome, and others should work fine. If you run across a "
+"browser that doesn't seem to play nice with Pollit, please %{letusknow}."
 msgstr ""
-"El gateway local de Nuntium es un programa que se ejecuta en tu computadora "
-"y requiere que le conectes a ésta un teléfono móvil. El gateway se valdrá de "
-"este teléfono para enviar y recibir mensajes de texto."
+"Cualquier navegador moderno, incluyendo las últimas versiones de Firefox, "
+"Safari, Internet Explorer, Google Chrome y demás, debería funcionar "
+"perfectamente bien. Si estás utilizando algún navegador que pareciera no "
+"compatibilizar adecuadamente con Pollit, por favor %{letusknow}."
 
-#: app/views/devise/shared/_links.haml:6
-msgid "Didn't receive confirmation instructions?"
-msgstr "¿No has recibido las instrucciones de confirmación?"
-
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:6
-msgid "Download for Ubuntu"
-msgstr "Descarga para Ubuntu"
+#: app/views/help/index.haml:12
+msgid "let us know"
+msgstr "háznoslo saber"
 
 #: app/views/user_mailer/confirmation_instructions.haml:3
 msgid "Confirm my account"
 msgstr "Confirmar mi cuenta"
 
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:1
-msgid "Choose your type of mobile phone"
-msgstr "Selecciona tu tipo de teléfono móvil"
+#: app/views/shared/_poll_tabs.haml:4
+msgid "Overview"
+msgstr "Generalidades"
 
-#: app/views/channels/wizard/_c_new_channel.haml:1
-msgid "Enter the gateway code from your mobile phone"
-msgstr "Ingresa el código de gateway desde tu teléfono móvil"
+#: app/views/shared/_poll_tabs.haml:5 app/views/answers/index.haml:1
+#: app/controllers/answers_controller.rb:8
+msgid "Answers"
+msgstr "Respuestas"
 
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:10
+#: app/views/shared/_wizard.haml:1
+msgid "New Poll"
+msgstr "Nueva Encuesta"
+
+#: app/views/shared/_footer.haml:1
 msgid ""
-"Alternatively, you can install the Gateway running the following commands:"
+"InSTEDD has created an evolving platform of free and open source "
+"technologies to support humanitarian causes. These tools can be used "
+"individually or as building blocks for larger solutions."
 msgstr ""
-"Alternativamente, puedes instalar el gateway ejecutando los siguientes "
-"comandos:"
+"InSTEDD ha creado una plataforma evolutiva de tecnologías gratuitas y de "
+"código abierto en apoyo de causas humanitarias. Estas herramientas pueden "
+"ser usadas individualmente, o bien a manera de módulos encastrables que "
+"permitan desarrollar soluciones más extensas."
 
-#: app/views/tour/_tour_navigation.haml:8
-msgid "your results"
-msgstr "tus resultados"
+#: app/views/shared/_footer.haml:2
+msgid "Click here"
+msgstr "Haz click aquí"
 
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:15
-msgid "Android mobile phone"
-msgstr "Teléfono móvil Android"
+#: app/views/shared/_footer.haml:3
+msgid "to learn more."
+msgstr "para aprender más."
 
-#: app/views/tour/_tour_navigation.haml:6
-msgid "your people"
-msgstr "a tu gente"
+#: app/views/shared/_footer.haml:5
+msgid "&copy; 2011 InSTEDD"
+msgstr "&copy; 2011 InSTEDD"
 
-#: app/views/tour/_tour_navigation.haml:3
-msgid "Create"
-msgstr "Crea"
+#: app/views/shared/_footer.haml:6
+msgid "Contact us"
+msgstr "Contáctanos"
 
-#: app/views/shared/_langs_bubble.haml:1
-msgid "Change Language"
+#: app/views/shared/_footer.haml:16
+#, fuzzy
+msgid "Language:"
 msgstr "Cambiar el idioma"
 
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:3
+#: app/views/shared/_footer.haml:18
+msgid "Version"
+msgstr "Versión"
+
+#: app/views/community/index.haml:2
 msgid ""
-"Download the client corresponding to your operating system and install it."
+"Get involved with the project! We welcome any feedback, ideas and requests "
+"or features. Get in touch and help us build a better and more helpfull tool "
+"for you."
 msgstr ""
-"Descarga la aplicación correspondiente a tu sistema operativo e instálala."
+"¡Involúcrate con este proyecto! Tus comentarios, ideas, requerimientos o "
+"sugerencias serán bienvenidos. Contáctanos y ayúdanos a mejorar esta "
+"herramienta, de manera que te resulte más útil."
 
-#: app/views/tour/_tour_navigation.haml:2
-msgid "with a free account"
-msgstr "con una cuenta gratuita"
+#: app/views/community/index.haml:5
+msgid "Check the source code"
+msgstr "Examina el código fuente"
 
-#: app/views/home/index.haml:20
-msgid "What can I use it for?"
-msgstr "¿Para qué lo puedo usar?"
+#: app/views/community/index.haml:6
+msgid "Subscribe to our newsletter"
+msgstr "Suscríbete a nuestro Newsletter"
 
-#: app/views/channels/wizard/_d_end_wizard.haml:2
+# Adapté la segunda oración para que se comprendiera mejor la idea...
+#: app/views/community/index.haml:7
+#, fuzzy
 msgid ""
-"The phone you have configured will be used for sending and receiving text "
-"messages. Ensure the phone is running and has credit for sending messages."
+"Stay up to date on the latest news about new tools, features or ideas on how "
+"to use our technologies. We will send you between 1 and 2 emails a month and "
+"won't sell your email or spam you!"
 msgstr ""
-"El teléfono que acabas de configurar será usado para el envío y la recepción "
-"de mensajes de texto. Asegúrate de que esté funcionando correctamente y "
-"tenga crédito como para poder enviar SMS."
+"Mantente al día sobre las últimas noticias acerca de nuevas herramientas, "
+"funcionalidades o ideas respecto de cómo aprovechar nuestras tecnologías. Te "
+"enviaremos uno o dos e-mails mensuales, y de ninguna manera comprometeremos "
+"tus datos de contacto ni recibirás correo basura de nuestra parte."
 
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:5
-msgid "Download for Windows"
-msgstr "Descarga para Windows"
+#: app/views/community/index.haml:8
+msgid "Subscribe"
+msgstr "Suscríbete"
 
-#: app/views/channels/wizard/_b_download_android_local_gateway.haml:10
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:16
-#: app/views/channels/wizard/_a_choose_local_gateway.haml:22
-msgid "Skip this step"
-msgstr "Saltear este paso"
+#: app/views/community/index.haml:9
+msgid "If you have ideas, needs or suggestions."
+msgstr "Si tienes ideas, requerimientos o sugerencias."
 
-#: app/views/home/index.haml:21
-msgid "Collecting Petition Signatures Virtually"
-msgstr "Recolectar virtualmente firmas de petitorios"
-
-#: app/views/channels/wizard/_b_download_desktop_local_gateway.haml:4
-msgid "Download for MacOS"
-msgstr "Descarga para MacOS"
-
-#: app/views/channels/wizard/_b_download_android_local_gateway.haml:1
-msgid "Go to Android Market and install Nuntium Local Gateway"
-msgstr "Ir al Android Market e instalar el gateway local de Nuntium"
-
-#: app/views/tour/_tour_navigation.haml:5
-msgid "Poll"
-msgstr "Encuesta"
-
-#: app/views/home/index.haml:2
-msgid "real-time feedback and status updates from people, wherever they roam."
+#: app/views/community/index.haml:11
+msgid ""
+"If you are a developer you can contribute with some of the features or check "
+"our code repository"
 msgstr ""
-"feedback en tiempo real y actualizaciones de estado de las personas, "
-"dondequiera que deambulen."
+"Si eres programador, puedes contribuir a mejorar algunas de las "
+"funcionalidades de Pollit, o revisar nuestro repositorio de código"
 
-#: app/views/tour/_tour_navigation.haml:4
-msgid "unlimited polls"
-msgstr "una cantidad ilimitada de encuestas"
+#: app/views/community/index.haml:15
+msgid "Enter your email"
+msgstr "Ingresa tu dirección de e-mail"
+
+#: app/views/answers/_list.haml:5
+msgid "Respondent"
+msgstr "Encuestado"
+
+#: app/views/answers/_list.haml:5
+msgid "Question"
+msgstr "Pregunta"
+
+#: app/views/answers/_list.haml:5
+msgid "Answer"
+msgstr "Respuesta"
+
+#: app/views/answers/_list.haml:5
+msgid "Date"
+msgstr "Fecha"
+
+#: app/views/answers/_list.haml:5
+msgid ""
+"This poll has not commenced yet; start the poll to receive answers from your "
+"respondents."
+msgstr ""
+"Esta encuesta aún no ha comenzado; inicia la encuesta para recibir las "
+"respuestas de los participantes."
+
+#: app/views/answers/_list.haml:5
+msgid "No answers have been received yet."
+msgstr "No se ha recibido ninguna respuesta todavía."
+
+#: app/helpers/instedd_app_helper.rb:39
+msgid "%{count} %{errors} prohibited this %{object} from being saved:"
+msgstr ""
+"%{count} %{errors} prohibieron que este %{object} pudiera ser guardado:"
+
+#: app/helpers/instedd_app_helper.rb:39
+msgid "error"
+msgid_plural "errors"
+msgstr[0] "error"
+msgstr[1] "errores"
+
+#: app/helpers/instedd_app_helper.rb:69
+msgid "There are no records to display"
+msgstr "No hay registros para mostrar"
+
+#: app/helpers/instedd_app_helper.rb:230
+msgid "The following errors occurred"
+msgstr "Han ocurrido los siguientes errores"
+
+#: app/controllers/polls_controller.rb:80
+msgid "Poll %{title} has been deleted"
+msgstr "La encuesta %{title} ha sido suprimida"
+
+#: app/controllers/polls_controller.rb:89
+msgid "Poll %{title} has been started"
+msgstr "La encuesta %{title} ha comenzado"
+
+#: app/controllers/polls_controller.rb:91
+msgid "Poll %{title} has failed to start"
+msgstr "Ha fallado el inicio de la encuesta %{title}"
+
+#: app/controllers/polls_controller.rb:97
+msgid "Poll %{title} has been paused"
+msgstr "La encuesta %{title} ha sido puesta en pausa"
+
+#: app/controllers/polls_controller.rb:99
+msgid "Poll %{title} has failed to pause"
+msgstr "Ha fallado la puesta en pausa de la encuesta %{title}"
+
+#: app/controllers/polls_controller.rb:105
+msgid "Poll %{title} has been resumed"
+msgstr "La encuesta %{title} ha sido reactivada"
+
+#: app/controllers/polls_controller.rb:107
+msgid "Poll %{title} has failed to resume"
+msgstr "La reactivación de la encuesta %{title} ha fallado"
+
+#: app/controllers/users/registrations_controller.rb:4
+msgid "you"
+msgstr "tú"
+
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:55
+#: app/controllers/channels_controller.rb:62
+msgid "Choose"
+msgstr "Seleccionar"
+
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:62
+msgid "Install"
+msgstr "Instalar"
+
+# Según el contexto, también podría ser "Conéctate"...
+#: app/controllers/channels_controller.rb:53
+#: app/controllers/channels_controller.rb:54
+#: app/controllers/channels_controller.rb:62
+msgid "Connect"
+msgstr "Conectar"
+
+#: app/models/poll.rb:160
+msgid "Yes"
+msgstr "Sí"
+
+#: app/models/poll.rb:161
+msgid "Answer 'yes' if you want to participate in this poll."
+msgstr "Responde \"sí\" si deseas participar de esta encuesta."
+
+#: app/models/poll.rb:162
+msgid "Thank you for your answers!"
+msgstr "¡Gracias por tus respuestas!"
 
 #: app/models/poll/accept_answers.rb:70
 msgid "Your answer was not understood. Please answer with (%s)"
 msgstr "Tu respuesta no ha sido entendida. Por favor, contesta con (%s)"
+
+#: app/models/poll/accept_answers.rb:74
+msgid "Your answer was not understood. Please answer with non empty string"
+msgstr ""
+"No se ha entendido tu respuesta. Por favor, contesta ingresando al menos un "
+"carácter"
+
+#: app/models/poll/accept_answers.rb:78
+msgid ""
+"Your answer was not understood. Please answer with a number between %s and %s"
+msgstr ""
+"No se ha entendido tu respuesta. Por favor, contesta ingresando un número "
+"entre %s y %s"
+
+#: app/models/question.rb:60
+msgid "is not supported"
+msgstr "no es compatible"
+
+#: app/models/channel.rb:8
+msgid "poll has already started"
+msgstr "la encuesta ya ha comenzado"
+
+#: app/models/channel.rb:46
+msgid "invalid code"
+msgstr "código inválido"
+
+#: app/views/polls/import_form.js.erb:7
+msgid "Invalid public Google Form URL."
+msgstr "URL pública de Google Form inválida."
+
+#: app/views/layouts/mail.text.erb:7 app/views/layouts/mail.html.erb:12
+msgid "Do you have questions or need help? Contact us at"
+msgstr "¿Tienes preguntas para hacernos o precisas ayuda? Contáctanos en"
+
+#: app/views/user_mailer/confirmation_instructions.text.erb:1
+msgid "You are almost done!"
+msgstr "¡Ya casi has terminado!"
 
 #: app/views/user_mailer/confirmation_instructions.text.erb:3
 msgid ""
@@ -1373,76 +1563,9 @@ msgstr ""
 "click en el enlace de abajo, o bien copia y pega la URL en la barra de "
 "direcciones de tu navegador"
 
-#: app/models/channel.rb:46
-msgid "invalid code"
-msgstr "código inválido"
-
-#: app/models/poll.rb:140
-msgid "Answer 'yes' if you want to participate in this poll."
-msgstr "Responde \"sí\" si deseas participar de esta encuesta."
-
-#: app/controllers/polls_controller.rb:80
-msgid "Poll %{title} has been deleted"
-msgstr "La encuesta %{title} ha sido suprimida"
-
-#: app/controllers/channels_controller.rb:53
-#: app/controllers/channels_controller.rb:54
-#: app/controllers/channels_controller.rb:55
-#: app/controllers/channels_controller.rb:62
-msgid "Choose"
-msgstr "Selecciona"
-
-#: app/helpers/instedd_app_helper.rb:225
-msgid "The following errors occurred"
-msgstr "Han ocurrido los siguientes errores"
-
-#: app/helpers/instedd_app_helper.rb:34
-msgid "%{count} %{errors} prohibited this %{object} from being saved:"
-msgstr "%{count} %{errors} prohibieron que este %{object} pudiera ser guardado:"
-
-#: app/views/user_mailer/reset_password_instructions.text.erb:7
-msgid ""
-"If you didn't request this, please ignore this email. Your password won't "
-"change until you access the link above and create a new one."
-msgstr ""
-"Si tú no has solicitado esto, por favor ignora este e-mail. Tu contraseña no "
-"se modificará hasta que accedas al enlace de arriba y te crees una nueva."
-
-#: app/models/question.rb:60
-msgid "is not supported"
-msgstr "no es compatible"
-
-#: app/controllers/polls_controller.rb:89
-msgid "Poll %{title} has been started"
-msgstr "La encuesta %{title} ha comenzado"
-
-#: app/models/channel.rb:8
-msgid "poll has already started"
-msgstr "la encuesta ya ha comenzado"
-
-#: app/controllers/polls_controller.rb:91
-msgid "Poll %{title} has failed to start"
-msgstr "Ha fallado el inicio de la encuesta %{title}"
-
-#: app/controllers/users/registrations_controller.rb:4
-msgid "you"
-msgstr "tú"
-
-#: app/controllers/polls_controller.rb:99
-msgid "Poll %{title} has failed to pause"
-msgstr "Ha fallado la puesta en pausa de la encuesta %{title}"
-
-#: app/views/layouts/mail.text.erb:7 app/views/layouts/mail.html.erb:12
-msgid "Do you have questions or need help? Contact us at"
-msgstr "¿Tienes preguntas para hacernos o precisas ayuda? Contáctanos en"
-
-#: app/controllers/polls_controller.rb:105
-msgid "Poll %{title} has been resumed"
-msgstr "La encuesta %{title} ha sido reactivada"
-
-#: app/views/user_mailer/confirmation_instructions.text.erb:1
-msgid "You are almost done!"
-msgstr "¡Ya casi has terminado!"
+#: app/views/user_mailer/reset_password_instructions.text.erb:1
+msgid "Hello %{email}!"
+msgstr "¡Hola, %{email}!"
 
 #: app/views/user_mailer/reset_password_instructions.text.erb:3
 msgid ""
@@ -1452,69 +1575,20 @@ msgstr ""
 "Alguien ha solicitado un enlace para cambiar tu contraseña, y tú puedes "
 "hacerlo a través del enlace que aparece abajo. "
 
-#: app/views/polls/import_form.js.erb:7
-msgid "Invalid public Google Form URL."
-msgstr "URL pública de Google Form inválida."
-
-#: app/views/user_mailer/reset_password_instructions.text.erb:1
-msgid "Hello %{email}!"
-msgstr "¡Hola, %{email}!"
-
-#: app/controllers/polls_controller.rb:107
-msgid "Poll %{title} has failed to resume"
-msgstr "La reactivación de la encuesta %{title} ha fallado"
-
-#: app/controllers/channels_controller.rb:53
-#: app/controllers/channels_controller.rb:54
-#: app/controllers/channels_controller.rb:62
-msgid "Install"
-msgstr "Instalar"
-
-#: app/controllers/polls_controller.rb:97
-msgid "Poll %{title} has been paused"
-msgstr "La encuesta %{title} ha sido puesta en pausa"
-
-#: app/models/poll/accept_answers.rb:74
-msgid "Your answer was not understood. Please answer with non empty string"
-msgstr ""
-"No se ha entendido tu respuesta. Por favor, contesta ingresando al menos un "
-"carácter"
-
-#: app/views/layouts/application.haml:5
+#: app/views/user_mailer/reset_password_instructions.text.erb:7
 msgid ""
-"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://"
-"www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
+"If you didn't request this, please ignore this email. Your password won't "
+"change until you access the link above and create a new one."
 msgstr ""
+"Si tú no has solicitado esto, por favor ignora este e-mail. Tu contraseña no "
+"se modificará hasta que accedas al enlace de arriba y te crees una nueva."
 
-#: app/helpers/instedd_app_helper.rb:64
-msgid "There are no records to display"
-msgstr "No hay registros para mostrar"
+#~ msgid "Import"
+#~ msgstr "Importar"
 
-# Según el contexto, también podría ser "Conéctate"...
-#: app/controllers/channels_controller.rb:53
-#: app/controllers/channels_controller.rb:54
-#: app/controllers/channels_controller.rb:62
-#, fuzzy
-msgid "Connect"
-msgstr "Conectar"
-
-#: app/models/poll/accept_answers.rb:78
-msgid ""
-"Your answer was not understood. Please answer with a number between %s and %s"
-msgstr ""
-"No se ha entendido tu respuesta. Por favor, contesta ingresando un número "
-"entre %s y %s"
-
-#: app/helpers/instedd_app_helper.rb:34
-msgid "error"
-msgid_plural "errors"
-msgstr[0] ""
-msgstr[1] ""
-
-#: app/models/poll.rb:139
-msgid "Yes"
-msgstr "Sí"
-
-#: app/models/poll.rb:141
-msgid "Thank you for your answers!"
-msgstr "¡Gracias por tus respuestas!"
+#~ msgid ""
+#~ "The list of respondents cannot be modified as the poll has already "
+#~ "started."
+#~ msgstr ""
+#~ "La lista de participantes no puede ser modificada, debido a que la "
+#~ "encuesta ya ha comenzado."

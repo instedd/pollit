@@ -7,7 +7,7 @@ namespace :gettext do
       begin
         GetText.update_pofiles(FastGettext.default_text_domain,
             Dir.glob("{app}/**/*.{haml,rb,erb}"),
-            Pollit::Application.config.version,
+            Pollit::Application.config.version.strip,
             :po_root => 'config/locales')
       rescue Exception => e
          puts e

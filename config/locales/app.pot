@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.0-i18n\n"
-"POT-Creation-Date: 2011-11-24 17:15-0300\n"
+"Project-Id-Version: 1.2.1\n"
+"POT-Creation-Date: 2011-12-19 15:33-0300\n"
 "PO-Revision-Date: 2011-11-15 13:36-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,16 +103,12 @@ msgstr ""
 
 #: app/views/polls/_form_import.haml:1
 msgid ""
-"Copy the live form URL (not the spreadsheet's URL) making sure the form does "
-"not require sign-in"
+"Copy the live URL (not the spreadsheet's URL) displayed at the bottom of "
+"your form edition window making sure the form does not require sign-in."
 msgstr ""
 
 #: app/views/polls/_form_import.haml:2
 msgid "Import form from Google Forms"
-msgstr ""
-
-#: app/views/polls/_form_import.haml:4
-msgid "Import"
 msgstr ""
 
 #: app/views/polls/show.haml:1 app/views/polls/show.haml:4
@@ -135,7 +131,7 @@ msgid "Channel"
 msgstr ""
 
 #: app/views/polls/show.haml:4 app/views/respondents/index.haml:5
-#: app/views/respondents/readonly.haml:2 app/views/shared/_poll_tabs.haml:6
+#: app/views/shared/_poll_tabs.haml:6
 #: app/controllers/channels_controller.rb:54
 #: app/controllers/application_controller.rb:41
 msgid "Respondents"
@@ -216,17 +212,23 @@ msgstr ""
 
 #: app/views/polls/_form.haml:2
 msgid ""
+"This is an internal description of the Poll, it will not be sent to your "
+"users"
+msgstr ""
+
+#: app/views/polls/_form.haml:3
+msgid ""
 "This message will be sent to all respondents asking them if they agree to "
 "participate in the poll"
 msgstr ""
 
-#: app/views/polls/_form.haml:3
+#: app/views/polls/_form.haml:4
 msgid ""
 "Respondents must answer with the confirmation word in order to agree to "
 "participate in the poll"
 msgstr ""
 
-#: app/views/polls/_form.haml:4
+#: app/views/polls/_form.haml:5
 msgid "This message will be sent to respondents when they complete the poll"
 msgstr ""
 
@@ -352,11 +354,35 @@ msgstr ""
 msgid "."
 msgstr ""
 
+#: app/views/tour/start.haml:6
+msgid ""
+"Got 'Droid and an Internet connection? Download and install a %{smallapp} on "
+"your Android phone, then %{register} to get started. Next, sign in to your "
+"Google account to begin creating forms. Don't have a Google account? Sign up "
+"for a free account %{here}."
+msgstr ""
+
+#: app/views/tour/start.haml:6
+msgid "small app"
+msgstr ""
+
+#: app/views/tour/start.haml:6
+msgid "sign up for a free Pollit account"
+msgstr ""
+
+#: app/views/tour/start.haml:6
+msgid "here"
+msgstr ""
+
 #: app/views/tour/start.haml:7
 msgid ""
 "No 'Droid? No problem! Our small Nuntium app for PC or Mac bridges the gap "
 "between Pollit and your mobile phone. Once you %{register} and create your "
 "poll, Pollit takes care of the rest."
+msgstr ""
+
+#: app/views/tour/start.haml:7
+msgid "sign up for your free Pollit account"
 msgstr ""
 
 #: app/views/tour/start.haml:8
@@ -368,7 +394,7 @@ msgid "Try it now!"
 msgstr ""
 
 #: app/views/tour/poll.haml:1
-msgid "Reach all the people you want - anytime and anywhere <br/>you want"
+msgid "Reach all the people you want, anytime and anywhere <br/>you want"
 msgstr ""
 
 #: app/views/tour/poll.haml:2
@@ -529,9 +555,8 @@ msgstr ""
 msgid "Change channel"
 msgstr ""
 
-#: app/views/channels/show.haml:18 app/views/respondents/readonly.haml:8
-#: app/helpers/channels_helper.rb:4 app/helpers/channels_helper.rb:14
-#: app/helpers/channels_helper.rb:16
+#: app/views/channels/show.haml:18 app/helpers/channels_helper.rb:4
+#: app/helpers/channels_helper.rb:14 app/helpers/channels_helper.rb:16
 msgid "Back"
 msgstr ""
 
@@ -653,7 +678,7 @@ msgid ""
 "www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
 msgstr ""
 
-#: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:8
+#: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:7
 msgid "Home"
 msgstr ""
 
@@ -664,16 +689,16 @@ msgstr ""
 msgid "Polls"
 msgstr ""
 
-#: app/views/layouts/application.haml:19 app/views/shared/_footer.haml:9
+#: app/views/layouts/application.haml:19 app/views/shared/_footer.haml:8
 msgid "Tour"
 msgstr ""
 
-#: app/views/layouts/application.haml:20 app/views/shared/_footer.haml:10
+#: app/views/layouts/application.haml:20 app/views/shared/_footer.haml:9
 #: app/views/community/index.haml:1
 msgid "Community"
 msgstr ""
 
-#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:11
+#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:10
 msgid "Help"
 msgstr ""
 
@@ -970,17 +995,18 @@ msgstr ""
 msgid "Add phone numbers manually or upload a CSV file"
 msgstr ""
 
-#: app/views/respondents/readonly.haml:1
+#: app/views/respondents/index.haml:13
 msgid ""
-"The list of respondents cannot be modified as the poll has already started."
+"Because the poll has already started, you can only add respondents. New "
+"respondents will be invited after you click 'Save'."
 msgstr ""
 
 #: app/views/users/registrations/success.haml:1
 #: app/views/users/registrations/success.haml:4
 msgid ""
-"You have signed up successfully. However, we could not sign you in because "
-"your account is unconfirmed. We have just sent an email to %{email} with an "
-"activation link."
+"You have created your account successfully. However, we could not sign you "
+"in because your account is unconfirmed. We have just sent an email to "
+"%{email} with an activation link."
 msgstr ""
 
 #: app/views/users/registrations/success.haml:2
@@ -1108,15 +1134,15 @@ msgstr ""
 msgid "&copy; 2011 InSTEDD"
 msgstr ""
 
-#: app/views/shared/_footer.haml:7
+#: app/views/shared/_footer.haml:6
 msgid "Contact us"
 msgstr ""
 
-#: app/views/shared/_footer.haml:17
+#: app/views/shared/_footer.haml:16
 msgid "Language:"
 msgstr ""
 
-#: app/views/shared/_footer.haml:19
+#: app/views/shared/_footer.haml:18
 msgid "Version"
 msgstr ""
 
@@ -1186,21 +1212,21 @@ msgstr ""
 msgid "No answers have been received yet."
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:34
+#: app/helpers/instedd_app_helper.rb:39
 msgid "%{count} %{errors} prohibited this %{object} from being saved:"
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:34
+#: app/helpers/instedd_app_helper.rb:39
 msgid "error"
 msgid_plural "errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: app/helpers/instedd_app_helper.rb:64
+#: app/helpers/instedd_app_helper.rb:69
 msgid "There are no records to display"
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:225
+#: app/helpers/instedd_app_helper.rb:230
 msgid "The following errors occurred"
 msgstr ""
 
@@ -1255,15 +1281,15 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
-#: app/models/poll.rb:139
+#: app/models/poll.rb:160
 msgid "Yes"
 msgstr ""
 
-#: app/models/poll.rb:140
+#: app/models/poll.rb:161
 msgid "Answer 'yes' if you want to participate in this poll."
 msgstr ""
 
-#: app/models/poll.rb:141
+#: app/models/poll.rb:162
 msgid "Thank you for your answers!"
 msgstr ""
 

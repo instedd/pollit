@@ -1,15 +1,20 @@
 module InsteddAppHelper
 
+  def link_to_instedd(text, urls, html_options={})
+    url = I18n.locale == :es ? urls[:latam] : urls[:instedd]
+    link_to text, url, html_options
+  end
+
   def link_button_to(body, url, html_options = {})
     default_options = { :type => 'button', :class => 'white' }
     onclick = "window.location='#{url}';return false;"
     content_tag(:button, body, default_options.merge(html_options.merge(:onclick => onclick)))
   end
-  
+
   def flash_message
     res = nil
     keys = { :notice => 'flash_notice', :error => 'flash_error', :alert => 'flash_error' }
-    
+
     keys.each do |key, value|
       if flash[key]
         res = content_tag :div, :class => "flash #{value}", 'data-hide-timeout' => 6000 do
@@ -19,16 +24,16 @@ module InsteddAppHelper
         end
       end
     end
-    
+
     res
   end
-  
+
   def errors_for(object, options = {})
     unless object.nil?
       if object.errors.any?
          # TODO change on rails 3.1 to ActiveModel::Naming.param_key(object)
         object_name = options[:as].try(:to_s) || ActiveModel::Naming.singular(object)
-            
+
         content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
           (content_tag :h2 do
             _("%{count} %{errors} prohibited this %{object} from being saved:") % {:object => _(object_name).humanize, :count => object.errors.count, :errors => n_('error', 'errors', object.errors.count)}
@@ -95,11 +100,11 @@ module InsteddAppHelper
   end
 
   ['orange', 'grey', 'white'].each do |color|
-    define_method "#{color}_button" do |*args| 
+    define_method "#{color}_button" do |*args|
       colored_button *([color] + args)
     end
 
-    define_method "#{color}_link_to" do |*args| 
+    define_method "#{color}_link_to" do |*args|
       colored_link_to *([color] + args)
     end
   end
@@ -118,7 +123,7 @@ module InsteddAppHelper
     def render
       return "" if @elements.empty?
       "<div class='BreadCrumb'><ul>#{@elements.map{|e| "<li>#{item e}</li>"}.join}</ul></div>"
-    end  
+    end
     def item(element)
       @context.link_to_unless_current(compute_name(element), compute_path(element))
     end
@@ -193,7 +198,7 @@ module InsteddAppHelper
               else
                 color = ""
               end
-              
+
             elsif (i <= step_index)
               line_style = "green"
               color = "green"
@@ -218,7 +223,7 @@ module InsteddAppHelper
   end
 end
 
-module DeviseHelper  
+module DeviseHelper
   def devise_error_messages!(html_options = {})
     return if resource.errors.full_messages.empty?
     (content_tag :div, :class => "box error_description #{html_options[:class] || 'w60'}"  do

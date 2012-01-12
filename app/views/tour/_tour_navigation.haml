@@ -1,17 +1,17 @@
 %ul.TourNavigation.left
   %li{:class => "start #{'selected' if params[:page] == 'start'}"}
     %a{:href => tour_path(:start)}
-    %h2 Start
-    %p with a free account
+      %h2 Start
+      %p with a free account
   %li{:class => "create #{'selected' if params[:page] == 'create'}"}
     %a{:href => tour_path(:create)}
-    %h2 Create
-    %p unlimited polls
+      %h2 Create
+      %p unlimited polls
   %li{:class => "poll #{'selected' if params[:page] == 'poll'}"}
     %a{:href => tour_path(:poll)}
-    %h2 Poll
-    %p your people
+      %h2 Poll
+      %p your people
   %li{:class => "analyze #{'selected' if params[:page] == 'analyze'}"}
     %a{:href => tour_path(:analyze)}
-    %h2 Analyze
-    %p your results
+      %h2 Analyze
+      %p your results

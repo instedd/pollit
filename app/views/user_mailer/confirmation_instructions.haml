@@ -3,4 +3,4 @@
 = h2 do
   To verify your account and complete the registration process please click in the link below or copy paste the URL into your browser
 %br/
-= advertised_link _('Confirm my account'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token)
+= advertised_link _('Confirm my account'), confirmation_url(@resource, :confirmation_token => @resource.confirmation_token, :locale => I18n.locale)

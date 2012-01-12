@@ -11,7 +11,7 @@
           %br
           You have no polls yet.
           %br
-          = link_button_to 'Create Poll', new_poll_path, :class => 'EmptyAddButton button cadd'
+          = link_button_to _('Create Poll'), new_poll_path, :class => 'EmptyAddButton button cadd'
     - else
       - @polls.each do |poll|
         %tr.link{'data-url' => poll_path(poll)}

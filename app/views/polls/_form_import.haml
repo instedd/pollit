@@ -7,7 +7,7 @@
         = image_tag "loading.gif",:class => 'loading', :style=>'display:none'
 
         = f.text_field :form_url, :class => 'w35'  
-        = fancy_button 'Import', 'fimport', :class => 'import_form_action'
+        = fancy_button _('Import'), 'fimport', :class => 'import_form_action'
         
         = f.hidden_field :post_url
       %div.right

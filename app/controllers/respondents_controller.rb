@@ -11,7 +11,7 @@ class RespondentsController < ApplicationController
 
   def index
     if wizard?
-      @wizard_step = "Respondents"
+      @wizard_step = _("Respondents")
       render :layout => 'wizard'
     end
   end

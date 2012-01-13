@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.1\n"
-"POT-Creation-Date: 2012-01-12 18:35-0300\n"
+"Project-Id-Version: 1.2.2\n"
+"POT-Creation-Date: 2012-01-13 10:39-0300\n"
 "PO-Revision-Date: 2011-11-15 13:36-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1195,10 +1195,14 @@ msgid "Confirm my account"
 msgstr ""
 
 #: app/views/users/registrations/edit.haml:1
-msgid "(we need your current password to confirm your changes)"
+msgid "Edit User"
 msgstr ""
 
 #: app/views/users/registrations/edit.haml:2
+msgid "(we need your current password to confirm your changes)"
+msgstr ""
+
+#: app/views/users/registrations/edit.haml:3
 msgid "Update"
 msgstr ""
 
@@ -1295,199 +1299,223 @@ msgstr ""
 msgid "invalid code"
 msgstr ""
 
-#: app/models/model_attributes.rb:2
+#: app/models/model_attributes.rb:3
 msgid "Password"
 msgstr ""
 
-#: app/models/model_attributes.rb:3
+#: app/models/model_attributes.rb:4
 msgid "Password confirmation"
 msgstr ""
 
-#: app/models/model_attributes.rb:4
+#: app/models/model_attributes.rb:5
 msgid "Remember me"
 msgstr ""
 
+#: app/models/model_attributes.rb:6
+msgid "New password"
+msgstr ""
+
 #: app/models/model_attributes.rb:7
-msgid "answer"
+msgid "New password confirmation"
 msgstr ""
 
 #: app/models/model_attributes.rb:8
-msgid "Answer|Response"
+msgid "Enter gateway code"
 msgstr ""
 
 #: app/models/model_attributes.rb:9
-msgid "channel"
+msgid "Error: file should be in csv format"
 msgstr ""
 
 #: app/models/model_attributes.rb:10
-msgid "Channel|Name"
+msgid "File successfully uploaded"
 msgstr ""
 
 #: app/models/model_attributes.rb:11
-msgid "Channel|Address"
-msgstr ""
-
-#: app/models/model_attributes.rb:12
-msgid "poll"
-msgstr ""
-
-#: app/models/model_attributes.rb:13
-msgid "Poll|Title"
+msgid "Add a new phone..."
 msgstr ""
 
 #: app/models/model_attributes.rb:14
-msgid "Poll|Description"
+msgid "answer"
 msgstr ""
 
 #: app/models/model_attributes.rb:15
-msgid "Poll|Form url"
+msgid "Answer|Response"
 msgstr ""
 
 #: app/models/model_attributes.rb:16
-msgid "Poll|Welcome message"
+msgid "channel"
 msgstr ""
 
 #: app/models/model_attributes.rb:17
-msgid "Poll|Status"
+msgid "Channel|Name"
 msgstr ""
 
 #: app/models/model_attributes.rb:18
-msgid "Poll|Post url"
+msgid "Channel|Address"
 msgstr ""
 
 #: app/models/model_attributes.rb:19
-msgid "Poll|Confirmation word"
+msgid "poll"
 msgstr ""
 
 #: app/models/model_attributes.rb:20
-msgid "Poll|Goodbye message"
+msgid "Poll|Title"
 msgstr ""
 
 #: app/models/model_attributes.rb:21
-msgid "question"
+msgid "Poll|Description"
 msgstr ""
 
 #: app/models/model_attributes.rb:22
-msgid "Question|Title"
+msgid "Poll|Form url"
 msgstr ""
 
 #: app/models/model_attributes.rb:23
-msgid "Question|Description"
+msgid "Poll|Welcome message"
 msgstr ""
 
 #: app/models/model_attributes.rb:24
-msgid "Question|Kind"
+msgid "Poll|Status"
 msgstr ""
 
 #: app/models/model_attributes.rb:25
-msgid "Question|Options"
+msgid "Poll|Post url"
 msgstr ""
 
 #: app/models/model_attributes.rb:26
-msgid "Question|Numeric max"
+msgid "Poll|Confirmation word"
 msgstr ""
 
 #: app/models/model_attributes.rb:27
-msgid "Question|Numeric min"
+msgid "Poll|Goodbye message"
 msgstr ""
 
 #: app/models/model_attributes.rb:28
-msgid "Question|Field name"
+msgid "question"
 msgstr ""
 
 #: app/models/model_attributes.rb:29
-msgid "Question|Position"
+msgid "Question|Title"
 msgstr ""
 
 #: app/models/model_attributes.rb:30
-msgid "respondent"
+msgid "Question|Description"
 msgstr ""
 
 #: app/models/model_attributes.rb:31
-msgid "Respondent|Phone"
+msgid "Question|Kind"
 msgstr ""
 
 #: app/models/model_attributes.rb:32
-msgid "Respondent|Pushed at"
+msgid "Question|Options"
 msgstr ""
 
 #: app/models/model_attributes.rb:33
-msgid "Respondent|Pushed status"
+msgid "Question|Numeric max"
 msgstr ""
 
 #: app/models/model_attributes.rb:34
-msgid "Respondent|Confirmed"
+msgid "Question|Numeric min"
 msgstr ""
 
 #: app/models/model_attributes.rb:35
-msgid "Respondent|Current question sent"
+msgid "Question|Field name"
 msgstr ""
 
 #: app/models/model_attributes.rb:36
-msgid "user"
+msgid "Question|Position"
 msgstr ""
 
 #: app/models/model_attributes.rb:37
-msgid "User|Email"
+msgid "respondent"
 msgstr ""
 
 #: app/models/model_attributes.rb:38
-msgid "User|Encrypted password"
+msgid "Respondent|Phone"
 msgstr ""
 
 #: app/models/model_attributes.rb:39
-msgid "User|Reset password token"
+msgid "Respondent|Pushed at"
 msgstr ""
 
 #: app/models/model_attributes.rb:40
-msgid "User|Reset password sent at"
+msgid "Respondent|Pushed status"
 msgstr ""
 
 #: app/models/model_attributes.rb:41
-msgid "User|Remember created at"
+msgid "Respondent|Confirmed"
 msgstr ""
 
 #: app/models/model_attributes.rb:42
-msgid "User|Sign in count"
+msgid "Respondent|Current question sent"
 msgstr ""
 
 #: app/models/model_attributes.rb:43
-msgid "User|Current sign in at"
+msgid "user"
 msgstr ""
 
 #: app/models/model_attributes.rb:44
-msgid "User|Last sign in at"
+msgid "User|Email"
 msgstr ""
 
 #: app/models/model_attributes.rb:45
-msgid "User|Current sign in ip"
+msgid "User|Encrypted password"
 msgstr ""
 
 #: app/models/model_attributes.rb:46
-msgid "User|Last sign in ip"
+msgid "User|Reset password token"
 msgstr ""
 
 #: app/models/model_attributes.rb:47
-msgid "User|Name"
+msgid "User|Reset password sent at"
 msgstr ""
 
 #: app/models/model_attributes.rb:48
-msgid "User|Google token"
+msgid "User|Remember created at"
 msgstr ""
 
 #: app/models/model_attributes.rb:49
-msgid "User|Confirmation token"
+msgid "User|Sign in count"
 msgstr ""
 
 #: app/models/model_attributes.rb:50
-msgid "User|Confirmed at"
+msgid "User|Current sign in at"
 msgstr ""
 
 #: app/models/model_attributes.rb:51
-msgid "User|Confirmation sent at"
+msgid "User|Last sign in at"
 msgstr ""
 
 #: app/models/model_attributes.rb:52
+msgid "User|Current sign in ip"
+msgstr ""
+
+#: app/models/model_attributes.rb:53
+msgid "User|Last sign in ip"
+msgstr ""
+
+#: app/models/model_attributes.rb:54
+msgid "User|Name"
+msgstr ""
+
+#: app/models/model_attributes.rb:55
+msgid "User|Google token"
+msgstr ""
+
+#: app/models/model_attributes.rb:56
+msgid "User|Confirmation token"
+msgstr ""
+
+#: app/models/model_attributes.rb:57
+msgid "User|Confirmed at"
+msgstr ""
+
+#: app/models/model_attributes.rb:58
+msgid "User|Confirmation sent at"
+msgstr ""
+
+#: app/models/model_attributes.rb:59
 msgid "User|Lang"
 msgstr ""
 

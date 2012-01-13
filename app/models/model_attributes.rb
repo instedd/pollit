@@ -1,7 +1,14 @@
 # Strings manually set to translate
+# TODO: For some reason, they were not properly extracted
 _('Password')
 _('Password confirmation')
 _('Remember me')
+_('New password')
+_('New password confirmation')
+_('Enter gateway code')
+_('Error: file should be in csv format')
+_("File successfully uploaded")
+_("Add a new phone...")
 
 # Generate this content by running rake gettext:store_model_attributes and copy it from config/locales here
 _('answer')

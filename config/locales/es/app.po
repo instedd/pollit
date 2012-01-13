@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-01-12 23:42+0200\n"
+"PO-Revision-Date: 2012-01-13 15:41+0200\n"
 "Last-Translator: Santiago Palladino <spalladino@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -1578,9 +1578,6 @@ msgstr ""
 "Si tú no has solicitado esto, por favor ignora este e-mail. Tu contraseña no "
 "se modificará hasta que accedas al enlace de arriba y te crees una nueva."
 
-#~ msgid "Import"
-#~ msgstr "Importar"
-
 #~ msgid ""
 #~ "The list of respondents cannot be modified as the poll has already "
 #~ "started."
@@ -1787,3 +1784,31 @@ msgstr "Recordarme"
 #: app/models/model_attributes.rb:3
 msgid "Password confirmation"
 msgstr "Confirma contraseña"
+
+#: app/views/users/registrations/edit.haml:1
+msgid "Edit User"
+msgstr "Editar Usuario"
+
+#: app/models/model_attributes.rb:8
+msgid "Enter gateway code"
+msgstr "Ingrese el código del gateway"
+
+#: app/models/model_attributes.rb:9
+msgid "Error: file should be in csv format"
+msgstr "Error: el archivo debe estar en formato CSV"
+
+#: app/models/model_attributes.rb:6
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: app/models/model_attributes.rb:11
+msgid "Add a new phone..."
+msgstr "Agrega un nuevo teléfono..."
+
+#: app/models/model_attributes.rb:7
+msgid "New password confirmation"
+msgstr "Confirma nueva contraseña"
+
+#: app/models/model_attributes.rb:10
+msgid "File successfully uploaded"
+msgstr "Archivo subido exitosamente"

@@ -10,9 +10,9 @@
     %br/
     %div{:class => "left #{gateway.capitalize}ChannelCreation"}
       %p.w30
-        Copy the code for automated setup from the Nuntium Local Gateway in here to bind your local gateway to this poll.
+        = _("Copy the code for automated setup from the Nuntium Local Gateway in here to bind your local gateway to this poll.")
       .field
-        = f.text_field :ticket_code, :placeholder => 'Enter gateway code', :class => "required", :size => 19
+        = f.text_field :ticket_code, :placeholder => _('Enter gateway code'), :class => "required", :size => 19
         = error_message_for @channel, :ticket_code
   %hr/
   .ChannelWizardNavigation.actions

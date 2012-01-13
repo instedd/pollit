@@ -35,7 +35,7 @@
       = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
     %li
       = content_tag :form, "ng:submit" => "addPhone()" do
-        = text_field_tag "numberText", "", :class => "ux-text", :placeholder => "Add a new phone..."
+        = text_field_tag "numberText", "", :class => "ux-text", :placeholder => _("Add a new phone...")
         = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
   %br
   %hr
@@ -73,7 +73,7 @@
         name: 'csv',
         onSubmit: function(file, ext){
           if(ext != 'csv') {
-            $.status.showError('Error: file should be in csv format', 6000)
+            $.status.showError('#{_('Error: file should be in csv format')}', 6000)
             return false;
           }
         },
@@ -86,7 +86,7 @@
           });
           scope.$eval();
           $(".ng-directive #numberText").focus().blur();
-          $.status.showNotice('File successfully uploaded', 6000);
+          $.status.showNotice('#{_("File successfully uploaded")}', 6000);
         }
       });
     });

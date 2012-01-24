@@ -45,4 +45,6 @@ group :development do
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'
+  gem 'capistrano'
+  gem 'rvm'
 end

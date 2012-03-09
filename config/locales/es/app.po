@@ -417,7 +417,7 @@ msgstr "mini-aplicación"
 
 #: app/views/tour/start.haml:6
 msgid "sign up for a free Pollit account"
-msgstr "registrado para obtener tu cuenta gratuita de Pollit"
+msgstr "regístrate para obtener tu cuenta gratuita de Pollit"
 
 #: app/views/tour/start.haml:6
 msgid "here"
@@ -1210,7 +1210,7 @@ msgid ""
 "Yes. As long as you -- and poll participants -- have a mobile phone that can "
 "send and receive text messages, you're all set."
 msgstr ""
-"Si. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
+"Sí. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
 "celulares capaces de enviar y recibir mensajes de texto, estará todo listo."
 
 #: app/views/help/index.haml:4

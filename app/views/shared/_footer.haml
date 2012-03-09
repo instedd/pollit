@@ -1,0 +1,35 @@
+#footer-container
+  %div
+    .left.platform
+      InSTEDD has created an evolving platform of free and open source technologies to support humanitarian causes. These tools can be used individually or as building blocks for larger solutions.
+      = link_to_instedd(_("Click here"), :latam => "http://www.ilabamericalatina.org/herramientas", :instedd => "http://instedd.org/technologies/")
+      to learn more.
+    .right
+      = link_to_instedd(_("Learn more"), :latam => "http://www.ilabamericalatina.org/herramientas", :instedd => "http://instedd.org/technologies/")
+      #instedd-footer{"data-app-name" => "pollit"}
+    .clear
+  %div
+    .left
+      %a{:href => "http://instedd.org"}
+        &copy; 2011 InSTEDD
+      -#%a{:href => "#"} Terms and conditions
+      = link_to_instedd(_("Contact us"), :latam => Pollit::Application.config.contact_us_ilab, :instedd => Pollit::Application.config.contact_us)
+    .right
+      = link_to _("Home"), home_path
+      = link_to _("Tour"), tour_path
+      = link_to _("Community"), community_path
+      = link_to _("Help"), help_path
+      %span.lang-menu
+        %ul.language{:style => "height: #{20 * Locales.available.count + 15}px"}
+          - Locales.available.each do |key,name|
+            %li
+              %a{:href => '#', 'data-lang' => key}
+                = name
+        %span
+          Language:
+          = Locales.available[I18n.locale]
+
+      %span
+        Version
+        = Pollit::Application.config.version
+    .clear

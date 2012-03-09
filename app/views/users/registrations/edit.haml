@@ -1,0 +1,22 @@
+= devise_error_messages!
+%br/
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
+  %h2 Edit User
+  .field.w30
+    = f.label :email
+    = f.email_field :email, :disabled => true
+  .field.w30
+    = f.label :current_password
+    %p (we need your current password to confirm your changes)
+    = f.password_field :current_password
+  .box.grey.w30
+    .field.w30
+      = f.label :password, _("New password")
+      = f.password_field :password
+    .field.w30
+      = f.label :password_confirmation, _("New password confirmation")
+      = f.password_field :password_confirmation
+  .registration.bottom-actions
+    %button.white{:type => "submit"} Update
+    = link_to _("Back"), :back, :class => "tgrey"
+  %hr.w30/

@@ -1,0 +1,16 @@
+= devise_error_messages! :class => 'centered w30'
+
+.box.centered.w30
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    %h2 Create account
+    .field.w30
+      = f.label :email
+      = f.email_field :email
+    .field.w30
+      = f.label :password, _('Password')
+      = f.password_field :password
+    .field.w30
+      = f.label :password_confirmation, _('Password confirmation')
+      = f.password_field :password_confirmation
+    .actions
+      %button.white{:type => "submit"} Create account

@@ -1,0 +1,14 @@
+#formeditor
+  .fieldslist{:class =>("large" if f.object.<%=items%>.empty?)}
+    .fieldspresenter
+      = render :partial => '<%=views_path(field_view_name)%>', :collection => f.object.<%=items%>
+    
+    .fieldadd{:id =>("large" if f.object.<%=items%>.empty?)}
+      = render :partial => '<%=views_path(field_add_view_name)%>', :object => f
+            
+  .fieldsidebar{:class => ("nodisplay" if f.object.<%=items%>.empty?)}
+    - f.object.<%=items%>.each_with_index do |<%=item%>, index|
+      = f.fields_for :<%=items%>, <%=item%>, :child_index => index do |<%=item%>_builder|
+        = render :partial => '<%=views_path(field_form_view_name)%>', :object => <%=item%>_builder, :locals => {:index => index}
+    
+  .clear

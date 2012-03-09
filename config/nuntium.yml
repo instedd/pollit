@@ -1,8 +1,8 @@
 development:
   url: http://nuntium.instedd.org
-  account: pollit-dev
-  password: pollit
-  application: pollit
+  account:
+  password:
+  application:
   at_post_user: 
   at_post_pass: 
 test:

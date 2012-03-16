@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-01-13 15:41+0200\n"
-"Last-Translator: Santiago Palladino <spalladino@manas.com.ar>\n"
+"PO-Revision-Date: 2012-03-16 22:24+0200\n"
+"Last-Translator: Brian J. Cardiff <bcardiff@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -417,7 +417,7 @@ msgstr "mini-aplicación"
 
 #: app/views/tour/start.haml:6
 msgid "sign up for a free Pollit account"
-msgstr "regístrate para obtener tu cuenta gratuita de Pollit"
+msgstr "registrado para obtener tu cuenta gratuita de Pollit"
 
 #: app/views/tour/start.haml:6
 msgid "here"
@@ -891,9 +891,7 @@ msgstr "Gratis"
 
 #: app/views/home/index.haml:17
 msgid "for anyone to use to help increase their social impact"
-msgstr ""
-"para que cualquiera pueda utilizarlo a efectos de incrementar su impacto "
-"social"
+msgstr "para que puedas aprovecharlo e incrementar tu impacto social"
 
 #: app/views/home/index.haml:18
 msgid "Open Source"
@@ -1210,7 +1208,7 @@ msgid ""
 "Yes. As long as you -- and poll participants -- have a mobile phone that can "
 "send and receive text messages, you're all set."
 msgstr ""
-"Sí. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
+"Si. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
 "celulares capaces de enviar y recibir mensajes de texto, estará todo listo."
 
 #: app/views/help/index.haml:4
@@ -1275,8 +1273,8 @@ msgid ""
 "the Frequently Asked Questions on this page or subscribe to our %{group}, "
 "where we'll be happy to answer any questions."
 msgstr ""
-"¿Se te ocurren un par preguntas acerca de Pollit? ¡Nosotros tenemos un par "
-"de respuestas! Revisa las Preguntas Más Frecuentes en esta página, o "
+"¿Se te ocurren un par de preguntas acerca de Pollit? ¡Nosotros tenemos un "
+"par de respuestas! Revisa las Preguntas Más Frecuentes en esta página, o "
 "suscríbete a nuestro %{group}, a través del cual responderemos con gusto "
 "cualquier pregunta que nos quieras formular."
 
@@ -1577,6 +1575,9 @@ msgid ""
 msgstr ""
 "Si tú no has solicitado esto, por favor ignora este e-mail. Tu contraseña no "
 "se modificará hasta que accedas al enlace de arriba y te crees una nueva."
+
+#~ msgid "Import"
+#~ msgstr "Importar"
 
 #~ msgid ""
 #~ "The list of respondents cannot be modified as the poll has already "

@@ -3,6 +3,27 @@
   %head
     %title Pollit
     = yield(:head)
+    :javascript
+      var importing_label = "#{_('Importing...')}";
+      var must_have_at_least_one = "#{_('The {0} must have at least one {1}.')}";
+      var invalid_questions_in_the_poll = "#{_('There are invalid questions in the poll.')}";
+      var this_field_is_required = "#{_('This field is required.')}";
+      var please_fix_this_field = "#{_('Please fix this field.')}";
+      var please_enter_a_valid_email = "#{_('Please enter a valid email address.')}";
+      var please_enter_a_valid_url = "#{_('Please enter a valid URL.')}";
+      var please_enter_a_valid_date = "#{_('Please enter a valid date.')}";
+      var please_enter_a_valid_date_iso = "#{_('Please enter a valid date (ISO).')}";
+      var please_enter_a_valid_number = "#{_('Please enter a valid number.')}";
+      var please_enter_only_digits = "#{_('Please enter only digits.')}";
+      var please_enter_a_valid_credit_card_number = "#{_('Please enter a valid credit card number.')}";
+      var please_enter_the_same_value_again = "#{_('Please enter the same value again.')}";
+      var please_enter_a_value_with_a_valid_extension = "#{_('Please enter a value with a valid extension.')}";
+      var please_enter_no_more_than_x_characters = "#{_('Please enter no more than {0} characters.')}";
+      var please_enter_at_least_x_characters = "#{_('Please enter at least {0} characters.')}";
+      var please_enter_a_value_between_x_characters = "#{_('Please enter a value between {0} and {1} characters long.')}";
+      var please_enter_a_value_between_x = "#{_('Please enter a value between {0} and {1}.')}";
+      var please_enter_a_value_less_or_equal_to_x = "#{_('Please enter a value less than or equal to {0}.')}";
+      var please_enter_a_greater_or_equal_to_x = "#{_('Please enter a value greater than or equal to {0}.')}";
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')
@@ -10,10 +31,6 @@
     = csrf_meta_tags
     = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
     = render :partial =>"shared/analytics"
-    :javascript
-      var importing_label = "#{_('Importing...')}";
-      var must_have_at_least_one = "#{_('The {0} must have at least one {1}.')}";
-      var invalid_questions_in_the_poll = "#{_('There are invalid questions in the poll.')}"
 
   %body{:class => I18n.locale || ''}
     = flash_message

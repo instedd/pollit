@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.2.4\n"
-"POT-Creation-Date: 2012-03-19 15:18-0300\n"
+"POT-Creation-Date: 2012-03-19 20:47-0300\n"
 "PO-Revision-Date: 2011-11-15 13:36-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Finish"
 msgstr ""
 
-#: app/views/community/index.haml:1 app/views/layouts/application.haml:26
+#: app/views/community/index.haml:1 app/views/layouts/application.haml:42
 #: app/views/shared/_footer.haml:9
 msgid "Community"
 msgstr ""
@@ -631,7 +631,7 @@ msgstr ""
 msgid "Already a member?"
 msgstr ""
 
-#: app/views/home/index.haml:49 app/views/layouts/application.haml:36
+#: app/views/home/index.haml:49 app/views/layouts/application.haml:52
 msgid "Log in"
 msgstr ""
 
@@ -695,16 +695,16 @@ msgstr ""
 msgid "Pollit"
 msgstr ""
 
-#: app/views/layouts/application.haml:2 app/views/layouts/application.haml:30
+#: app/views/layouts/application.haml:2 app/views/layouts/application.haml:46
 #: app/views/polls/edit.haml:2 app/views/shared/_poll_tabs.haml:8
 msgid "Settings"
 msgstr ""
 
-#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:31
+#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:47
 msgid "Report a bug"
 msgstr ""
 
-#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:32
+#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:48
 msgid "Sign Out"
 msgstr ""
 
@@ -714,11 +714,11 @@ msgid ""
 "www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
 msgstr ""
 
-#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:7
+#: app/views/layouts/application.haml:37 app/views/shared/_footer.haml:7
 msgid "Home"
 msgstr ""
 
-#: app/views/layouts/application.haml:23
+#: app/views/layouts/application.haml:39
 #: app/controllers/answers_controller.rb:3
 #: app/controllers/channels_controller.rb:2
 #: app/controllers/polls_controller.rb:3
@@ -726,15 +726,15 @@ msgstr ""
 msgid "Polls"
 msgstr ""
 
-#: app/views/layouts/application.haml:25 app/views/shared/_footer.haml:8
+#: app/views/layouts/application.haml:41 app/views/shared/_footer.haml:8
 msgid "Tour"
 msgstr ""
 
-#: app/views/layouts/application.haml:27 app/views/shared/_footer.haml:10
+#: app/views/layouts/application.haml:43 app/views/shared/_footer.haml:10
 msgid "Help"
 msgstr ""
 
-#: app/views/layouts/application.haml:35
+#: app/views/layouts/application.haml:51
 #: app/views/users/registrations/new.haml:1
 #: app/views/users/registrations/new.haml:2
 msgid "Create account"
@@ -1545,6 +1545,74 @@ msgstr ""
 
 #: app/models/model_attributes.rb:66
 msgid "There are invalid questions in the poll."
+msgstr ""
+
+#: app/models/model_attributes.rb:67
+msgid "This field is required."
+msgstr ""
+
+#: app/models/model_attributes.rb:68
+msgid "Please fix this field."
+msgstr ""
+
+#: app/models/model_attributes.rb:69
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: app/models/model_attributes.rb:70
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: app/models/model_attributes.rb:71
+msgid "Please enter a valid date."
+msgstr ""
+
+#: app/models/model_attributes.rb:72
+msgid "Please enter a valid date (ISO)."
+msgstr ""
+
+#: app/models/model_attributes.rb:73
+msgid "Please enter a valid number."
+msgstr ""
+
+#: app/models/model_attributes.rb:74
+msgid "Please enter only digits."
+msgstr ""
+
+#: app/models/model_attributes.rb:75
+msgid "Please enter a valid credit card number."
+msgstr ""
+
+#: app/models/model_attributes.rb:76
+msgid "Please enter the same value again."
+msgstr ""
+
+#: app/models/model_attributes.rb:77
+msgid "Please enter a value with a valid extension."
+msgstr ""
+
+#: app/models/model_attributes.rb:78
+msgid "Please enter no more than {0} characters."
+msgstr ""
+
+#: app/models/model_attributes.rb:79
+msgid "Please enter at least {0} characters."
+msgstr ""
+
+#: app/models/model_attributes.rb:80
+msgid "Please enter a value between {0} and {1} characters long."
+msgstr ""
+
+#: app/models/model_attributes.rb:81
+msgid "Please enter a value between {0} and {1}."
+msgstr ""
+
+#: app/models/model_attributes.rb:82
+msgid "Please enter a value less than or equal to {0}."
+msgstr ""
+
+#: app/models/model_attributes.rb:83
+msgid "Please enter a value greater than or equal to {0}."
 msgstr ""
 
 #: app/models/poll/accept_answers.rb:70

@@ -1,4 +1,4 @@
-.LocalGatewayLogo {	
+.LocalGatewayLogo {
  	background: url(http://theme.instedd.org/theme/images/interface/logos/nuntiumLocalGateway.png);
   background-repeat: no-repeat;
   width: 107px;
@@ -169,6 +169,11 @@
 	margin-left: 5px;
 	margin-top: 21px;
 }
+
+.ChannelWizard .box.plain.grey {
+  padding: 1px;
+}
+
 .ChannelWizardNavigation {
 	margin-top: 16px;
 	margin-bottom: 7px;

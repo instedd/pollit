@@ -11,33 +11,33 @@ es:
 
   devise:
     failure:
-      already_authenticated: 'Ya estás conectado.'
-      unauthenticated: 'Necesitas acceder a tu cuenta o registrarte antes de continuar.'
+      already_authenticated: 'Has iniciado sesión.'
+      unauthenticated: 'Necesitas iniciar sesión o registrarte antes de continuar.'
       unconfirmed: 'Necesitas confirmar tu cuenta antes de continuar.'
       locked: 'Tu cuenta esta bloqueada.'
       invalid: 'Contraseña o Email incorrecto.'
       invalid_token: 'Token de autenticación incorrecto.'
-      timeout: 'Tu sesión ha expirado, por favor accede de nuevo para continuar.'
+      timeout: 'Tu sesión ha expirado, por favor inicia sesión nuevamente para continuar.'
       inactive: 'Tu cuenta no ha sido activada.'
     sessions:
-      signed_in: 'Te has conectado correctamente.'
-      signed_out: 'Has salido correctamente.'
+      signed_in: 'Has iniciado sesión correctamente.'
+      signed_out: 'Has cerrado sesión correctamente.'
     passwords:
       send_instructions: 'Recibirás un email con instrucciones para cambiar tu contraseña en poco minutos.'
-      updated: 'Tu contraseña ha sido modificada. Ya has accedido a tu cuenta.'
+      updated: 'Tu contraseña ha sido modificada. Ya has iniciado sesión.'
       send_paranoid_instructions: 'Si tu email ya existe en nuestra base de datos, recibirás un enlace para recuperar tu contraseña en tu correo'
     confirmations:
       send_instructions: 'Recibirás un email con instrucciones para confirmar tu cuenta en poco minutos.'
       send_paranoid_instructions: 'Si tu email ya existe en nuestra base de datos, recibirás un email con instrucciones para confirmar tu cuenta en poco minutos.'
-      confirmed: 'Tu cuenta ha sido confirmada. Ya has accedido a tu cuenta.'
+      confirmed: 'Tu cuenta ha sido confirmada. Ya has iniciado sesión.'
     registrations:
       signed_up: '¡Bienvenido! Te has registrado correctamente.'
-      inactive_signed_up: 'Te has registrado correctamente. Sin embargo, no estás conectado todavía porque tu cuenta está %{reason}.'
+      inactive_signed_up: 'Te has registrado correctamente. Sin embargo, no has iniciado sesión todavía porque tu cuenta está %{reason}.'
       updated: 'Has actualizado tu cuenta correctamente.'
       destroyed: 'Adiós! Tu cuenta ha sido cancelada. Esperamos verte pronto.'
     unlocks:
       send_instructions: 'Recibirás un email con instrucciones para desbloquear tu cuenta en pocos minutos.'
-      unlocked: 'Tu cuenta ha sido desbloqueada. Ya has accedido a tu cuenta.'
+      unlocked: 'Tu cuenta ha sido desbloqueada. Ya has iniciado sesión.'
       send_paranoid_instructions: 'Si tu cuenta existe, recibirás un email con instrucciones para desbloquear tu cuenta en pocos minutos.'
     mailer:
       confirmation_instructions:

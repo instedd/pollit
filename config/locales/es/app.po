@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-03-19 20:28+0200\n"
+"PO-Revision-Date: 2012-03-20 01:57+0200\n"
 "Last-Translator:  <mcoca@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -1855,3 +1855,71 @@ msgstr "No se pudo guardar este/a %{model} porque se encontró %{count} error:"
 msgid "%{count} errors prohibited this %{model} from being saved:"
 msgstr ""
 "No se pudo guardar este/a %{model} porque se encontraron %{count} errores:"
+
+#: app/models/model_attributes.rb:70
+msgid "Please enter a valid URL."
+msgstr "Por favor ingrese una URL válida."
+
+#: app/models/model_attributes.rb:76
+msgid "Please enter the same value again."
+msgstr "Por favor ingrese el mismo valor nuevamente"
+
+#: app/models/model_attributes.rb:80
+msgid "Please enter a value between {0} and {1} characters long."
+msgstr "Por favor ingrese un valor entre {0} y {1} caracteres de longitud."
+
+#: app/models/model_attributes.rb:79
+msgid "Please enter at least {0} characters."
+msgstr "Por favor ingrese al menos {0} caracteres."
+
+#: app/models/model_attributes.rb:82
+msgid "Please enter a value less than or equal to {0}."
+msgstr "Por favor ingrese un valor menor o igual a {0}."
+
+#: app/models/model_attributes.rb:83
+msgid "Please enter a value greater than or equal to {0}."
+msgstr "Por favor ingrese un valor mayor o igual a {0}."
+
+#: app/models/model_attributes.rb:74
+msgid "Please enter only digits."
+msgstr "Por favor ingrese sólo dígitos."
+
+#: app/models/model_attributes.rb:73
+msgid "Please enter a valid number."
+msgstr "Por favor ingrese un número válido."
+
+#: app/models/model_attributes.rb:81
+msgid "Please enter a value between {0} and {1}."
+msgstr "Por favor ingrese un valor entre {0} y {1}."
+
+#: app/models/model_attributes.rb:69
+msgid "Please enter a valid email address."
+msgstr "Por favor ingrese una dirección de E-mail válida."
+
+#: app/models/model_attributes.rb:71
+msgid "Please enter a valid date."
+msgstr "Por favor ingrese una fecha válida."
+
+#: app/models/model_attributes.rb:72
+msgid "Please enter a valid date (ISO)."
+msgstr "Por favor ingrese una fecha válida (ISO)."
+
+#: app/models/model_attributes.rb:67
+msgid "This field is required."
+msgstr "El campo es requerido."
+
+#: app/models/model_attributes.rb:78
+msgid "Please enter no more than {0} characters."
+msgstr "Por favor no ingrese más de {0} caracteres."
+
+#: app/models/model_attributes.rb:75
+msgid "Please enter a valid credit card number."
+msgstr "Por favor ingrese un número de tarjeta de crédito válido."
+
+#: app/models/model_attributes.rb:77
+msgid "Please enter a value with a valid extension."
+msgstr "Por favor entre un valor con una extensión válida."
+
+#: app/models/model_attributes.rb:68
+msgid "Please fix this field."
+msgstr "Por favor corrija este campo."

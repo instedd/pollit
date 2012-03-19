@@ -6,7 +6,7 @@ $ ->
   setupValidation()
   $('.import_form_action').live 'click', ->
     if $('#poll_form_url').valid()
-      $(this).text('Importing...')
+      $(this).text(importing_label)
       $(this).attr('disabled','disabled')
       $(this).addClass('loading');
       $.ajax(
@@ -24,14 +24,14 @@ setupValidation = () ->
     "hasChildren"
     (value, element, options) ->
       return $(options[2], element.form).length > 0
-    jQuery.format("The {0} must have at least one {1}.")
+    jQuery.format(must_have_at_least_one)
   )
 
   jQuery.validator.addMethod(
     "questionsValid"
     (value, element, options) ->
       return $("#form-editor .field[data-error=true]", element.form).length == 0
-    jQuery.format("There are invalid questions in the poll.")
+    jQuery.format(invalid_questions_in_the_poll)
   )
 
   window.formValidate()
@@ -50,11 +50,11 @@ window.formValidate = () ->
         error.insertAfter(element)
       else if element.attr('id') == 'has_questions'
         error.insertAfter('#poll_form_url')
-        $('#poll_form_url').focus()        
+        $('#poll_form_url').focus()
       else
         error.insertAfter(element)
     rules:
-      'poll[form_url]': 
+      'poll[form_url]':
         required: true
         url: true
       'empty_questions_validation':
@@ -62,4 +62,3 @@ window.formValidate = () ->
       'questions_validation':
         questionsValid: true
   )
-  

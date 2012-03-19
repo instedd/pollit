@@ -36,7 +36,11 @@ module InsteddAppHelper
 
         content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
           (content_tag :h2 do
-            _("%{count} %{errors} prohibited this %{object} from being saved:") % {:object => _(object_name).humanize, :count => object.errors.count, :errors => n_('error', 'errors', object.errors.count)}
+            if object.errors.count == 1
+              _("%{count} error prohibited this %{model} from being saved:")
+            else
+              _("%{count} errors prohibited this %{model} from being saved:")
+            end % {count: object.errors.count, model: _(object_name.humanize)}
           end) \
           + \
           (content_tag :ul do

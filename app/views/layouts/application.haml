@@ -10,6 +10,11 @@
     = csrf_meta_tags
     = favicon_link_tag '/favicon.ico', :type => 'image/x-icon'
     = render :partial =>"shared/analytics"
+    :javascript
+      var importing_label = "#{_('Importing...')}";
+      var must_have_at_least_one = "#{_('The {0} must have at least one {1}.')}";
+      var invalid_questions_in_the_poll = "#{_('There are invalid questions in the poll.')}"
+
   %body{:class => I18n.locale || ''}
     = flash_message
     #wrapper

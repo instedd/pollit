@@ -6,8 +6,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.2.2\n"
-"POT-Creation-Date: 2012-01-13 10:39-0300\n"
+"Project-Id-Version: 1.2.4\n"
+"POT-Creation-Date: 2012-03-19 15:18-0300\n"
 "PO-Revision-Date: 2011-11-15 13:36-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: app/views/answers/index.haml:1 app/views/shared/_poll_tabs.haml:5
+#: app/controllers/answers_controller.rb:8
+msgid "Answers"
+msgstr ""
 
 #: app/views/answers/_list.haml:5
 msgid "Respondent"
@@ -41,11 +46,6 @@ msgstr ""
 
 #: app/views/answers/_list.haml:5
 msgid "No answers have been received yet."
-msgstr ""
-
-#: app/views/answers/index.haml:1 app/views/shared/_poll_tabs.haml:5
-#: app/controllers/answers_controller.rb:8
-msgid "Answers"
 msgstr ""
 
 #: app/views/channels/new.haml:3
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Finish"
 msgstr ""
 
-#: app/views/community/index.haml:1 app/views/layouts/application.haml:20
+#: app/views/community/index.haml:1 app/views/layouts/application.haml:26
 #: app/views/shared/_footer.haml:9
 msgid "Community"
 msgstr ""
@@ -612,7 +612,7 @@ msgid "How can I help?"
 msgstr ""
 
 #: app/views/home/index.haml:41
-msgid "Download brochure (~400 KB)"
+msgid "Download brochure (~200 KB)"
 msgstr ""
 
 #: app/views/home/index.haml:43 app/views/home/index.haml:46
@@ -631,7 +631,7 @@ msgstr ""
 msgid "Already a member?"
 msgstr ""
 
-#: app/views/home/index.haml:49 app/views/layouts/application.haml:30
+#: app/views/home/index.haml:49 app/views/layouts/application.haml:36
 msgid "Log in"
 msgstr ""
 
@@ -695,16 +695,16 @@ msgstr ""
 msgid "Pollit"
 msgstr ""
 
-#: app/views/layouts/application.haml:2 app/views/layouts/application.haml:24
+#: app/views/layouts/application.haml:2 app/views/layouts/application.haml:30
 #: app/views/polls/edit.haml:2 app/views/shared/_poll_tabs.haml:8
 msgid "Settings"
 msgstr ""
 
-#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:25
+#: app/views/layouts/application.haml:3 app/views/layouts/application.haml:31
 msgid "Report a bug"
 msgstr ""
 
-#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:26
+#: app/views/layouts/application.haml:4 app/views/layouts/application.haml:32
 msgid "Sign Out"
 msgstr ""
 
@@ -714,11 +714,11 @@ msgid ""
 "www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
 msgstr ""
 
-#: app/views/layouts/application.haml:15 app/views/shared/_footer.haml:7
+#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:7
 msgid "Home"
 msgstr ""
 
-#: app/views/layouts/application.haml:17
+#: app/views/layouts/application.haml:23
 #: app/controllers/answers_controller.rb:3
 #: app/controllers/channels_controller.rb:2
 #: app/controllers/polls_controller.rb:3
@@ -726,77 +726,18 @@ msgstr ""
 msgid "Polls"
 msgstr ""
 
-#: app/views/layouts/application.haml:19 app/views/shared/_footer.haml:8
+#: app/views/layouts/application.haml:25 app/views/shared/_footer.haml:8
 msgid "Tour"
 msgstr ""
 
-#: app/views/layouts/application.haml:21 app/views/shared/_footer.haml:10
+#: app/views/layouts/application.haml:27 app/views/shared/_footer.haml:10
 msgid "Help"
 msgstr ""
 
-#: app/views/layouts/application.haml:29
+#: app/views/layouts/application.haml:35
 #: app/views/users/registrations/new.haml:1
 #: app/views/users/registrations/new.haml:2
 msgid "Create account"
-msgstr ""
-
-#: app/views/polls/_form.haml:1 app/views/polls/show.haml:1
-#: app/views/polls/show.haml:4 app/controllers/application_controller.rb:41
-#: app/controllers/application_controller.rb:42
-#: app/controllers/channels_controller.rb:54
-msgid "Properties"
-msgstr ""
-
-#: app/views/polls/_form.haml:2
-msgid ""
-"This is an internal description of the Poll, it will not be sent to your "
-"users"
-msgstr ""
-
-#: app/views/polls/_form.haml:3
-msgid ""
-"This message will be sent to all respondents asking them if they agree to "
-"participate in the poll"
-msgstr ""
-
-#: app/views/polls/_form.haml:4
-msgid ""
-"Respondents must answer with the confirmation word in order to agree to "
-"participate in the poll"
-msgstr ""
-
-#: app/views/polls/_form.haml:5
-msgid "This message will be sent to respondents when they complete the poll"
-msgstr ""
-
-#: app/views/polls/_form_import.haml:1
-msgid ""
-"Copy the live URL (not the spreadsheet's URL) displayed at the bottom of "
-"your form edition window making sure the form does not require sign-in."
-msgstr ""
-
-#: app/views/polls/_form_import.haml:2
-msgid "Import form from Google Forms"
-msgstr ""
-
-#: app/views/polls/_form_import.haml:5
-msgid "Import"
-msgstr ""
-
-#: app/views/polls/_form_questions.haml:1
-msgid "Poll questions"
-msgstr ""
-
-#: app/views/polls/_form_questions.haml:6
-msgid "Import a form from Google"
-msgstr ""
-
-#: app/views/polls/_form_questions.haml:7
-msgid "to load its questions"
-msgstr ""
-
-#: app/views/polls/_form_questions.haml:9
-msgid "Reload form from Google"
 msgstr ""
 
 #: app/views/polls/form_editor/_question.haml:5
@@ -865,6 +806,13 @@ msgstr ""
 
 #: app/views/polls/new.haml:2 app/views/shared/_wizard.haml:3
 msgid "New poll"
+msgstr ""
+
+#: app/views/polls/show.haml:1 app/views/polls/show.haml:4
+#: app/views/polls/_form.haml:1 app/controllers/application_controller.rb:41
+#: app/controllers/application_controller.rb:42
+#: app/controllers/channels_controller.rb:54
+msgid "Properties"
 msgstr ""
 
 #: app/views/polls/show.haml:3
@@ -945,6 +893,58 @@ msgstr ""
 msgid "Are you sure you want to delete poll %{title}?"
 msgstr ""
 
+#: app/views/polls/_form.haml:2
+msgid ""
+"This is an internal description of the Poll, it will not be sent to your "
+"users"
+msgstr ""
+
+#: app/views/polls/_form.haml:3
+msgid ""
+"This message will be sent to all respondents asking them if they agree to "
+"participate in the poll"
+msgstr ""
+
+#: app/views/polls/_form.haml:4
+msgid ""
+"Respondents must answer with the confirmation word in order to agree to "
+"participate in the poll"
+msgstr ""
+
+#: app/views/polls/_form.haml:5
+msgid "This message will be sent to respondents when they complete the poll"
+msgstr ""
+
+#: app/views/polls/_form_import.haml:1
+msgid ""
+"Copy the live URL (not the spreadsheet's URL) displayed at the bottom of "
+"your form edition window making sure the form does not require sign-in."
+msgstr ""
+
+#: app/views/polls/_form_import.haml:2
+msgid "Import form from Google Forms"
+msgstr ""
+
+#: app/views/polls/_form_import.haml:5
+msgid "Import"
+msgstr ""
+
+#: app/views/polls/_form_questions.haml:1
+msgid "Poll questions"
+msgstr ""
+
+#: app/views/polls/_form_questions.haml:6
+msgid "Import a form from Google"
+msgstr ""
+
+#: app/views/polls/_form_questions.haml:7
+msgid "to load its questions"
+msgstr ""
+
+#: app/views/polls/_form_questions.haml:9
+msgid "Reload form from Google"
+msgstr ""
+
 #: app/views/respondents/index.haml:1
 msgid "Bulk phone numbers importing"
 msgstr ""
@@ -1004,38 +1004,6 @@ msgstr ""
 
 #: app/views/shared/_wizard.haml:1
 msgid "New Poll"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:1
-msgid "Start"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:2
-msgid "with a free account"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:3
-msgid "Create"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:4
-msgid "unlimited polls"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:5
-msgid "Poll"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:6
-msgid "your people"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:7
-msgid "Analyze"
-msgstr ""
-
-#: app/views/tour/_tour_navigation.haml:8
-msgid "your results"
 msgstr ""
 
 #: app/views/tour/analyze.haml:1
@@ -1190,8 +1158,36 @@ msgstr ""
 msgid "Try it now!"
 msgstr ""
 
-#: app/views/user_mailer/confirmation_instructions.haml:3
-msgid "Confirm my account"
+#: app/views/tour/_tour_navigation.haml:1
+msgid "Start"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:2
+msgid "with a free account"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:3
+msgid "Create"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:4
+msgid "unlimited polls"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:5
+msgid "Poll"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:6
+msgid "your people"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:7
+msgid "Analyze"
+msgstr ""
+
+#: app/views/tour/_tour_navigation.haml:8
+msgid "your results"
 msgstr ""
 
 #: app/views/users/registrations/edit.haml:1
@@ -1220,6 +1216,10 @@ msgstr ""
 
 #: app/views/users/registrations/success.haml:3
 msgid "Almost there!"
+msgstr ""
+
+#: app/views/user_mailer/confirmation_instructions.haml:3
+msgid "Confirm my account"
 msgstr ""
 
 #: app/controllers/channels_controller.rb:53
@@ -1273,21 +1273,19 @@ msgstr ""
 msgid "you"
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:39
-msgid "%{count} %{errors} prohibited this %{object} from being saved:"
+#: app/helpers/instedd_app_helper.rb:40
+msgid "%{count} error prohibited this %{model} from being saved:"
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:39
-msgid "error"
-msgid_plural "errors"
-msgstr[0] ""
-msgstr[1] ""
+#: app/helpers/instedd_app_helper.rb:42
+msgid "%{count} errors prohibited this %{model} from being saved:"
+msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:69
+#: app/helpers/instedd_app_helper.rb:73
 msgid "There are no records to display"
 msgstr ""
 
-#: app/helpers/instedd_app_helper.rb:230
+#: app/helpers/instedd_app_helper.rb:234
 msgid "The following errors occurred"
 msgstr ""
 
@@ -1517,6 +1515,36 @@ msgstr ""
 
 #: app/models/model_attributes.rb:59
 msgid "User|Lang"
+msgstr ""
+
+#: app/models/model_attributes.rb:60
+msgid "Save"
+msgstr ""
+
+#: app/models/model_attributes.rb:61
+msgid "Cancel"
+msgstr ""
+
+#: app/models/model_attributes.rb:62
+msgid ""
+"Copy the code for automated setup from the Nuntium Local Gateway in here to "
+"bind your local gateway to this poll."
+msgstr ""
+
+#: app/models/model_attributes.rb:63
+msgid "Current password"
+msgstr ""
+
+#: app/models/model_attributes.rb:64
+msgid "Importing..."
+msgstr ""
+
+#: app/models/model_attributes.rb:65
+msgid "The {0} must have at least one {1}."
+msgstr ""
+
+#: app/models/model_attributes.rb:66
+msgid "There are invalid questions in the poll."
 msgstr ""
 
 #: app/models/poll/accept_answers.rb:70

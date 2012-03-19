@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-03-16 22:24+0200\n"
-"Last-Translator: Brian J. Cardiff <bcardiff@manas.com.ar>\n"
+"PO-Revision-Date: 2012-03-19 20:28+0200\n"
+"Last-Translator:  <mcoca@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1056,9 +1056,8 @@ msgstr "Únete a nuestra lista de discusión"
 msgid "Visit our backlog"
 msgstr "Visita nuestro registro de trabajos pendientes"
 
-#: app/views/home/index.haml:40
-msgid "Download brochure (~400 KB)"
-msgstr "Descargar el folleto (~400 KB)"
+#~ msgid "Download brochure (~400 KB)"
+#~ msgstr "Descargar el folleto (~400 KB)"
 
 #: app/views/home/index.haml:42 app/views/home/index.haml:45
 msgid "Get started:"
@@ -1423,16 +1422,14 @@ msgstr ""
 msgid "No answers have been received yet."
 msgstr "No se ha recibido ninguna respuesta todavía."
 
-#: app/helpers/instedd_app_helper.rb:39
-msgid "%{count} %{errors} prohibited this %{object} from being saved:"
-msgstr ""
-"%{count} %{errors} prohibieron que este %{object} pudiera ser guardado:"
+#~ msgid "%{count} %{errors} prohibited this %{object} from being saved:"
+#~ msgstr ""
+#~ "%{count} %{errors} prohibieron que este %{object} pudiera ser guardado:"
 
-#: app/helpers/instedd_app_helper.rb:39
-msgid "error"
-msgid_plural "errors"
-msgstr[0] "error"
-msgstr[1] "errores"
+#~ msgid "error"
+#~ msgid_plural "errors"
+#~ msgstr[0] "error"
+#~ msgstr[1] "errores"
 
 #: app/helpers/instedd_app_helper.rb:69
 msgid "There are no records to display"
@@ -1636,7 +1633,7 @@ msgstr "Valor mínimo"
 
 #: app/models/model_attributes.rb:32
 msgid "User|Email"
-msgstr "Correo electrónico"
+msgstr "E-mail"
 
 #: app/models/model_attributes.rb:21
 msgid "Question|Numeric max"
@@ -1813,3 +1810,48 @@ msgstr "Confirma nueva contraseña"
 #: app/models/model_attributes.rb:10
 msgid "File successfully uploaded"
 msgstr "Archivo subido exitosamente"
+
+#: app/models/model_attributes.rb:61
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: app/models/model_attributes.rb:60
+msgid "Save"
+msgstr "Guardar"
+
+#: app/views/home/index.haml:41
+msgid "Download brochure (~200 KB)"
+msgstr "Descargar el folleto (~200 KB)"
+
+#: app/models/model_attributes.rb:62
+msgid ""
+"Copy the code for automated setup from the Nuntium Local Gateway in here to "
+"bind your local gateway to this poll."
+msgstr ""
+"Copia y pega aquí el código de configuración automática del gateway local de "
+"Nuntium para relacionar tu gateway local con esta encuesta."
+
+#: app/models/model_attributes.rb:63
+msgid "Current password"
+msgstr "Contraseña actual"
+
+#: app/models/model_attributes.rb:66
+msgid "There are invalid questions in the poll."
+msgstr "Hay preguntas inválidas en la encuesta."
+
+#: app/models/model_attributes.rb:65
+msgid "The {0} must have at least one {1}."
+msgstr "El/La {0} debe tener al menos un/a {1}."
+
+#: app/models/model_attributes.rb:64
+msgid "Importing..."
+msgstr "Importando..."
+
+#: app/helpers/instedd_app_helper.rb:40
+msgid "%{count} error prohibited this %{model} from being saved:"
+msgstr "No se pudo guardar este/a %{model} porque se encontró %{count} error:"
+
+#: app/helpers/instedd_app_helper.rb:42
+msgid "%{count} errors prohibited this %{model} from being saved:"
+msgstr ""
+"No se pudo guardar este/a %{model} porque se encontraron %{count} errores:"

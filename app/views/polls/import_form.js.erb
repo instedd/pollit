@@ -7,7 +7,7 @@
   window.validator.showErrors({'poll[form_url]': '<%= _("Invalid public Google Form URL.") %>'});
   // reset button
   var import_form_action = $('.import_form_action');
-  import_form_action.text('Import');
+  import_form_action.text(<%="'#{_('Import')}'"%>);
   import_form_action.removeAttr('disabled');
   import_form_action.removeClass('loading');
 <%end%>

@@ -17,7 +17,7 @@
       %br
     #export_csv
       = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
-        %b Download a sample csv file 
+        %b Download a sample csv file
         and fill it with the phone numbers
     #import_csv
       = button_tag :type => :button, :class => :fimport do
@@ -39,7 +39,7 @@
         = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
   %br
   %hr
-  
+
   .actions
     - if wizard?
       = white_link_to _("Back"), poll_channel_path(@poll, :wizard => true)
@@ -93,7 +93,7 @@
 
     scope.phoneExists = function(phoneNumber) {
       var all_phones = _.union(scope.fixed_phones, scope.phones);
-      return _.any(all_phones, function(phone) { 
+      return _.any(all_phones, function(phone) {
         return phone.number == phoneNumber;
       });
     }
@@ -131,7 +131,7 @@
         }
       });
     };
-    
+
     scope.onSaved = function() {
       if (scope.only_add) {
         var current_phones = scope.phones;

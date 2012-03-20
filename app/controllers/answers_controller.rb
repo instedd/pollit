@@ -1,7 +1,4 @@
 class AnswersController < ApplicationController
-
-  add_breadcrumb _("Polls"), :polls_path
-  
   before_filter :load_poll
 
   def index

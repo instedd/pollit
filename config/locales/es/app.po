@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-03-20 01:57+0200\n"
+"PO-Revision-Date: 2012-03-20 16:01+0200\n"
 "Last-Translator:  <mcoca@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -1906,7 +1906,7 @@ msgstr "Por favor ingrese una fecha válida (ISO)."
 
 #: app/models/model_attributes.rb:67
 msgid "This field is required."
-msgstr "El campo es requerido."
+msgstr "Este campo es obligatorio."
 
 #: app/models/model_attributes.rb:78
 msgid "Please enter no more than {0} characters."

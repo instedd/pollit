@@ -7,7 +7,7 @@
 %div{:style => "margin-top:-10px;margin-bottom:15px;"}
   A channel created on Nuntium Local Gateway enables you to send polls from your mobile phone
 - if @poll.channel
-  .CurrentChannelBox.box.grey.w60
+  .CurrentChannelBox.box.grey
     .left
       %p.black Local Gateway channel
       %p.grey
@@ -20,8 +20,8 @@
   .LocalGatewayLogo.left
   .LocalGatewayText.left
     will help you to send polls from your mobile phone, #{link_to 'learn More', tour_path(1)}.
-  .LocalGatewayArrow.left
-  = grey_link_to _('Change channel'), new_poll_channel_path(@poll, :wizard => wizard?)
+  = grey_link_to _('Change channel'), new_poll_channel_path(@poll, :wizard => wizard?), :class => 'right'
+  .LocalGatewayArrow.right
 
 - if wizard?
   %br

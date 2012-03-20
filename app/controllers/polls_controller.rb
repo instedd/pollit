@@ -1,18 +1,20 @@
 class PollsController < ApplicationController
 
-  add_breadcrumb _("Polls"), :polls_path
 
   before_filter :authenticate_user!
   before_filter :set_steps
-  
+
   before_filter :except => [:index, :new, :create, :import_form] do
     load_poll(params[:id])
+  end
+  before_filter :only => [:index, :new, :create, :import_form] do
+    add_breadcrumb _("Polls"), :polls_path
   end
 
   def index
     @polls = current_user.polls
   end
- 
+
   def show
   end
 
@@ -55,13 +57,13 @@ class PollsController < ApplicationController
 
   def import_form
     begin
-      attrs = params[:poll].merge(:questions_attributes => {})      
+      attrs = params[:poll].merge(:questions_attributes => {})
       imported = Poll.new attrs
       imported.owner_id = current_user.id
       imported.questions = []
       imported.parse_form
       imported.generate_unique_title! if params[:poll][:title].blank?
-      
+
       @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
       @questions = imported.questions
     rescue => error

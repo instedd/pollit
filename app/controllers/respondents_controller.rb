@@ -2,7 +2,6 @@ require 'csv'
 
 class RespondentsController < ApplicationController
 
-  add_breadcrumb _("Polls"), :polls_path
 
   before_filter :authenticate_user!
   before_filter :load_poll
@@ -39,7 +38,7 @@ class RespondentsController < ApplicationController
       prefixed_phone = "sms://#{phone.gsub(/[^0-9]/,"")}"
       @poll.respondents.create(:phone => prefixed_phone)
     end
-    
+
     @poll.on_respondents_added
   end
 

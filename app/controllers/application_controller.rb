@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include BreadcrumbsOnRails::ControllerMixin
-  
+
   protect_from_forgery
 
   before_filter :set_gettext_locale
@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   before_filter :set_steps
 
   layout :set_layout
-  
+
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-  
+
   rescue_from ActionController::RedirectBackError do
     redirect_to root_url
   end
@@ -47,11 +47,14 @@ class ApplicationController < ActionController::Base
   def load_poll(poll_id=nil, attributes=nil)
     @poll = Poll.find (poll_id || params[:poll_id])
     authorize! :manage, @poll
-    add_breadcrumb @poll.title, poll_path(@poll) unless params[:wizard]
+    unless params[:wizard]
+      add_breadcrumb _("Polls"), :polls_path
+      add_breadcrumb @poll.title, poll_path(@poll)
+    end
     @poll.attributes = attributes if attributes
     @poll
   end
-  
+
   def record_not_found
     render :file => "public/400.html", :layout => nil
   end
@@ -59,7 +62,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource_or_scope)
     user = resource_or_scope
     if user.lang
-      I18n.locale = user.lang.to_sym 
+      I18n.locale = user.lang.to_sym
     elsif I18n.locale
       user.lang = I18n.locale.to_s
       user.save

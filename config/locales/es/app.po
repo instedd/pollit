@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-03-20 16:01+0200\n"
+"PO-Revision-Date: 2012-03-22 19:06+0200\n"
 "Last-Translator:  <mcoca@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -417,7 +417,7 @@ msgstr "mini-aplicación"
 
 #: app/views/tour/start.haml:6
 msgid "sign up for a free Pollit account"
-msgstr "registrado para obtener tu cuenta gratuita de Pollit"
+msgstr "regístrate para obtener tu cuenta gratuita de Pollit"
 
 #: app/views/tour/start.haml:6
 msgid "here"
@@ -1207,7 +1207,7 @@ msgid ""
 "Yes. As long as you -- and poll participants -- have a mobile phone that can "
 "send and receive text messages, you're all set."
 msgstr ""
-"Si. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
+"Sí. En tanto tú y los participantes de la encuesta dispongan de teléfonos "
 "celulares capaces de enviar y recibir mensajes de texto, estará todo listo."
 
 #: app/views/help/index.haml:4

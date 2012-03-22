@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-19 15:33-0300\n"
-"PO-Revision-Date: 2012-03-22 19:06+0200\n"
+"PO-Revision-Date: 2012-03-22 19:38+0200\n"
 "Last-Translator:  <mcoca@manas.com.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -406,10 +406,10 @@ msgid ""
 "for a free account %{here}."
 msgstr ""
 "¿Tienes un Android y dispones de una conexión a internet? Descarga e instala "
-"esta %{smallapp} en tu teléfono Android, y luego %{register} para obtener "
-"tu cuenta gratuita en Pollit y comenzar a utilizarlo. Luego ingresa a tu "
-"cuenta de Google y empieza a crear tus formularios. ¿No tienes una cuenta de "
-"Google? Regístrate %{here} para obtenerla gratuitamente."
+"esta %{smallapp} en tu teléfono Android, y luego %{register} y comenzar a "
+"utilizarlo. Luego ingresa a tu cuenta de Google y empieza a crear tus "
+"formularios. ¿No tienes una cuenta de Google? Regístrate %{here} para "
+"obtenerla gratuitamente."
 
 #: app/views/tour/start.haml:6
 msgid "small app"
@@ -417,7 +417,7 @@ msgstr "mini-aplicación"
 
 #: app/views/tour/start.haml:6
 msgid "sign up for a free Pollit account"
-msgstr "regístrate para obtener tu cuenta gratuita de Pollit"
+msgstr "regístrate para obtener tu cuenta gratuita en Pollit"
 
 #: app/views/tour/start.haml:6
 msgid "here"

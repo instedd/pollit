@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe Poll do
@@ -86,7 +87,7 @@ describe Poll do
 
     it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
     it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
-    
+
     it_can_parse_question_as_options "choose from list question", 2, :options_count => 3, :field => 'entry.1.single'
     it_can_parse_question_as_options "choice question", 3, :options_count => 2, :field => 'entry.5.group'
     it_can_parse_question_as_options "choice question with other", 4, :options_count => 2, :field => 'entry.6.group'
@@ -100,9 +101,9 @@ describe Poll do
     it "should change status to started when a poll is started" do
       poll = Poll.make(:with_questions)
       poll.stubs(:send_messages).returns(true)
-      
+
       starting = poll.start
-      
+
       poll.status.should eq(:started)
     end
 
@@ -111,7 +112,7 @@ describe Poll do
       p.stubs(:send_messages).returns(true)
       p.start
 
-      p.accept_answer("lala", p.respondents.first)
+      p.accept_answer("no", p.respondents.first)
       p.respondents.first.confirmed.should be_false
     end
 
@@ -125,6 +126,18 @@ describe Poll do
       p.respondents.first.current_question_id.should eq(p.questions.first.id)
       response.should eq(p.questions.first.message)
     end
+
+    it "should set next question if confirmation word is similar" do
+      p = Poll.make(:with_questions, :confirmation_word => "Sí")
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      response = p.accept_answer("si", p.respondents.first)
+      p.respondents.first.confirmed.should be_true
+      p.respondents.first.current_question_id.should eq(p.questions.first.id)
+      response.should eq(p.questions.first.message)
+    end
+
 
     it "should send next question if answer response is valid" do
       p = Poll.make(:with_text_questions)
@@ -173,7 +186,7 @@ describe Poll do
 
       let(:poll) do
         Poll.make(:with_text_questions, :respondents => [
-          Respondent.make(:phone => 'sms://111'), 
+          Respondent.make(:phone => 'sms://111'),
           Respondent.make(:phone => 'sms://222'),
           Respondent.make(:phone => 'sms://333'),
         ])
@@ -191,7 +204,7 @@ describe Poll do
         # Poll starts and invitations are sent to both respondents
         poll.start.should be_true
         messages.should have(3).items and messages.clear
-        
+
         # R1 confirms participation and is sent first question
         poll.accept_answer("yes", r1).should_not be_nil
 
@@ -211,7 +224,7 @@ describe Poll do
         poll.accept_answer("yes", r1)
         poll.pause.should be_true
         messages.clear
-        
+
         poll.reload
 
         # Confirmation from r2 arrives and r1 answers, no messages should be dispatched
@@ -270,11 +283,11 @@ describe Poll do
       end
 
     end
-    
+
     context "new respondents" do
       let(:poll) do
         Poll.make(:with_text_questions, :respondents => [
-          Respondent.make(:phone => 'sms://111'), 
+          Respondent.make(:phone => 'sms://111'),
           Respondent.make(:phone => 'sms://222'),
         ])
       end
@@ -285,35 +298,35 @@ describe Poll do
 
       let (:r1) {poll.respondents.first}
       let (:r2) {poll.respondents.second}
-      
+
       let (:r3) {Respondent.make(:phone => 'sms://333')}
       let (:r4) {Respondent.make(:phone => 'sms://444')}
-      
+
       it "should not invite users right away if poll is configuring" do
         poll.status_configuring?.should be_true
         poll.expects(:invite_new_respondents).never
-        
+
         poll.on_respondents_added
       end
-      
+
       it "should not invite users right away if poll is paused" do
         poll.start
         poll.pause
         poll.status_paused?.should be_true
         poll.expects(:invite_new_respondents).never
-        
+
         poll.on_respondents_added
       end
-      
+
       it "should send invite after resuming to respondents added while paused" do
         poll.start
         messages.clear
         poll.pause
-        
+
         # We add r3 and r4 to the poll and resume it
         poll.respondents << r3 << r4
         poll.resume
-        
+
         messages.should have(2).items
         messages.sort_by! {|m| m[:to]}
         messages[0][:to].should eq(r3.phone)
@@ -321,23 +334,23 @@ describe Poll do
         messages[0][:body].should eq(poll.welcome_message)
         messages[1][:body].should eq(poll.welcome_message)
       end
-      
+
       it "should sent invite right away if poll is running" do
         poll.start
         messages.clear
-        
+
         poll.respondents << r3
         poll.on_respondents_added
-        
+
         messages.should have(1).items
         messages[0][:to].should eq(r3.phone)
         messages[0][:body].should eq(poll.welcome_message)
-        
+
         messages.clear
-        
+
         poll.respondents << r4
         poll.on_respondents_added
-        
+
         messages.should have(1).items
         messages[0][:to].should eq(r4.phone)
         messages[0][:body].should eq(poll.welcome_message)

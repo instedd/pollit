@@ -5,7 +5,7 @@ module Poll::AcceptAnswers
       return nil if respondent.current_question_id.nil?
       current_question = questions.find(respondent.current_question_id)
       return self.send("accept_#{current_question.kind}_answer", response, respondent) if current_question.kind_valid?
-    elsif response.strip.downcase == confirmation_word.strip.downcase
+    elsif normalize(response) == normalize(confirmation_word)
       respondent.confirmed = true
       return next_question_for respondent
     end
@@ -13,7 +13,11 @@ module Poll::AcceptAnswers
   end
 
   protected
-  
+
+  def normalize(answer)
+    ActiveSupport::Inflector.transliterate(answer.strip, '').downcase
+  end
+
   def next_question_for(respondent)
     if respondent.current_question
       next_question = respondent.current_question.lower_item
@@ -26,7 +30,7 @@ module Poll::AcceptAnswers
     respondent.save!
 
     respondent.push_answers if next_question.nil?
-    
+
     return next_question.try(:message) || goodbye_message unless self.status_paused?
   end
 
@@ -69,11 +73,11 @@ module Poll::AcceptAnswers
   def invalid_reply_options
     _("Your answer was not understood. Please answer with (%s)")
   end
-  
+
   def invalid_reply_text
     _("Your answer was not understood. Please answer with non empty string")
   end
-  
+
   def invalid_reply_numeric
     _("Your answer was not understood. Please answer with a number between %s and %s")
   end

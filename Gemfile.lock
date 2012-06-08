@@ -101,6 +101,7 @@ GEM
     json (1.6.1)
     kaminari (0.12.4)
       rails (>= 3.0.0)
+    licit (0.2.1)
     locale (2.0.5)
     machinist (1.0.6)
     mail (2.3.0)
@@ -225,6 +226,7 @@ DEPENDENCIES
   hpricot
   jquery-rails
   kaminari
+  licit
   locale
   machinist
   mocha

@@ -1,0 +1,5 @@
+copyright: Copyright (C) 2011-2012, InSTEDD
+program_name: Pollit
+exclude:
+  - db/schema.rb
+  - db/migrate/

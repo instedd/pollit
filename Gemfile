@@ -47,4 +47,5 @@ group :development do
   gem 'wirble'
   gem 'capistrano'
   gem 'rvm'
+  gem 'licit'
 end

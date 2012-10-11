@@ -35,6 +35,9 @@ module ChannelsHelper
   end
 
   def step_path(step=nil)
-    new_poll_channel_path(@poll, :step => step, :wizard => params[:wizard])
+    case params[:controller]
+    when 'phone_channels'
+      new_poll_phone_channel_path(@poll, :step => step, :wizard => params[:wizard])
+    end
   end
 end

@@ -1,9 +1,9 @@
 development:
-  url: http://nuntium.instedd.org
-  account:
-  password:
-  application:
-  at_post_user: 
+  url: http://nuntium.manas.com.ar
+  account: pollit
+  password: pollit
+  application: pollit-spalladino
+  at_post_user:
   at_post_pass: 
 test:
   url: http://nuntium.instedd.org

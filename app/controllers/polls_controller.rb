@@ -99,8 +99,8 @@ class PollsController < ApplicationController
     redirect_to polls_path, :notice => _("Poll %{title} has been deleted") % {:title => @poll.title}
   end
 
-  def register_channel
-    @poll.register_channel(params[:ticket_code])
+  def register_phone_channel
+    @poll.register_phone_channel(params[:ticket_code])
   end
 
   def start

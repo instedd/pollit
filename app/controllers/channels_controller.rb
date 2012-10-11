@@ -36,7 +36,7 @@ class ChannelsController < ApplicationController
 
   def create
     @poll.channel.destroy if @poll.channel
-    @channel = @poll.register_channel(params[:channel][:ticket_code])
+    @channel = @poll.register_phone_channel(params[:channel][:ticket_code])
 
     if @channel.valid?
       if params[:wizard]

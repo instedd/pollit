@@ -40,7 +40,7 @@ Pollit::Application.routes.draw do
       
       member do
         post 'start'
-        post 'register_channel/:ticket_code', :action => 'register_channel'
+        post 'register_phone_channel/:ticket_code', :action => 'register_phone_channel'
         post 'pause'
         post 'resume'
       end

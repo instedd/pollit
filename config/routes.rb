@@ -46,6 +46,9 @@ Pollit::Application.routes.draw do
       end
       
       resource :channel, :only => [:show, :new, :create, :destroy]
+      resource :phone_channel, :only => [:new, :create]
+      resource :twilio_channel, :only => [:new, :create]
+      resource :twitter_channel, :only => [:new, :create]
       
       resources :respondents, :only => [:index] do
         collection do

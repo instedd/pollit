@@ -111,8 +111,8 @@ class Poll < ActiveRecord::Base
     "#{title}-#{id}".parameterize
   end
 
-  def register_channel(ticket_code)
-    Channel.create({
+  def register_phone_channel(ticket_code)
+    PhoneChannel.create({
       :ticket_code => ticket_code,
       :name => as_channel_name,
       :poll_id => id

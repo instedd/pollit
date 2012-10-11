@@ -41,7 +41,7 @@ User.blueprint do
   confirmation_sent_at {DateTime.now}
 end
 
-Channel.blueprint do
+PhoneChannel.blueprint do
   ticket_code
   name        
 end
@@ -56,7 +56,7 @@ Poll.blueprint do
 end
 
 Poll.blueprint(:with_questions) do
-  channel           {Channel.make}
+  channel           {PhoneChannel.make}
   title             {Sham.title}
   description       
   form_url          {Sham.url}
@@ -71,7 +71,7 @@ Poll.blueprint(:with_questions) do
 end
 
 Poll.blueprint(:with_text_questions) do
-  channel           {Channel.make}
+  channel           {PhoneChannel.make}
   title             {Sham.title}
   description
   form_url          {Sham.url}
@@ -85,7 +85,7 @@ Poll.blueprint(:with_text_questions) do
 end
 
 Poll.blueprint(:with_option_questions) do
-  channel       {Channel.make}
+  channel       {PhoneChannel.make}
   title         {Sham.title}
   description
   form_url      {Sham.url}
@@ -98,7 +98,7 @@ Poll.blueprint(:with_option_questions) do
 end
 
 Poll.blueprint(:with_numeric_questions) do
-  channel       {Channel.make}
+  channel       {PhoneChannel.make}
   title         {Sham.title}
   description
   form_url      {Sham.url}

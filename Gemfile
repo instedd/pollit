@@ -17,6 +17,8 @@ gem 'cancan', "~> 1.6.7"
 gem 'kaminari'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
+gem 'twitter'
+gem 'oauth'
 
 # Gems used only for assets and not required
 # in production environments by default.

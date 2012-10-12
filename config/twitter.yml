@@ -1,0 +1,5 @@
+# Just leave this "as is" if you don't plan to use twitter for development
+# callback_url should have the protocol and port prepended to it
+# (like http://pollit.domain.com/twitter/callback)
+consumer_key: 
+consumer_secret: 

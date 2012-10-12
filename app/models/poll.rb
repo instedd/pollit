@@ -119,6 +119,17 @@ class Poll < ActiveRecord::Base
     })
   end
 
+  def register_twitter_channel(access_token, screen_name)
+    TwitterChannel.create({
+      :name => as_channel_name,
+      :poll_id => id,
+      :screen_name => screen_name,
+      :token => access_token.token,
+      :secret => access_token.secret,
+      :welcome_message => welcome_message,
+    })
+  end
+
   def questions_answered
     answers.count
   end

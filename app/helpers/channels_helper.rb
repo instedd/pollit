@@ -38,6 +38,8 @@ module ChannelsHelper
     case params[:controller]
     when 'phone_channels'
       new_poll_phone_channel_path(@poll, :step => step, :wizard => params[:wizard])
+    when 'twitter_channels'
+      new_poll_twitter_channel_path(@poll, :step => step, :wizard => params[:wizard])
     end
   end
 end

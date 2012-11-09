@@ -1,0 +1,7 @@
+- unless wizard?
+  = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'channel' }
+  - add_breadcrumb _("Add channel"), new_poll_channel_path(@poll.id)
+
+= hidden_field_tag "referer", params[:referer], :id => :referer
+.user_channel
+  = render :partial => "twilio_channels/wizard/#{@step}", :layout => "twilio_channels/wizard/layout"

@@ -47,10 +47,10 @@ Pollit::Application.routes.draw do
       
       resource :channel, :only => [:show, :new, :create, :destroy]
       resource :phone_channel, :only => [:new, :create]
-      resource :twilio_channel, :only => [:new, :create]
       resource :twitter_channel, :only => [:new, :create] do
         get 'twitter_callback'
       end
+      resource :twilio_channel, :only => [:new, :create]
       
       resources :respondents, :only => [:index] do
         collection do
@@ -69,6 +69,8 @@ Pollit::Application.routes.draw do
     match '/locale/update' => 'locale#update',  :as => 'update_locale'
     match '/' => 'home#index',                  :as => 'home'
   end
+
+  match '/twilio/callback' => 'twilio_channels#callback'
 
   root :to => 'home#index'
 end

@@ -1,0 +1,10 @@
+- unless params[:wizard]
+  = wizard @steps, @wizard_step
+
+%p In the next screen you will be asked to login in to Twilio.
+      
+%hr/
+
+.ChannelWizardNavigation.actions
+  = back_to_start
+  = grey_link_to _('Next'), "https://www.twilio.com/authorize/#{::Pollit::TwilioConnectKey}?state=#{@poll.id}", :id => "next"

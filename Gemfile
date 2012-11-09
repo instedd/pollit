@@ -19,6 +19,7 @@ gem 'fast_gettext'
 gem 'gettext_i18n_rails'
 gem 'twitter'
 gem 'oauth'
+gem 'twilio-ruby'
 
 # Gems used only for assets and not required
 # in production environments by default.

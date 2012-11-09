@@ -6,37 +6,40 @@
   = angular_js_include_tag
 
 %div{:class => :content}
-  %h1 Bulk phone numbers importing
+  %h1 Bulk respondents importing
   .whitebox{:style => "margin-top:-12px;"}
-    Add phone numbers manually or upload a CSV file
+    Add respondents manually or upload a CSV file
     %br
     %br
     - unless can_edit
       Because the poll has already started, you can only add respondents. New respondents will be invited after you click 'Save'.
       %br
       %br
-    #export_csv
-      = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
+    #export_csv{onclick: "window.location = '#{export_csv_poll_respondents_path}'"}
+      = button_tag :type => :button, :class => :fimport do
         %b Download a sample csv file
-        and fill it with the phone numbers
+        and fill it with the phone numbers and/or twitter numbers
     #import_csv
       = button_tag :type => :button, :class => :fimport do
-        %b Upload it for bulk account creation
+        %b Upload it for bulk respondents creation
 
 %br
 
-= content_tag :div, "ng:controller" => "PhonesCtrl" do
+= content_tag :div, "ng:controller" => "RespondentsController" do
   %ul{:class => "clist w30"}
-    %li{"ng:repeat" => "phone in fixed_phones"}
-      = text_field_tag "phone.number", "{{phone.number}}", :disabled => true
+    %li{"ng:repeat" => "respondent in fixed_respondents"}
+      = text_field_tag "respondent.phone", "{{respondent.phone}}", :disabled => true
+      = text_field_tag "respondent.twitter", "{{respondent.twitter}}", :disabled => true
       = button_tag "", :type => :button, :class => "clist-remove", :disabled => true
-    %li{"ng:repeat" => "phone in phones"}
-      = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
-      = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
+    %li{"ng:repeat" => "respondent in respondents"}
+      = text_field_tag "respondent.phone", "{{respondent.phone}}", :class => "ux-clist"
+      = text_field_tag "respondent.twitter", "{{respondent.twitter}}", :class => "ux-clist"
+      = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removeRespondent(respondent)"
     %li
-      = content_tag :form, "ng:submit" => "addPhone()" do
-        = text_field_tag "numberText", "", :class => "ux-text", :placeholder => _("Add a new phone...")
-        = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
+      = content_tag :form, "ng:submit" => "addRespondent()" do
+        = text_field_tag "phone", "", :class => "ux-text", :placeholder => _("Phone number...")
+        = text_field_tag "twitter", "", :class => "ux-text", :placeholder => _("Twitter username...")
+        = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addRespondent()"
   %br
   %hr
 
@@ -51,21 +54,19 @@
 
 :javascript
   $(document).ready(function() {
-    $('#numberText').placeholder();
-    $(":input[type=text]").live('focus', function() {
-      $(this).numeric({ decimal: false, negative: false });
-    });
+    $('#phone').placeholder();
+    $('#twitter').placeholder();
   });
 
-  function PhonesCtrl() {
+  function RespondentsController() {
     var scope = this;
-    scope.phones = #{phones_list.to_json};
-    scope.fixed_phones = #{fixed_phones_list.to_json};
+    scope.respondents = #{respondents_list.to_json};
+    scope.fixed_respondents = #{fixed_respondents_list.to_json};
     scope.only_add = #{can_edit ? "false" : "true"} ;
 
     $(document).ready(function() {
       window.setTimeout(function() {
-        $("#numberText").focus().blur();
+        $("#phone, #twitter").focus().blur();
       }, 200);
 
       new AjaxUpload($('#import_csv'), {
@@ -78,66 +79,67 @@
           }
         },
         onComplete: function(file, response){
-          var data = eval(response);
-          $.each(data, function(i, phone) {
-            if (!scope.phoneExists(phone.number)) {
-              scope.phones.push(phone);
+          var respondents = eval(response);
+          $.each(respondents, function(i, respondent)   {
+            if (!scope.respondentExists(respondent)) {
+              scope.respondents.push(respondent);
             }
           });
           scope.$eval();
-          $(".ng-directive #numberText").focus().blur();
+          $("#phone, #twitter").focus().blur();
           $.status.showNotice('#{_("File successfully uploaded")}', 6000);
         }
       });
     });
 
-    scope.phoneExists = function(phoneNumber) {
-      var all_phones = _.union(scope.fixed_phones, scope.phones);
-      return _.any(all_phones, function(phone) {
-        return phone.number == phoneNumber;
+    scope.respondentExists = function(phone, twitter) {
+      var all_respondents = _.union(scope.fixed_respondents, scope.respondents);
+      return _.any(all_respondents, function(respondent) {
+        return ($.trim(respondent.phone).length > 0 && respondent.phone == phone) ||
+               ($.trim(respondent.twitter).length > 0 && respondent.twitter == twitter);
       });
     }
 
-    scope.addPhone = function() {
-      if ((!scope.phoneExists(scope.numberText)) && $.trim(scope.numberText) != '') {
-        scope.phones.push({number:scope.numberText});
-        scope.numberText = '';
+    scope.addRespondent = function() {
+      if ((!scope.respondentExists(scope.phone, scope.twitter)) && ($.trim(scope.phone) != '' || $.trim(scope.twitter) != '')) {
+        scope.respondents.push({phone: scope.phone, twitter: scope.twitter});
+        scope.phone = '';
+        scope.twitter = '';
       }
     };
 
-    scope.removePhone = function(phoneNumber) {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return phone.number == phoneNumber;
+    scope.removeRespondent = function(respondent) {
+      scope.respondents = _.reject(scope.respondents, function(other) {
+        return other.phone == respondent.phone && other.twitter == respondent.twitter;
       });
-      $(".ng-directive #numberText").focus().blur();
+      $("#phone, #twitter").focus().blur();
     }
 
-    scope.removeEmptyPhones = function() {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return $.trim(phone.number) == '';
+    scope.removeEmptyRespondents = function() {
+      scope.phones = _.reject(scope.respondents, function(respondent) {
+        return $.trim(respondent.phone) == '' && $.trim(respondent.twitter) == '';
       })
     }
 
     scope.saveChanges = function(showNotice, nextUrl) {
-      scope.removeEmptyPhones();
-      var phones = _.map(scope.phones, function(phone) { return phone.number });
-      $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
+      scope.removeEmptyRespondents();
+      $.post('#{batch_update_poll_respondents_path}', {'respondents': scope.respondents}, function(data, textStatus) {
         if (textStatus == "success") {
           scope.onSaved();
-          if (showNotice) $.status.showNotice('Phones saved succesfully!', 6000);
+          if (showNotice) $.status.showNotice('Respondents saved succesfully!', 6000);
           if (nextUrl) location.href = nextUrl;
         } else {
-          $.status.showError('Error saving phones', 6000);
+          $.status.showError('Error saving respondents', 6000);
         }
       });
     };
 
     scope.onSaved = function() {
       if (scope.only_add) {
-        var current_phones = scope.phones;
-        scope.phones = [];
-        angular.forEach(current_phones, function(phone) {
-          scope.fixed_phones.push(phone);
+        var current_respondents = scope.respondents;
+        scope.respondents = [];
+        angular.forEach(current_respondents, function(respondent) {
+          scope.fixed_respondents.push(respondent);
         });
       }
     }

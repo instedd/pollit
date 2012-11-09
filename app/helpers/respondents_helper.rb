@@ -21,16 +21,16 @@ module RespondentsHelper
   end
 
   def respondents_list
-    can_edit ? respondents_list : []
+    can_edit ? respondents_list_internal : []
   end
 
   def fixed_respondents_list
-    can_edit ? [] : respondents_list
+    can_edit ? [] : respondents_list_internal
   end
 
   private
 
-  def respondents_list
+  def respondents_list_internal
     @poll.respondents.map { |x| {:phone => x.unprefixed_phone, :twitter => x.unprefixed_twitter} }
   end
 end

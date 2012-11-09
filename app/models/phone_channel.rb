@@ -11,8 +11,8 @@ class PhoneChannel < Channel
     respondents.where('phone is not null and length(trim(phone)) > 0')
   end
 
-  def respondent_twitter(respondent)
-    respondent.unprefixed_twitter
+  def respondent_address(respondent)
+    respondent.phone
   end
 
   private

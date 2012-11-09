@@ -211,7 +211,7 @@ class Poll < ActiveRecord::Base
   def message_to(respondent, body)
     return {
       :from => MESSAGE_FROM,
-      :to => respondent_twitter(respondent),
+      :to => respondent_address(respondent),
       :body => body,
       :poll_id => id.to_s
     }

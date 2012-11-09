@@ -15,7 +15,7 @@ class TwitterChannel < Channel
   end
 
   def respondent_address(respondent)
-    respondent.unprefixed_twitter
+    respondent.twitter
   end
 
   private
@@ -27,12 +27,14 @@ class TwitterChannel < Channel
       :protocol => protocol,
       :kind => 'twitter',
       :direction => 'bidirectional',
-      :token => token,
-      :secret => secret,
-      :screen_name => screen_name,
-      :welcome_message => welcome_message,
       :restrictions => nuntium_channel_restrictions,
-      :configuration => { :password => SecureRandom.base64(6) },
+      :configuration => {
+        :password => SecureRandom.base64(6),
+        :token => token,
+        :secret => secret,
+        :screen_name => screen_name,
+        :welcome_message => welcome_message,
+        },
       :enabled => true
     })
 

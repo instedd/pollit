@@ -35,11 +35,15 @@ module ChannelsHelper
   end
 
   def step_path(step=nil)
-    case params[:controller]
-    when 'phone_channels'
-      new_poll_phone_channel_path(@poll, :step => step, :wizard => params[:wizard])
-    when 'twitter_channels'
-      new_poll_twitter_channel_path(@poll, :step => step, :wizard => params[:wizard])
+    if step
+      case params[:controller]
+      when 'phone_channels'
+        new_poll_phone_channel_path(@poll, :step => step, :wizard => params[:wizard])
+      when 'twitter_channels'
+        new_poll_twitter_channel_path(@poll, :step => step, :wizard => params[:wizard])
+      end
+    else
+      new_poll_channel_path(@poll, :wizard => params[:wizard])
     end
   end
 end

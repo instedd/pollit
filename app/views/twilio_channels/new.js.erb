@@ -1,0 +1,3 @@
+ <% partial = render(:partial => "twilio_channels/wizard/#{@step}", :layout => "twilio_channels/wizard/layout") %>
+ $('.user_channel').html("<%= escape_javascript(partial)%>")
+ window.reinitialize('.user_channel');

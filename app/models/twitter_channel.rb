@@ -6,13 +6,25 @@ class TwitterChannel < Channel
 
   validates_presence_of :token, :secret, :screen_name, :welcome_message
 
+  def protocol
+    'twitter'
+  end
+
+  def filter_respondents(respondents)
+    respondents.where('twitter is not null and length(trim(twitter)) > 0')
+  end
+
+  def respondent_address(respondent)
+    respondent.unprefixed_twitter
+  end
+
   private
 
   def register_nuntium_channel
     @nuntium = Nuntium.new_from_config
-    @nuntium.create_channel({ 
+    @nuntium.create_channel({
       :name => name,
-      :protocol => 'twitter',
+      :protocol => protocol,
       :kind => 'twitter',
       :direction => 'bidirectional',
       :token => token,
@@ -23,7 +35,7 @@ class TwitterChannel < Channel
       :configuration => { :password => SecureRandom.base64(6) },
       :enabled => true
     })
-  
+
     self.address = screen_name
   end
 end

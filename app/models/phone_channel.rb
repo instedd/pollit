@@ -15,6 +15,10 @@ class PhoneChannel < Channel
     respondent.phone
   end
 
+  def find_respondent(respondents, address)
+    respondents.find_by_phone(address)
+  end
+
   private
 
   def register_nuntium_channel

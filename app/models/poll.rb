@@ -65,6 +65,10 @@ class Poll < ActiveRecord::Base
     channel.respondent_address(respondent)
   end
 
+  def find_respondent(address)
+    channel.find_respondent(respondents, address)
+  end
+
   def start
     raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
 

@@ -2,7 +2,7 @@
   .tablewrapp
     = instedd_table_for @answers, [_("Respondent"), _("Question"), _("Answer"), _("Date")], :class => "GralTable w-pagination", :empty => (@poll.status_configuring? ? _("This poll has not commenced yet; start the poll to receive answers from your respondents.") : _("No answers have been received yet.")) do |answer|
       %tr
-        %td= answer.respondent.unprefixed_phone
+        %td= answer.respondent.display_text
         %td= answer.question.title
         %td= answer.response
         %td= answer.created_at.strftime("%Y-%m-%d %H:%M:%S")

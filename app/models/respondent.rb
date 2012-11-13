@@ -40,4 +40,18 @@ class Respondent < ActiveRecord::Base
     return nil if not twitter
     twitter.gsub(/^twitter:\/\//, '')
   end
+
+  def display_text
+    if phone.present?
+      if twitter.present?
+        "#{unprefixed_phone} (@#{unprefixed_twitter})"
+      else
+        unprefixed_phone
+      end
+    elsif twitter.present?
+      "@#{unprefixed_twitter}"
+    else
+      ''
+    end
+  end
 end

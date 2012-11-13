@@ -20,6 +20,10 @@ class TwitterChannel < Channel
     respondent.twitter
   end
 
+  def find_respondent(respondents, address)
+    respondents.find_by_twitter(address)
+  end
+
   private
 
   def register_nuntium_channel

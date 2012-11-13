@@ -37,7 +37,7 @@ class RespondentsController < ApplicationController
 
   def import_csv
     respondents = CSV.read(params[:csv].tempfile).map do |phone, twitter|
-      {:phone => phone.try(:to_phone_number), :twitter => twitter.try(:strip)}
+      {:phone => phone.try(:to_phone_number), :twitter => twitter.try(:strip).try(:to_twitter)}
     end
     render :text => respondents.to_json
   end
@@ -56,7 +56,7 @@ class RespondentsController < ApplicationController
     if respondents
       respondents.each do |number, respondent|
         prefixed_phone = respondent[:phone].present? ? "sms://#{respondent[:phone].to_phone_number}" : nil
-        prefixed_twitter = respondent[:twitter].present? ? "twitter://#{respondent[:twitter].strip}" : nil
+        prefixed_twitter = respondent[:twitter].present? ? "twitter://#{respondent[:twitter].strip.to_twitter}" : nil
         @poll.respondents.create(:phone => prefixed_phone, :twitter => prefixed_twitter)
       end
     end

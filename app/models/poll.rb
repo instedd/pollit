@@ -79,7 +79,7 @@ class Poll < ActiveRecord::Base
   end
 
   def can_be_started?
-    status_configuring? && channel && target_respondents.any?
+    status_configuring? && channel && channel.ready? && target_respondents.any?
   end
 
   def pause

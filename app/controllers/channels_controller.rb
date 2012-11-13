@@ -30,6 +30,14 @@ class ChannelsController < ApplicationController
   def show
     redirect_to :action => 'new', :wizard => params[:wizard] and return unless @poll.channel
     @channel = @poll.channel
+
+    if @channel.is_a?(TwitterChannel) && @channel.address.blank?
+      callback_url = authorize_callback_poll_twitter_channel_url(@poll)
+      redirect_url = Nuntium.new_from_config.twitter_authorize(@poll.as_channel_name, callback_url)
+      redirect_to redirect_url
+      return
+    end
+
     @channel.type.underscore =~ /(.+)_/
     type = $1
     if params[:wizard]

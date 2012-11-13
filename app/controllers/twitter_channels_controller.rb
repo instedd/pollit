@@ -20,14 +20,23 @@ class TwitterChannelsController < ApplicationController
   before_filter :load_poll
 
   def new
-    url = twitter_callback_poll_twitter_channel_url(@poll)
-    request_token = oauth.get_request_token oauth_callback: url
+    channel = @poll.register_twitter_channel
 
-    session['twitter_token'] = request_token.token
-    session['twitter_secret'] = request_token.secret
-    session['wizard'] = params[:wizard]
+    callback_url = authorize_callback_poll_twitter_channel_url(@poll, wizard: session['wizard'])
+    redirect_url = Nuntium.new_from_config.twitter_authorize(@poll.as_channel_name, callback_url)
+    redirect_to redirect_url
+  end
 
-    redirect_to request_token.authorize_url
+  def authorize_callback
+    channel = @poll.channel
+    channel.address = params[:screen_name]
+    channel.save!
+
+    if params[:wizard]
+      redirect_to poll_respondents_path(@poll, wizard: true)
+    else
+      redirect_to poll_channel_path(@poll)
+    end
   end
 
   def twitter_callback

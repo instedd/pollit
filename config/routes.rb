@@ -48,7 +48,7 @@ Pollit::Application.routes.draw do
       resource :channel, :only => [:show, :new, :create, :destroy]
       resource :phone_channel, :only => [:new, :create]
       resource :twitter_channel, :only => [:new, :create] do
-        get 'twitter_callback'
+        get 'authorize_callback', :as => 'authorize_callback'
       end
       resource :twilio_channel, :only => [:new, :create]
 

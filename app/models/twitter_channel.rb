@@ -8,6 +8,10 @@ class TwitterChannel < Channel
     'twitter'
   end
 
+  def ready?
+    address.present?
+  end
+
   def filter_respondents(respondents)
     respondents.where('twitter is not null and length(trim(twitter)) > 0')
   end

@@ -26,7 +26,7 @@
 %br
 
 = content_tag :div, "ng:controller" => "RespondentsController" do
-  %ul{:class => "clist w30"}
+  %ul{:class => "clist"}
     %li{"ng:repeat" => "respondent in fixed_respondents"}
       = text_field_tag "respondent.phone", "{{respondent.phone}}", :disabled => true
       = text_field_tag "respondent.twitter", "{{respondent.twitter}}", :disabled => true

@@ -4,8 +4,6 @@ class TwitterChannel < Channel
   attr_accessor :screen_name
   attr_accessor :welcome_message
 
-  validates_presence_of :token, :secret, :screen_name, :welcome_message
-
   def protocol
     'twitter'
   end
@@ -30,14 +28,9 @@ class TwitterChannel < Channel
       :restrictions => nuntium_channel_restrictions,
       :configuration => {
         :password => SecureRandom.base64(6),
-        :token => token,
-        :secret => secret,
-        :screen_name => screen_name,
         :welcome_message => welcome_message,
         },
       :enabled => true
     })
-
-    self.address = screen_name
   end
 end

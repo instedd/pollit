@@ -11,14 +11,12 @@ gem 'nokogiri'
 gem 'hpricot'
 gem 'rest-client'
 gem 'acts_as_list'
-gem 'nuntium_api', :require => 'nuntium'
+gem 'nuntium_api', '>= 0.21'
 gem 'breadcrumbs_on_rails'
 gem 'cancan', "~> 1.6.7"
 gem 'kaminari'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
-gem 'twitter'
-gem 'oauth'
 gem 'twilio-ruby'
 
 # Gems used only for assets and not required

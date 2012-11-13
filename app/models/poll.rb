@@ -58,7 +58,7 @@ class Poll < ActiveRecord::Base
   end
 
   def filter_respondents(respondents)
-    channel.filter_respondents(respondents)
+    channel ? channel.filter_respondents(respondents) : respondents
   end
 
   def respondent_address(respondent)
@@ -127,20 +127,17 @@ class Poll < ActiveRecord::Base
   end
 
   def register_phone_channel(ticket_code)
-    PhoneChannel.create({
+    PhoneChannel.create!({
       :ticket_code => ticket_code,
       :name => as_channel_name,
       :poll_id => id
     })
   end
 
-  def register_twitter_channel(access_token, screen_name)
-    TwitterChannel.create({
+  def register_twitter_channel
+    TwitterChannel.create!({
       :name => as_channel_name,
       :poll_id => id,
-      :screen_name => screen_name,
-      :token => access_token.token,
-      :secret => access_token.secret,
       :welcome_message => welcome_message,
     })
   end

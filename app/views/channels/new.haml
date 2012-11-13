@@ -3,26 +3,35 @@
   - add_breadcrumb _("Add channel"), new_poll_channel_path(@poll.id)
 
 = hidden_field_tag "referer", params[:referer], :id => :referer
-.user_channel
-  %form#new_channel
-    %h2= _("Channel kind")
-    %p= _("What kind of channel would you like to create?")
+%form#new_channel
+  %h2= _("How would you like to send your polls?")
+  %p
+  %br
+  .field
+    %input#channel-phone{type: 'radio', name: 'type', value: 'phone', checked: true, onclick: 'hideTwitterMessage()'}
+    %label.radio{for: 'channel-phone'} Through a mobile phone
     %br
-    .field
-      %input#channel-phone{type: 'radio', name: 'type', value: 'phone', checked: true}
-      %label.radio{for: 'channel-phone'} Send polls from your mobile phone
-      %br
-      / %input#channel-twilio{type: 'radio', name: 'type', value: 'twilio'}
-      / %label.radio{for: 'channel-twilio'} Send polls from a Twilio number
-      / %br
-      %input#channel-twitter{type: 'radio', name: 'type', value: 'twitter'}
-      %label.radio{for: 'channel-twitter'} Send polls via Twitter direct messages
-    #twitter-message
-    %hr/
-    .actions
-      %button.white{type: 'submit'} Next
+    / %input#channel-twilio{type: 'radio', name: 'type', value: 'twilio'}
+    / %label.radio{for: 'channel-twilio'} Send polls from a Twilio number
+    / %br
+    %input#channel-twitter{type: 'radio', name: 'type', value: 'twitter', onclick: 'showTwitterMessage()'}
+    %label.radio{for: 'channel-twitter'} Via Twitter direct messages
+  %p#twitter-message{style: 'display:none'}
+    After clicking "Next" you will be prompted to login with the Twitter account that will be
+    used to send and receive polls.
+  %hr/
+  .actions
+    %button.white{type: 'submit'} Next
 
 :javascript
+  function hideTwitterMessage() {
+    $('#twitter-message').hide()
+  }
+
+  function showTwitterMessage() {
+    $('#twitter-message').show()
+  }
+
   $(function() {
     $('#new_channel').submit(function() {
       var type = $('#new_channel input:radio[name=type]:checked').val();

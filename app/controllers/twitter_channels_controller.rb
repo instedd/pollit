@@ -22,7 +22,7 @@ class TwitterChannelsController < ApplicationController
   def new
     channel = @poll.register_twitter_channel
 
-    callback_url = authorize_callback_poll_twitter_channel_url(@poll, wizard: session['wizard'])
+    callback_url = authorize_callback_poll_twitter_channel_url(@poll, wizard: params[:wizard])
     redirect_url = Nuntium.new_from_config.twitter_authorize(@poll.as_channel_name, callback_url)
     redirect_to redirect_url
   end
@@ -37,31 +37,5 @@ class TwitterChannelsController < ApplicationController
     else
       redirect_to poll_channel_path(@poll)
     end
-  end
-
-  def twitter_callback
-    @poll.channel.destroy if @poll.channel
-
-    request_token = OAuth::RequestToken.new oauth, session['twitter_token'], session['twitter_secret']
-    access_token = request_token.get_access_token oauth_verifier: params[:oauth_verifier]
-
-    client = Twitter::Client.new(oauth_token: access_token.token, oauth_token_secret: access_token.secret)
-    @channel = @poll.register_twitter_channel(access_token, client.user.screen_name)
-
-    if session['wizard']
-      redirect_to poll_respondents_path(@poll, wizard: true)
-    else
-      redirect_to poll_channel_path(@poll)
-    end
-
-    session['wizard'] = nil
-    session['twitter_token'] = nil
-    session['twitter_secret'] = nil
-  end
-
-  private
-
-  def oauth
-    @oauth ||= OAuth::Consumer.new Pollit::TwitterConsumerConfig['consumer_key'], Pollit::TwitterConsumerConfig['consumer_secret'], site: "http://api.twitter.com"
   end
 end

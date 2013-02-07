@@ -83,7 +83,7 @@ class PollsController < ApplicationController
 
       @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
       @questions = imported.questions
-    rescue => error
+    rescue Exception => error
       @error = error
     ensure
       if request.xhr?

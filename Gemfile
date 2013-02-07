@@ -17,6 +17,7 @@ gem 'cancan', "~> 1.6.7"
 gem 'kaminari'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
+gem 'mechanize'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,9 +26,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.0'
   gem 'uglifier'
 end
-
-gem 'rspec-rails', :group => [:test, :development]
-gem 'faker', :group => [:test, :development]
 
 group :test do
   # Pretty printed test output
@@ -48,4 +46,11 @@ group :development do
   gem 'capistrano'
   gem 'rvm'
   gem 'licit'
+end
+
+group :test, :development do
+  gem 'pry'
+  gem 'pry-debugger'
+  gem 'rspec-rails'
+  gem 'faker'
 end

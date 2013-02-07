@@ -15,15 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'open-uri'
-
 module Poll::Parser
   extend ActiveSupport::Concern
 
   module InstanceMethods
     def parse_form
-      doc = Nokogiri::HTML(open(self.form_url))
-    
+      doc = Nokogiri::HTML(Mechanize.new.get(self.form_url).body)
+
       self.title = doc.at_xpath('//h1[@class="ss-form-title"]').text if self.title.blank?
       self.description = doc.at_xpath('//div[contains(@class,"ss-form-desc")]').try(:text) if self.description.blank?
       self.post_url = doc.at_xpath('//form').attribute('action').value
@@ -35,8 +33,8 @@ module Poll::Parser
           next if not kind
           position += 1
           question = self.questions.build :kind => kind,
-            :title => element.at_xpath('.//label[@class="ss-q-title"]').text.strip,
-            :description => element.at_xpath('.//label[@class="ss-q-help"]').try(:text).try(:strip),
+            :title => element.at_xpath('.//*[@class="ss-q-title"]').try(:text).try(:strip),
+            :description => element.at_xpath('.//*[@class="ss-q-help"]').try(:text).try(:strip),
             :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip,
             :position => position
           

@@ -1,5 +1,5 @@
 - unless wizard?
-  - add_breadcrumb _("Settings"), edit_poll_path(@path)
+  - add_breadcrumb _("Settings"), edit_poll_path(@poll)
   = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'settings' }
 
 = render :partial => 'form'

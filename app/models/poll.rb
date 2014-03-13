@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -27,18 +27,18 @@ class Poll < ActiveRecord::Base
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true
   validates :form_url, :presence => true
-  validates :welcome_message, :presence => true, :length => {:maximum => 140}
+  validates :welcome_message, :presence => true, :length => {:maximum => 140}, :unless => :force_subscription
   validates :post_url, :presence => true
-  validates :confirmation_word, :presence => true
+  validates :confirmation_word, :presence => true, :unless => :force_subscription
   validates :goodbye_message, :presence => true, :length => {:maximum => 140}
   validates :questions, :presence => true
 
   accepts_nested_attributes_for :questions
-    
+
   after_initialize :default_values
 
   enum_attr :status, %w(^configuring started paused)
-  
+
   include Parser
   include AcceptAnswers
 
@@ -57,7 +57,7 @@ class Poll < ActiveRecord::Base
     raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
 
     invite respondents
-    
+
     self.status = :started
     save
   end
@@ -78,13 +78,13 @@ class Poll < ActiveRecord::Base
 
   def resume
     raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
-    
+
     messages = []
-    
+
     # Invite respondents that were added while the poll was paused
     respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
     invite respondents_to_invite
-    
+
     # Sends next questions to users with a current question and without the current_question_sent mark
     respondents_to_send_next_question = self.respondents.where(:current_question_sent => false).where('current_question_id IS NOT NULL')
     respondents_to_send_next_question.each do |r|
@@ -99,7 +99,7 @@ class Poll < ActiveRecord::Base
 
     send_messages messages
 
-    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs| 
+    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs|
       rs.update_all :current_question_sent => true
     end
 
@@ -140,28 +140,28 @@ class Poll < ActiveRecord::Base
     query = URI.parse(form_url || post_url).query
     CGI::parse(query)['formkey'][0]
   end
-  
+
   def on_respondents_added
     invite_new_respondents if status_started?
   end
-  
+
   def invite_new_respondents
     respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
     invite respondents_to_invite
   end
 
   private
-  
+
   def invite(respondents)
     messages = []
-    
+
     respondents.each do |respondent|
       messages << message_to(respondent, welcome_message)
     end
 
     # mark respondents as invited
     respondents.update_all :current_question_sent => true
-    
+
     send_messages messages
   end
 

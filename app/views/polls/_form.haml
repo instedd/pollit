@@ -12,15 +12,18 @@
     .field
       = f.label :title
       = f.text_field :title, :class => 'required w60'
-    
+
     .field
       = f.label :description
       %p This is an internal description of the Poll, it will not be sent to your users
       = f.text_area :description, :class => 'w60', :rows => 5
 
-    
     .field
-      = f.label :welcome_message
+      = f.label :force_subscription, "#{f.radio_button(:force_subscription, true)} Force subscription".html_safe, value: true
+      %p Select this options <b>only</b> if you have explicit permission from the respondents to participate in your poll with their mobile phones.
+
+    .field
+      = f.label :force_subscription, "#{f.radio_button(:force_subscription, false)} Welcome message".html_safe, value: false
       %p This message will be sent to all respondents asking them if they agree to participate in the poll
       = f.text_area :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required ux-wajbar w60', :readonly => !@poll.editable?
     .field
@@ -31,7 +34,7 @@
       = f.label :goodbye_message
       %p This message will be sent to respondents when they complete the poll
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'ux-wajbar w60'
-    
+
     %hr
 
     = render :partial => 'form_questions', :locals => {f:f}

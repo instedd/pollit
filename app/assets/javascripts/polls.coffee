@@ -19,6 +19,15 @@ $ ->
       $('#poll_form_url').focus()
     false
 
+  checkForceSubscription()
+  $('#poll_force_subscription_false').change checkForceSubscription
+  $('#poll_force_subscription_true').change checkForceSubscription
+
+checkForceSubscription = ->
+  readonly = $('#poll_force_subscription_true').is(':checked')
+  $('#poll_welcome_message').attr('readonly', readonly)
+  $('#poll_confirmation_word').attr('readonly', readonly)
+
 setupValidation = () ->
   jQuery.validator.addMethod(
     "hasChildren"

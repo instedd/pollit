@@ -19,6 +19,7 @@ gem 'kaminari'
 gem 'fast_gettext'
 gem 'gettext_i18n_rails'
 gem 'mechanize'
+gem 'ice_cube'
 
 # Gems used only for assets and not required
 # in production environments by default.

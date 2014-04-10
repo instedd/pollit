@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -24,6 +24,9 @@ class Poll < ActiveRecord::Base
   has_many :answers, :through => :respondents, :order => 'created_at'
   has_one :channel, :dependent => :destroy
 
+  include Recurrences::Recurrence
+  has_recurrence :recurrence
+
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true
   validates :form_url, :presence => true
@@ -34,11 +37,11 @@ class Poll < ActiveRecord::Base
   validates :questions, :presence => true
 
   accepts_nested_attributes_for :questions
-    
+
   after_initialize :default_values
 
   enum_attr :status, %w(^configuring started paused)
-  
+
   include Parser
   include AcceptAnswers
 

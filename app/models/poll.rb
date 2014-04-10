@@ -44,6 +44,7 @@ class Poll < ActiveRecord::Base
 
   include Parser
   include AcceptAnswers
+  include RecurrenceStrategy
 
   def generate_unique_title!
     return unless self.title && self.owner_id
@@ -58,9 +59,10 @@ class Poll < ActiveRecord::Base
 
   def start
     raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
+    self.recurrence_strategy.start
 
     invite respondents
-    
+
     self.status = :started
     save
   end
@@ -75,19 +77,21 @@ class Poll < ActiveRecord::Base
 
   def pause
     raise Exception.new("Cannot pause unstarted poll #{self.id}") unless self.status_started?
+    self.recurrence_strategy.pause
     self.status = :paused
     self.save
   end
 
   def resume
     raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
-    
+    self.recurrence_strategy.resume
+
     messages = []
-    
+
     # Invite respondents that were added while the poll was paused
     respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
     invite respondents_to_invite
-    
+
     # Sends next questions to users with a current question and without the current_question_sent mark
     respondents_to_send_next_question = self.respondents.where(:current_question_sent => false).where('current_question_id IS NOT NULL')
     respondents_to_send_next_question.each do |r|
@@ -102,7 +106,7 @@ class Poll < ActiveRecord::Base
 
     send_messages messages
 
-    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs| 
+    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs|
       rs.update_all :current_question_sent => true
     end
 
@@ -143,28 +147,28 @@ class Poll < ActiveRecord::Base
     query = URI.parse(form_url || post_url).query
     CGI::parse(query)['formkey'][0]
   end
-  
+
   def on_respondents_added
     invite_new_respondents if status_started?
   end
-  
+
   def invite_new_respondents
     respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
     invite respondents_to_invite
   end
 
   private
-  
+
   def invite(respondents)
     messages = []
-    
+
     respondents.each do |respondent|
       messages << message_to(respondent, welcome_message)
     end
 
     # mark respondents as invited
     respondents.update_all :current_question_sent => true
-    
+
     send_messages messages
   end
 

@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -81,7 +81,7 @@ describe PollsController do
     stub_request(:get, url).to_return_file('google-form.html')
     post :import_form, :poll => Poll.plan(:title => "", :description => "", :form_url => "http://#{url}", :questions => []), :wizard => true
 
-    response.should be_success  
+    response.should be_success
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Test Form 2")
     assigns(:poll).description.should eq('The description of the form')
@@ -116,25 +116,59 @@ describe PollsController do
     assigns(:poll).class.name.should eq("Poll")
   end
 
-  it "shoud start poll" do
-    p = Poll.make :with_questions, :owner => controller.current_user
-    post :start, :id => p.id
-    Poll.find(p.id).status.should eq(:started)
+  describe "non recurrent polls" do
+    it "should start poll" do
+      p = Poll.make :with_questions, :owner => controller.current_user
+      post :start, :id => p.id
+      Poll.find(p.id).status.should eq(:started)
+    end
+
+    it "should pause poll" do
+      p = Poll.make :with_questions, :owner => controller.current_user
+      p.start
+      post :pause, :id => p.id
+      Poll.find(p.id).status.should eq(:paused)
+    end
+
+    it "should resume poll" do
+      p = Poll.make :with_questions, :owner => controller.current_user
+      p.start
+      p.pause
+      post :resume, :id => p.id
+      Poll.find(p.id).status.should eq(:started)
+    end
   end
 
-  it "shoud pause poll" do
-    p = Poll.make :with_questions, :owner => controller.current_user
-    p.start
-    post :pause, :id => p.id
-    Poll.find(p.id).status.should eq(:paused)
-  end
+  describe "recurrent polls" do
+    it "should start poll and record current date" do
+      p = Poll.make :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
 
-  it "shoud resume poll" do
-    p = Poll.make :with_questions, :owner => controller.current_user
-    p.start
-    p.pause
-    post :resume, :id => p.id
-    Poll.find(p.id).status.should eq(:started)
+      now = Time.parse("Apr 10 2014 10:00")
+      Time.stubs(:now).returns(now)
+
+      post :start, :id => p.id
+      Poll.find(p.id).tap do |p|
+        p.status.should eq(:started)
+        p.recurrence.start_at.should eq(now)
+      end
+    end
+
+    it "should resume poll and record current date" do
+      p = Poll.make :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
+      old = Time.parse("Apr 12 2014 10:00")
+      Time.stubs(:now).returns(old)
+      p.start
+      p.pause
+
+      now = Time.parse("Apr 15 2014 10:00")
+      Time.stubs(:now).returns(now)
+
+      post :resume, :id => p.id
+      Poll.find(p.id).tap do |p|
+        p.status.should eq(:started)
+        p.recurrence.start_at.should eq(now)
+      end
+    end
   end
 
   it "should destroy poll" do

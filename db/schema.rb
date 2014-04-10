@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213154341) do
+ActiveRecord::Schema.define(:version => 20140410145032) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20111213154341) do
     t.string   "post_url"
     t.string   "confirmation_word"
     t.string   "goodbye_message"
+    t.text     "recurrence"
   end
 
   create_table "questions", :force => true do |t|

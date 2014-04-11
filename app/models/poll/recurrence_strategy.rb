@@ -3,11 +3,13 @@ class Poll
     extend ActiveSupport::Concern
 
     included do
+      @@strategies = {
+        none: NoneRecurrence,
+        weekly: WeeklyRecurrence
+      }
+
       def recurrence_strategy
-        {
-          none: NoneRecurrence,
-          weekly: WeeklyRecurrence
-        }[recurrence.kind].new(self)
+        @@strategies[recurrence.kind].new(self)
       end
     end
   end

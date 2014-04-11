@@ -15,7 +15,7 @@ module Recurrences
         define_method attribute do
           # memoized object in order to make changes
           self.instance_variable_set("@#{attribute}",
-            self.instance_variable_get("@#{attribute}") || Recurrences::Base.to_obj(read_attribute(attribute) || :none)
+            self.instance_variable_get("@#{attribute}") || Recurrences::Base.to_obj(read_attribute(attribute) || None.new.serialize)
           )
         end
 

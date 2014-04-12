@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.11'
+gem 'rails', '3.2.17'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'fancybox-rails'
@@ -20,12 +20,13 @@ gem 'fast_gettext'
 gem 'gettext_i18n_rails'
 gem 'mechanize'
 gem 'ice_cube'
+gem 'recurring_select', git: "https://github.com/instedd/recurring_select", branch: 'master'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', '~> 3.1.0'
-  gem 'coffee-rails', '~> 3.1.0'
+  gem 'sass-rails', '~> 3.2.0'
+  gem 'coffee-rails', '~> 3.2.0'
   gem 'uglifier'
 end
 

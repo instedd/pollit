@@ -22,7 +22,7 @@ describe PollsController do
   before_each_sign_in_as_new_user
 
   it "should get polls index" do
-    3.times do controller.current_user.polls.make end
+    3.times do Poll.make!(owner: controller.current_user) end
     get :index
     assigns(:polls).should have(3).items
     response.should be_success
@@ -75,7 +75,7 @@ describe PollsController do
   end
 
   it "should generate new title when importing poll form if another one existed with that title" do
-    Poll.make :owner => controller.current_user, :title => 'Test Form'
+    Poll.make! :owner => controller.current_user, :title => 'Test Form'
 
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
@@ -88,9 +88,9 @@ describe PollsController do
   end
 
   it "should generate new title with higher index when importing poll form if another one existed with candidate titles" do
-    Poll.make :owner => controller.current_user, :title => 'Test Form'
-    Poll.make :owner => controller.current_user, :title => 'Test Form 2'
-    Poll.make :owner => controller.current_user, :title => 'Test Form 3'
+    Poll.make! :owner => controller.current_user, :title => 'Test Form'
+    Poll.make! :owner => controller.current_user, :title => 'Test Form 2'
+    Poll.make! :owner => controller.current_user, :title => 'Test Form 3'
 
     url = 'spreadsheets.google.com/spreadsheet/viewform?formkey=FORMKEY'
     stub_request(:get, url).to_return_file('google-form.html')
@@ -103,14 +103,14 @@ describe PollsController do
   end
 
   it "should render show page" do
-    p = Poll.make :owner => controller.current_user
+    p = Poll.make! :owner => controller.current_user
     get :show, :id => p.id
     response.should be_success
     assigns(:poll).class.name.should eq("Poll")
   end
 
   it "should not render show page if unauthorized" do
-    p = Poll.make :owner => User.make
+    p = Poll.make! :owner => User.make!
     get :show, :id => p.id
     response.should redirect_to('/?locale=en')
     assigns(:poll).class.name.should eq("Poll")
@@ -118,20 +118,20 @@ describe PollsController do
 
   describe "non recurrent polls" do
     it "should start poll" do
-      p = Poll.make :with_questions, :owner => controller.current_user
+      p = Poll.make! :with_questions, :owner => controller.current_user
       post :start, :id => p.id
       Poll.find(p.id).status.should eq(:started)
     end
 
     it "should pause poll" do
-      p = Poll.make :with_questions, :owner => controller.current_user
+      p = Poll.make! :with_questions, :owner => controller.current_user
       p.start
       post :pause, :id => p.id
       Poll.find(p.id).status.should eq(:paused)
     end
 
     it "should resume poll" do
-      p = Poll.make :with_questions, :owner => controller.current_user
+      p = Poll.make! :with_questions, :owner => controller.current_user
       p.start
       p.pause
       post :resume, :id => p.id
@@ -141,7 +141,7 @@ describe PollsController do
 
   describe "recurrent polls" do
     it "should start poll and record current date" do
-      p = Poll.make :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
+      p = Poll.make! :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
 
       now = Time.parse("Apr 10 2014 10:00")
       Time.stubs(:now).returns(now)
@@ -149,12 +149,12 @@ describe PollsController do
       post :start, :id => p.id
       Poll.find(p.id).tap do |p|
         p.status.should eq(:started)
-        p.recurrence.start_at.should eq(now)
+        p.recurrence_start_time.should eq(now)
       end
     end
 
     it "should resume poll and record current date" do
-      p = Poll.make :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
+      p = Poll.make! :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
       old = Time.parse("Apr 12 2014 10:00")
       Time.stubs(:now).returns(old)
       p.start
@@ -166,13 +166,13 @@ describe PollsController do
       post :resume, :id => p.id
       Poll.find(p.id).tap do |p|
         p.status.should eq(:started)
-        p.recurrence.start_at.should eq(now)
+        p.recurrence_start_time.should eq(now)
       end
     end
   end
 
   it "should destroy poll" do
-    p = Poll.make :with_questions, :owner => controller.current_user
+    p = Poll.make! :with_questions, :owner => controller.current_user
     delete :destroy, :id => p.id
     Poll.find_by_id(p.id).should be_nil
   end

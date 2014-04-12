@@ -12,13 +12,13 @@
     .field
       = f.label :title
       = f.text_field :title, :class => 'required w60'
-    
+
     .field
       = f.label :description
       %p This is an internal description of the Poll, it will not be sent to your users
       = f.text_area :description, :class => 'w60', :rows => 5
 
-    
+
     .field
       = f.label :welcome_message
       %p This message will be sent to all respondents asking them if they agree to participate in the poll
@@ -31,7 +31,10 @@
       = f.label :goodbye_message
       %p This message will be sent to respondents when they complete the poll
       = f.text_area :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'ux-wajbar w60'
-    
+    .field
+      = f.label :recurrence
+      %p Choose if and when the poll will be sent periodically to users.
+      = f.select_recurring :recurrence_rule, nil, :allow_blank => true
     %hr
 
     = render :partial => 'form_questions', :locals => {f:f}

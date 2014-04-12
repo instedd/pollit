@@ -24,20 +24,20 @@ describe Poll do
   end
 
   it "can be saved successfully" do
-    Poll.make.should be_persisted
+    Poll.make!.should be_persisted
   end
 
   it "has an owner" do
-    Poll.make.owner.should_not be_nil
+    Poll.make!.owner.should_not be_nil
   end
 
   context "validations" do
     it "must have a title" do
-      Poll.make_unsaved(:title => "").should be_invalid
+      Poll.make(:title => "").should be_invalid
     end
 
     it "must require questions if specified" do
-      Poll.make_unsaved(:questions => []).should be_invalid
+      Poll.make(:questions => []).should be_invalid
     end
   end
 
@@ -116,7 +116,7 @@ describe Poll do
   context "workflow" do
 
     it "should change status to started when a poll is started" do
-      poll = Poll.make(:with_questions)
+      poll = Poll.make!(:with_questions)
       poll.stubs(:send_messages).returns(true)
 
       starting = poll.start
@@ -125,7 +125,7 @@ describe Poll do
     end
 
     it "should not set next question if confirmation word is not correct" do
-      p = Poll.make(:with_questions)
+      p = Poll.make!(:with_questions)
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -134,7 +134,7 @@ describe Poll do
     end
 
     it "should set next question if confirmation word is correct" do
-      p = Poll.make(:with_questions)
+      p = Poll.make!(:with_questions)
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -145,7 +145,7 @@ describe Poll do
     end
 
     it "should set next question if confirmation word is similar" do
-      p = Poll.make(:with_questions, :confirmation_word => "Sí")
+      p = Poll.make!(:with_questions, :confirmation_word => "Sí")
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -157,7 +157,7 @@ describe Poll do
 
 
     it "should send next question if answer response is valid" do
-      p = Poll.make(:with_text_questions)
+      p = Poll.make!(:with_text_questions)
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -168,7 +168,7 @@ describe Poll do
     end
 
     it "should send next question if option response is valid" do
-      p = Poll.make(:with_option_questions)
+      p = Poll.make!(:with_option_questions)
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -182,7 +182,7 @@ describe Poll do
     end
 
     it "should send next question if the numeric answer is valid" do
-      p = Poll.make(:with_numeric_questions)
+      p = Poll.make!(:with_numeric_questions)
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -194,7 +194,7 @@ describe Poll do
     end
 
     it "should send messages with nuntium" do
-      p = Poll.make(:with_text_questions)
+      p = Poll.make!(:with_text_questions)
       p.should_receive(:send_messages)
       p.start
     end
@@ -202,10 +202,10 @@ describe Poll do
     context "pausing" do
 
       let(:poll) do
-        Poll.make(:with_text_questions, :respondents => [
-          Respondent.make(:phone => 'sms://111'),
-          Respondent.make(:phone => 'sms://222'),
-          Respondent.make(:phone => 'sms://333'),
+        Poll.make!(:with_text_questions, :respondents => [
+          Respondent.make!(:phone => 'sms://111'),
+          Respondent.make!(:phone => 'sms://222'),
+          Respondent.make!(:phone => 'sms://333'),
         ])
       end
 
@@ -303,9 +303,9 @@ describe Poll do
 
     context "new respondents" do
       let(:poll) do
-        Poll.make(:with_text_questions, :respondents => [
-          Respondent.make(:phone => 'sms://111'),
-          Respondent.make(:phone => 'sms://222'),
+        Poll.make!(:with_text_questions, :respondents => [
+          Respondent.make!(:phone => 'sms://111'),
+          Respondent.make!(:phone => 'sms://222'),
         ])
       end
 
@@ -316,8 +316,8 @@ describe Poll do
       let (:r1) {poll.respondents.first}
       let (:r2) {poll.respondents.second}
 
-      let (:r3) {Respondent.make(:phone => 'sms://333')}
-      let (:r4) {Respondent.make(:phone => 'sms://444')}
+      let (:r3) {Respondent.make!(:phone => 'sms://333')}
+      let (:r4) {Respondent.make!(:phone => 'sms://444')}
 
       it "should not invite users right away if poll is configuring" do
         poll.status_configuring?.should be_true
@@ -376,22 +376,20 @@ describe Poll do
 
     context "recurrences" do
       it "should not have recurrences by default" do
-        Poll.make.recurrence.should be_an_instance_of(Recurrences::None)
+        Poll.make!.recurrence_kind.should eq(:none)
       end
 
       it "should be serialized" do
-        poll = Poll.find(Poll.make.id)
-        poll.recurrence.should be_an_instance_of(Recurrences::None)
-        poll.recurrence.kind.should eq(:none)
+        poll = Poll.find(Poll.make!.id)
+        poll.recurrence_kind.should eq(:none)
       end
 
       it "should save from params" do
-        poll = Poll.make
-        poll.update_attributes! 'recurrence' => { 'weekly' => { 'days' => [1, 2] } }
+        poll = Poll.make!
+        poll.update_attributes! 'recurrence_rule' => weekly_json(1, 2)
         poll = Poll.find(poll.id)
-        poll.recurrence.should be_an_instance_of(Recurrences::Weekly)
-        poll.recurrence.kind.should eq(:weekly)
-        poll.recurrence.days.should eq([1,2])
+        poll.recurrence_kind.should eq(:iterative)
+        days_of_weekly_rule(poll.recurrence).should eq([1,2])
       end
     end
   end

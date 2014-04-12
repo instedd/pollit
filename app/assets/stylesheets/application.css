@@ -5,4 +5,5 @@
  *= require_tree .
  *= require_self
  *= require fancybox
+ *= require recurring_select
 */

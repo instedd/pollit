@@ -3,13 +3,16 @@ class Poll
     extend ActiveSupport::Concern
 
     included do
-      @@strategies = {
-        none: NoneRecurrence,
-        weekly: WeeklyRecurrence
-      }
-
       def recurrence_strategy
-        @@strategies[recurrence.kind].new(self)
+        if recurrence.recurrence_rules.empty?
+          NoneRecurrence.new(self)
+        else
+          IterativeRecurrence.new(self)
+        end
+      end
+
+      def recurrence_kind
+        recurrence_strategy.recurrence_kind
       end
     end
   end
@@ -19,6 +22,10 @@ class Poll
       @poll = poll
     end
 
+    def recurrence_kind
+      :none
+    end
+
     def start
     end
 
@@ -29,20 +36,24 @@ class Poll
     end
   end
 
-  class WeeklyRecurrence
+  class IterativeRecurrence
     def initialize(poll)
       @poll = poll
     end
 
+    def recurrence_kind
+      :iterative
+    end
+
     def start
-      @poll.recurrence.start_at = Time.now.utc
+      @poll.recurrence_start_time = Time.now.utc
     end
 
     def pause
     end
 
     def resume
-      @poll.recurrence.start_at = Time.now.utc
+      @poll.recurrence_start_time = Time.now.utc
     end
   end
 end

@@ -10,4 +10,4 @@
 //= require additional-methods.min.js
 //= require_directory .
 //= require fancybox
-
+//= require recurring_select

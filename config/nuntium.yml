@@ -1,13 +1,13 @@
 development:
   url: http://nuntium.instedd.org
-  account:
-  password:
-  application:
-  at_post_user: 
-  at_post_pass: 
+  account: bcardiff
+  password: pollit
+  application: pollit-dev
+  at_post_user: pollit
+  at_post_pass: pollit
 test:
   url: http://nuntium.instedd.org
-  account: 
+  account:
   password:
   application:
   at_post_user: test_user
@@ -16,6 +16,6 @@ production:
   url: http://nuntium.instedd.org
   account:
   password:
-  application: 
-  at_post_user: 
-  at_post_pass: 
+  application:
+  at_post_user:
+  at_post_pass:

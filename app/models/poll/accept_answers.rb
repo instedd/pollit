@@ -64,7 +64,7 @@ module Poll::AcceptAnswers
     if response.blank?
       invalid_reply_text
     else
-      Answer.create :question => question, :respondent => respondent, :response => response
+      create_answer question, respondent, response
       next_question_for respondent
     end
   end
@@ -73,7 +73,7 @@ module Poll::AcceptAnswers
     question = questions.find(respondent.current_question_id)
 
     if(question.numeric_min..question.numeric_max).cover?(response.to_i)
-      Answer.create :question => question, :respondent => respondent, :response => response.to_i
+      create_answer question, respondent, response.to_i
       next_question_for respondent
     else
       invalid_reply_numeric % [question.numeric_min, question.numeric_max]
@@ -87,9 +87,15 @@ module Poll::AcceptAnswers
     if option.nil?
       invalid_reply_options % [question.options.join("|")]
     else
-      Answer.create :question => question, :respondent => respondent, :response => option
+      create_answer question, respondent, option
       next_question_for respondent
     end
+  end
+
+  def create_answer(question, respondent, response)
+    attributes = { :question => question, :respondent => respondent, :response => response }
+    append_answer_attributes(attributes)
+    Answer.create attributes
   end
 
   def invalid_reply_options

@@ -370,6 +370,18 @@ describe Poll do
       end
     end
 
+    context "non recurrences" do
+      it "should have nil occurrence" do
+        poll = Poll.make! :respondents => [ Respondent.make! ]
+
+        poll.start
+        poll.current_occurrence.should be_nil
+        poll.pause
+        poll.current_occurrence.should be_nil
+        poll.resume
+      end
+    end
+
     context "recurrences" do
       it "should not have recurrences by default" do
         Poll.make!.recurrence_kind.should eq(:none)
@@ -476,6 +488,56 @@ describe Poll do
         r1.reload
 
         poll.accept_answer("answer to q1", r1).should eq(q2.message)
+      end
+
+      it "should store current occurrence" do
+        stub_time "Apr 14 2014 10:00" # monday
+
+        poll = Poll.make! recurrence_rule: weekly_json(:tuesday),
+          :respondents => [ Respondent.make! ]
+
+        poll.start
+
+        stub_time "Apr 15 2014 12:00", poll
+
+        poll.current_occurrence.should eq(Time.parse("Apr 15 2014 10:00"))
+      end
+
+      it "should store answers per occurrence" do
+        stub_time "Apr 14 2014 10:00" # monday
+
+        poll = Poll.make! recurrence_rule: weekly_json(:tuesday),
+          :respondents => [ r1 = Respondent.make! ],
+          :questions => [ Question.make!, Question.make!]
+        q1 = poll.questions.first
+        q2 = poll.questions.second
+
+        poll.start
+        stub_time "Apr 15 2014 12:00", poll, r1
+
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(poll.welcome_message)
+
+        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer("answer for q1 o1", r1).should eq(q2.message)
+        poll.accept_answer("answer for q2 o1", r1).should eq(poll.goodbye_message)
+
+        messages.clear
+        stub_time "Apr 22 2014 12:00", poll, r1
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(q1.message)
+
+        poll.accept_answer("answer for q1 o2", r1).should eq(q2.message)
+        poll.accept_answer("answer for q2 o2", r1).should eq(poll.goodbye_message)
+
+        poll.answers[0].response.should eq("answer for q1 o1")
+        poll.answers[0].occurrence.should eq(Time.parse("Apr 15 2014 10:00"))
+        poll.answers[1].response.should eq("answer for q2 o1")
+        poll.answers[1].occurrence.should eq(Time.parse("Apr 15 2014 10:00"))
+        poll.answers[2].response.should eq("answer for q1 o2")
+        poll.answers[2].occurrence.should eq(Time.parse("Apr 22 2014 10:00"))
+        poll.answers[3].response.should eq("answer for q2 o2")
+        poll.answers[3].occurrence.should eq(Time.parse("Apr 22 2014 10:00"))
       end
     end
   end

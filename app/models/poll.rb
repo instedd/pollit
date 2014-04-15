@@ -61,8 +61,6 @@ class Poll < ActiveRecord::Base
     raise Exception.new("Cannot start poll #{self.id}") unless can_be_started?
     self.recurrence_strategy.start
 
-    invite respondents
-
     self.status = :started
     save
   end
@@ -85,30 +83,6 @@ class Poll < ActiveRecord::Base
   def resume
     raise Exception.new("Cannot resume unpaused poll #{self.id}") unless self.status_paused?
     self.recurrence_strategy.resume
-
-    messages = []
-
-    # Invite respondents that were added while the poll was paused
-    respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
-    invite respondents_to_invite
-
-    # Sends next questions to users with a current question and without the current_question_sent mark
-    respondents_to_send_next_question = self.respondents.where(:current_question_sent => false).where('current_question_id IS NOT NULL')
-    respondents_to_send_next_question.each do |r|
-      messages << message_to(r, r.current_question.message)
-    end
-
-    # Must send goodbye to confirmed users without current question (finished poll) but already confirmed (to avoid sending to those unconfirmed)
-    respondents_to_goodbye = self.respondents.where(:current_question_sent => false).where(:confirmed => true).where('current_question_id IS NULL')
-    respondents_to_goodbye.each do |r|
-      messages << message_to(r, goodbye_message)
-    end
-
-    send_messages messages
-
-    [respondents_to_send_next_question, respondents_to_goodbye].each do |rs|
-      rs.update_all :current_question_sent => true
-    end
 
     self.status = :started
     self.save
@@ -152,9 +126,32 @@ class Poll < ActiveRecord::Base
     invite_new_respondents if status_started?
   end
 
+  def invite_all_respondents
+    invite respondents
+  end
+
   def invite_new_respondents
     respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
     invite respondents_to_invite
+  end
+
+  # public only cause recurrence_strategy need to use it
+
+  def send_messages(messages)
+    begin
+      Nuntium.new_from_config.send_ao messages
+    rescue MultiJson::DecodeError
+      # HACK until nuntium ruby api is fixed
+    end
+  end
+
+  def message_to(respondent, body)
+    return {
+      :from => MESSAGE_FROM,
+      :to => respondent.phone,
+      :body => body,
+      :poll_id => self.id.to_s
+    }
   end
 
   private
@@ -172,28 +169,11 @@ class Poll < ActiveRecord::Base
     send_messages messages
   end
 
-  def send_messages(messages)
-    begin
-      Nuntium.new_from_config.send_ao messages
-    rescue MultiJson::DecodeError
-      # HACK until nuntium ruby api is fixed
-    end
-  end
-
   def default_values
     self.confirmation_word ||= _("Yes")
     self.welcome_message ||= _("Answer 'yes' if you want to participate in this poll.")
     self.goodbye_message ||= _("Thank you for your answers!")
   rescue
     true
-  end
-
-  def message_to(respondent, body)
-    return {
-      :from => MESSAGE_FROM,
-      :to => respondent.phone,
-      :body => body,
-      :poll_id => self.id.to_s
-    }
   end
 end

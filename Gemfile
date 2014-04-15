@@ -21,6 +21,8 @@ gem 'gettext_i18n_rails'
 gem 'mechanize'
 gem 'ice_cube'
 gem 'recurring_select', git: "https://github.com/instedd/recurring_select", branch: 'master'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.

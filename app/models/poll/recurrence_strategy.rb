@@ -21,12 +21,16 @@ class Poll
         recurrence_strategy.recurrence_kind
       end
 
-      def iterate
-        recurrence_strategy.iterate
+      def iterate(ocurrence)
+        recurrence_strategy.iterate(ocurrence)
       end
 
       def remove_existing_jobs
         Delayed::Job.where(:poll_id => self.id).delete_all
+      end
+
+      def append_answer_attributes(attributes)
+        recurrence_strategy.append_answer_attributes(attributes)
       end
     end
   end
@@ -72,7 +76,11 @@ class Poll
       end
     end
 
-    def iterate
+    def iterate(ocurrence)
+    end
+
+    def append_answer_attributes(attributes)
+      attributes[:occurrence] = nil
     end
   end
 
@@ -98,7 +106,8 @@ class Poll
       schedule_next
     end
 
-    def iterate
+    def iterate(ocurrence)
+      @poll.current_occurrence = ocurrence
       schedule_next
 
       @poll.invite_new_respondents
@@ -112,14 +121,20 @@ class Poll
       end
 
       @poll.send_messages messages
+      @poll.save
     end
 
     def schedule_next
       # TODO how to ensure recurrence is not changed while the poll is running?
       @poll.remove_existing_jobs
-      Delayed::Job.enqueue IteratePoll.new(@poll.id),
+      next_occurrence = @poll.recurrence.next_occurrence(@poll.current_occurrence)
+      Delayed::Job.enqueue IteratePoll.new(@poll.id, next_occurrence),
         poll_id: @poll.id,
-        run_at: @poll.recurrence.next_occurrence
+        run_at: next_occurrence
+    end
+
+    def append_answer_attributes(attributes)
+      attributes[:occurrence] = @poll.current_occurrence
     end
   end
 end

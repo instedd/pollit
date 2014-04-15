@@ -26,7 +26,7 @@ describe Answer do
     Answer.make!.should be_persisted
   end
 
-  it "must be unique for question and respondent" do
+  it "must be unique for question and respondent and ocurrence" do
     respondent = Respondent.make!
     question = Question.make!
 
@@ -34,4 +34,13 @@ describe Answer do
     Answer.make(:respondent => respondent, :question => question).should be_invalid
   end
 
+  it "must be unique for question and respondent and ocurrence" do
+    respondent = Respondent.make!
+    question = Question.make!
+    occurrence = Time.now
+
+    Answer.make!(:respondent => respondent, :question => question, :occurrence => occurrence).should be_persisted
+    Answer.make(:respondent => respondent, :question => question, :occurrence => occurrence).should be_invalid
+    Answer.make(:respondent => respondent, :question => question, :occurrence => occurrence + 1.day).should be_valid
+  end
 end

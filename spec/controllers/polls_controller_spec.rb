@@ -143,30 +143,26 @@ describe PollsController do
     it "should start poll and record current date" do
       p = Poll.make! :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
 
-      now = Time.parse("Apr 10 2014 10:00")
-      Time.stubs(:now).returns(now)
-
+      stub_time "Apr 10 2014 10:00"
       post :start, :id => p.id
       Poll.find(p.id).tap do |p|
         p.status.should eq(:started)
-        p.recurrence_start_time.should eq(now)
+        p.recurrence_start_time.should eq(Time.now)
       end
     end
 
     it "should resume poll and record current date" do
       p = Poll.make! :with_questions, :owner => controller.current_user, :recurrence => { weekly: { days: [1], interval: 1 } }
-      old = Time.parse("Apr 12 2014 10:00")
-      Time.stubs(:now).returns(old)
+
+      stub_time "Apr 12 2014 10:00"
       p.start
       p.pause
 
-      now = Time.parse("Apr 15 2014 10:00")
-      Time.stubs(:now).returns(now)
-
+      stub_time "Apr 15 2014 10:00"
       post :resume, :id => p.id
       Poll.find(p.id).tap do |p|
         p.status.should eq(:started)
-        p.recurrence_start_time.should eq(now)
+        p.recurrence_start_time.should eq(Time.now)
       end
     end
   end

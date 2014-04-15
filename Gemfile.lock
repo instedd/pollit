@@ -86,6 +86,11 @@ GEM
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.8)
+    delayed_job (4.0.1)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.1)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
     devise (1.4.7)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -258,6 +263,8 @@ DEPENDENCIES
   ci_reporter
   coffee-rails (~> 3.2.0)
   cover_me
+  delayed_job
+  delayed_job_active_record
   devise
   enumerated_attribute
   faker

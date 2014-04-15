@@ -52,6 +52,7 @@ Poll.blueprint do
   form_url        {Sham.url}
   post_url        {Sham.url}
   owner           {User.make}
+  channel         { Channel.make }
   questions(1)
 end
 

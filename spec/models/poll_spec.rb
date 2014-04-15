@@ -115,6 +115,10 @@ describe Poll do
 
   context "workflow" do
 
+    def messages
+      @nuntium_ao_messages
+    end
+
     it "should change status to started when a poll is started" do
       poll = Poll.make!(:with_questions)
       poll.stubs(:send_messages).returns(true)
@@ -207,10 +211,6 @@ describe Poll do
           Respondent.make!(:phone => 'sms://222'),
           Respondent.make!(:phone => 'sms://333'),
         ])
-      end
-
-      def messages
-        @nuntium_ao_messages
       end
 
       let (:r1) {poll.respondents.first}
@@ -309,10 +309,6 @@ describe Poll do
         ])
       end
 
-      def messages
-        @nuntium_ao_messages
-      end
-
       let (:r1) {poll.respondents.first}
       let (:r2) {poll.respondents.second}
 
@@ -390,6 +386,96 @@ describe Poll do
         poll = Poll.find(poll.id)
         poll.recurrence_kind.should eq(:iterative)
         days_of_weekly_rule(poll.recurrence).should eq([1,2])
+      end
+
+      it "should send invites on first scheduled date" do
+        stub_time "Apr 14 2014 10:00" # monday
+
+        poll = Poll.make! recurrence_rule: weekly_json(:tuesday),
+          :respondents => [
+            r1 = Respondent.make!(:phone => 'sms://111')
+          ]
+
+        poll.start
+        messages.should be_empty
+
+        stub_time "Apr 15 2014 12:00" # tuesday
+        messages.should_not be_empty
+
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(poll.welcome_message)
+      end
+
+      it "should receive first question upon iteration" do
+        stub_time "Apr 14 2014 10:00" # monday
+
+        poll = Poll.make! recurrence_rule: weekly_json(:tuesday),
+          :respondents => [
+            r1 = Respondent.make!(:phone => 'sms://111')
+          ],
+          :questions => [Question.make!, Question.make!]
+        q1 = poll.questions.first
+        q2 = poll.questions.second
+
+        poll.start
+
+        stub_time "Apr 15 2014 12:00" # tuesday
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(poll.welcome_message)
+
+        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer("answer to q1", r1).should eq(q2.message)
+
+        messages.clear
+
+        stub_time "Apr 17 2014 12:00"
+        messages.should be_empty
+
+        stub_time "Apr 22 2014 12:00" # tuesday again!
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(q1.message)
+        r1.reload
+
+        poll.accept_answer("answer to q1", r1).should eq(q2.message)
+      end
+
+      it "should restart poll on resume and wait till next iteration" do
+        stub_time "Apr 14 2014 10:00" # monday
+
+        poll = Poll.make! recurrence_rule: weekly_json(:tuesday),
+          :respondents => [
+            r1 = Respondent.make!(:phone => 'sms://111')
+          ],
+          :questions => [Question.make!, Question.make!]
+        q1 = poll.questions.first
+        q2 = poll.questions.second
+
+        poll.start
+
+        stub_time "Apr 15 2014 12:00" # tuesday
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(poll.welcome_message)
+
+        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer("answer to q1", r1).should eq(q2.message)
+
+        messages.clear
+
+        poll.pause
+
+        stub_time "Apr 22 2014 12:00" # tuesday again!
+        messages.should be_empty
+
+        stub_time "Apr 25 2014 12:00" # friday
+        poll.resume
+        messages.should be_empty
+
+        stub_time "Apr 29 2014 12:00" # tuesday again!
+        messages[0][:to].should eq(r1.phone)
+        messages[0][:body].should eq(q1.message)
+        r1.reload
+
+        poll.accept_answer("answer to q1", r1).should eq(q2.message)
       end
     end
   end

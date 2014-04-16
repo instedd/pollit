@@ -23,6 +23,8 @@ set :application, "pollit"
 set :repository,  "https://bitbucket.org/instedd/pollit"
 set :scm, :mercurial
 set :deploy_via, :remote_cache
+set :user, 'ubuntu'
+set :group, 'ubuntu'
 default_environment['TERM'] = ENV['TERM']
 
 namespace :deploy do

@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/instedd/recurring_select
-  revision: 3c7b375c21dce672410d7b9de9ef1e9cd641421b
+  revision: 7689a91ec0d619eff957ca20df4d2f16ae3261e5
   branch: instedd
   specs:
     recurring_select (1.2.1)

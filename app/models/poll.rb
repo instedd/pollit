@@ -24,7 +24,6 @@ class Poll < ActiveRecord::Base
   has_many :answers, :through => :respondents, :order => 'created_at'
   has_one :channel, :dependent => :destroy
 
-  include Recurrences::Recurrence
   has_recurrence :recurrence
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}

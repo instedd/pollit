@@ -103,6 +103,7 @@ class Poll
 
     def resume
       @poll.recurrence_start_time = Time.now.utc
+      @poll.current_occurrence = nil
       schedule_next
     end
 
@@ -125,9 +126,8 @@ class Poll
     end
 
     def schedule_next
-      # TODO how to ensure recurrence is not changed while the poll is running?
       @poll.remove_existing_jobs
-      next_occurrence = @poll.recurrence.next_occurrence(@poll.current_occurrence)
+      next_occurrence = @poll.recurrence.next_occurrence(@poll.current_occurrence || (@poll.recurrence_start_time - 1.minute))
       Delayed::Job.enqueue IteratePoll.new(@poll.id, next_occurrence),
         poll_id: @poll.id,
         run_at: next_occurrence

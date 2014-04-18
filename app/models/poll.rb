@@ -99,14 +99,6 @@ class Poll < ActiveRecord::Base
     })
   end
 
-  def questions_answered
-    answers.count
-  end
-
-  def answers_expected
-    respondents.count * questions.count
-  end
-
   def completion_percentage
     if answers_expected == 0
       "0%"

@@ -17,6 +17,14 @@ class Poll
         end
       end
 
+      def questions_answered
+        recurrence_strategy.questions_answered
+      end
+
+      def answers_expected
+        recurrence_strategy.answers_expected
+      end
+
       def recurrence_kind
         recurrence_strategy.recurrence_kind
       end
@@ -82,6 +90,14 @@ class Poll
     def append_answer_attributes(attributes)
       attributes[:occurrence] = nil
     end
+
+    def questions_answered
+      @poll.answers.count
+    end
+
+    def answers_expected
+      @poll.respondents.count * @poll.questions.count
+    end
   end
 
   class IterativeRecurrence
@@ -135,6 +151,14 @@ class Poll
 
     def append_answer_attributes(attributes)
       attributes[:occurrence] = @poll.current_occurrence
+    end
+
+    def questions_answered
+      @poll.answers.where(occurrence: @poll.current_occurrence).count
+    end
+
+    def answers_expected
+      @poll.respondents.count * @poll.questions.count
     end
   end
 end

@@ -127,6 +127,11 @@ class PollsController < ApplicationController
     end
   end
 
+  def run_next_job
+    @poll.next_job.invoke_job
+    redirect_to :back
+  end
+
   protected
 
   def set_layout

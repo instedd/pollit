@@ -29,6 +29,10 @@ class Poll
         recurrence_strategy.recurrence_kind
       end
 
+      def has_recurrence?
+        recurrence_kind != :none
+      end
+
       def iterate(ocurrence)
         recurrence_strategy.iterate(ocurrence)
       end
@@ -40,6 +44,15 @@ class Poll
       def append_answer_attributes(attributes)
         recurrence_strategy.append_answer_attributes(attributes)
       end
+
+      def next_job_date
+        next_job.run_at
+      end
+
+      def next_job
+        Delayed::Job.where(:poll_id => self.id).first
+      end
+
     end
   end
 
@@ -114,6 +127,7 @@ class Poll
     end
 
     def pause
+      @poll.remove_existing_jobs
     end
 
     def resume

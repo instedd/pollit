@@ -37,7 +37,7 @@
       - if !@poll.status_started?
         = f.recurring_with_time :recurrence
       - else
-        %input.w60{type:"text", readonly:"readonly", value:@poll.recurrence_rule}
+        %input.w60{type:"text", readonly:"readonly", value:"#{@poll.recurrence_rule} at #{@poll.recurrence_start_time.strftime("%H:%M")}"}
 
     %hr
 

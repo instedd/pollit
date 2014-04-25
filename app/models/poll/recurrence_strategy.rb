@@ -110,7 +110,6 @@ class Poll
     end
 
     def start
-      @poll.recurrence_start_time = Time.now.utc
       schedule_next
     end
 
@@ -118,7 +117,6 @@ class Poll
     end
 
     def resume
-      @poll.recurrence_start_time = Time.now.utc
       @poll.current_occurrence = nil
       schedule_next
     end

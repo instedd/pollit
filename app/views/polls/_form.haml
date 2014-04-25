@@ -35,8 +35,7 @@
       = f.label :recurrence
       %p Choose if and when the poll will be sent periodically to users.
       - if !@poll.status_started?
-        /= f.select_recurring :recurrence_rule, nil, :allow_blank => true
-        = f.link_recurring :recurrence_rule, :allow_blank => true, :collapsible => true
+        = f.recurring_with_time :recurrence
       - else
         %input.w60{type:"text", readonly:"readonly", value:@poll.recurrence_rule}
 

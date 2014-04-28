@@ -35,7 +35,7 @@ module Poll::Parser
           question = self.questions.build :kind => kind,
             :title => element.at_xpath('.//*[@class="ss-q-title"]').try(:text).try(:strip),
             :description => element.at_xpath('.//*[@class="ss-q-help"]').try(:text).try(:strip),
-            :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip,
+            :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox" or @type="number"] | .//textarea | .//select').attribute("name").text.strip,
             :position => position
           
           if question.kind_options?

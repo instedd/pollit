@@ -33,8 +33,12 @@ class Question < ActiveRecord::Base
   validates_numericality_of :numeric_max, :only_integer => true, :if => lambda{|q| q.kind_numeric? && q.numeric_max }
 
   acts_as_list :scope => :poll
+  alias_method :next, :lower_item
+
   serialize :options, Array
   enum_attr :kind, %w(^text options numeric unsupported)
+
+
 
   def message
     if kind_text?
@@ -70,6 +74,7 @@ class Question < ActiveRecord::Base
   def kind_valid?
     kind && !kind_unsupported?
   end
+
 
   private
 

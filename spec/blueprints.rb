@@ -85,6 +85,20 @@ Poll.blueprint(:with_text_questions) do
     Question.make(:field_name => 'entry.2.single', :position => 3)]}
 end
 
+Poll.blueprint(:with_collecting_respondent_question) do
+  channel           {Channel.make}
+  title             {Sham.title}
+  description       {Sham.description}
+  form_url          {Sham.url}
+  post_url          {Sham.url}
+  owner             {User.make}
+  respondents(5)
+  questions         {[
+    Question.make(:field_name => 'entry.0.single', :position => 1, :title => "Question 1?"),
+    Question.make(:field_name => 'entry.1.single', :position => 2, :title => "Question 2?", :collects_respondent => true),
+    Question.make(:field_name => 'entry.2.single', :position => 3, :title => "Question 3?")]}
+end
+
 Poll.blueprint(:with_option_questions) do
   channel       {Channel.make}
   title         {Sham.title}

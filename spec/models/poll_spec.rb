@@ -166,7 +166,6 @@ describe Poll do
       response.should eq(p.questions.first.message)
     end
 
-
     it "should send next question if answer response is valid" do
       p = Poll.make!(:with_text_questions)
       p.stubs(:send_messages).returns(true)
@@ -202,6 +201,67 @@ describe Poll do
       p.respondents.first.current_question_id.should_not eq(p.questions.first.lower_item.id)
       p.accept_answer(5, p.respondents.first)
       p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+    end
+
+    it "should skip first question used for collecting respondent phone" do
+      p = Poll.make!(:with_collecting_respondent_question, questions: [
+        Question.make(:field_name => 'entry.0.single', :position => 1, :title => "Question 1?", :collects_respondent => true),
+        Question.make(:field_name => 'entry.1.single', :position => 2, :title => "Question 2?"),
+        Question.make(:field_name => 'entry.2.single', :position => 3, :title => "Question 3?")
+      ])
+
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+
+      p.accept_answer("yes", respondent).should eq(p.questions[1].message)
+      respondent.current_question_id.should eq(p.questions[1].id)
+
+      p.accept_answer("answer1", respondent).should eq(p.questions[2].message)
+      respondent.current_question_id.should eq(p.questions[2].id)
+
+      p.accept_answer("answer3", respondent).should eq(p.goodbye_message)
+      respondent.current_question_id.should be_nil
+    end
+
+    it "should skip middle question used for collecting respondent phone" do
+      p = Poll.make!(:with_collecting_respondent_question)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+
+      p.accept_answer("yes", respondent).should eq(p.questions[0].message)
+      respondent.current_question_id.should eq(p.questions[0].id)
+
+      p.accept_answer("answer2", respondent).should eq(p.questions[2].message)
+      respondent.current_question_id.should eq(p.questions[2].id)
+
+      p.accept_answer("answer3", respondent).should eq(p.goodbye_message)
+      respondent.current_question_id.should be_nil
+    end
+
+    it "should skip last question used for collecting respondent phone" do
+      p = Poll.make!(:with_collecting_respondent_question, questions: [
+        Question.make(:field_name => 'entry.0.single', :position => 1, :title => "Question 1?"),
+        Question.make(:field_name => 'entry.1.single', :position => 2, :title => "Question 2?"),
+        Question.make(:field_name => 'entry.2.single', :position => 3, :title => "Question 3?", :collects_respondent => true)
+      ])
+
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+
+      p.accept_answer("yes", respondent).should eq(p.questions[0].message)
+      respondent.current_question_id.should eq(p.questions[0].id)
+
+      p.accept_answer("answer1", respondent).should eq(p.questions[1].message)
+      respondent.current_question_id.should eq(p.questions[1].id)
+
+      p.accept_answer("answer2", respondent).should eq(p.goodbye_message)
+      respondent.current_question_id.should be_nil
     end
 
     it "should send messages with nuntium" do

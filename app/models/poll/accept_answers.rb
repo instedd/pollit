@@ -41,11 +41,8 @@ module Poll::AcceptAnswers
   end
 
   def next_question_for(respondent)
-    if respondent.current_question
-      next_question = respondent.current_question.lower_item
-    else
-      next_question = questions.first
-    end
+    next_question = respondent.current_question.nil? ? questions.first : respondent.current_question.next
+    next_question = next_question.next while next_question && next_question.collects_respondent
 
     respondent.current_question_id = next_question.try(:id)
     respondent.current_question_sent = self.status_is_not_paused?

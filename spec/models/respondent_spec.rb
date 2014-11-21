@@ -59,6 +59,24 @@ describe Respondent do
     Respondent.new.current_question_sent.should be_false
   end
 
+
+  RSpec.shared_examples "can push answers to google forms" do
+
+    it "can be pushed to google forms" do
+      stub_request(:post, post_url).to_return_file('google-form-post-response.html')
+      respondent.push_answers.should be_true
+
+      a_request(:post, post_url).with { |req|
+        CGI.parse(req.body) == post_params
+      }.should have_been_made
+
+      respondent.pushed_at.should_not be_nil
+      respondent.pushed_status.should eq(:succeeded)
+    end
+
+  end
+
+
   context "pusher" do
 
     let(:respondent) do
@@ -78,17 +96,7 @@ describe Respondent do
         'submit' => ['']}
     end
 
-    it "can be pushed to google forms" do
-      stub_request(:post, post_url).to_return_file('google-form-post-response.html')
-      respondent.push_answers.should be_true
-
-      a_request(:post, post_url).with { |req|
-        CGI.parse(req.body) == post_params
-      }.should have_been_made
-
-      respondent.pushed_at.should_not be_nil
-      respondent.pushed_status.should eq(:succeeded)
-    end
+    include_examples 'can push answers to google forms'
 
     it "marks answers as failed if cannot be pushed" do
       stub_request(:post, post_url).to_return(:status => 500, :body => "failed")
@@ -106,5 +114,37 @@ describe Respondent do
       respondent.phone = "sms://111"
       respondent.unprefixed_phone.should eq("111")
     end
+
   end
+
+  context "collecting respondent phone" do
+
+    let(:poll) do
+      Poll.make!(:with_questions, :form_url => form_url, :post_url => post_url).tap do |p|
+        q = p.questions[1]
+        q.collects_respondent = true
+        q.save!
+      end
+    end
+
+    let(:respondent) do
+      Respondent.make! :poll => poll, :phone => 'sms://9991000', :answers => [
+        Answer.make!(:response => 'text', :question => poll.questions[0]),
+        Answer.make!(:response => 'zab',  :question => poll.questions[2]),
+        Answer.make!(:response => '4',    :question => poll.questions[3])]
+    end
+
+    let (:post_params) do
+      { 'entry.0.single' => ['text'],
+        'entry.1.single' => ['9991000'],
+        'entry.2.group' => ['zab'],
+        'entry.3.group' => ['4'],
+        'pageNumber' => ['0'],
+        'submit' => ['']}
+    end
+
+    include_examples 'can push answers to google forms'
+
+  end
+
 end

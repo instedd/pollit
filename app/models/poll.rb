@@ -147,6 +147,10 @@ class Poll < ActiveRecord::Base
     }
   end
 
+  def respondent_question
+    self.questions.where(collects_respondent: true).first
+  end
+
   private
 
   def invite(respondents)

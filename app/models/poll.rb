@@ -35,6 +35,8 @@ class Poll < ActiveRecord::Base
   validates :goodbye_message, :presence => true, :length => {:maximum => 140}
   validates :questions, :presence => true
 
+  validate  :collects_respondent_in_at_most_one_question
+
   accepts_nested_attributes_for :questions
 
   after_initialize :default_values
@@ -166,5 +168,11 @@ class Poll < ActiveRecord::Base
     self.goodbye_message ||= _("Thank you for your answers!")
   rescue
     true
+  end
+
+  def collects_respondent_in_at_most_one_question
+    if self.questions.select(&:collects_respondent).length > 1
+      errors.add(:questions, " cannot collect respondent in more than one question")
+    end
   end
 end

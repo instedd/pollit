@@ -39,6 +39,13 @@ describe Poll do
     it "must require questions if specified" do
       Poll.make(:questions => []).should be_invalid
     end
+
+    it "cannot have more than one question that collects respondent phone" do
+      Poll.make(:questions => [
+        Question.make(:text, collects_respondent: true),
+        Question.make(:text, collects_respondent: true)
+      ]).should be_invalid
+    end
   end
 
   context "parsing google form" do

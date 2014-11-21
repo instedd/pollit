@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140416183950) do
+ActiveRecord::Schema.define(:version => 20141121191956) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20140416183950) do
     t.integer  "numeric_min"
     t.string   "field_name"
     t.integer  "position"
+    t.boolean  "collects_respondent", :default => false
   end
 
   create_table "respondents", :force => true do |t|

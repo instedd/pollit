@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -26,7 +26,7 @@ class Question < ActiveRecord::Base
   validates :position, :presence => true
   validates :options, :presence => true, :if => :kind_options?
   validates :message, :length => {:maximum => 140}
-  
+
   validate  :kind_supported
 
   validates_numericality_of :numeric_min, :only_integer => true, :if => lambda{|q| q.kind_numeric? && q.numeric_min }
@@ -43,7 +43,7 @@ class Question < ActiveRecord::Base
       "#{title} #{numeric_min}-#{numeric_max}"
     elsif kind_options?
       opts = []
-      options.each_with_index do |opt,idx| 
+      options.each_with_index do |opt,idx|
         opts << "#{OptionsIndices[idx]}-#{opt}"
       end
       "#{title} #{opts.join(' ')}"

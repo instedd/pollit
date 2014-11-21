@@ -112,11 +112,12 @@ Poll.blueprint(:with_numeric_questions) do
 end
 
 Question.blueprint do
-  title         {Sham.title}
-  description   {Sham.description}
-  field_name    {"entry.0"}
-  position      {1}
-  kind          {:text}
+  title               {Sham.title}
+  description         {Sham.description}
+  field_name          {"entry.0"}
+  position            {1}
+  kind                {:text}
+  collects_respondent {false}
 end
 
 Question.blueprint(:text) do

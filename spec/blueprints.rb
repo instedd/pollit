@@ -23,7 +23,7 @@ module Sham
   def self.title        ; Faker::Lorem.words.join(' ') ; end
   def self.question     ; "#{Faker::Lorem.words.join(' ')}?" ; end
   def self.response     ; Faker::Lorem.words.join(' ') ; end
-  def self.description  ; Faker::Lorem.paragraph ; end
+  def self.description  ; Faker::Lorem.paragraph.first(100) ; end
   def self.email        ; Faker::Internet.email ; end
   def self.url          ; "http://#{Faker::Internet.domain_name}" ; end
   def self.password     ; rand(36**8).to_s(36) ; end

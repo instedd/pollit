@@ -20,8 +20,8 @@ require 'rvm/capistrano'
 set :rvm_ruby_string, '1.9.3'
 
 set :application, "pollit"
-set :repository,  "https://bitbucket.org/instedd/pollit"
-set :scm, :mercurial
+set :repository,  "https://github.com/instedd/pollit"
+set :scm, :git
 set :deploy_via, :remote_cache
 set :user, 'ubuntu'
 set :group, 'ubuntu'

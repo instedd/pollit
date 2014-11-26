@@ -129,3 +129,32 @@ label.placeholder {
     }
   }
 }
+
+#form-editor {
+  .collects-respondent-hint {
+    display: none;
+    font-size: 12px;
+    font-weight: bold;
+    color: #555555;
+    margin-left: 20px;
+    padding-left: 20px;
+    height: 20px;
+    background: image-url("phone.png") no-repeat scroll 0 0 transparent;
+  }
+
+  .hint {
+    min-height: 20px;
+    display: inline-block;
+    float: left;
+  }
+
+  .feditor.collects-respondent {
+    .collects-respondent-hint {
+      display: inline-block;
+      float: right;
+    }
+    .hint {
+      width: 300px;
+    }
+  }
+}

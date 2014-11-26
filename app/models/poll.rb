@@ -175,7 +175,7 @@ class Poll < ActiveRecord::Base
   end
 
   def collects_respondent_in_at_most_one_question
-    if self.questions.select(&:collects_respondent).length > 1
+    if self.questions.select{ |q| !q.marked_for_destruction? && q.collects_respondent }.length > 1
       errors.add(:questions, " cannot collect respondent in more than one question")
     end
   end

@@ -74,12 +74,16 @@ class PollsController < ApplicationController
 
   def import_form
     begin
+      index, previous_respondent_question = params[:poll][:questions_attributes].find{|index, data| data[:collects_respondent] == '1'}
       attrs = params[:poll].merge(:questions_attributes => {})
       imported = Poll.new attrs
       imported.owner_id = current_user.id
       imported.questions = []
       imported.parse_form
       imported.generate_unique_title! if params[:poll][:title].blank?
+
+      respondent_question = imported.questions.find{|q| q.title.strip == previous_respondent_question[:title].strip} if previous_respondent_question
+      respondent_question.collects_respondent = true if respondent_question
 
       @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
       @questions = imported.questions

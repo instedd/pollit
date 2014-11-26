@@ -74,7 +74,7 @@ class PollsController < ApplicationController
 
   def import_form
     begin
-      index, previous_respondent_question = params[:poll][:questions_attributes].find{|index, data| data[:collects_respondent] == '1'}
+      index, previous_respondent_question = params[:poll][:questions_attributes].find{|index, data| data[:collects_respondent] == '1'} rescue nil
       attrs = params[:poll].merge(:questions_attributes => {})
       imported = Poll.new attrs
       imported.owner_id = current_user.id

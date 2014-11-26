@@ -7,7 +7,7 @@ gem 'fancybox-rails'
 gem 'haml-rails'
 gem 'sass'
 gem 'devise'
-gem 'enumerated_attribute'
+gem 'enumerated_attribute', :git => "https://github.com/jeffp/enumerated_attribute.git"
 gem 'nokogiri'
 gem 'hpricot'
 gem 'rest-client'

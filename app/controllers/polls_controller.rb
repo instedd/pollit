@@ -88,6 +88,7 @@ class PollsController < ApplicationController
       @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
       @questions = imported.questions
     rescue Exception => error
+      logger.error "Error importing form: #{error.inspect}\n#{error.backtrace.join("\n")}"
       @error = error
     ensure
       if request.xhr?

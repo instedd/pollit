@@ -66,7 +66,7 @@ end
 
 before "deploy:start", "deploy:migrate"
 before "deploy:restart", "deploy:migrate"
-after "deploy:update_code", "deploy:symlink_configs"
+before "deploy:assets:precompile", "deploy:symlink_configs"
 
 after "deploy:update", "foreman:export"    # Export foreman scripts
 after "deploy:restart", "foreman:restart"   # Restart application scripts

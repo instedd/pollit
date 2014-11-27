@@ -23,6 +23,7 @@ gem 'ice_cube'
 gem 'recurring_select', git: "https://github.com/instedd/recurring_select", branch: 'instedd'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'foreman'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -17,7 +17,7 @@
   %hr
 
   - if f.object.kind_text?
-    = f.check_box :collects_respondent, :class => 'feditor-capture-respondent', :title => "Foobar", :type => "checkbox"
+    = f.check_box :collects_respondent, :class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox"
     Stores sender phone number
 
   - if f.object.kind_numeric?

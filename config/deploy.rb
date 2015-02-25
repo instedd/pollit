@@ -17,7 +17,7 @@
 
 require 'bundler/capistrano'
 require 'rvm/capistrano'
-set :rvm_ruby_string, '1.9.3'
+set :rvm_ruby_string, '2.0.0'
 
 set :application, "pollit"
 set :repository,  "https://github.com/instedd/pollit"
@@ -35,7 +35,7 @@ namespace :deploy do
   end
 
   task :symlink_configs, :roles => :app do
-    %W(nuntium database).each do |file|
+    %W(nuntium database guisso hub).each do |file|
       run "ln -nfs #{shared_path}/#{file}.yml #{release_path}/config/"
     end
   end

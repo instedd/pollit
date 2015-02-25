@@ -12,7 +12,7 @@
   %hr/
   %h2.gray Ready to get started?
   %p.w60
-    = _("Sign up for your %{account} and begin taking the pulse of your people today.") % {:account => (link_to _('free Pollit account'), new_user_registration_path)}
+    = _("Sign up for your %{account} and begin taking the pulse of your people today.") % {:account => (link_to _('free Pollit account'), guisso_sign_up_path_for(:user))}
   %p.w60
     = _("Need a little more info? Visit our %{help} or subscribe to our %{discussion}, where we'll be happy to answer any questions you might have and get you going with Pollit!") % {:help => (link_to _('Help page'), help_path), :discussion => (link_to _('user discussion group'), Pollit::Application.config.user_group_url, :target=>"_blank")}
 .clear

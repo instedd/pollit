@@ -54,18 +54,18 @@
                 %br
                 .container
                   %ul
-                    %li= link_to _("Settings"), edit_user_registration_path
+                    %li= link_to _("Settings"), guisso_settings_path(:user)
                     %li= link_to _("Report a bug"), "mailto:#{Pollit::Application.config.report_bug}?subject=[Pollit]%20Bug%20report"
                   %hr
                   %ul
-                    %li= link_to _("Sign Out"), destroy_user_session_path
+                    %li= link_to _("Sign Out"), destroy_session_path(:user)
             %li
-              = link_to '', edit_user_registration_path, :class => 'fsettings'
+              = link_to '', guisso_settings_path(:user), :class => 'fsettings'
           - else
             %li
-              = link_to _("Create account"), new_user_registration_path, :class => 'fedit'
+              = link_to _("Create account"), guisso_sign_up_path_for(:user), :class => 'fedit'
             %li
-              = link_to _("Log in"), new_user_session_path, :class => 'fuser'
+              = link_to _("Log in"), guisso_sign_in_path_for(:user), :class => 'fuser'
       #header
         .left
           = link_to home_path do

@@ -4,9 +4,9 @@
   = image_tag "devices.png", :class => 'devices left'
   .left.w30
     %p.android
-      = _("Got 'Droid and an Internet connection? Download and install a %{smallapp} on your Android phone, then %{register} to get started. Next, sign in to your Google account to begin creating forms. Don't have a Google account? Sign up for a free account %{here}.") % {:smallapp => link_to(_('small app'), Pollit::Application.config.android_gateway_url), :register => link_to(_('sign up for a free Pollit account'), new_user_registration_path), :here => link_to(_('here'), 'http://accounts.google.com', :target => '_blank')}
+      = _("Got 'Droid and an Internet connection? Download and install a %{smallapp} on your Android phone, then %{register} to get started. Next, sign in to your Google account to begin creating forms. Don't have a Google account? Sign up for a free account %{here}.") % {:smallapp => link_to(_('small app'), Pollit::Application.config.android_gateway_url), :register => link_to(_('sign up for a free Pollit account'), guisso_sign_up_path_for(:user)), :here => link_to(_('here'), 'http://accounts.google.com', :target => '_blank')}
     %p.pc
-      = _("No 'Droid? No problem! Our small Nuntium app for PC or Mac bridges the gap between Pollit and your mobile phone. Once you %{register} and create your poll, Pollit takes care of the rest.") % {:register => link_to(_('sign up for your free Pollit account'), new_user_registration_path)}
+      = _("No 'Droid? No problem! Our small Nuntium app for PC or Mac bridges the gap between Pollit and your mobile phone. Once you %{register} and create your poll, Pollit takes care of the rest.") % {:register => link_to(_('sign up for your free Pollit account'), guisso_sign_up_path_for(:user))}
   .clear
   .LocalGatewayBox.box.plain.white.left
     .LocalGatewayLogo.left
@@ -14,6 +14,6 @@
       will manage the flow of incoming and outgoing messages,
       %a{:href => "http://instedd.org/technologies/nuntium/", :target => "_blank"} learn More
       %a .
-    = link_to _("Try it now!"), new_user_registration_path, :class => 'button white right'
+    = link_to _("Try it now!"), guisso_sign_up_path_for(:user), :class => 'button white right'
     .LocalGatewayArrow.right
 .clear

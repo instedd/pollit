@@ -19,11 +19,11 @@
   - else
     %p
       Get started:
-      = link_button_to _('Create an account'), new_user_registration_path, :class => "orange"
+      = link_button_to _('Create an account'), guisso_sign_up_path_for(:user), :class => "orange"
     %p
     %p
       Already a member?
-      = link_to _('Log in'), new_user_session_path
+      = link_to _('Log in'), guisso_sign_in_path_for(:user)
   .clear
   / #container
   .home-middle-bar
@@ -147,7 +147,7 @@
 
       %p
         %span Step 1
-        =link_button_to _('Create an account'), new_user_registration_path, :class => 'fedit'
+        =link_button_to _('Create an account'), guisso_sign_up_path_for(:user), :class => 'fedit'
         and log in
       %hr
 

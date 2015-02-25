@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'fancybox-rails'
 gem 'haml-rails'
 gem 'sass'
-gem 'devise'
+gem 'devise', '1.5.4'
 gem 'enumerated_attribute', :git => "https://github.com/jeffp/enumerated_attribute.git"
 gem 'nokogiri'
 gem 'hpricot'
@@ -24,6 +24,14 @@ gem 'recurring_select', git: "https://github.com/instedd/recurring_select", bran
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'foreman'
+
+gem "omniauth"
+gem "omniauth-openid"
+gem 'ruby-openid'
+gem 'rack-oauth2'
+gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'master'
+gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

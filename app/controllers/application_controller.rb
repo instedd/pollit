@@ -16,7 +16,6 @@
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
 class ApplicationController < ActionController::Base
-  include BreadcrumbsOnRails::ControllerMixin
 
   protect_from_forgery
 

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.21'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'fancybox-rails'
@@ -13,7 +13,7 @@ gem 'hpricot'
 gem 'rest-client'
 gem 'acts_as_list'
 gem 'nuntium_api', :require => 'nuntium'
-gem 'breadcrumbs_on_rails'
+gem 'breadcrumbs_on_rails', "~> 2.3"
 gem 'cancan', "~> 1.6.7"
 gem 'kaminari'
 gem 'fast_gettext'
@@ -39,9 +39,6 @@ group :test do
   gem 'machinist'
   gem 'mocha'
   gem 'webmock'
-  gem 'ci_reporter'
-  gem 'cover_me'
-  gem 'rcov'
 end
 
 group :development do
@@ -55,8 +52,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'pry'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'faker'
 end

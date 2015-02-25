@@ -23,6 +23,8 @@ Pollit::Application.routes.draw do
       get 'users/registrations/success', :to => 'users/registrations#success'
     end
 
+    guisso_for :user
+
     get  'createAccount', :to => redirect('/users/sign_up')
     get  'discuss',       :to => redirect(Pollit::Application.config.user_group_url)
     get  'backlog',       :to => redirect(Pollit::Application.config.backlog_url)

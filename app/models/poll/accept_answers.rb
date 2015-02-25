@@ -92,7 +92,14 @@ module Poll::AcceptAnswers
   def create_answer(question, respondent, response)
     attributes = { :question => question, :respondent => respondent, :response => response }
     append_answer_attributes(attributes)
-    Answer.create attributes
+    answer = Answer.create! attributes
+    notify_answer_to_hub(answer)
+  rescue => ex
+    Rails.logger.error "Error creating answer with attributes #{attributes} for poll #{self}: #{ex}"
+  end
+
+  def notify_answer_to_hub(answer)
+    Delayed::Job.enqueue NotifyAnswerJob.new(answer.id)
   end
 
   def invalid_reply_options

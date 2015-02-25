@@ -17,6 +17,10 @@
 
 Pollit::Application.routes.draw do
 
+  namespace "api" do
+    resources :polls, :only => [:index, :show]
+  end
+
   scope "(:locale)", :locale => /#{Locales.available.keys.join('|')}/ do
 
     devise_for :users, :controllers => {:registrations => 'users/registrations', omniauth_callbacks: "omniauth_callbacks" } do

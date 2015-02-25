@@ -31,6 +31,7 @@ gem 'ruby-openid'
 gem 'rack-oauth2'
 gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'master'
 gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
+gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 
 
 # Gems used only for assets and not required

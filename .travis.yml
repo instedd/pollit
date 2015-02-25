@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+- 2.0.0
+before_script:
+- bundle exec rake db:setup
+script:
+- bundle exec rspec
+notifications:
+  slack:
+    secure: XY15YsaBiZbWt/YPZ4jP4vOgZU+P7DfsozGAYyxHjumfuUwZXBI2sW5EMtILVImSXPhKzoKzV5GOm72Pye6ei0YTBlTZeZ1i1MH+jC3wK2wXInrRqQLhYy+bnSdt5J6GLt3jF0WBoNpabU9U5Zmgvbq9LF8QbbjmFE5YQmJyHao=

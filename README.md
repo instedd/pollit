@@ -1,7 +1,9 @@
 Pollit
 ======
 
-Pollit helps you use the ease of text messaging to conduct surveys reaching your audience at their convenience. It will guide each participant step by step through your survey, collecting the results in real time. Using text messaging allows you to scale the number of people you reach and lets them answer anytime, anywhere.
+[![Build Status](https://travis-ci.org/instedd/pollit.svg)](https://travis-ci.org/instedd/pollit)
+
+[Pollit](pollit.instedd.org) helps you use the ease of text messaging to conduct surveys reaching your audience at their convenience. It will guide each participant step by step through your survey, collecting the results in real time. Using text messaging allows you to scale the number of people you reach and lets them answer anytime, anywhere.
 
 Installation
 ============

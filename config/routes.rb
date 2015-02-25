@@ -19,7 +19,7 @@ Pollit::Application.routes.draw do
 
   scope "(:locale)", :locale => /#{Locales.available.keys.join('|')}/ do
 
-    devise_for :users, :controllers => {:registrations => 'users/registrations' } do
+    devise_for :users, :controllers => {:registrations => 'users/registrations', omniauth_callbacks: "omniauth_callbacks" } do
       get 'users/registrations/success', :to => 'users/registrations#success'
     end
 

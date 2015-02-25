@@ -5,3 +5,4 @@ tmp/
 .sass-cache/
 .hg/
 coverage.data
+config/guisso.yml

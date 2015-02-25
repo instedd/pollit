@@ -99,6 +99,7 @@ module Poll::AcceptAnswers
   end
 
   def notify_answer_to_hub(answer)
+    return if not HubClient.current.enabled?
     Delayed::Job.enqueue NotifyAnswerJob.new(answer.id)
   end
 

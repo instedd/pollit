@@ -10,17 +10,10 @@ class NotifyAnswerJob < Struct.new(:answer_id)
   private
 
   def data_for(answer)
-    {
-      id: answer.id,
+    answer.for_api.merge({
       poll_id: answer.question.poll.id,
-      poll_title: answer.question.poll.title,
-      question_id: answer.question.id,
-      question_title: answer.question.title,
-      respondent_phone: answer.respondent.phone,
-      occurrence: answer.occurrence,
-      timestamp: answer.created_at,
-      response: answer.response
-    }
+      poll_title: answer.question.poll.title
+    })
   end
 
 end

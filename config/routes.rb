@@ -18,7 +18,11 @@
 Pollit::Application.routes.draw do
 
   namespace "api" do
-    resources :polls, :only => [:index, :show]
+    resources :polls, :only => [:index, :show] do
+      resources :questions,   :only => [:index, :show]
+      resources :respondents, :only => [:index, :show]
+      resources :answers,     :only => [:index, :show]
+    end
   end
 
   scope "(:locale)", :locale => /#{Locales.available.keys.join('|')}/ do

@@ -28,7 +28,7 @@ module Sham
   def self.url          ; "http://#{Faker::Internet.domain_name}" ; end
   def self.password     ; rand(36**8).to_s(36) ; end
   def self.name         ; Faker::Lorem.words.first ; end
-  def self.phone        ; "sms://#{rand(10000)}" ; end
+  def self.phone        ; "sms://#{rand(1000000)}" ; end
   def self.ticket_code  ; rand(9999) ; end
 end
 
@@ -162,9 +162,10 @@ Respondent.blueprint do
 end
 
 Answer.blueprint do
-  question      {Question.make!}
-  respondent    { object.respondent || Respondent.make! }
-  response      {Sham.response}
+  question      { Question.make!(poll: object.respondent.try(:poll) || Poll.make!) }
+  respondent    { object.respondent || Respondent.make!(poll: object.question.poll) }
+  response      { Sham.response }
+  occurrence    { object.respondent.poll.try(:current_occurrence) }
 end
 
 class ActiveRecord::Base

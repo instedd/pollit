@@ -15,23 +15,30 @@
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
-class Answer < ActiveRecord::Base
-  belongs_to :respondent
-  belongs_to :question
+class Api::RespondentsController < ApiController
 
-  validates :respondent_id, :presence => true, :uniqueness => {:scope => [:question_id, :occurrence]}
-  validates :question_id, :presence => true
-  validates :response, :presence => true
+  before_filter :load_poll
 
-  def for_api
-    {
-      id: self.id,
-      question_id: self.question.id,
-      question_title: self.question.title,
-      respondent_phone: self.respondent.phone,
-      occurrence: self.occurrence,
-      timestamp: self.created_at,
-      response: self.response
-    }
+  def index
+    @respondents = @poll.respondents
+    respond_to do |format|
+      format.xml   { render :xml => @respondents  }
+      format.json  { render :json => @respondents }
+    end
   end
+
+  def show
+    @respondent = @poll.respondents.find(params[:id])
+    respond_to do |format|
+      format.xml   { render :xml => @respondent  }
+      format.json  { render :json => @respondent }
+    end
+  end
+
+  private
+
+  def load_poll
+    @poll = current_user.polls.find(params[:poll_id])
+  end
+
 end

@@ -21,6 +21,7 @@ Pollit::Application.routes.draw do
     resources :polls, :only => [:index, :show] do
       resources :questions,   :only => [:index, :show]
       resources :respondents, :only => [:index, :show]
+      resources :answers,     :only => [:index, :show]
     end
   end
 

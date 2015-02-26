@@ -177,6 +177,18 @@ describe Poll do
       p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
     end
 
+    it "should notify hub when answer is received" do
+      p = Poll.make!(:with_text_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      r = p.respondents.first
+      p.accept_answer("yes", r)
+
+      expect { p.accept_answer("lalala", r) }.to change(Delayed::Job, :count).by(1)
+      YAML.load(Delayed::Job.first.handler).answer_id.should eq(r.reload.answers.last.id)
+    end
+
     it "should send next question if option response is valid" do
       p = Poll.make!(:with_option_questions)
       p.stubs(:send_messages).returns(true)

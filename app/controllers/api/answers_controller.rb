@@ -22,16 +22,16 @@ class Api::AnswersController < ApiController
 
   def index
     respond_to do |format|
-      format.xml   { render :xml => @answers  }
-      format.json  { render :json => @answers }
+      format.xml   { render :xml => @answers.map(&:for_api)  }
+      format.json  { render :json => @answers.map(&:for_api) }
     end
   end
 
   def show
     @answer = @poll.answers.find(params[:id])
     respond_to do |format|
-      format.xml   { render :xml => @answer  }
-      format.json  { render :json => @answer }
+      format.xml   { render :xml => @answer.for_api  }
+      format.json  { render :json => @answer.for_api }
     end
   end
 
@@ -42,12 +42,11 @@ class Api::AnswersController < ApiController
   end
 
   def load_answers
-    @answers = @poll.answers
+    @answers = @poll.answers.joins(:respondent).includes(:question)
     @answers = @answers.where(occurrence: params[:occurrence])       unless params[:occurrence].blank?
     @answers = @answers.where(question_id: params[:question_id])     unless params[:question_id].blank?
     @answers = @answers.where(respondent_id: params[:respondent_id]) unless params[:respondent_id].blank?
-    @answers = @answers.joins(:respondent)\
-      .where('respondents.phone' => params[:respondent_phone]) unless params[:respondent_phone].blank?
+    @answers = @answers.where('respondents.phone' => params[:respondent_phone]) unless params[:respondent_phone].blank?
   end
 
 end

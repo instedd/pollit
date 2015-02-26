@@ -22,4 +22,16 @@ class Answer < ActiveRecord::Base
   validates :respondent_id, :presence => true, :uniqueness => {:scope => [:question_id, :occurrence]}
   validates :question_id, :presence => true
   validates :response, :presence => true
+
+  def for_api
+    {
+      id: self.id,
+      question_id: self.question.id,
+      question_title: self.question.title,
+      respondent_phone: self.respondent.phone,
+      occurrence: self.occurrence,
+      timestamp: self.created_at,
+      response: self.response
+    }
+  end
 end

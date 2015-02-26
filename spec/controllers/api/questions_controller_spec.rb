@@ -29,7 +29,7 @@ describe Api::QuestionsController do
     Question.make!(2, poll: another_poll)
 
     get :index, poll_id: poll.id, format: :json
-    assigns(:questions).should =~ poll.reload.questions
+    assigns(:questions).to_a.should =~ poll.reload.questions.to_a
     response.should be_success
   end
 

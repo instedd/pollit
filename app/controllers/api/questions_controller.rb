@@ -20,7 +20,7 @@ class Api::QuestionsController < ApiController
   before_filter :load_poll
 
   def index
-    @questions = @poll.questions
+    @questions = @poll.questions.order(:position)
     respond_to do |format|
       format.xml   { render :xml => @questions  }
       format.json  { render :json => @questions }

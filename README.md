@@ -14,4 +14,5 @@ Simply clone the repository and fill the following settings file before starting
     config/nuntium.yml
     config/database.yml
     config/guisso.yml
+    config/hub.yml
 

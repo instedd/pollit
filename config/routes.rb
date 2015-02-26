@@ -17,11 +17,17 @@
 
 Pollit::Application.routes.draw do
 
+  namespace "api" do
+    resources :polls, :only => [:index, :show]
+  end
+
   scope "(:locale)", :locale => /#{Locales.available.keys.join('|')}/ do
 
     devise_for :users, :controllers => {:registrations => 'users/registrations', omniauth_callbacks: "omniauth_callbacks" } do
       get 'users/registrations/success', :to => 'users/registrations#success'
     end
+
+    guisso_for :user
 
     get  'createAccount', :to => redirect('/users/sign_up')
     get  'discuss',       :to => redirect(Pollit::Application.config.user_group_url)

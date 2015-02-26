@@ -6,3 +6,4 @@ tmp/
 .hg/
 coverage.data
 config/guisso.yml
+config/hub.yml

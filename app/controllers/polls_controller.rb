@@ -36,7 +36,7 @@ class PollsController < ApplicationController
   end
 
   def new
-    @poll = Poll.new
+    @poll = Poll.new welcome_message: _('Send YES to agree to participate in a poll')
     params[:wizard] = true
   end
 

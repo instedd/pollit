@@ -18,7 +18,7 @@
 module Respondent::Pusher
 
   def push_answers
-    RestClient.post poll.post_url, answers_form_data
+    RestClient.post poll.post_url, answers_form_data(poll.current_occurrence)
     set_pushed_status(:succeeded, DateTime.now.utc)
     true
   rescue
@@ -28,9 +28,9 @@ module Respondent::Pusher
 
   private
 
-  def answers_form_data
+  def answers_form_data(occurrence=nil)
     data = {'pageNumber' => 0, 'submit' => ''}
-    answers.includes(:question).each do |answer|
+    answers.on_occurrence(occurrence).includes(:question).each do |answer|
       data[answer.question.field_name] = answer.response
     end
     data[poll.respondent_question.field_name] = self.unprefixed_phone if poll.respondent_question

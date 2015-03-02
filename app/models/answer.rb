@@ -23,6 +23,8 @@ class Answer < ActiveRecord::Base
   validates :question_id, :presence => true
   validates :response, :presence => true
 
+  scope :on_occurrence, -> (occurrence){ where(occurrence: occurrence) }
+
   def for_api
     {
       id: self.id,

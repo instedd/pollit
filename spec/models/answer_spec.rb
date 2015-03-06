@@ -43,4 +43,20 @@ describe Answer do
     Answer.make(:respondent => respondent, :question => question, :occurrence => occurrence).should be_invalid
     Answer.make(:respondent => respondent, :question => question, :occurrence => occurrence + 1.day).should be_valid
   end
+
+  it "can be formatted for api" do
+    respondent = Respondent.make!(phone: 'sms://+9991000')
+    question = Question.make!(title: 'A question?')
+    answer = Answer.make!(response: 'A response', occurrence: DateTime.new(2010,1,1), question: question, respondent: respondent)
+
+    answer.for_api.should eq({
+      id: answer.id,
+      question_id: question.id,
+      question_title: 'A question?',
+      response: 'A response',
+      respondent_phone: '9991000',
+      occurrence: DateTime.new(2010,1,1),
+      timestamp: answer.created_at
+    })
+  end
 end

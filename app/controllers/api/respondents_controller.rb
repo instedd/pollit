@@ -22,16 +22,16 @@ class Api::RespondentsController < ApiController
   def index
     @respondents = @poll.respondents
     respond_to do |format|
-      format.xml   { render :xml => @respondents  }
-      format.json  { render :json => @respondents }
+      format.xml   { render :xml => @respondents.map(&:for_api)  }
+      format.json  { render :json => @respondents.map(&:for_api) }
     end
   end
 
   def show
     @respondent = @poll.respondents.find(params[:id])
     respond_to do |format|
-      format.xml   { render :xml => @respondent  }
-      format.json  { render :json => @respondent }
+      format.xml   { render :xml => @respondent.for_api  }
+      format.json  { render :json => @respondent.for_api }
     end
   end
 

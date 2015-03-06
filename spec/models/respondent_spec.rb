@@ -59,6 +59,13 @@ describe Respondent do
     Respondent.new.current_question_sent.should be_false
   end
 
+  it "should remove prefix from phone number for api" do
+    Respondent.new(phone: 'sms://9991000').for_api["phone"].should eq('9991000')
+  end
+
+  it "should remove plus from phone number for api" do
+    Respondent.new(phone: 'sms://+9991000').for_api["phone"].should eq('9991000')
+  end
 
   RSpec.shared_examples "can push answers to google forms" do
 

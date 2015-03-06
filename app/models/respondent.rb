@@ -34,4 +34,12 @@ class Respondent < ActiveRecord::Base
     return nil if not phone
     phone.gsub(/^sms:\/\//, '')
   end
+
+  def api_phone
+    unprefixed_phone.try(:gsub, /^\+/, '')
+  end
+
+  def for_api
+    self.as_json.merge("phone" => api_phone)
+  end
 end

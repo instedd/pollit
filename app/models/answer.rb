@@ -30,7 +30,7 @@ class Answer < ActiveRecord::Base
       id: self.id,
       question_id: self.question.id,
       question_title: self.question.title,
-      respondent_phone: self.respondent.phone,
+      respondent_phone: self.respondent.api_phone,
       occurrence: self.occurrence,
       timestamp: self.created_at,
       response: self.response

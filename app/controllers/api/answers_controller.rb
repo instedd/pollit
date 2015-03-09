@@ -43,10 +43,11 @@ class Api::AnswersController < ApiController
 
   def load_answers
     @answers = @poll.answers.joins(:respondent).includes(:question)
-    @answers = @answers.where(occurrence: params[:occurrence])       unless params[:occurrence].blank?
-    @answers = @answers.where(question_id: params[:question_id])     unless params[:question_id].blank?
-    @answers = @answers.where(respondent_id: params[:respondent_id]) unless params[:respondent_id].blank?
-    @answers = @answers.where('respondents.phone' => params[:respondent_phone]) unless params[:respondent_phone].blank?
+    @answers = @answers.where('respondents.phone' => params[:respondent_phone].ensure_protocol) unless params[:respondent_phone].blank?
+
+    %w(occurrence question_id respondent_id).each do |field|
+      @answers = @answers.where(field => params[field]) unless params[field].blank?
+    end
   end
 
 end

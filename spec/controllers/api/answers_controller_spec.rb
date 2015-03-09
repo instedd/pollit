@@ -74,13 +74,25 @@ describe Api::AnswersController do
     end
 
     it "should list answers by respondent phone" do
-      respondent = Respondent.make!(poll: poll)
+      respondent = Respondent.make!(poll: poll, phone: 'sms://9991000')
       other_respondent = Respondent.make!(poll: poll)
 
       answers = poll.questions.map { |q| Answer.make!(question: q, respondent: respondent) }
       poll.questions.map { |q| Answer.make!(question: q, respondent: other_respondent) }
 
-      get :index, poll_id: poll.id, respondent_phone: respondent.phone, format: :json
+      get :index, poll_id: poll.id, respondent_phone: 'sms://9991000', format: :json
+      assigns(:answers).to_a.should =~ answers
+      response.should be_success
+    end
+
+    it "should list answers by respondent phone without protocol" do
+      respondent = Respondent.make!(poll: poll, phone: 'sms://9991000')
+      other_respondent = Respondent.make!(poll: poll)
+
+      answers = poll.questions.map { |q| Answer.make!(question: q, respondent: respondent) }
+      poll.questions.map { |q| Answer.make!(question: q, respondent: other_respondent) }
+
+      get :index, poll_id: poll.id, respondent_phone: '9991000', format: :json
       assigns(:answers).to_a.should =~ answers
       response.should be_success
     end

@@ -23,7 +23,7 @@ gem 'ice_cube'
 gem 'recurring_select', git: "https://github.com/instedd/recurring_select", branch: 'instedd'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
-gem 'foreman'
+gem 'foreman', '0.64.0'
 
 gem "omniauth"
 gem "omniauth-openid"

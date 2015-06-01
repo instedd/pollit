@@ -156,7 +156,7 @@ describe Poll do
     end
 
     it "should set next question if confirmation word is similar" do
-      p = Poll.make!(:with_questions, :confirmation_word => "Sí")
+      p = Poll.make!(:with_questions, :confirmation_words => ["Sí"])
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -514,7 +514,7 @@ describe Poll do
         messages[0][:to].should eq(r1.phone)
         messages[0][:body].should eq(poll.welcome_message)
 
-        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer(poll.confirmation_words.first, r1).should eq(q1.message)
         poll.accept_answer("answer to q1", r1).should eq(q2.message)
 
         messages.clear
@@ -547,7 +547,7 @@ describe Poll do
         messages[0][:to].should eq(r1.phone)
         messages[0][:body].should eq(poll.welcome_message)
 
-        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer(poll.confirmation_words.first, r1).should eq(q1.message)
         poll.accept_answer("answer to q1", r1).should eq(q2.message)
 
         messages.clear
@@ -597,7 +597,7 @@ describe Poll do
         messages[0][:to].should eq(r1.phone)
         messages[0][:body].should eq(poll.welcome_message)
 
-        poll.accept_answer(poll.confirmation_word, r1).should eq(q1.message)
+        poll.accept_answer(poll.confirmation_words.first, r1).should eq(q1.message)
         poll.accept_answer("answer for q1 o1", r1).should eq(q2.message)
         poll.accept_answer("answer for q2 o1", r1).should eq(poll.goodbye_message)
 

@@ -22,7 +22,7 @@ module Poll::AcceptAnswers
       return nil if respondent.current_question_id.nil?
       current_question = questions.find(respondent.current_question_id)
       return self.send("accept_#{current_question.kind}_answer", response, respondent) if current_question.kind_valid?
-    elsif normalize(response) == normalize(confirmation_word)
+    elsif confirmation_words.map{|w| normalize(w)}.include?(normalize(response))
       respondent.confirmed = true
       return next_question_for respondent
     end

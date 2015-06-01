@@ -17,7 +17,6 @@
 
 class PollsController < ApplicationController
 
-
   before_filter :authenticate_user!
   before_filter :set_steps
 

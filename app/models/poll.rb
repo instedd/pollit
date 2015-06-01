@@ -19,19 +19,23 @@ class Poll < ActiveRecord::Base
   MESSAGE_FROM = "sms://0"
 
   belongs_to :owner, :class_name => User.name
+
   has_many :questions, :order => "position", :dependent => :destroy
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents, :order => 'created_at'
+
   has_one :channel, :dependent => :destroy
 
   has_recurrence :recurrence
+
+  serialize :confirmation_words, Array
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true
   validates :form_url, :presence => true
   validates :welcome_message, :presence => true, :length => {:maximum => 140}
   validates :post_url, :presence => true
-  validates :confirmation_word, :presence => true
+  validates :confirmation_words_text, :presence => true
   validates :goodbye_message, :presence => true, :length => {:maximum => 140}
   validates :questions, :presence => true
 
@@ -46,6 +50,14 @@ class Poll < ActiveRecord::Base
   include Parser
   include AcceptAnswers
   include RecurrenceStrategy
+
+  def confirmation_words_text
+    self.confirmation_words.join(', ')
+  end
+
+  def confirmation_words_text=(value)
+    self.confirmation_words = value.split(',').map(&:strip)
+  end
 
   def generate_unique_title!
     return unless self.title && self.owner_id
@@ -167,9 +179,9 @@ class Poll < ActiveRecord::Base
   end
 
   def default_values
-    self.confirmation_word ||= _("Yes")
-    self.welcome_message ||= _("Answer 'yes' if you want to participate in this poll.")
-    self.goodbye_message ||= _("Thank you for your answers!")
+    self.confirmation_words   = [_("Yes")] if self.confirmation_words.blank?
+    self.welcome_message   ||= _("Answer 'yes' if you want to participate in this poll.")
+    self.goodbye_message   ||= _("Thank you for your answers!")
   rescue
     true
   end

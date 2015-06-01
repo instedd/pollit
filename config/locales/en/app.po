@@ -1,0 +1,2 @@
+msgid "Poll|Confirmation words text"
+msgstr "Confirmation words"

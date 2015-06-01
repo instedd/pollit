@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150227193111) do
+ActiveRecord::Schema.define(:version => 20150601155534) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -66,10 +66,10 @@ ActiveRecord::Schema.define(:version => 20150227193111) do
     t.string   "welcome_message",    :default => "Welcome"
     t.string   "status"
     t.string   "post_url"
-    t.string   "confirmation_word"
     t.string   "goodbye_message"
     t.text     "recurrence"
     t.datetime "current_occurrence"
+    t.text     "confirmation_words"
   end
 
   create_table "questions", :force => true do |t|

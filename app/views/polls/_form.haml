@@ -24,9 +24,12 @@
       %p This message will be sent to all respondents asking them if they agree to participate in the poll
       = f.text_area :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required ux-wajbar w60', :readonly => !@poll.editable?
     .field
-      = f.label :confirmation_word
-      %p Respondents must answer with the confirmation word in order to agree to participate in the poll
-      = f.text_field :confirmation_word, :class => 'w60', :readonly => !@poll.editable?
+      = f.label :confirmation_words_text, "Confirmation words"
+      %p
+        Respondents must answer with any of the confirmation words in order to agree to participate in the poll.
+        %br/
+        You can enter more than one confirmation word by separating them with commas.
+      = f.text_field :confirmation_words_text, :class => 'w60', :readonly => !@poll.editable?
     .field
       = f.label :goodbye_message
       %p This message will be sent to respondents when they complete the poll

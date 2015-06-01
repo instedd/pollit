@@ -35,7 +35,7 @@ describe NuntiumController do
   end
 
   it "should receive confirmation" do
-    p = Poll.make! :with_questions, :confirmation_word => "Yes"
+    p = Poll.make! :with_questions, :confirmation_words => ["Yes"]
     p.start
 
     nuntium_http_login
@@ -43,6 +43,21 @@ describe NuntiumController do
       :channel => p.channel.name,
       :from => p.respondents.first.phone,
       :body => "Yes"
+    }
+
+    @response.body.should eq(p.questions.first.message)
+    p.reload.respondents.first.confirmed.should be_true
+  end
+
+  it "should receive confirmation with multiple confirmation words" do
+    p = Poll.make! :with_questions, :confirmation_words => ["Yes", "Si"]
+    p.start
+
+    nuntium_http_login
+    post :receive_at, {
+      :channel => p.channel.name,
+      :from => p.respondents.first.phone,
+      :body => "Si"
     }
 
     @response.body.should eq(p.questions.first.message)

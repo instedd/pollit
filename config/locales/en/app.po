@@ -1,2 +1,512 @@
+#: app/controllers/answers_controller.rb:22
+msgid "Answers"
+msgstr ""
+
+#: app/controllers/application_controller.rb:57
+#: app/controllers/application_controller.rb:58
+#: app/controllers/channels_controller.rb:71
+msgid "Properties"
+msgstr ""
+
+#: app/controllers/application_controller.rb:57
+#: app/controllers/channels_controller.rb:66
+msgid "Channel"
+msgstr ""
+
+#: app/controllers/application_controller.rb:57
+#: app/controllers/channels_controller.rb:71
+#: app/controllers/respondents_controller.rb:30
+msgid "Respondents"
+msgstr ""
+
+#: app/controllers/application_controller.rb:57
+#: app/controllers/channels_controller.rb:70
+#: app/controllers/channels_controller.rb:79
+msgid "Finish"
+msgstr ""
+
+#: app/controllers/application_controller.rb:67
+#: app/controllers/polls_controller.rb:27
+msgid "Polls"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:58
+msgid "Channel successfully deleted"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:70
+#: app/controllers/channels_controller.rb:71
+#: app/controllers/channels_controller.rb:72
+#: app/controllers/channels_controller.rb:79
+msgid "Choose"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:70
+#: app/controllers/channels_controller.rb:71
+#: app/controllers/channels_controller.rb:79
+msgid "Install"
+msgstr ""
+
+#: app/controllers/channels_controller.rb:70
+#: app/controllers/channels_controller.rb:71
+#: app/controllers/channels_controller.rb:79
+msgid "Connect"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:38
+msgid "Send YES to agree to participate in a poll"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:103
+msgid "Poll %{title} has been deleted"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:112
+msgid "Poll %{title} has been started"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:114
+msgid "Poll %{title} has failed to start"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:120
+msgid "Poll %{title} has been paused"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:122
+msgid "Poll %{title} has failed to pause"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:128
+msgid "Poll %{title} has been resumed"
+msgstr ""
+
+#: app/controllers/polls_controller.rb:130
+msgid "Poll %{title} has failed to resume"
+msgstr ""
+
+#: app/controllers/users/registrations_controller.rb:21
+msgid "you"
+msgstr ""
+
+#: app/helpers/channels_helper.rb:21 app/helpers/channels_helper.rb:31
+#: app/helpers/channels_helper.rb:33
+msgid "Back"
+msgstr ""
+
+#: app/helpers/channels_helper.rb:26
+msgid "Next"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:57
+msgid "%{count} error prohibited this %{model} from being saved:"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:59
+msgid "%{count} errors prohibited this %{model} from being saved:"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:90
+msgid "There are no records to display"
+msgstr ""
+
+#: app/helpers/instedd_app_helper.rb:251
+msgid "The following errors occurred"
+msgstr ""
+
+#: app/models/channel.rb:25
+msgid "poll has already started"
+msgstr ""
+
+#: app/models/channel.rb:63
+msgid "invalid code"
+msgstr ""
+
+#: app/models/model_attributes.rb:20
+msgid "Password"
+msgstr ""
+
+#: app/models/model_attributes.rb:21
+msgid "Password confirmation"
+msgstr ""
+
+#: app/models/model_attributes.rb:22
+msgid "Remember me"
+msgstr ""
+
+#: app/models/model_attributes.rb:23
+msgid "New password"
+msgstr ""
+
+#: app/models/model_attributes.rb:24
+msgid "New password confirmation"
+msgstr ""
+
+#: app/models/model_attributes.rb:25
+msgid "Enter gateway code"
+msgstr ""
+
+#: app/models/model_attributes.rb:26
+msgid "Error: file should be in csv format"
+msgstr ""
+
+#: app/models/model_attributes.rb:27
+msgid "File successfully uploaded"
+msgstr ""
+
+#: app/models/model_attributes.rb:28
+msgid "Add a new phone..."
+msgstr ""
+
+#: app/models/model_attributes.rb:31
+msgid "answer"
+msgstr ""
+
+#: app/models/model_attributes.rb:32
+msgid "Answer|Response"
+msgstr ""
+
+#: app/models/model_attributes.rb:33
+msgid "channel"
+msgstr ""
+
+#: app/models/model_attributes.rb:34
+msgid "Channel|Name"
+msgstr ""
+
+#: app/models/model_attributes.rb:35
+msgid "Channel|Address"
+msgstr ""
+
+#: app/models/model_attributes.rb:36
+msgid "poll"
+msgstr ""
+
+#: app/models/model_attributes.rb:37
+msgid "Poll|Title"
+msgstr ""
+
+#: app/models/model_attributes.rb:38
+msgid "Poll|Description"
+msgstr ""
+
+#: app/models/model_attributes.rb:39
+msgid "Poll|Form url"
+msgstr ""
+
+#: app/models/model_attributes.rb:40
+msgid "Poll|Welcome message"
+msgstr ""
+
+#: app/models/model_attributes.rb:41
+msgid "Poll|Status"
+msgstr ""
+
+#: app/models/model_attributes.rb:42
+msgid "Poll|Post url"
+msgstr ""
+
+#: app/models/model_attributes.rb:43
+msgid "Poll|Confirmation words"
+msgstr "Confirmation words"
+
+#: app/models/model_attributes.rb:44
 msgid "Poll|Confirmation words text"
 msgstr "Confirmation words"
+
+#: app/models/model_attributes.rb:45
+msgid "Poll|Goodbye message"
+msgstr ""
+
+#: app/models/model_attributes.rb:46
+msgid "question"
+msgstr ""
+
+#: app/models/model_attributes.rb:47
+msgid "Question|Title"
+msgstr ""
+
+#: app/models/model_attributes.rb:48
+msgid "Question|Description"
+msgstr ""
+
+#: app/models/model_attributes.rb:49
+msgid "Question|Kind"
+msgstr ""
+
+#: app/models/model_attributes.rb:50
+msgid "Question|Options"
+msgstr ""
+
+#: app/models/model_attributes.rb:51
+msgid "Question|Numeric max"
+msgstr ""
+
+#: app/models/model_attributes.rb:52
+msgid "Question|Numeric min"
+msgstr ""
+
+#: app/models/model_attributes.rb:53
+msgid "Question|Field name"
+msgstr ""
+
+#: app/models/model_attributes.rb:54
+msgid "Question|Position"
+msgstr ""
+
+#: app/models/model_attributes.rb:55
+msgid "respondent"
+msgstr ""
+
+#: app/models/model_attributes.rb:56
+msgid "Respondent|Phone"
+msgstr ""
+
+#: app/models/model_attributes.rb:57
+msgid "Respondent|Pushed at"
+msgstr ""
+
+#: app/models/model_attributes.rb:58
+msgid "Respondent|Pushed status"
+msgstr ""
+
+#: app/models/model_attributes.rb:59
+msgid "Respondent|Confirmed"
+msgstr ""
+
+#: app/models/model_attributes.rb:60
+msgid "Respondent|Current question sent"
+msgstr ""
+
+#: app/models/model_attributes.rb:61
+msgid "user"
+msgstr ""
+
+#: app/models/model_attributes.rb:62
+msgid "User|Email"
+msgstr ""
+
+#: app/models/model_attributes.rb:63
+msgid "User|Encrypted password"
+msgstr ""
+
+#: app/models/model_attributes.rb:64
+msgid "User|Reset password token"
+msgstr ""
+
+#: app/models/model_attributes.rb:65
+msgid "User|Reset password sent at"
+msgstr ""
+
+#: app/models/model_attributes.rb:66
+msgid "User|Remember created at"
+msgstr ""
+
+#: app/models/model_attributes.rb:67
+msgid "User|Sign in count"
+msgstr ""
+
+#: app/models/model_attributes.rb:68
+msgid "User|Current sign in at"
+msgstr ""
+
+#: app/models/model_attributes.rb:69
+msgid "User|Last sign in at"
+msgstr ""
+
+#: app/models/model_attributes.rb:70
+msgid "User|Current sign in ip"
+msgstr ""
+
+#: app/models/model_attributes.rb:71
+msgid "User|Last sign in ip"
+msgstr ""
+
+#: app/models/model_attributes.rb:72
+msgid "User|Name"
+msgstr ""
+
+#: app/models/model_attributes.rb:73
+msgid "User|Google token"
+msgstr ""
+
+#: app/models/model_attributes.rb:74
+msgid "User|Confirmation token"
+msgstr ""
+
+#: app/models/model_attributes.rb:75
+msgid "User|Confirmed at"
+msgstr ""
+
+#: app/models/model_attributes.rb:76
+msgid "User|Confirmation sent at"
+msgstr ""
+
+#: app/models/model_attributes.rb:77
+msgid "User|Lang"
+msgstr ""
+
+#: app/models/model_attributes.rb:78
+msgid "Save"
+msgstr ""
+
+#: app/models/model_attributes.rb:79
+msgid "Cancel"
+msgstr ""
+
+#: app/models/model_attributes.rb:80
+msgid ""
+"Copy the code for automated setup from the Nuntium Local Gateway in here to "
+"bind your local gateway to this poll."
+msgstr ""
+
+#: app/models/model_attributes.rb:81
+msgid "Current password"
+msgstr ""
+
+#: app/models/model_attributes.rb:82
+msgid "Importing..."
+msgstr ""
+
+#: app/models/model_attributes.rb:83
+msgid "The {0} must have at least one {1}."
+msgstr ""
+
+#: app/models/model_attributes.rb:84
+msgid "There are invalid questions in the poll."
+msgstr ""
+
+#: app/models/model_attributes.rb:85
+msgid "This field is required."
+msgstr ""
+
+#: app/models/model_attributes.rb:86
+msgid "Please fix this field."
+msgstr ""
+
+#: app/models/model_attributes.rb:87
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: app/models/model_attributes.rb:88
+msgid "Please enter a valid URL."
+msgstr ""
+
+#: app/models/model_attributes.rb:89
+msgid "Please enter a valid date."
+msgstr ""
+
+#: app/models/model_attributes.rb:90
+msgid "Please enter a valid date (ISO)."
+msgstr ""
+
+#: app/models/model_attributes.rb:91
+msgid "Please enter a valid number."
+msgstr ""
+
+#: app/models/model_attributes.rb:92
+msgid "Please enter only digits."
+msgstr ""
+
+#: app/models/model_attributes.rb:93
+msgid "Please enter a valid credit card number."
+msgstr ""
+
+#: app/models/model_attributes.rb:94
+msgid "Please enter the same value again."
+msgstr ""
+
+#: app/models/model_attributes.rb:95
+msgid "Please enter a value with a valid extension."
+msgstr ""
+
+#: app/models/model_attributes.rb:96
+msgid "Please enter no more than {0} characters."
+msgstr ""
+
+#: app/models/model_attributes.rb:97
+msgid "Please enter at least {0} characters."
+msgstr ""
+
+#: app/models/model_attributes.rb:98
+msgid "Please enter a value between {0} and {1} characters long."
+msgstr ""
+
+#: app/models/model_attributes.rb:99
+msgid "Please enter a value between {0} and {1}."
+msgstr ""
+
+#: app/models/model_attributes.rb:100
+msgid "Please enter a value less than or equal to {0}."
+msgstr ""
+
+#: app/models/model_attributes.rb:101
+msgid "Please enter a value greater than or equal to {0}."
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:107
+msgid "Your answer was not understood. Please answer with (%s)"
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:111
+msgid "Your answer was not understood. Please answer with non empty string"
+msgstr ""
+
+#: app/models/poll/accept_answers.rb:115
+msgid ""
+"Your answer was not understood. Please answer with a number between %s and %s"
+msgstr ""
+
+#: app/models/poll.rb:182
+msgid "Yes"
+msgstr ""
+
+#: app/models/poll.rb:183
+msgid "Answer 'yes' if you want to participate in this poll."
+msgstr ""
+
+#: app/models/poll.rb:184
+msgid "Thank you for your answers!"
+msgstr ""
+
+#: app/models/question.rb:82
+msgid "is not supported"
+msgstr ""
+
+#: app/views/layouts/mail.html.erb:12 app/views/layouts/mail.text.erb:7
+msgid "Do you have questions or need help? Contact us at"
+msgstr ""
+
+#: app/views/polls/import_form.js.erb:10
+msgid "Invalid public Google Form URL."
+msgstr ""
+
+#: app/views/polls/import_form.js.erb:13
+msgid "Import"
+msgstr ""
+
+#: app/views/user_mailer/confirmation_instructions.text.erb:1
+msgid "You are almost done!"
+msgstr ""
+
+#: app/views/user_mailer/confirmation_instructions.text.erb:3
+msgid ""
+"To verify your account and complete the registration process please click in "
+"the link below or copy paste the URL into your browser"
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:1
+msgid "Hello %{email}!"
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:3
+msgid ""
+"Someone has requested a link to change your password, and you can do this "
+"through the link below."
+msgstr ""
+
+#: app/views/user_mailer/reset_password_instructions.text.erb:7
+msgid ""
+"If you didn't request this, please ignore this email. Your password won't "
+"change until you access the link above and create a new one."
+msgstr ""

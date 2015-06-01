@@ -29,6 +29,10 @@ class Poll
         recurrence_strategy.recurrence_kind
       end
 
+      def recurrence_iterative?
+        recurrence_kind == :iterative
+      end
+
       def has_recurrence?
         recurrence_kind != :none
       end

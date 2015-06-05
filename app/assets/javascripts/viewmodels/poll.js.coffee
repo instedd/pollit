@@ -27,7 +27,7 @@ class @Question
     @new_option = ko.observable new QuestionOption(@, "")
 
   remove: () ->
-    true
+    @poll.questions.remove @
 
   set_active: () ->
     @poll.set_active_question(@)
@@ -44,7 +44,7 @@ class @QuestionOption
     @text = ko.observable text
 
   remove: () ->
-    true
+    @question.options.remove @
 
   add: () ->
     @question.options.push @
@@ -55,9 +55,11 @@ class @Poll
 
   constructor: () ->
     @editable = ko.observable true
+    @questions = ko.observableArray()
+    @active_question = ko.computed () =>
+      _.find @questions(), (q) -> q.active()
 
   initialize: () ->
-    @set_active_question @questions()[0]
 
   set_active_question: (q) ->
     for question in @questions()

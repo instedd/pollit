@@ -39,7 +39,7 @@
                   %br/
                   = label
 
-  .feditor-sidebar.box.right.w30{ko(if: 'questions().length > 0')}
+  .feditor-sidebar.box.right.w30{ko(visible: 'active_question() != null')}
     = f.fields_for :questions do |g|
       = render :partial => 'polls/form_editor/question_form', :locals => {f: g}
 

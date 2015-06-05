@@ -131,6 +131,7 @@ label.placeholder {
 }
 
 #form-editor {
+
   .collects-respondent-hint {
     display: none;
     font-size: 12px;
@@ -148,7 +149,7 @@ label.placeholder {
     float: left;
   }
 
-  .feditor.collects-respondent {
+  .collects-respondent {
     .collects-respondent-hint {
       display: inline-block;
       float: right;

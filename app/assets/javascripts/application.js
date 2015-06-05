@@ -12,5 +12,6 @@
 //= require knockout.mapping
 //= require knockout-forms.rails
 //= require_directory .
+//= require_directory ./viewmodels
 //= require fancybox
 //= require recurring_select

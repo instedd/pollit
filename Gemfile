@@ -24,6 +24,8 @@ gem 'recurring_select', git: "https://github.com/instedd/recurring_select", bran
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'foreman', '0.64.0'
+gem 'knockoutjs-rails'
+gem 'knockout_forms-rails', git: "https://github.com/manastech/knockout_forms-rails.git", tag: 'v1.0.1'
 
 gem "omniauth"
 gem "omniauth-openid"

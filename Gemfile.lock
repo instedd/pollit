@@ -56,6 +56,15 @@ GIT
     enumerated_attribute (0.3.0.beta1)
       meta_programming (>= 0.2.1)
 
+GIT
+  remote: https://github.com/manastech/knockout_forms-rails.git
+  revision: cb9484a41e9cfca0554d602c8a433b3b6d80a74f
+  tag: v1.0.1
+  specs:
+    knockout_forms-rails (1.0.1)
+      actionpack (>= 3, < 5)
+      railties (>= 3.1, < 5)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -164,6 +173,8 @@ GEM
     json (1.8.2)
     kaminari (0.12.4)
       rails (>= 3.0.0)
+    knockoutjs-rails (3.3.0.1)
+      railties (>= 3.1, < 5)
     licit (0.2.1)
     locale (2.0.5)
     machinist (2.0)
@@ -328,6 +339,8 @@ DEPENDENCIES
   ice_cube
   jquery-rails
   kaminari
+  knockout_forms-rails!
+  knockoutjs-rails
   licit
   locale
   machinist

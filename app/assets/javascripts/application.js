@@ -8,6 +8,9 @@
 //= require jquery_ujs
 //= require jquery.validate.min.js
 //= require additional-methods.min.js
+//= require knockout
+//= require knockout.mapping
+//= require knockout-forms.rails
 //= require_directory .
 //= require fancybox
 //= require recurring_select

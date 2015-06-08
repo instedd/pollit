@@ -56,7 +56,7 @@ class PollsController < ApplicationController
     # Mark for destruction all missing questions
     qs_attrs = params[:poll][:questions_attributes]
     @poll.questions.each do |q|
-      q.mark_for_destruction unless qs_attrs.any?{|k,v| v['id'] == q.id.to_s}
+      q.mark_for_destruction unless qs_attrs.any?{|attrs| attrs['id'] == q.id.to_s}
     end
 
     # Update

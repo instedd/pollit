@@ -132,6 +132,20 @@ label.placeholder {
 
 #form-editor {
 
+  .feditor-container {
+    position: relative;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    list-style: none;
+  }
+
   .collects-respondent-hint {
     display: none;
     font-size: 12px;
@@ -147,6 +161,24 @@ label.placeholder {
     min-height: 20px;
     display: inline-block;
     float: left;
+  }
+
+  .remove-field {
+    float: right;
+    outline: none;
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 8px;
+    top: -4px;
+    background: image-url("buttons/removeButton.png") no-repeat 0 0;
+    &:hover {
+      background-position-y: -30px;
+    }
+    &:active {
+      background-position-y: -60px;
+    }
   }
 
   .collects-respondent {

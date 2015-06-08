@@ -4,7 +4,7 @@
       .feditor-top
       .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
         - ko_if 'removable' do
-          %a.remove_field{ko(click: 'remove')} X
+            %a.remove-field{ko(click: 'remove')}
 
         .feditor-button
           %button{ko(click: 'set_active', css: 'editor_class'), type: :button}

@@ -1,28 +1,29 @@
 #form-editor
   .feditor-list.left
-    .feditor{ko(foreach: 'questions')}
-      .feditor-top
-      .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
-        - ko_if 'removable' do
+    %ul.feditor{ko(sortable: 'questions')}
+      %li
+        .feditor-top
+        .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
+          - ko_if 'removable' do
             %a.remove-field{ko(click: 'remove')}
 
-        .feditor-button
-          %button{ko(click: 'set_active', css: 'editor_class'), type: :button}
+          .feditor-button
+            %button{ko(click: 'set_active', css: 'editor_class'), type: :button}
 
-        .feditor-content
-          %h1.feditor-field-name{ko(text: 'title')}
-          %span.hint.feditor-field-hint
-            - ko_if 'description() && description().length > 0' do
-              Description:
-              = ko_text 'description'
-          %span.collects-respondent-hint{:title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet." }
-            Stores sender phone number
-          / - if question.invalid?
-          /   - unless question.description.blank?
-          /     %br
-          /   %label.error
-          /     = question.errors.full_messages.to_sentence
-          /   .clear
+          .feditor-content
+            %h1.feditor-field-name{ko(text: 'title')}
+            %span.hint.feditor-field-hint
+              - ko_if 'description() && description().length > 0' do
+                Description:
+                = ko_text 'description'
+            %span.collects-respondent-hint{:title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet." }
+              Stores sender phone number
+            / - if question.invalid?
+            /   - unless question.description.blank?
+            /     %br
+            /   %label.error
+            /     = question.errors.full_messages.to_sentence
+            /   .clear
 
     .feditor-add
       .feditor-add-top

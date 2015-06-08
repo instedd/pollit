@@ -7,10 +7,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.validate.min.js
+//= require jquery-ui.custom.min.js
 //= require additional-methods.min.js
 //= require knockout
 //= require knockout.mapping
 //= require knockout-forms.rails
+//= require knockout-sortable.min
 //= require_directory .
 //= require_directory ./viewmodels
 //= require fancybox

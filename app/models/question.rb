@@ -39,7 +39,6 @@ class Question < ActiveRecord::Base
   enum_attr :kind, %w(^text options numeric unsupported)
 
 
-
   def message
     if kind_text?
       title

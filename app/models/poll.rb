@@ -32,9 +32,9 @@ class Poll < ActiveRecord::Base
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true
-  validates :form_url, :presence => true
+  validates :form_url, :presence => true, :if => :kind_gforms?
+  validates :post_url, :presence => true, :if => :kind_gforms?
   validates :welcome_message, :presence => true, :length => {:maximum => 140}
-  validates :post_url, :presence => true
   validates :confirmation_words_text, :presence => true
   validates :goodbye_message, :presence => true, :length => {:maximum => 140}
   validates :questions, :presence => true
@@ -46,6 +46,7 @@ class Poll < ActiveRecord::Base
   after_initialize :default_values
 
   enum_attr :status, %w(^configuring started paused)
+  enum_attr :kind,   %w(^gforms manual)
 
   include Parser
   include AcceptAnswers
@@ -180,7 +181,7 @@ class Poll < ActiveRecord::Base
 
   def default_values
     self.confirmation_words   = [_("Yes")] if self.confirmation_words.blank?
-    self.welcome_message   ||= _("Answer 'yes' if you want to participate in this poll.")
+    self.welcome_message   ||= _('Reply YES to agree to participate in this poll')
     self.goodbye_message   ||= _("Thank you for your answers!")
   rescue
     true

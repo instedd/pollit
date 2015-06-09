@@ -18,9 +18,14 @@
 module Respondent::Pusher
 
   def push_answers
-    RestClient.post poll.post_url, answers_form_data(poll.current_occurrence)
-    set_pushed_status(:succeeded, DateTime.now.utc)
-    true
+    if poll.kind_gforms?
+      RestClient.post poll.post_url, answers_form_data(poll.current_occurrence)
+      set_pushed_status(:succeeded, DateTime.now.utc)
+      true
+    else
+      set_pushed_status(:local)
+      true
+    end
   rescue
     set_pushed_status(:failed)
     false

@@ -22,7 +22,7 @@ class Respondent < ActiveRecord::Base
 
   validates :phone, :presence => true, :uniqueness => { :scope => :poll_id }
 
-  enum_attr :pushed_status, %w(^pending succeeded failed)
+  enum_attr :pushed_status, %w(^pending succeeded failed local)
 
   include Pusher
 

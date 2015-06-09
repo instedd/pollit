@@ -8,6 +8,17 @@ $ ->
     ko.form(this)
     ko.dataFor(this).initialize()
 
+  $('#poll_type_button').on 'click', ->
+    window.location = $('input:radio:checked').data('url')
+
+  $("#poll_form a#preview").fancybox()
+
+  $('#poll_form #goto_import').on 'click', (evt) ->
+    $("input[name='poll[form_url]']").focus()
+    evt.preventDefault()
+    false
+
+
 #   setupValidation()
 #   $('.import_form_action').live 'click', ->
 #     if $('#poll_form_url').valid()

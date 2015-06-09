@@ -1,5 +1,5 @@
 #poll_form_container
-  = knockout_form_for @poll, model_options: { methods: :confirmation_words_text, include: :questions }, :html => {:id => 'poll_form', :class => 'validate'} do |f|
+  = knockout_form_for @poll, model_options: { methods: :confirmation_words_text, include: :questions }, :html => {:id => 'poll_form', :class => 'validate', :'data-bind' => "submit: submit"} do |f|
     = errors_for @poll
     = hidden_field_tag :id, @poll.id
     = hidden_field_tag :wizard, true if wizard?

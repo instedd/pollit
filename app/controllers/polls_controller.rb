@@ -20,11 +20,17 @@ class PollsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_steps
 
-  before_filter :except => [:index, :new, :create, :import_form] do
+  before_filter :except => [:index, :new, :new_gforms, :new_manual, :create, :import_form] do
     load_poll(params[:id])
   end
-  before_filter :only => [:index, :new, :create, :import_form] do
+
+  before_filter :only => [:index, :new, :new_gforms, :new_manual, :create, :import_form] do
     add_breadcrumb _("Polls"), :polls_path
+  end
+
+  before_filter :only => [:new_gforms, :new_manual] do
+    @wizard_step = _('Properties')
+    @wizard = params[:wizard] = true
   end
 
   def index
@@ -35,8 +41,18 @@ class PollsController < ApplicationController
   end
 
   def new
-    @poll = Poll.new welcome_message: _('Send YES to agree to participate in a poll')
     params[:wizard] = true
+    @wizard_step = _('Type')
+  end
+
+  def new_gforms
+    @poll = Poll.new kind: 'gforms'
+    render :new_properties
+  end
+
+  def new_manual
+    @poll = Poll.new kind: 'manual'
+    render :new_properties
   end
 
   def create
@@ -85,15 +101,14 @@ class PollsController < ApplicationController
       respondent_question.collects_respondent = true if respondent_question
 
       @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
-      @questions = imported.questions
     rescue Exception => error
       logger.error "Error importing form: #{error.inspect}\n#{error.backtrace.join("\n")}"
       @error = error
     ensure
-      if request.xhr?
-        render 'import_form', :layout => false
+      if @error
+        render json: {error: @error}, status: :unprocessable_entity
       else
-        render :partial => 'form'
+        render json: @poll, include: :questions
       end
     end
   end
@@ -139,7 +154,7 @@ class PollsController < ApplicationController
   protected
 
   def set_layout
-    if !request.xhr? && [:new, :create, :edit, :update].include?(params[:action].to_sym)
+    if !request.xhr? && [:new, :new_gforms, :new_manual, :create, :edit, :update].include?(params[:action].to_sym)
       'wizard'
     else
       super

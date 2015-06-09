@@ -1,7 +1,7 @@
 #form-editor
   .feditor-list.left
-    %ul.feditor{ko(sortable: 'questions')}
-      %li
+    %ul{ko(sortable: 'questions')}
+      %li.feditor{ko(css: {'first' => 'first', 'last' => 'last'})}
         .feditor-top
         .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
           - ko_if 'removable' do
@@ -25,20 +25,18 @@
             /     = question.errors.full_messages.to_sentence
             /   .clear
 
-    .feditor-add
+
+    .feditor-add{ko(if: 'editable')}
       .feditor-add-top
-      - ko_if 'questions().length == 0' do
-        .addnewbot.empty
-      - ko_if 'questions().length > 0' do
-        .feditor-add-container
-          .feditor-add-content
-            %h1 Add a new question
-            - Question.new.enums(:kind).hash.each do |question_type, label|
-              - if question_type != :unsupported
-                %span
-                  %button{ko(click: "add_question_handler('#{question_type}')", css: "editor_class_for('#{question_type}')"), type: 'button'}
-                  %br/
-                  = label
+      .feditor-add-container
+        .feditor-add-content
+          %h1 Add a new question
+          - Question.new.enums(:kind).hash.each do |question_type, label|
+            - if question_type != :unsupported
+              %span
+                %button{ko(click: "add_question_handler('#{question_type}')", css: "editor_class_for('#{question_type}')"), type: 'button'}
+                %br/
+                = label
 
   .feditor-sidebar.box.right.w30{ko(visible: 'active_question() != null')}
     = f.fields_for :questions do |g|

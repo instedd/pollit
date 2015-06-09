@@ -118,10 +118,17 @@ label.placeholder {
 }
 
 #poll_form_import {
-  #preview_box{
+
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #preview_box {
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2) inset;
     border-radius: 3px 3px 3px 3px;
   }
+
   #preview {
     img {
       margin: 2px 2px -1px 2px;

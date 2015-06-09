@@ -15,6 +15,8 @@ class @Question
     @editable = @poll.editable
     @readonly =  ko.computed () => !@editable()
     @removable = ko.computed () => @editable() && !@id()
+    @first = ko.computed () => @poll.questions()[0] == @
+    @last = ko.computed () => @poll.questions()[@poll.questions().length-1] == @
     @active = ko.observable false
 
     @editor_class = ko.computed () =>
@@ -54,12 +56,36 @@ class @QuestionOption
 class @Poll
 
   constructor: () ->
-    @editable = ko.observable true
+    @importing = ko.observable false
+    @manual = ko.observable false
+    @kind = ko.observable null
+    @editable = ko.computed () => (@kind() == 'manual')
     @questions = ko.observableArray()
     @active_question = ko.computed () =>
       _.find @questions(), (q) -> q.active()
 
   initialize: () ->
+
+  create_manually: () ->
+    @manual true
+    @imported false
+
+  import_form: (poll,evt) ->
+    @importing true
+    $.ajax
+      url: "/polls/import_form"
+      data: $(evt.target).closest('form').serialize()
+      type: 'post'
+      dataType: 'json'
+      success: (data) =>
+        ko.mapping.fromJS(data, Poll.mapping, @)
+      complete: (args) =>
+        @importing false
+
+  submit: () ->
+    for question, index in @questions()
+      question.position = index+1
+    true
 
   set_active_question: (q) ->
     for question in @questions()
@@ -72,7 +98,6 @@ class @Poll
       question.title('New question')
       @questions.push(question)
       @set_active_question(question)
-
 
   editor_class_for: (kind) ->
     switch kind

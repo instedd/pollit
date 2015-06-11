@@ -1,7 +1,11 @@
 module KnockoutHelper
 
   def ko_if(condition, &block)
-    concat "<!-- ko if: #{condition} -->".html_safe
+    ko_block("if: #{condition}", &block)
+  end
+
+  def ko_block(directive, &block)
+    concat "<!-- ko #{directive} -->".html_safe
     concat capture(&block)
     concat "<!-- /ko -->".html_safe
   end

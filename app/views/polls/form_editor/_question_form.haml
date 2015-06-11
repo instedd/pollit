@@ -14,9 +14,12 @@
   = f.text_field :description, :class => 'feditor-field-hint', 'data-bind' => 'attr: {readonly: readonly}'
   %hr
 
-  - ko_if 'kind_text' do
-    = f.check_box :collects_respondent, :class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox"
-    Stores sender phone number
+  -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
+  -# This causes two different values sent to the server when the value is true, since we are inside an array
+  -# Handle this value as a hidden text field, editable via a visible check box
+  = f.hidden_field :collects_respondent#, bind: false, :'data-bind' => 'value: collects_respondent'
+  %input{ko(visible: 'kind_text', checked: 'collects_respondent').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
+  %span{ko(visible: 'kind_text')}Stores sender phone number
 
   - ko_if 'kind_numeric' do
     %p.title Range
@@ -39,8 +42,8 @@
 
   - ko_if 'editable() && kind_options()' do
     .feditor-form-option-new.require_from_group{ko(with: 'new_option')}
-      %input.small.option{ko(value: 'text'), type: 'text', placeholder: 'Enter a new option'}
-      %a.right.addoption{ko(click: 'add')} +
+      %input.newoption.small.option{ko(textInput: 'text', hasFocus: 'focus', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Enter a new option'}
+      %a.right.addoption{ko(click: 'add', visible: '(text().length > 0)')} +
     .clear
 
 

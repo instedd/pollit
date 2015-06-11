@@ -117,6 +117,25 @@ label.placeholder {
   background: image-url("loading.gif") no-repeat scroll 0 0 transparent !important;
 }
 
+#poll_form {
+
+  .TaskBox {
+    opacity: 0.3
+  }
+
+  span.error {
+    // HACK: Display inline !important from theme.instedd causes the error label to be never hidden
+    background: url(http://theme.instedd.org/theme/images/icons/18/orange/alert.png) no-repeat;
+    color: #ff6600;
+    padding-left: 19px;
+    padding-top: 1px;
+    margin-left: 2px;
+    white-space: nowrap;
+    display: inline;
+  }
+
+}
+
 #poll_form_import {
 
   hr {

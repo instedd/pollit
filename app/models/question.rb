@@ -18,11 +18,11 @@
 class Question < ActiveRecord::Base
   OptionsIndices = Array('a'..'z')
 
-  belongs_to :poll
+  belongs_to :poll, :inverse_of => :questions
   has_many :answers
 
   validates :title, :presence => true
-  validates :field_name, :presence => true
+  validates :field_name, :presence => true, :if => lambda{|q| q.poll.kind_gforms?}
   validates :position, :presence => true
   validates :options, :presence => true, :if => :kind_options?
   validates :message, :length => {:maximum => 140}
@@ -37,7 +37,6 @@ class Question < ActiveRecord::Base
 
   serialize :options, Array
   enum_attr :kind, %w(^text options numeric unsupported)
-
 
   def message
     if kind_text?

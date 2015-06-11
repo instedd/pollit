@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -51,7 +51,7 @@ module InsteddAppHelper
          # TODO change on rails 3.1 to ActiveModel::Naming.param_key(object)
         object_name = options[:as].try(:to_s) || ActiveModel::Naming.singular(object)
 
-        content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
+        (content_tag :div, :class => "box error_description #{options[:class] || 'w60'}" do
           (content_tag :h2 do
             if object.errors.count == 1
               _("%{count} error prohibited this %{model} from being saved:")
@@ -63,7 +63,7 @@ module InsteddAppHelper
           (content_tag :ul do
             raw object.errors.full_messages.map { |msg| content_tag(:li, msg) }.join
           end)
-        end
+        end) + content_tag(:br)
       end
     end
   end

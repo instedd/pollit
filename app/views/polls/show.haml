@@ -37,11 +37,12 @@
       = @poll.channel.unprefixed_address
   = link_to _("Manage Channel"), poll_channel_path(@poll), :class => 'farrow'
 
-.box.overview
-  .i48grad-googleDocs.icon
-  .content
-    Questions from Google Docs Form
-  = link_to _("Go to live form"), @poll.form_url, :class => 'farrow'
+- if @poll.kind_gforms?
+  .box.overview
+    .i48grad-googleDocs.icon
+    .content
+      Questions from Google Docs Form
+    = link_to _("Go to live form"), @poll.form_url, :class => 'farrow'
 
 %br
 %br

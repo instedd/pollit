@@ -13,17 +13,12 @@
           .feditor-content
             %h1.feditor-field-name{ko(text: 'title')}
             %span.hint.feditor-field-hint
+              %span.error{ko(visible: 'errors().length > 0')} Invalid question
               - ko_if 'description() && description().length > 0' do
                 Description:
                 = ko_text 'description'
             %span.collects-respondent-hint{:title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet." }
               Stores sender phone number
-            / - if question.invalid?
-            /   - unless question.description.blank?
-            /     %br
-            /   %label.error
-            /     = question.errors.full_messages.to_sentence
-            /   .clear
 
 
     .feditor-add{ko(if: 'editable')}

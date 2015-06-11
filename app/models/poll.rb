@@ -20,7 +20,7 @@ class Poll < ActiveRecord::Base
 
   belongs_to :owner, :class_name => User.name
 
-  has_many :questions, :order => "position", :dependent => :destroy
+  has_many :questions, :order => "position", :dependent => :destroy, :inverse_of => :poll
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents, :order => 'created_at'
 

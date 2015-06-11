@@ -13,6 +13,7 @@
 //= require knockout.mapping
 //= require knockout-forms.rails
 //= require knockout-sortable.min
+//= require knockout-validation.min
 //= require_directory .
 //= require_directory ./viewmodels
 //= require fancybox

@@ -61,7 +61,7 @@ class PollsController < ApplicationController
     if @poll.save
       redirect_to new_poll_channel_path(@poll, :wizard => true)
     else
-      render 'new'
+      render 'new_properties'
     end
   end
 

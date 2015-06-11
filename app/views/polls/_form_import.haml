@@ -1,4 +1,4 @@
-#poll_form_import{ko(if: 'kind() == "gforms"')}
+#poll_form_import{ko(if: 'kind() == "gforms" && !id()')}
   .box.plain.green.w60
     .field{:style => 'margin: 0'}
       .left{:style => 'width:480px'}

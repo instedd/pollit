@@ -1,5 +1,9 @@
 %h2 Poll questions
 
+%div
+  %p
+    %span.error{ko(validationMessage: 'questionsValidation')}
+
 %div{ko(if: 'kind() == "gforms"')}
   .field{ko(visible: 'questions().length == 0')}
     %p

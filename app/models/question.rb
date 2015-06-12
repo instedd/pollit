@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
   has_many :answers
 
   validates :title, :presence => true
-  validates :field_name, :presence => true, :if => lambda{|q| q.poll.kind_gforms?}
+  validates :field_name, :presence => true, :if => lambda{|q| q.poll && q.poll.kind_gforms?}
   validates :position, :presence => true
   validates :options, :presence => true, :if => :kind_options?
   validates :message, :length => {:maximum => 140}

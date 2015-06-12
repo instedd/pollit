@@ -89,7 +89,7 @@ class PollsController < ApplicationController
 
   def import_form
     begin
-      index, previous_respondent_question = params[:poll][:questions_attributes].find{|index, data| data[:collects_respondent] == '1'} rescue nil
+      previous_respondent_question = params[:poll][:questions_attributes].find{|data| data[:collects_respondent] == 'true'} rescue nil
       attrs = params[:poll].merge(:questions_attributes => {})
       imported = Poll.new attrs
       imported.owner_id = current_user.id
@@ -100,7 +100,7 @@ class PollsController < ApplicationController
       respondent_question = imported.questions.find{|q| q.title.strip == previous_respondent_question[:title].strip} if previous_respondent_question
       respondent_question.collects_respondent = true if respondent_question
 
-      @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
+      @poll = unless params[:id].blank? then load_poll(params[:id], attrs, imported.questions) else imported end
     rescue Exception => error
       logger.error "Error importing form: #{error.inspect}\n#{error.backtrace.join("\n")}"
       @error = error

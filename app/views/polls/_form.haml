@@ -21,18 +21,18 @@
     .field
       = f.label :welcome_message
       %p This message will be sent to all respondents asking them if they agree to participate in the poll
-      = f.text_field :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required wajbar w60'
+      = f.text_field :welcome_message, :size => "28x5", :maxlength => 140, :class => 'required wajbar w60', :readonly => !@poll.editable?
     .field
       = f.label :confirmation_words_text, "Confirmation words"
       %p
         Respondents must answer with any of the confirmation words in order to agree to participate in the poll.
         %br/
         You can enter more than one confirmation word by separating them with commas.
-      = f.text_field :confirmation_words_text, :class => 'required w60'
+      = f.text_field :confirmation_words_text, :class => 'required w60', :readonly => !@poll.editable?
     .field
       = f.label :goodbye_message
       %p This message will be sent to respondents when they complete the poll
-      = f.text_field :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'required wajbar w60'
+      = f.text_field :goodbye_message, :size => "28x5", :maxlength => 140, :class => 'required wajbar w60', :readonly => !@poll.editable?
     .field
       = f.label :recurrence
       %p Choose if and when the poll will be sent periodically to users.

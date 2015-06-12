@@ -11,9 +11,10 @@
         Import a form from Google
       to load its questions
 
-  %div{ko(visible: 'questions().length > 0')}
-    = fancy_button _('Reload form from Google'), 'fsync', :class => 'import_form_action reload_from_google block', :'data-bind' => "disabled: importing, click: import_form, css: {loading: importing}"
-    %br/
-    %br/
+  - if @poll.editable?
+    %div{ko(visible: 'questions().length > 0')}
+      = fancy_button _('Reload form from Google'), 'fsync', :class => 'import_form_action reload_from_google block', :'data-bind' => "disabled: importing, click: import_form, css: {loading: importing}"
+      %br/
+      %br/
 
 = render :partial => 'polls/form_editor/questions', :locals => { :f => f }

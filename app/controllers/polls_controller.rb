@@ -100,7 +100,9 @@ class PollsController < ApplicationController
       respondent_question = imported.questions.find{|q| q.title.strip == previous_respondent_question[:title].strip} if previous_respondent_question
       respondent_question.collects_respondent = true if respondent_question
 
-      @poll = unless params[:id].blank? then load_poll(params[:id], attrs, imported.questions) else imported end
+      @poll = unless params[:id].blank? then load_poll(params[:id], attrs) else imported end
+      @data = @poll.as_json
+      @data['questions'] = imported.questions.as_json
     rescue Exception => error
       logger.error "Error importing form: #{error.inspect}\n#{error.backtrace.join("\n")}"
       @error = error
@@ -108,7 +110,7 @@ class PollsController < ApplicationController
       if @error
         render json: {error: @error}, status: :unprocessable_entity
       else
-        render json: @poll, include: :questions
+        render json: @data
       end
     end
   end

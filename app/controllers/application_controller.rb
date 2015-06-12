@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def load_poll(poll_id=nil, attributes=nil, questions=nil)
+  def load_poll(poll_id=nil, attributes=nil)
     @poll = Poll.find (poll_id || params[:poll_id])
     authorize! :manage, @poll
     unless params[:wizard]
@@ -68,7 +68,6 @@ class ApplicationController < ActionController::Base
       add_breadcrumb @poll.title, poll_path(@poll)
     end
     @poll.attributes = attributes if attributes
-    @poll.questions = questions if questions
     @poll
   end
 

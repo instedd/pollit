@@ -104,7 +104,9 @@ module Poll::AcceptAnswers
   end
 
   def valid_text_answer?(question, response)
-    return _("Please answer with a non empty response.") unless response.strip.length > 0
+    response = response.strip
+    return _("Please answer with a non empty response.") unless response.length > 0
+
 
     if question.min_length && question.max_length
       if response.length < question.min_length || response.length > question.max_length
@@ -131,7 +133,7 @@ module Poll::AcceptAnswers
 
     if question.numeric_min && question.numeric_max
       if response < question.numeric_min || response > question.numeric_max
-        return _("Please answer with a number between %s and %s.") % [question.numeric_min, question.numeric_max]
+        _("Please answer with a number between %s and %s.") % [question.numeric_min, question.numeric_max]
       end
     elsif question.numeric_min
       if response < question.numeric_min

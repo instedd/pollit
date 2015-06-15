@@ -29,6 +29,10 @@
     %span.smalltext to
     = f.text_field :max_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %hr
+    %p.title Contains
+    %p.smalltext Require this string to be contained in the response
+    = f.text_field :must_contain, :'data-bind' => 'attr: {readonly: readonly}'
+    %hr
     -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
     -# This causes two different values sent to the server when the value is true, since we are inside an array
     -# Handle this value as a hidden text field, editable via a visible check box

@@ -118,6 +118,10 @@ module Poll::AcceptAnswers
       if response.length > question.max_length
         _("Please answer with a response with no more than %s characters.") % question.max_length
       end
+    elsif question.must_contain
+      if !response.include?(question.must_contain)
+        _("Your response must include '%s'.") % question.must_contain
+      end
     end
   end
 

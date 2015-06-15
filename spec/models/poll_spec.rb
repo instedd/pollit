@@ -19,6 +19,7 @@
 require 'spec_helper'
 
 describe Poll do
+
   it "can be instantiated" do
     Poll.new.should be_an_instance_of(Poll)
   end
@@ -67,6 +68,7 @@ describe Poll do
       question.description.should eq(opts[:description] || "Description #{index+1}")
       question.kind.should eq(kind)
       question.field_name.should eq(opts[:field]) if opts[:field]
+      question.must_contain.should eq(opts[:must_contain]) if opts[:must_contain]
       question
     end
 
@@ -109,7 +111,7 @@ describe Poll do
       q.kind.should eq(:unsupported)
     end
 
-    it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single'
+    it_can_parse_question_as_text "text question", 0, :field => 'entry.0.single', :must_contain => 'foo'
     it_can_parse_question_as_text "paragraph question", 1, :field => 'entry.2.single'
 
     it_can_parse_question_as_options "choose from list question", 2, :options_count => 3, :field => 'entry.1.single'

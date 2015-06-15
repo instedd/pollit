@@ -14,20 +14,27 @@
   = f.text_field :description, :class => 'feditor-field-hint', 'data-bind' => 'attr: {readonly: readonly}'
   %hr
 
-  -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
-  -# This causes two different values sent to the server when the value is true, since we are inside an array
-  -# Handle this value as a hidden text field, editable via a visible check box
-  = f.hidden_field :collects_respondent#, bind: false, :'data-bind' => 'value: collects_respondent'
-  %input{ko(visible: 'kind_text', checked: 'collects_respondent').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
-  %span{ko(visible: 'kind_text')}Stores sender phone number
-
   - ko_if 'kind_numeric' do
     %p.title Range
     %p.smalltext Range of values accepted for this question
-    = f.text_field :numeric_min, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}'
+    = f.text_field :numeric_min, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %span.smalltext to
-    = f.text_field :numeric_max, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}'
+    = f.text_field :numeric_max, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %hr
+
+  - ko_if 'kind_text' do
+    %p.title Size
+    %p.smalltext Accepted response length for this question
+    = f.text_field :min_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
+    %span.smalltext to
+    = f.text_field :max_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
+    %hr
+    -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
+    -# This causes two different values sent to the server when the value is true, since we are inside an array
+    -# Handle this value as a hidden text field, editable via a visible check box
+    = f.hidden_field :collects_respondent#, bind: false, :'data-bind' => 'value: collects_respondent'
+    %input{ko(checked: 'collects_respondent').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
+    %span Stores sender phone number
 
   - ko_if 'kind_options' do
     %p.title Options

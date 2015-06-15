@@ -74,6 +74,9 @@ describe PollsController do
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Manual title")
     assigns(:poll).description.should eq("Manual description")
+
+    assigns(:poll).questions.map(&:kind).should eq([:text, :text, :options, :options, :options, :numeric])
+    assigns(:poll).questions.first.must_contain.should eq('foo')
   end
 
   it "should get title and description when importing poll form if were empty" do

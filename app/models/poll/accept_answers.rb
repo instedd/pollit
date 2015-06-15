@@ -58,8 +58,8 @@ module Poll::AcceptAnswers
   def accept_text_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
 
-    if response.blank?
-      invalid_reply_text
+    if error = valid_text_answer?(question, response)
+      invalid_reply error
     else
       create_answer question, respondent, response
       next_question_for respondent
@@ -69,11 +69,11 @@ module Poll::AcceptAnswers
   def accept_numeric_answer(response, respondent)
     question = questions.find(respondent.current_question_id)
 
-    if(question.numeric_min..question.numeric_max).cover?(response.to_i)
+    if error = valid_numeric_answer?(question, response)
+      invalid_reply error
+    else
       create_answer question, respondent, response.to_i
       next_question_for respondent
-    else
-      invalid_reply_numeric % [question.numeric_min, question.numeric_max]
     end
   end
 
@@ -103,16 +103,49 @@ module Poll::AcceptAnswers
     Delayed::Job.enqueue NotifyAnswerJob.new(answer.id)
   end
 
+  def valid_text_answer?(question, response)
+    return _("Please answer with a non empty response.") unless response.strip.length > 0
+
+    if question.min_length && question.max_length
+      if response.length < question.min_length || response.length > question.max_length
+        _("Please answer with a response between %s and %s characters.") % [question.min_length, question.max_length]
+      end
+    elsif question.min_length
+      if response.length < question.min_length
+        _("Please answer with a response with at least %s characters.") % question.min_length
+      end
+    elsif question.max_length
+      if response.length > question.max_length
+        _("Please answer with a response with no more than %s characters.") % question.max_length
+      end
+    end
+  end
+
+  def valid_numeric_answer?(question, response)
+    return _("Please answer with a number.") unless response =~ /\A\s*-?\d+\s*/
+    response = response.to_i
+
+    if question.numeric_min && question.numeric_max
+      if response < question.numeric_min || response > question.numeric_max
+        return _("Please answer with a number between %s and %s.") % [question.numeric_min, question.numeric_max]
+      end
+    elsif question.numeric_min
+      if response < question.numeric_min
+        _("Please answer with a number greater or equal to %s.") % question.numeric_min
+      end
+    elsif question.numeric_max
+      if response > question.numeric_max
+        _("Please answer with a number less or equal to %s.") % question.numeric_max
+      end
+    end
+  end
+
+  def invalid_reply(extra_text=nil)
+    [_("Your answer was not understood."), extra_text].compact.join(' ')
+  end
+
   def invalid_reply_options
-    _("Your answer was not understood. Please answer with (%s)")
-  end
-
-  def invalid_reply_text
-    _("Your answer was not understood. Please answer with non empty string")
-  end
-
-  def invalid_reply_numeric
-    _("Your answer was not understood. Please answer with a number between %s and %s")
+    invalid_reply _("Please answer with (%s).")
   end
 
 end

@@ -41,7 +41,7 @@ module Poll::AcceptAnswers
   end
 
   def next_question_for(respondent, current_answer=nil)
-    next_question = respondent.current_question.nil? ? questions.first : respondent.current_question.next_question(current_answer)
+    next_question = respondent.current_question.nil? ? questions.first : respondent.current_question.next_question(current_answer.try(:response))
     next_question = next_question.next_question while next_question && next_question.collects_respondent
 
     respondent.current_question_id = next_question.try(:id)
@@ -97,6 +97,7 @@ module Poll::AcceptAnswers
     answer
   rescue => ex
     Rails.logger.error "Error creating answer with attributes #{attributes} for poll #{self}: #{ex}"
+    nil
   end
 
   def notify_answer_to_hub(answer)

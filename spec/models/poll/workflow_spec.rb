@@ -154,6 +154,54 @@ describe Poll do
       respondent.current_question_id.should be_nil
     end
 
+    it "should jump to specified question after text answer" do
+      p = Poll.make!(:with_text_questions)
+      p.questions.first.update_attributes! next_question_definition: { 'next' => p.questions[2].id }
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+      p.accept_answer(p.confirmation_words.first, respondent)
+      p.accept_answer('answer1', respondent).should eq(p.questions[2].message)
+      respondent.reload.current_question_id.should eq(p.questions[2].id)
+    end
+
+    it "should jump to a question based on option" do
+      p = Poll.make!(:with_respondents, kind: :manual, questions: [
+        Question.make(:options, :options => %w(foo bar baz), :position => 1),
+        Question.make(:options, :options => %w(foo bar baz), :position => 2),
+        Question.make(:options, :options => %w(oof rab zab), :position => 3),
+        Question.make(:options, :options => %w(oof rab zab), :position => 4)
+      ])
+
+      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].id, 'bar' => p.questions[2].id, 'baz' => p.questions[3].id } }
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+      p.accept_answer(p.confirmation_words.first, respondent)
+      p.accept_answer('baz', respondent).should eq(p.questions[3].message)
+      respondent.reload.current_question_id.should eq(p.questions[3].id)
+    end
+
+    it "should proceed to next question if no jump is defined for that option" do
+      p = Poll.make!(:with_respondents,kind: :manual, questions: [
+        Question.make(:options, :options => %w(foo bar baz), :position => 1),
+        Question.make(:options, :options => %w(foo bar baz), :position => 2),
+        Question.make(:options, :options => %w(oof rab zab), :position => 3),
+        Question.make(:options, :options => %w(oof rab zab), :position => 4)
+      ])
+
+      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].id, 'bar' => p.questions[2].id } }
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+      p.accept_answer(p.confirmation_words.first, respondent)
+      p.accept_answer('baz', respondent).should eq(p.questions[1].message)
+      respondent.reload.current_question_id.should eq(p.questions[1].id)
+    end
+
     it "should send messages with nuntium" do
       p = Poll.make!(:with_text_questions)
       p.should_receive(:send_messages)

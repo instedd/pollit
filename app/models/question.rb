@@ -36,6 +36,8 @@ class Question < ActiveRecord::Base
   alias_method :next, :lower_item
 
   serialize :options, Array
+  serialize :next_question_definition, Hash
+
   enum_attr :kind, %w(^text options numeric unsupported)
 
   def message
@@ -65,6 +67,16 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def next_question(answer=nil)
+    if next_id = next_question_definition['next']
+      Question.find(next_id)
+    elsif answer && (cases = next_question_definition['case']) && (next_id = cases[answer])
+      Question.find(next_id)
+    else
+      self.next
+    end
+  end
+
   def kind_has_options?
     return kind_options?
   end
@@ -72,7 +84,6 @@ class Question < ActiveRecord::Base
   def kind_valid?
     kind && !kind_unsupported?
   end
-
 
   private
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150615145736) do
+ActiveRecord::Schema.define(:version => 20150615234215) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -85,10 +85,11 @@ ActiveRecord::Schema.define(:version => 20150615145736) do
     t.integer  "numeric_min"
     t.string   "field_name"
     t.integer  "position"
-    t.boolean  "collects_respondent", :default => false
+    t.boolean  "collects_respondent",      :default => false
     t.integer  "min_length"
     t.integer  "max_length"
     t.string   "must_contain"
+    t.text     "next_question_definition"
   end
 
   create_table "respondents", :force => true do |t|

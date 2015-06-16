@@ -40,9 +40,9 @@ module Poll::AcceptAnswers
     ActiveSupport::Inflector.transliterate(answer.strip, '').downcase
   end
 
-  def next_question_for(respondent)
-    next_question = respondent.current_question.nil? ? questions.first : respondent.current_question.next
-    next_question = next_question.next while next_question && next_question.collects_respondent
+  def next_question_for(respondent, current_answer=nil)
+    next_question = respondent.current_question.nil? ? questions.first : respondent.current_question.next_question(current_answer)
+    next_question = next_question.next_question while next_question && next_question.collects_respondent
 
     respondent.current_question_id = next_question.try(:id)
     respondent.current_question_sent = self.status_is_not_paused?
@@ -61,8 +61,8 @@ module Poll::AcceptAnswers
     if error = valid_text_answer?(question, response)
       invalid_reply error
     else
-      create_answer question, respondent, response
-      next_question_for respondent
+      answer = create_answer question, respondent, response
+      next_question_for respondent, answer
     end
   end
 
@@ -72,8 +72,8 @@ module Poll::AcceptAnswers
     if error = valid_numeric_answer?(question, response)
       invalid_reply error
     else
-      create_answer question, respondent, response.to_i
-      next_question_for respondent
+      answer = create_answer question, respondent, response.to_i
+      next_question_for respondent, answer
     end
   end
 
@@ -84,8 +84,8 @@ module Poll::AcceptAnswers
     if option.nil?
       invalid_reply_options % [question.options.join("|")]
     else
-      create_answer question, respondent, option
-      next_question_for respondent
+      answer = create_answer question, respondent, option
+      next_question_for respondent, answer
     end
   end
 
@@ -94,6 +94,7 @@ module Poll::AcceptAnswers
     append_answer_attributes(attributes)
     answer = Answer.create! attributes
     notify_answer_to_hub(answer)
+    answer
   rescue => ex
     Rails.logger.error "Error creating answer with attributes #{attributes} for poll #{self}: #{ex}"
   end

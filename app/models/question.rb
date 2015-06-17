@@ -68,10 +68,10 @@ class Question < ActiveRecord::Base
   end
 
   def next_question(answer=nil)
-    if next_id = next_question_definition['next']
-      Question.find(next_id)
-    elsif answer && (cases = next_question_definition['case']) && (next_id = cases[answer])
-      Question.find(next_id)
+    if next_pos = next_question_definition['next']
+      self.poll.questions.where(position: next_pos).first
+    elsif answer && (cases = next_question_definition['case']) && (next_pos = cases[answer])
+      self.poll.questions.where(position: next_pos).first
     else
       self.next
     end

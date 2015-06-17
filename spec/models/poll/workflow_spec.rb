@@ -156,7 +156,7 @@ describe Poll do
 
     it "should jump to specified question after text answer" do
       p = Poll.make!(:with_text_questions)
-      p.questions.first.update_attributes! next_question_definition: { 'next' => p.questions[2].id }
+      p.questions.first.update_attributes! next_question_definition: { 'next' => p.questions[2].position }
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -174,7 +174,7 @@ describe Poll do
         Question.make(:options, :options => %w(oof rab zab), :position => 4)
       ])
 
-      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].id, 'bar' => p.questions[2].id, 'baz' => p.questions[3].id } }
+      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].position, 'bar' => p.questions[2].position, 'baz' => p.questions[3].position } }
       p.stubs(:send_messages).returns(true)
       p.start
 
@@ -192,7 +192,7 @@ describe Poll do
         Question.make(:options, :options => %w(oof rab zab), :position => 4)
       ])
 
-      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].id, 'bar' => p.questions[2].id } }
+      p.questions.first.update_attributes! next_question_definition: { 'case' => { 'foo' => p.questions[1].position, 'bar' => p.questions[2].position } }
       p.stubs(:send_messages).returns(true)
       p.start
 

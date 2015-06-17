@@ -44,7 +44,7 @@
     %hr
     %p.title Go to question
     %p.smalltext After answering this question, go to
-    %select{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"').merge(class: 'w30')}
+    %select{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly').merge(class: 'w30')}
 
   - ko_if 'kind_options' do
     %p.title Options
@@ -52,7 +52,7 @@
     %ul.feditor-form-options.clist.w30
       %li.feditor-form-option{ko(foreach: 'options')}
         = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
-        %select{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption'), style: "width: 60px"}
+        %select{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()'), style: "width: 60px"}
         %a.right.removeoption{ko(click: 'remove'), href: '#'} &#215;
       .clear
 

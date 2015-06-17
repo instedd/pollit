@@ -172,6 +172,12 @@ label.placeholder {
     list-style: none;
   }
 
+  .option-next-question {
+    width: 60px;
+    position: relative;
+    bottom: 2px;
+  }
+
   .collects-respondent-hint {
     display: none;
     font-size: 12px;

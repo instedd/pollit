@@ -1,50 +1,99 @@
 class @Question
 
-  constructor: (@poll) ->
-    @id = ko.observable()
-    @kind = ko.observable().extend(required: true)
-    @title = ko.observable().extend(required: true)
-    @description = ko.observable()
-    @field_name = ko.observable()
-    @position = ko.observable()
-    @numeric_min = ko.observable()
-    @numeric_max = ko.observable()
-    @options = ko.observableArray()
+  constructor: (data, poll) ->
+    @data = data
+    @poll = poll
+    @id = ko.observable(data.id)
+    @kind = ko.observable(data.kind).extend(required: true)
+    @title = ko.observable(data.title).extend(required: true)
+    @description = ko.observable(data.description)
+    @field_name = ko.observable(data.field_name)
+    @position = ko.observable(data.position)
+    @numeric_min = ko.observable(data.numeric_min)
+    @numeric_max = ko.observable(data.numeric_max)
+    @min_length = ko.observable(data.min_length)
+    @max_length = ko.observable(data.max_length)
+    @must_contain = ko.observable(data.must_contain)
+    @options = ko.observableArray(_.map(data.options, (opt) => new QuestionOption(@, opt)))
 
+    # Toggle collect respondent
     @collects_respondent = ko.observable()
     @collects_respondent.subscribe (val) =>
       if val
         _.each @poll.questions(), (q) =>
           q.collects_respondent(false) if q != @
 
-    @editable = @poll.editable
+    @editable =  ko.computed () => @poll.editable()
     @readonly =  ko.computed () => !@editable()
     @removable = ko.computed () => @editable() && !@id()
     @first = ko.computed () => @poll.questions()[0] == @
     @last = ko.computed () => !@editable() && @poll.questions()[@poll.questions().length-1] == @
     @active = ko.observable false
+    @new_option = ko.observable new QuestionOption(@, "")
 
     @editor_class = ko.computed () =>
       (if @active() then 'active ' else ' ') + (@poll.editor_class_for(@kind()))
 
-    @kind_numeric = ko.computed(() => @kind() == 'numeric').extend(throttle: 1)
+    # Selecting next question. Serialize and deserialize next_question_definition
+    @next_question = ko.observable()
+    @next_question_definition = ko.pureComputed
+      owner: @
+      read: () =>
+        if @next_question()
+          ko.toJSON({next: @next_question()?.position})
+        else if @kind() == 'options'
+          cases = {}
+          _.each @options(), (opt) ->
+            cases[opt.text()] = opt.next_question()?.position
+          ko.toJSON({case: cases})
+        else
+          ko.toJSON({})
+      write: (value) =>
+        if value.next == 'end'
+          @next_question(@poll.end_option)
+        else if value.next?
+          @next_question(_.find(@poll.questions(), (q) -> q.position() == value.next))
+        else if value.case?
+          for opt, pos of value.case
+            option = _.find(@options(), (o) -> o.text() == opt)
+            question = _.find(@poll.questions(), (q) -> q.position() == pos)
+            option.next_question(question)
+        else
+          true
+    .extend(throttle: 1)
+
+    @next_questions = ko.computed(() =>
+      (@poll.questions()[@position()..]).concat([@poll.end_option])
+    ).extend(throttle: 1)
+    @title_for_options = ko.computed () =>
+      "#{if @position > 9 then '' else '0'}#{@position()} \u00A0\u00A0\u00A0 #{@title()}"
+    @options_caption = "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Next question"
+
+    # Helpers for kinds
+    @kind_numeric = ko.computed () => @kind() == 'numeric'
     @kind_text    = ko.computed () => @kind() == 'text'
     @kind_options = ko.computed () => @kind() == 'options'
 
+    # Validation
     @errors = ko.validation.group(@)
-    @new_option = ko.observable new QuestionOption(@, "")
 
+  initialize: () ->
+    @next_question_definition(@data.next_question_definition)
 
   remove: () ->
     @poll.questions.remove @
+    @poll.update_positions()
 
   set_active: () ->
     @poll.set_active_question(@)
 
-  @mapping:
-    options:
-      create: (opts) ->
-        new QuestionOption(opts.parent, opts.data)
+  position_updated: () ->
+    true
+
+  # @mapping:
+  #   options:
+  #     create: (opts) ->
+  #       new QuestionOption(opts.parent, opts.data)
 
 
 class @QuestionOption
@@ -52,6 +101,12 @@ class @QuestionOption
   constructor: (@question, text, hasFocus=false) ->
     @text = ko.observable text
     @focus= ko.observable hasFocus
+    @next_question = ko.observable()
+    # @next_question.subscribe (val) =>
+    #   current = JSON.parse(@question.next_question_definition()).case or { case: {} }
+    #   current[@text] = val.position
+    #   updated = ko.toJSON(_.extend(current, {@text: val.}))
+    #   @question.next_question_definition(updated)
 
   remove: () ->
     @question.options.remove @
@@ -68,14 +123,24 @@ class @QuestionOption
 
 class @Poll
 
-  constructor: () ->
-    @title = ko.observable(null).extend(required: true)
-    @confirmation_words_text = ko.observable(null).extend(required: true)
-    @welcome_message = ko.observable(null).extend(required: true, maxLength: 140)
-    @goodbye_message = ko.observable(null).extend(required: true, maxLength: 140)
+  constructor: (data) ->
+    @title = ko.observable(data.title).extend(required: true)
+    @confirmation_words_text = ko.observable(data.confirmation_words_text).extend(required: true)
+    @welcome_message = ko.observable(data.welcome_message).extend(required: true, maxLength: 140)
+    @goodbye_message = ko.observable(data.goodbye_message).extend(required: true, maxLength: 140)
 
-    @kind = ko.observable null
+    @description = ko.observable(data.description)
+    @recurrence_rule = ko.observable(data.recurrence_rule)
+    @kind = ko.observable(data.kind)
+
+    @importing = ko.observable(false)
+    @editable = ko.pureComputed () => (@kind() == 'manual')
+
+    @end_option = {title: 'End poll', title_for_options: 'End \u00A0 End poll', position: 'end'}
     @questions = ko.observableArray()
+    @questions(_.map(data.questions, (q) => new Question(q, @)))
+    @active_question = ko.computed () =>
+      _.find @questions(), (q) -> q.active()
 
     # HACK: Could not attach a validator to the questions observable array,
     # so it is manually handled in a separate observable
@@ -87,15 +152,13 @@ class @Poll
         validator: (q) => _.all(@questions(), (q)-> q.errors().length == 0)
         message: "Please fix all errors in the questions"
       }]
-
-    @importing = ko.observable(false)
     @errors = ko.validation.group(@)
 
-    @editable = ko.computed () => (@kind() == 'manual')
-    @active_question = ko.computed () =>
-      _.find @questions(), (q) -> q.active()
-
   initialize: () ->
+    _.each @questions(), (q) -> q.initialize()
+
+  question_at: (index) ->
+    @questions()[index-1]
 
   import_form: (poll,evt) ->
     @importing true
@@ -110,9 +173,6 @@ class @Poll
         @importing false
 
   submit: () ->
-    for question, index in @questions()
-      question.position(index+1)
-
     if @valid()
       return true
     else
@@ -135,6 +195,7 @@ class @Poll
       question = new Question(@)
       question.kind(kind)
       question.title('New question')
+      question.position(@questions().length+1)
       @questions.push(question)
       @set_active_question(question)
 
@@ -146,7 +207,11 @@ class @Poll
       when 'unsupported' then 'lunknown'
       else ''
 
-  @mapping:
-    questions:
-      create: (opts) ->
-        ko.mapping.fromJS(opts.data, Question.mapping, new Question(opts.parent))
+  update_positions: () ->
+    for question, index in @questions()
+      for listener in @questions()
+        listener.position_updated(question.position(), index+1)
+      question.position(index+1)
+
+  onQuestionMoved: (q) ->
+    q.item.poll.update_positions()

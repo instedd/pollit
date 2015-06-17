@@ -1,6 +1,6 @@
 #form-editor
   .feditor-list.left
-    %ul{ko(sortable: 'questions')}
+    %ul{ko(sortable: {data: 'questions', afterMove: 'onQuestionMoved'})}
       %li.feditor{ko(css: {'first' => 'first', 'last' => 'last'})}
         .feditor-top
         .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
@@ -14,6 +14,7 @@
             %h1.feditor-field-name{ko(text: 'title')}
             %span.hint.feditor-field-hint
               %span.error{ko(visible: 'errors().length > 0')} Invalid question
+              / %span{ko(text: 'next_question_definition')}
               - ko_if 'description() && description().length > 0' do
                 Description:
                 = ko_text 'description'

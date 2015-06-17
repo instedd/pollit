@@ -3,6 +3,7 @@
   = f.hidden_field :id
   = f.hidden_field :field_name
   = f.hidden_field :position
+  = f.hidden_field :next_question_definition
 
   %p.title Title
   %p.smalltext The name of this question as it is presented.
@@ -20,7 +21,6 @@
     = f.text_field :numeric_min, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %span.smalltext to
     = f.text_field :numeric_max, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
-    %hr
 
   - ko_if 'kind_text' do
     %p.title Size
@@ -40,12 +40,19 @@
     %input{ko(checked: 'collects_respondent').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
     %span Stores sender phone number
 
+  - ko_if 'kind_numeric() || kind_text()' do
+    %hr
+    %p.title Go to question
+    %p.smalltext After answering this question, go to
+    %select{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"').merge(class: 'w30')}
+
   - ko_if 'kind_options' do
     %p.title Options
     %p.smalltext Possible values for this question.
     %ul.feditor-form-options.clist.w30
       %li.feditor-form-option{ko(foreach: 'options')}
-        = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist"
+        = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
+        %select{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption'), style: "width: 60px"}
         %a.right.removeoption{ko(click: 'remove'), href: '#'} &#215;
       .clear
 

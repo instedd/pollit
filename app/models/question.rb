@@ -77,6 +77,11 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def next_question_definition=(value)
+    value = JSON.parse(value) if value.kind_of?(String)
+    super(value)
+  end
+
   def kind_has_options?
     return kind_options?
   end

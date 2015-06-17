@@ -25,8 +25,9 @@ $ ->
       .wajbar()
 
     $('#poll_form').each ->
-      ko.form(this)
-      poll = ko.dataFor(this)
+      model = $(this).data('model')
+      poll = new Poll(model)
+      ko.applyBindings(poll, this)
       poll.initialize()
 
     $("#poll_form a#preview").fancybox()

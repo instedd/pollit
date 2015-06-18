@@ -152,6 +152,11 @@ GEM
       thor (>= 0.13.6)
     gettext_i18n_rails (1.2.1)
       fast_gettext (>= 0.9.0)
+    gon (5.2.3)
+      actionpack (>= 2.3.0)
+      json
+      multi_json
+      request_store (>= 1.0.5)
     haml (4.0.5)
       tilt
     haml-rails (0.4)
@@ -259,6 +264,7 @@ GEM
     rake (10.4.2)
     rdoc (3.12.2)
       json (~> 1.4)
+    request_store (1.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.6.0)
@@ -333,6 +339,7 @@ DEPENDENCIES
   foreman (= 0.64.0)
   gettext!
   gettext_i18n_rails
+  gon
   haml-rails
   hpricot
   hub_client!

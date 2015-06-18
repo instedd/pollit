@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -26,6 +26,12 @@ class RespondentsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:import_csv]
 
   def index
+    gon.phones = phones = @poll.respondents.map{|x| {:number => x.unprefixed_phone}}
+    gon.can_edit = @can_edit = @poll.status_configuring?
+    gon.import_csv_poll_respondents_path = import_csv_poll_respondents_path(@poll)
+    gon.batch_update_poll_respondents_path = batch_update_poll_respondents_path
+    gon.poll_path = poll_path(@poll, :wizard => true)
+
     if wizard?
       @wizard_step = _("Respondents")
       render :layout => 'wizard'

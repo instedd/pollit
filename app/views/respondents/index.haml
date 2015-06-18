@@ -4,6 +4,11 @@
 
 - content_for :head do
   = angular_js_include_tag
+  :javascript
+    var file_should_be_in_csv_format = "#{_('Error: file should be in csv format')}";
+    var file_successfully_uploaded = "#{_('File successfully uploaded')}";
+    var phones_saved_successfully = "#{_('Phones saved succesfully')}";
+    var error_saving_phones = "#{_('Error saving phones')}";
 
 %div{:class => :content}
   %h1 Bulk phone numbers importing
@@ -11,7 +16,7 @@
     Add phone numbers manually or upload a CSV file
     %br
     %br
-    - unless can_edit
+    - unless @can_edit
       Because the poll has already started, you can only add respondents. New respondents will be invited after you click 'Save'.
       %br
       %br
@@ -48,101 +53,3 @@
     - else
       = grey_button _("Save"), :type => :button, "ng:click" => "saveChanges(true)"
       = white_link_to _("Cancel"), @poll
-
-:javascript
-  $(document).ready(function() {
-    $('#numberText').placeholder();
-    $(":input[type=text]").live('focus', function() {
-      $(this).numeric({ decimal: false, negative: false });
-    });
-  });
-
-  function PhonesCtrl() {
-    var scope = this;
-    scope.phones = #{phones_list.to_json};
-    scope.fixed_phones = #{fixed_phones_list.to_json};
-    scope.only_add = #{can_edit ? "false" : "true"} ;
-
-    $(document).ready(function() {
-      window.setTimeout(function() {
-        $("#numberText").focus().blur();
-      }, 200);
-
-      new AjaxUpload($('#import_csv'), {
-        action: '#{import_csv_poll_respondents_path(@poll)}',
-        name: 'csv',
-        onSubmit: function(file, ext){
-          if(ext != 'csv') {
-            $.status.showError('#{_('Error: file should be in csv format')}', 6000)
-            return false;
-          }
-        },
-        onComplete: function(file, response){
-          var data = eval(response);
-          $.each(data, function(i, phone) {
-            if (!scope.phoneExists(phone.number)) {
-              scope.phones.push(phone);
-            }
-          });
-          scope.$eval();
-          $(".ng-directive #numberText").focus().blur();
-          $.status.showNotice('#{_("File successfully uploaded")}', 6000);
-        }
-      });
-    });
-
-    scope.phoneExists = function(phoneNumber) {
-      var all_phones = _.union(scope.fixed_phones, scope.phones);
-      return _.any(all_phones, function(phone) {
-        return phone.number == phoneNumber;
-      });
-    }
-
-    scope.addPhone = function() {
-      if ((!scope.phoneExists(scope.numberText)) && $.trim(scope.numberText) != '') {
-        scope.phones.push({number:scope.numberText});
-        scope.numberText = '';
-      }
-    };
-
-    scope.removePhone = function(phoneNumber) {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return phone.number == phoneNumber;
-      });
-      $(".ng-directive #numberText").focus().blur();
-    }
-
-    scope.removeEmptyPhones = function() {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return $.trim(phone.number) == '';
-      })
-    }
-
-    scope.saveChanges = function(showNotice, nextUrl) {
-      scope.removeEmptyPhones();
-      var phones = _.map(scope.phones, function(phone) { return phone.number });
-      $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
-        if (textStatus == "success") {
-          scope.onSaved();
-          if (showNotice) $.status.showNotice('Phones saved succesfully!', 6000);
-          if (nextUrl) location.href = nextUrl;
-        } else {
-          $.status.showError('Error saving phones', 6000);
-        }
-      });
-    };
-
-    scope.onSaved = function() {
-      if (scope.only_add) {
-        var current_phones = scope.phones;
-        scope.phones = [];
-        angular.forEach(current_phones, function(phone) {
-          scope.fixed_phones.push(phone);
-        });
-      }
-    }
-
-    scope.nextStep = function() {
-      scope.saveChanges(false, '#{poll_path(@poll, :wizard => true)}');
-    }
-  }

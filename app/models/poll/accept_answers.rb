@@ -123,7 +123,7 @@ module Poll::AcceptAnswers
         _("Please answer with a response with no more than %s characters.") % question.max_length
       end
     elsif question.must_contain
-      if !response.include?(question.must_contain)
+      if !response.downcase.include?(question.must_contain.downcase)
         _("Your response must include '%s'.") % question.must_contain
       end
     end

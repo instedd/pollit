@@ -125,11 +125,24 @@ describe Poll do
         it { accepts_answer("   foo   ")  }
         it { accepts_answer("barfoobaz")  }
         it { accepts_answer("foo") }
+        it { accepts_answer("FOO") }
 
         it { rejects_answer("") }
         it { rejects_answer("     ") }
         it { rejects_answer("bar") }
+      end
 
+      context "with contains in caps" do
+        let(:question) { Question.make(kind: 'text', must_contain: 'FOO') }
+
+        it { accepts_answer("   foo   ")  }
+        it { accepts_answer("barfoobaz")  }
+        it { accepts_answer("foo") }
+        it { accepts_answer("FOO") }
+
+        it { rejects_answer("") }
+        it { rejects_answer("     ") }
+        it { rejects_answer("bar") }
       end
 
       context "without validation" do

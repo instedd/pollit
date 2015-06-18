@@ -40,6 +40,9 @@ label.placeholder {
   border-top: 0px !important;
   width: 650px;
   margin-bottom: 5px;
+  &.manualPoll {
+    width: 425px;
+  }
   .farrow {
     margin-top: -3px;
   }
@@ -158,6 +161,14 @@ label.placeholder {
 
 #form-editor {
 
+  .feditor.highlighted {
+    .feditor-button button {
+      border-radius: 5px;
+      border-width: 2px;
+      border-style: solid;
+    }
+  }
+
   .feditor-container {
     position: relative;
   }
@@ -172,10 +183,19 @@ label.placeholder {
     list-style: none;
   }
 
+  .next-question {
+    border-style: solid;
+    border-color: transparent;
+    border-width: 2px;
+  }
+
   .option-next-question {
     width: 60px;
     position: relative;
     bottom: 2px;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 2px;
   }
 
   .collects-respondent-hint {

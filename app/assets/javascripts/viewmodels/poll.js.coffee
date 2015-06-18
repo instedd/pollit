@@ -1,8 +1,11 @@
 class @Question
 
+  @palette = ["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494","#b3b3b3"]
+
   constructor: (data, poll) ->
     @data = data
     @poll = poll
+    @initialized = ko.observable(false)
     @id = ko.observable(data.id)
     @kind = ko.observable(data.kind).extend(required: true)
     @title = ko.observable(data.title).extend(required: true)
@@ -38,6 +41,7 @@ class @Question
 
     # Selecting next question. Serialize and deserialize next_question_definition
     @next_question = ko.observable()
+    @next_question_colour = ko.computed () => @next_question()?.question_colour?() || 'transparent'
     @next_question_definition = ko.pureComputed
       owner: @
       read: () =>
@@ -71,6 +75,11 @@ class @Question
       "#{if @position > 9 then '' else '0'}#{@position()} \u00A0\u00A0\u00A0 #{@title()}"
     @options_caption = "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Next question"
 
+    @highlighted = ko.computed(() =>
+      @initialized() and (active = @poll.active_question()) and active? and (active.next_question() == @ or _.some(active.options(), (opt) => opt.next_question() == @))
+    ).extend(throttle: 10)
+    @question_colour = ko.computed () => Question.palette[@position() % Question.palette.length]
+
     # Helpers for kinds
     @kind_numeric = ko.computed () => @kind() == 'numeric'
     @kind_text    = ko.computed () => @kind() == 'text'
@@ -81,6 +90,7 @@ class @Question
 
   initialize: () ->
     @next_question_definition(@data.next_question_definition)
+    @initialized(true)
 
   remove: () ->
     @poll.questions.remove @
@@ -92,11 +102,6 @@ class @Question
   position_updated: () ->
     true
 
-  # @mapping:
-  #   options:
-  #     create: (opts) ->
-  #       new QuestionOption(opts.parent, opts.data)
-
 
 class @QuestionOption
 
@@ -104,11 +109,7 @@ class @QuestionOption
     @text = ko.observable text
     @focus= ko.observable hasFocus
     @next_question = ko.observable()
-    # @next_question.subscribe (val) =>
-    #   current = JSON.parse(@question.next_question_definition()).case or { case: {} }
-    #   current[@text] = val.position
-    #   updated = ko.toJSON(_.extend(current, {@text: val.}))
-    #   @question.next_question_definition(updated)
+    @next_question_colour = ko.computed () => @next_question()?.question_colour?() || 'transparent'
 
   remove: () ->
     @question.options.remove @

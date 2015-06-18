@@ -10,7 +10,7 @@
 %h1 Properties
 
 - if @poll.can_be_started?
-  .box.plain.orange.unstartedPoll
+  .box.plain.orange.unstartedPoll{class: "#{@poll.kind}Poll"}
     This poll has not been started yet
     = link_to _("Start Poll"), start_poll_path(@poll), :method => :post, :confirm => _("Are you sure you want to start this poll? Once started, you may not modify its questions or add new respondents."), :class => 'farrow right'
   .clear

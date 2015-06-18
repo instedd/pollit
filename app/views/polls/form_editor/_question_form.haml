@@ -44,7 +44,7 @@
     %hr
     %p.title Go to question
     %p.smalltext After answering this question, go to
-    %select{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly').merge(class: 'w30')}
+    %select.next-question{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}).merge(class: 'w30')}
 
   - ko_if 'kind_options' do
     %p.title Options
@@ -52,7 +52,7 @@
     %ul.feditor-form-options.clist.w30
       %li.feditor-form-option{ko(foreach: 'options')}
         = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
-        %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()', visible: '$parent.poll.kind_manual()')}
+        %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()', visible: '$parent.poll.kind_manual()', style: {'borderColor' => 'next_question_colour'})}
         %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
       .clear
 

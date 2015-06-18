@@ -58,8 +58,8 @@ GIT
 
 GIT
   remote: https://github.com/manastech/knockout_forms-rails.git
-  revision: cb9484a41e9cfca0554d602c8a433b3b6d80a74f
-  tag: v1.0.1
+  revision: 25ec7543d2a4a83ba10b5d48964a0a0fb7019d71
+  tag: v1.0.2
   specs:
     knockout_forms-rails (1.0.1)
       actionpack (>= 3, < 5)

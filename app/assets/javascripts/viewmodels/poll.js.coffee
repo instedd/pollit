@@ -14,10 +14,12 @@ class @Question
     @min_length = ko.observable(data.min_length)
     @max_length = ko.observable(data.max_length)
     @must_contain = ko.observable(data.must_contain)
+
+    # Options list
     @options = ko.observableArray(_.map(data.options, (opt) => new QuestionOption(@, opt)))
 
     # Toggle collect respondent
-    @collects_respondent = ko.observable()
+    @collects_respondent = ko.observable(data.collects_respondent)
     @collects_respondent.subscribe (val) =>
       if val
         _.each @poll.questions(), (q) =>
@@ -25,7 +27,7 @@ class @Question
 
     @editable =  ko.computed () => @poll.editable()
     @readonly =  ko.computed () => !@editable()
-    @removable = ko.computed () => @editable() && !@id()
+    @removable = ko.computed () => @editable() && !@id() #!
     @first = ko.computed () => @poll.questions()[0] == @
     @last = ko.computed () => !@editable() && @poll.questions()[@poll.questions().length-1] == @
     @active = ko.observable false
@@ -124,19 +126,31 @@ class @QuestionOption
 class @Poll
 
   constructor: (data) ->
+    # Poll attributes
     @title = ko.observable(data.title).extend(required: true)
     @confirmation_words_text = ko.observable(data.confirmation_words_text).extend(required: true)
     @welcome_message = ko.observable(data.welcome_message).extend(required: true, maxLength: 140)
     @goodbye_message = ko.observable(data.goodbye_message).extend(required: true, maxLength: 140)
-
+    @form_url = ko.observable(data.form_url)
+    @post_url = ko.observable(data.post_url)
     @description = ko.observable(data.description)
     @recurrence_rule = ko.observable(data.recurrence_rule)
+
+    # Poll kind, state and helpers
     @kind = ko.observable(data.kind)
+    @kind_manual = ko.observable(data.kind == 'manual')
+    @kind_gforms = ko.observable(data.kind == 'gforms')
+    @status = ko.observable(data.status)
+    @status_started = ko.observable(data.status == 'started')
+    @editable = ko.observable(@kind_manual() && !status_started())
 
+    # True iif waiting for ajax request of import to complete
     @importing = ko.observable(false)
-    @editable = ko.pureComputed () => (@kind() == 'manual')
 
+    # Option to be displayed as "end poll" when selecting "go to" after answer
     @end_option = {title: 'End poll', title_for_options: 'End \u00A0 End poll', position: 'end'}
+
+    # Questions array must be initialized first since the question model constructor requires the poll to have a questions array
     @questions = ko.observableArray()
     @questions(_.map(data.questions, (q) => new Question(q, @)))
     @active_question = ko.computed () =>
@@ -157,9 +171,6 @@ class @Poll
   initialize: () ->
     _.each @questions(), (q) -> q.initialize()
 
-  question_at: (index) ->
-    @questions()[index-1]
-
   import_form: (poll,evt) ->
     @importing true
     $.ajax
@@ -168,7 +179,12 @@ class @Poll
       type: 'post'
       dataType: 'json'
       success: (data) =>
-        ko.mapping.fromJS(data, Poll.mapping, @)
+        @form_url(data.form_url)
+        @post_url(data.post_url)
+        @title(data.title)
+        @description(data.description)
+        @questions(_.map(data.questions, (q) => new Question(q, @)))
+        @initialize()
       complete: (args) =>
         @importing false
 

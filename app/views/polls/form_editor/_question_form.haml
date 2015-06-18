@@ -36,11 +36,11 @@
     -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
     -# This causes two different values sent to the server when the value is true, since we are inside an array
     -# Handle this value as a hidden text field, editable via a visible check box
-    = f.hidden_field :collects_respondent#, bind: false, :'data-bind' => 'value: collects_respondent'
-    %input{ko(checked: 'collects_respondent').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
+    = f.hidden_field :collects_respondent
+    %input{ko(checked: 'collects_respondent', disable: 'poll.status_started()').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
     %span Stores sender phone number
 
-  - ko_if '(kind_numeric() || kind_text())' do
+  - ko_if '(kind_numeric() || kind_text()) && $parent.kind_manual()' do
     %hr
     %p.title Go to question
     %p.smalltext After answering this question, go to
@@ -52,8 +52,8 @@
     %ul.feditor-form-options.clist.w30
       %li.feditor-form-option{ko(foreach: 'options')}
         = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
-        %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()')}
-        %button.right.clist-remove.removeoption{ko(click: 'remove')}
+        %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()', visible: '$parent.poll.kind_manual()')}
+        %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
       .clear
 
   .clear

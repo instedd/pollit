@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150601155534) do
+ActiveRecord::Schema.define(:version => 20150615234215) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -63,13 +63,14 @@ ActiveRecord::Schema.define(:version => 20150601155534) do
     t.string   "form_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "welcome_message",    :default => "Welcome"
+    t.string   "welcome_message"
     t.string   "status"
     t.string   "post_url"
     t.string   "goodbye_message"
     t.text     "recurrence"
     t.datetime "current_occurrence"
     t.text     "confirmation_words"
+    t.string   "kind",               :default => "gforms"
   end
 
   create_table "questions", :force => true do |t|
@@ -84,7 +85,11 @@ ActiveRecord::Schema.define(:version => 20150601155534) do
     t.integer  "numeric_min"
     t.string   "field_name"
     t.integer  "position"
-    t.boolean  "collects_respondent", :default => false
+    t.boolean  "collects_respondent",      :default => false
+    t.integer  "min_length"
+    t.integer  "max_length"
+    t.string   "must_contain"
+    t.text     "next_question_definition"
   end
 
   create_table "respondents", :force => true do |t|

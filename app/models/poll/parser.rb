@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -37,11 +37,13 @@ module Poll::Parser
             :description => element.at_xpath('.//*[@class="ss-q-help"]').try(:text).try(:strip),
             :field_name => element.at_xpath('.//input[@type="text" or @type="radio" or @type="checkbox"] | .//textarea | .//select').attribute("name").text.strip,
             :position => position
-          
+
           if question.kind_options?
             question.options = extract_options(element)
           elsif question.kind_numeric?
             question.numeric_min, question.numeric_max = extract_numeric(element)
+          elsif question.kind_text?
+            question.must_contain = extract_text(element)
           end
         rescue => ex
           raise Exception.new("Error parsing element on poll #{self}:\n#{element.inner_html}\n#{ex.message}")
@@ -66,12 +68,17 @@ module Poll::Parser
       end.map{|opt| opt.attribute('value').value}.reject{|opt| opt == '__option__'}
     end
 
+    def extract_text(element)
+      input = element.at_xpath('.//input[@type="text"]')
+      return $1 if input && input.attribute('pattern').try(:value) =~ /\A\.\*(.+)\.\*\Z/
+    end
+
     def question_kind(element)
       case element.attribute('class').value
         when /ss-text/, /ss-paragraph-text/ then :text
         when /ss-radio/, /ss-select/ then :options
         when /ss-scale/ then :numeric
-        when /ss-navigate/ then nil 
+        when /ss-navigate/ then nil
         else :unsupported
       end
     end

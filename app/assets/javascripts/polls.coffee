@@ -3,62 +3,36 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  setupValidation()
-  $('.import_form_action').live 'click', ->
-    if $('#poll_form_url').valid()
-      $(this).text(importing_label)
-      $(this).attr('disabled','disabled')
-      $(this).addClass('loading');
-      $.ajax(
-        url: "/polls/import_form"
-        data: $('#poll_form_container form').serialize()
-        type: 'post'
-        dataType: 'script'
-      )
-    else
-      $('#poll_form_url').focus()
-    false
 
-setupValidation = () ->
-  jQuery.validator.addMethod(
-    "hasChildren"
-    (value, element, options) ->
-      return $(options[2], element.form).length > 0
-    jQuery.format(must_have_at_least_one)
-  )
+  $('#poll_type_button').on 'click', ->
+    window.location = $('input:radio:checked').data('url')
 
-  jQuery.validator.addMethod(
-    "questionsValid"
-    (value, element, options) ->
-      return $("#form-editor .field[data-error=true]", element.form).length == 0
-    jQuery.format(invalid_questions_in_the_poll)
-  )
+  if $('#poll_form').length > 0
 
-  window.formValidate()
+    ko.validation.init
+      registerExtenders: true
+      messagesOnModified: true
+      insertMessages: true
+      parseInputAttributes: true
+      decorateInputElement: true
+      errorClass: 'error'
+    , true
 
-window.validator = null
-window.formValidate = () ->
-  window.validator = $('#poll_form').validate(
-    onfocusout: false
-    onkeyup: false
-    onclick: false
-    errorPlacement: (error, element) ->
-      if element.attr('id') == 'poll_form_url'
-        error.insertAfter('#poll_post_url')
-      else if element.attr('id') == 'questions_validation'
-        $('.reload_from_google').focus()
-        error.insertAfter(element)
-      else if element.attr('id') == 'has_questions'
-        error.insertAfter('#poll_form_url')
-        $('#poll_form_url').focus()
-      else
-        error.insertAfter(element)
-    rules:
-      'poll[form_url]':
-        required: true
-        url: true
-      'empty_questions_validation':
-        hasChildren: ["poll", "question", '#form-editor .feditor']
-      'questions_validation':
-        questionsValid: true
-  )
+    # HACK: Handle wajbar initialization manually so the validation message is displayed before the wajbar
+    $('.wajbar')
+      .bind 'focus', (evt) -> $(this).next('.TaskBox').css('opacity', 1)
+      .bind 'blur',  (evt) -> $(this).next('.TaskBox').css('opacity', 0.3)
+      .wajbar()
+
+    $('#poll_form').each ->
+      model = $(this).data('model')
+      poll = new Poll(model)
+      ko.applyBindings(poll, this)
+      poll.initialize()
+
+    $("#poll_form a#preview").fancybox()
+
+    $('#poll_form #goto_import').on 'click', (evt) ->
+      $("input[name='poll[form_url]']").focus()
+      evt.preventDefault()
+      false

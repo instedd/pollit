@@ -33,6 +33,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, :type => :controller
   config.include IceCubeMacros
   config.include TimeMacros
+  config.include NuntiumHelper
 
   config.before(:each) do
     Nuntium.stubs(:new_from_config).returns(@nuntium = mock('nuntium'))

@@ -117,11 +117,37 @@ label.placeholder {
   background: image-url("loading.gif") no-repeat scroll 0 0 transparent !important;
 }
 
+#poll_form {
+
+  .TaskBox {
+    opacity: 0.3
+  }
+
+  span.error {
+    // HACK: Display inline !important from theme.instedd causes the error label to be never hidden
+    background: url(http://theme.instedd.org/theme/images/icons/18/orange/alert.png) no-repeat;
+    color: #ff6600;
+    padding-left: 19px;
+    padding-top: 1px;
+    margin-left: 2px;
+    white-space: nowrap;
+    display: inline;
+  }
+
+}
+
 #poll_form_import {
-  #preview_box{
+
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #preview_box {
     box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.2) inset;
     border-radius: 3px 3px 3px 3px;
   }
+
   #preview {
     img {
       margin: 2px 2px -1px 2px;
@@ -131,6 +157,27 @@ label.placeholder {
 }
 
 #form-editor {
+
+  .feditor-container {
+    position: relative;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    list-style: none;
+  }
+
+  .option-next-question {
+    width: 60px;
+    position: relative;
+    bottom: 2px;
+  }
+
   .collects-respondent-hint {
     display: none;
     font-size: 12px;
@@ -148,7 +195,25 @@ label.placeholder {
     float: left;
   }
 
-  .feditor.collects-respondent {
+  .remove-field {
+    float: right;
+    outline: none;
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 8px;
+    top: -4px;
+    background: image-url("buttons/removeButton.png") no-repeat 0 0;
+    &:hover {
+      background-position-y: -30px;
+    }
+    &:active {
+      background-position-y: -60px;
+    }
+  }
+
+  .collects-respondent {
     .collects-respondent-hint {
       display: inline-block;
       float: right;

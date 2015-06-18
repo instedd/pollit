@@ -52,8 +52,19 @@ Poll.blueprint do
   form_url        {Sham.url}
   post_url        {Sham.url}
   owner           {User.make}
+  channel         {Channel.make}
+  questions(1)
+end
+
+Poll.blueprint(:with_respondents) do
+  title           {Sham.title}
+  description     {Sham.description}
+  form_url        {Sham.url}
+  post_url        {Sham.url}
+  owner           {User.make}
   channel         { Channel.make }
   questions(1)
+  respondents(3)
 end
 
 Poll.blueprint(:with_questions) do

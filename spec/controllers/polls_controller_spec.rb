@@ -30,7 +30,20 @@ describe PollsController do
 
   it "should get new poll form" do
     get :new
+    response.should be_success
+  end
+
+  it "should get new manual poll form" do
+    get :new_manual
     assigns(:poll).should_not be_nil
+    assigns(:poll).kind.should eq(:manual)
+    response.should be_success
+  end
+
+  it "should get new gforms poll form" do
+    get :new_gforms
+    assigns(:poll).should_not be_nil
+    assigns(:poll).kind.should eq(:gforms)
     response.should be_success
   end
 
@@ -61,6 +74,8 @@ describe PollsController do
     assigns(:poll).should have(6).questions
     assigns(:poll).title.should eq("Manual title")
     assigns(:poll).description.should eq("Manual description")
+
+    assigns(:poll).questions.map(&:kind).should eq([:text, :text, :options, :options, :options, :numeric])
   end
 
   it "should get title and description when importing poll form if were empty" do

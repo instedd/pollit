@@ -122,6 +122,21 @@ describe Respondent do
       respondent.unprefixed_phone.should eq("111")
     end
 
+    context "if poll is manual" do
+
+      let(:poll) do
+        Poll.make! :with_questions, :kind => :manual, :post_url => post_url
+      end
+
+      it "marks push status as local" do
+        respondent.push_answers.should be_true
+        a_request(:post, post_url).should_not have_been_made
+        respondent.pushed_status.should eq(:local)
+      end
+
+    end
+
+
   end
 
   context "collecting respondent phone" do

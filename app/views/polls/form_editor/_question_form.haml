@@ -1,47 +1,67 @@
-- f = question_form
-
-.feditor-form{:id => "feditor-form-#{index}", "data-field-index" => index}
+.feditor-form{ko(visible: 'active')}
   = f.hidden_field :kind
   = f.hidden_field :id
   = f.hidden_field :field_name
   = f.hidden_field :position
+  = f.hidden_field :next_question_definition
 
   %p.title Title
   %p.smalltext The name of this question as it is presented.
-  = f.text_field :title, :readonly => disabled, :class => 'feditor-field-name required'
+  = f.text_field :title, :class => 'feditor-field-name required', 'data-bind' => 'attr: {readonly: readonly}'
   %hr
 
   %p.title Description
   %p.smalltext Additional help for this question.
-  = f.text_field :description, :readonly => disabled, :class => 'feditor-field-hint'
+  = f.text_field :description, :class => 'feditor-field-hint', 'data-bind' => 'attr: {readonly: readonly}'
   %hr
 
-  - if f.object.kind_text?
-    = f.check_box :collects_respondent, :class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox"
-    Stores sender phone number
-
-  - if f.object.kind_numeric?
+  - ko_if 'kind_numeric' do
     %p.title Range
     %p.smalltext Range of values accepted for this question
-    = f.text_field :numeric_min, :readonly => disabled, :class => "w13"
+    = f.text_field :numeric_min, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %span.smalltext to
-    = f.text_field :numeric_max, :readonly => disabled, :class => "w13"
-    %hr
+    = f.text_field :numeric_max, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
 
-  - if f.object.kind_has_options?
+  - ko_if 'kind_text' do
+    %p.title Size
+    %p.smalltext Accepted response length for this question
+    = f.text_field :min_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
+    %span.smalltext to
+    = f.text_field :max_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
+    %hr
+    %p.title Contains
+    %p.smalltext Require this string to be contained in the response
+    = f.text_field :must_contain, :'data-bind' => 'attr: {readonly: readonly}'
+    %hr
+    -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
+    -# This causes two different values sent to the server when the value is true, since we are inside an array
+    -# Handle this value as a hidden text field, editable via a visible check box
+    = f.hidden_field :collects_respondent
+    %input{ko(checked: 'collects_respondent', disable: 'poll.status_started()').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
+    %span Stores sender phone number
+
+  - ko_if '(kind_numeric() || kind_text()) && $parent.kind_manual()' do
+    %hr
+    %p.title Go to question
+    %p.smalltext After answering this question, go to
+    %select{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly').merge(class: 'w30')}
+
+  - ko_if 'kind_options' do
     %p.title Options
     %p.smalltext Possible values for this question.
     %ul.feditor-form-options.clist.w30
-      - if f.object.options
-        - f.object.options.each do |opt|
-          = render :partial => 'polls/form_editor/question_option', :object => opt, :locals => {:f => f, :disabled => disabled}
+      %li.feditor-form-option{ko(foreach: 'options')}
+        = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
+        %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()', visible: '$parent.poll.kind_manual()')}
+        %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
+      .clear
 
   .clear
 
-  -# unless disabled
-    -#.feditor-form-option-new.require_from_group
-      -#= f.text_field 'option[]', :disabled => disabled, :value => nil, :class => 'small option', :placeholder => 'Enter a new option'
-      -#= link_to_add_question_option f, :class => 'right addoption'
-      -#.clear
+  - ko_if 'editable() && kind_options()' do
+    .feditor-form-option-new.require_from_group{ko(with: 'new_option')}
+      %input.newoption.small.option{ko(textInput: 'text', hasFocus: 'focus', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Enter a new option'}
+      %buttom.right.addoption.clist-add{ko(click: 'add', visible: '(text().length > 0)')}
+    .clear
 
 

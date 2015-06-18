@@ -1,5 +1,22 @@
 - add_breadcrumb _("New poll"), new_poll_path unless wizard?
-%br
+.ChannelWizard.PollTypeWizard
+  %h1 Choose how to create your Poll
 
-%h1 Create a new poll
-= render :partial => 'form'
+  = radio_button_tag :poll_type, :gforms, checked=true, :id => 'gforms_poll', 'data-url' => new_gforms_polls_path, :class => 'left'
+  .left
+  = label_tag 'gforms_poll', _("Import from Google Forms") , :class => "left"
+  %p.w30.clear.description
+    Choose a public poll already designed in Google Forms to be imported into Pollit. All answers collected will be pushed to the corresponding Google Spreadsheet, as well as visible inside Pollit.
+    Note that any desired changes to the poll must be made on the original Google Form and then reimported into Pollit.
+
+  = radio_button_tag :poll_type, :manual, checked=false, :id => 'manual_poll', 'data-url' => new_manual_polls_path, :class => :left
+  .left
+  = label_tag 'manual_poll', _("Create in Pollit"), :class => "left"
+  %p.w30.clear.description
+    Create a new poll from scratch within Pollit, with support for branching and validations. All answers will be visible in Pollit, and can be exported or programatically accessed.
+
+  %hr/
+
+  .actions
+    = white_link_to _("Back"), polls_path
+    = grey_button _("Next"), id: 'poll_type_button'

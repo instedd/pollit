@@ -45,6 +45,8 @@ Pollit::Application.routes.draw do
 
     resources :polls do
       collection do
+        get   'new/manual', action: 'new_manual'
+        get   'new/gforms', action: 'new_gforms'
         match 'import_form'
       end
 

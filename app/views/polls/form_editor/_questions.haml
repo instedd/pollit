@@ -1,12 +1,41 @@
-- questions = @questions || f.object.questions
-
 #form-editor
   .feditor-list.left
-    = render :partial => 'polls/form_editor/question', :collection => questions, :locals => {:disabled => disabled, :question_count => questions.size}
-            
-  .feditor-sidebar.box.right.w30{:class => ("nodisplay" if questions.empty?)}
-    - questions.each_with_index do |question, index|
-      = f.fields_for :questions, question, :child_index => index do |question_builder|
-        = render :partial => 'polls/form_editor/question_form', :object => question_builder, :locals => {:index => index, :disabled => disabled}
-            
+    %ul{ko(sortable: {data: 'questions', afterMove: 'onQuestionMoved'})}
+      %li.feditor{ko(css: {'first' => 'first', 'last' => 'last'})}
+        .feditor-top
+        .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
+          - ko_if 'removable' do
+            %a.remove-field{ko(click: 'remove')}
+
+          .feditor-button
+            %button{ko(click: 'set_active', css: 'editor_class'), type: :button}
+
+          .feditor-content
+            %h1.feditor-field-name{ko(text: 'title')}
+            %span.hint.feditor-field-hint
+              %span.error{ko(visible: 'errors().length > 0')} Invalid question
+              / %span{ko(text: 'next_question_definition')}
+              - ko_if 'description() && description().length > 0' do
+                Description:
+                = ko_text 'description'
+            %span.collects-respondent-hint{:title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet." }
+              Stores sender phone number
+
+
+    .feditor-add{ko(if: 'editable')}
+      .feditor-add-top
+      .feditor-add-container
+        .feditor-add-content
+          %h1 Add a new question
+          - Question.new.enums(:kind).hash.each do |question_type, label|
+            - if question_type != :unsupported
+              %span
+                %button{ko(click: "add_question_handler('#{question_type}')", css: "editor_class_for('#{question_type}')"), type: 'button'}
+                %br/
+                = label
+
+  .feditor-sidebar.box.right.w30{ko(visible: 'active_question() != null')}
+    = f.fields_for :questions do |g|
+      = render :partial => 'polls/form_editor/question_form', :locals => {f: g}
+
   .clear

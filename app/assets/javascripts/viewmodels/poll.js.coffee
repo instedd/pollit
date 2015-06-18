@@ -27,7 +27,7 @@ class @Question
 
     @editable =  ko.computed () => @poll.editable()
     @readonly =  ko.computed () => !@editable()
-    @removable = ko.computed () => @editable() && !@id() #!
+    @removable = ko.computed () => @editable()
     @first = ko.computed () => @poll.questions()[0] == @
     @last = ko.computed () => !@editable() && @poll.questions()[@poll.questions().length-1] == @
     @active = ko.observable false
@@ -142,7 +142,7 @@ class @Poll
     @kind_gforms = ko.observable(data.kind == 'gforms')
     @status = ko.observable(data.status)
     @status_started = ko.observable(data.status == 'started')
-    @editable = ko.observable(@kind_manual() && !status_started())
+    @editable = ko.observable(@kind_manual() && !@status_started())
 
     # True iif waiting for ajax request of import to complete
     @importing = ko.observable(false)
@@ -208,10 +208,11 @@ class @Poll
 
   add_question_handler: (kind) ->
     () =>
-      question = new Question(@)
-      question.kind(kind)
-      question.title('New question')
-      question.position(@questions().length+1)
+      question = new Question
+        kind: kind
+        title: 'New question'
+        position: @questions().length+1
+      , @
       @questions.push(question)
       @set_active_question(question)
 

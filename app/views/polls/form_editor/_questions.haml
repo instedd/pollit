@@ -1,14 +1,14 @@
 #form-editor
   .feditor-list.left
     %ul{ko(sortable: {data: 'questions', afterMove: 'onQuestionMoved'})}
-      %li.feditor{ko(css: {'first' => 'first', 'last' => 'last'})}
+      %li.feditor{ko(css: {'first' => 'first', 'last' => 'last', 'highlighted' => 'highlighted'})}
         .feditor-top
         .feditor-container{ko(css: {'"collects-respondent"' => 'collects_respondent'})}
           - ko_if 'removable' do
             %a.remove-field{ko(click: 'remove')}
 
           .feditor-button
-            %button{ko(click: 'set_active', css: 'editor_class'), type: :button}
+            %button{ko(click: 'set_active', css: 'editor_class', style: {'borderColor' => 'question_colour'}), type: :button}
 
           .feditor-content
             %h1.feditor-field-name{ko(text: 'title')}

@@ -27,6 +27,7 @@ gem 'foreman', '0.64.0'
 gem 'knockoutjs-rails'
 gem 'knockout_forms-rails', git: "https://github.com/manastech/knockout_forms-rails.git", tag: 'v1.0.2'
 gem 'gon'
+gem 'activerecord-import', '~> 0.3.1'
 
 gem "omniauth"
 gem "omniauth-openid"

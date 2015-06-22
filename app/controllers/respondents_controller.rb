@@ -50,6 +50,27 @@ class RespondentsController < ApplicationController
     render :text => phones.to_json
   end
 
+  def connect_hub
+    @poll.hub_respondents_path = params[:path]
+    @poll.hub_respondents_phone_field = params[:phone_field]
+    @poll.save
+
+    HubImporter.import_respondents(@poll.id)
+    head :ok
+  end
+
+  def clear_hub
+    @poll.hub_respondents_path = nil
+    @poll.hub_respondents_phone_field = nil
+    @poll.save
+
+    if @poll.editable? && params[:delete_respondents]
+      @poll.where('hub_source IS NOT NULL').delete_all
+    end
+
+    head :ok
+  end
+
   private
 
   def update_phone_list(phones)

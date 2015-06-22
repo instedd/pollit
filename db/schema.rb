@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150615234215) do
+ActiveRecord::Schema.define(:version => 20150622222210) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -70,7 +70,9 @@ ActiveRecord::Schema.define(:version => 20150615234215) do
     t.text     "recurrence"
     t.datetime "current_occurrence"
     t.text     "confirmation_words"
-    t.string   "kind",               :default => "gforms"
+    t.string   "kind",                        :default => "gforms"
+    t.string   "hub_respondents_path"
+    t.string   "hub_respondents_phone_field"
   end
 
   create_table "questions", :force => true do |t|
@@ -102,7 +104,10 @@ ActiveRecord::Schema.define(:version => 20150615234215) do
     t.boolean  "confirmed",             :default => false, :null => false
     t.integer  "current_question_id"
     t.boolean  "current_question_sent", :default => false, :null => false
+    t.string   "hub_source"
   end
+
+  add_index "respondents", ["phone", "poll_id"], :name => "index_respondents_on_phone_and_poll_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

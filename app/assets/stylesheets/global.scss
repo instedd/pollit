@@ -243,3 +243,23 @@ label.placeholder {
     }
   }
 }
+
+#respondents-container {
+  li .ux-clist:disabled {
+    color: black;
+  }
+}
+
+#hub_details {
+  margin-left: 30px;
+  line-height: 1.5;
+
+  .hub_entity_set {
+    font-family: Courier;
+  }
+
+  .hub_clear {
+    margin-left: 5px;
+    text-decoration: underline;
+  }
+}

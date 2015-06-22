@@ -10,15 +10,17 @@
     var phones_saved_successfully = "#{_('Phones saved succesfully')}";
     var error_saving_phones = "#{_('Error saving phones')}";
 
-%div{"ng:controller" => "PhonesCtrl"}
+%div{"ng-controller" => "PhonesCtrl"}
   %div{:class => :content}
-    %h1 Bulk phone numbers importing
+    %h1 Phone numbers importing
     .whitebox{:style => "margin-top:-12px;"}
-      Add phone numbers manually or upload a CSV file
+      Add phone numbers manually, upload a CSV file or connect with InSTEDD Hub
       %br
       %br
       - unless @can_edit
-        Because the poll has already started, you can only add respondents. New respondents will be invited after you click 'Save'.
+        Because the poll has already started, you can only add respondents.
+        %br
+        New respondents will be invited after you click 'Save'.
         %br
         %br
       #export_csv
@@ -29,33 +31,37 @@
         = button_tag :type => :button, :class => :fimport do
           %b Upload a CSV for bulk account creation
       #hub_action
-        = button_tag :type => :button, :class => :fdatabase, 'ng:click' => 'chooseHubAction()' do
+        = button_tag :type => :button, :class => :fdatabase, 'ng-click' => 'chooseHubAction()' do
           %b Connect with InSTEDD Hub
-
-
+        #hub_details{'ng-show' => 'hub_entity_set != null'}
+          Connected with
+          %span.hub_entity_set {{ hub_entity_set.path }}
+          %a.hub_clear{:href => '#', 'ng-click' => 'clearHubAction()'} Clear
+          %br
+          Choose phone number field
+          %select{'ng-options' => 'field as field.label() for field in hub_fields', 'ng-model' => 'hub_phone_field'}
 
   %br
 
-  %div
+  %div#respondents-container
     %ul{:class => "clist w30"}
-      %li{"ng:repeat" => "phone in fixed_phones"}
-        = text_field_tag "phone.number", "{{phone.number}}", :disabled => true
-        = button_tag "", :type => :button, :class => "clist-remove", :disabled => true
-      %li{"ng:repeat" => "phone in phones"}
+      %li{"ng-repeat" => "phone in fixed_phones"}
+        = text_field_tag "phone.number", "{{phone.number}}", :disabled => true, :class => "ux-clist"
+      %li{"ng-repeat" => "phone in phones"}
         = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
-        = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
+        = button_tag "", :type => :button, :class => "clist-remove", "ng-click" => "removePhone(phone.number)"
       %li
-        = content_tag :form, "ng:submit" => "addPhone()" do
-          = text_field_tag "numberText", "", :class => "ux-text", :placeholder => _("Add a new phone...")
-          = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
+        = content_tag :form, "ng-submit" => "addPhone()" do
+          %input.ux-text#numberText{:type => 'text', :placeholder => _("Add a new phone..."), :'ng-model' => 'numberText'}
+          = button_tag "", :type => :button, :class => "clist-add", "ng-click" => "addPhone()"
     %br
     %hr
 
     .actions
       - if wizard?
         = white_link_to _("Back"), poll_channel_path(@poll, :wizard => true)
-        = grey_button _("Next"), :type => :button, "ng:click" => "nextStep()"
+        = grey_button _("Next"), :type => :button, "ng-click" => "nextStep()"
         = link_to _("Skip this step"), poll_path(@poll, :wizard => true), :class => "wizard-skip"
       - else
-        = grey_button _("Save"), :type => :button, "ng:click" => "saveChanges(true)"
+        = grey_button _("Save"), :type => :button, "ng-click" => "saveChanges(true)"
         = white_link_to _("Cancel"), @poll

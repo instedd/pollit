@@ -5,12 +5,14 @@ $(document).ready(function() {
   });
 });
 
-function PhonesCtrl() {
-  var scope = this;
-  scope.phones = gon.can_edit ? gon.phones : [];
-  scope.fixed_phones = gon.can_edit ? [] : gon.phones;
-  scope.only_add = !!gon.can_edit;
-  scope.hub_fields = []
+angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', function($scope) {
+  $scope.phones = gon.can_edit ? gon.phones : [];
+  $scope.fixed_phones = gon.can_edit ? [] : gon.phones;
+  $scope.only_add = !!gon.can_edit;
+  $scope.hub_fields = []
+  $scope.hub_phone_field = null
+  $scope.numberText = ''
+
 
   $(document).ready(function() {
     window.setTimeout(function() {
@@ -29,62 +31,70 @@ function PhonesCtrl() {
       onComplete: function(file, response){
         var data = eval(response);
         $.each(data, function(i, phone) {
-          if (!scope.phoneExists(phone.number)) {
-            scope.phones.push(phone);
+          if (!$scope.phoneExists(phone.number)) {
+            $scope.phones.push(phone);
           }
         });
-        scope.$eval();
+        $scope.$eval();
         $(".ng-directive #numberText").focus().blur();
         $.status.showNotice(file_successfully_uploaded, 6000);
       }
     });
   });
 
-  scope.phoneExists = function(phoneNumber) {
-    var all_phones = _.union(scope.fixed_phones, scope.phones);
+  $scope.phoneExists = function(phoneNumber) {
+    var all_phones = _.union($scope.fixed_phones, $scope.phones);
     return _.any(all_phones, function(phone) {
       return phone.number == phoneNumber;
     });
   }
 
-  scope.addPhone = function() {
-    if ((!scope.phoneExists(scope.numberText)) && $.trim(scope.numberText) != '') {
-      scope.phones.push({number:scope.numberText});
-      scope.numberText = '';
+  $scope.addPhone = function() {
+    if ((!$scope.phoneExists($scope.numberText)) && $.trim($scope.numberText) != '') {
+      $scope.phones.push({number:$scope.numberText});
+      $scope.numberText = '';
     }
   };
 
-  scope.chooseHubAction = function() {
+  $scope.chooseHubAction = function() {
     hubApi = new HubApi(gon.hub_url, '/hub');
     hubApi.openPicker('entity_set').then(function(path, selection) {
       return hubApi.reflect(path).then(function(reflect_result) {
-        scope.hub_fields = [];
-        reflect_result.visitEntity(function(field) {
-          scope.hub_fields << field;
+        $scope.$apply(function($scope) {
+          $scope.hub_fields = [];
+          $scope.hub_entity_set = reflect_result.toJson()
+          reflect_result.visitEntity(function(field) {
+            $scope.hub_fields.push(field);
+          });
         });
       });
     });
   };
 
-  scope.removePhone = function(phoneNumber) {
-    scope.phones = _.reject(scope.phones, function(phone) {
+  $scope.clearHubAction = function() {
+    $scope.hub_entity_set = null;
+    $scope.hub_fields = [];
+  }
+
+  $scope.removePhone = function(phoneNumber) {
+    $scope.phones = _.reject($scope.phones, function(phone) {
       return phone.number == phoneNumber;
     });
     $(".ng-directive #numberText").focus().blur();
   }
 
-  scope.removeEmptyPhones = function() {
-    scope.phones = _.reject(scope.phones, function(phone) {
+  $scope.removeEmptyPhones = function() {
+    $scope.phones = _.reject($scope.phones, function(phone) {
       return $.trim(phone.number) == '';
     })
   }
 
-  scope.saveChanges = function(showNotice, nextUrl) {
-    scope.removeEmptyPhones();
-    var phones = _.map(scope.phones, function(phone) { return phone.number });
+  $scope.saveChanges = function(showNotice, nextUrl) {
+    $scope.removeEmptyPhones();
+    var phones = _.map($scope.phones, function(phone) { return phone.number });
     $.post(gon.batch_update_poll_respondents_path, {'phones': phones}, function(data, textStatus) {
       if (textStatus == "success") {
-        scope.onSaved();
+        $scope.onSaved();
         if (showNotice) $.status.showNotice(phones_saved_successfully, 6000);
         if (nextUrl) location.href = nextUrl;
       } else {
@@ -93,17 +103,17 @@ function PhonesCtrl() {
     });
   };
 
-  scope.onSaved = function() {
-    if (scope.only_add) {
-      var current_phones = scope.phones;
-      scope.phones = [];
+  $scope.onSaved = function() {
+    if ($scope.only_add) {
+      var current_phones = $scope.phones;
+      $scope.phones = [];
       angular.forEach(current_phones, function(phone) {
-        scope.fixed_phones.push(phone);
+        $scope.fixed_phones.push(phone);
       });
     }
   }
 
-  scope.nextStep = function() {
-    scope.saveChanges(false, gon.poll_path);
+  $scope.nextStep = function() {
+    $scope.saveChanges(false, gon.poll_path);
   }
-};
+}]);

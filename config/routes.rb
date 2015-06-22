@@ -75,6 +75,7 @@ Pollit::Application.routes.draw do
       end
     end
 
+    match '/hub/*path' => 'hub#api', format: false
     match '/locale/update' => 'locale#update',  :as => 'update_locale'
     match '/' => 'home#index',                  :as => 'home'
   end

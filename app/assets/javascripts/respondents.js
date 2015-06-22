@@ -10,6 +10,7 @@ function PhonesCtrl() {
   scope.phones = gon.can_edit ? gon.phones : [];
   scope.fixed_phones = gon.can_edit ? [] : gon.phones;
   scope.only_add = !!gon.can_edit;
+  scope.hub_fields = []
 
   $(document).ready(function() {
     window.setTimeout(function() {
@@ -51,6 +52,18 @@ function PhonesCtrl() {
       scope.phones.push({number:scope.numberText});
       scope.numberText = '';
     }
+  };
+
+  scope.chooseHubAction = function() {
+    hubApi = new HubApi(gon.hub_url, '/hub');
+    hubApi.openPicker('entity_set').then(function(path, selection) {
+      return hubApi.reflect(path).then(function(reflect_result) {
+        scope.hub_fields = [];
+        reflect_result.visitEntity(function(field) {
+          scope.hub_fields << field;
+        });
+      });
+    });
   };
 
   scope.removePhone = function(phoneNumber) {

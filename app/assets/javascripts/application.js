@@ -14,6 +14,7 @@
 //= require knockout-forms.rails
 //= require knockout-sortable.min
 //= require knockout-validation.min
+//= require hub_client
 //= require_directory .
 //= require_directory ./viewmodels
 //= require fancybox

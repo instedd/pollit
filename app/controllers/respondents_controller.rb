@@ -19,7 +19,6 @@ require 'csv'
 
 class RespondentsController < ApplicationController
 
-
   before_filter :authenticate_user!
   before_filter :load_poll
 
@@ -31,6 +30,7 @@ class RespondentsController < ApplicationController
     gon.import_csv_poll_respondents_path = import_csv_poll_respondents_path(@poll)
     gon.batch_update_poll_respondents_path = batch_update_poll_respondents_path
     gon.poll_path = poll_path(@poll, :wizard => true)
+    gon.hub_url = HubClient.current.url
 
     if wizard?
       @wizard_step = _("Respondents")

@@ -17,6 +17,12 @@ describe HubImporter do
     JSON.parse(File.read("#{Rails.root}/spec/webmocks/#{path}"))
   end
 
+  def it_should_have_two_respondents(poll)
+    poll.reload.should have(2).respondents
+    poll.respondents.pluck(:phone).should eq(["sms://9991001", "sms://9991002"])
+    poll.respondents.pluck(:hub_source).should eq([path, path])
+  end
+
   it "should enqueue jobs for all polls with hub configured" do
     with_hub = Poll.make!(3, hub_respondents_path: 'example.com')
     Poll.make!(2)
@@ -32,7 +38,7 @@ describe HubImporter do
   end
 
   it "should import respondents from hub" do
-    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: 'phone')
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
     api.stub(:json).and_return({
       "items" => [
         { "phone" => "9991001", "name" => "Joe"},
@@ -41,14 +47,38 @@ describe HubImporter do
     })
 
     HubImporter.new(poll).import_respondents!
-    poll.reload.should have(2).respondents
+    it_should_have_two_respondents(poll)
+  end
 
-    poll.respondents.pluck(:phone).should eq(["sms://9991001", "sms://9991002"])
-    poll.respondents.pluck(:hub_source).should eq([path, path])
+  it "should import respondents from hub with complex field" do
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phones','main'])
+    api.stub(:json).and_return({
+      "items" => [
+        { "phones" => { 'main' => "9991001" }, "name" => "Joe"},
+        { "phones" => { 'main' => "9991002" }, "name" => "Joe"},
+      ]
+    })
+
+    HubImporter.new(poll).import_respondents!
+    it_should_have_two_respondents(poll)
+  end
+
+  it "should skip respondents without phone" do
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
+    api.stub(:json).and_return({
+      "items" => [
+        { "phone" => "9991001", "name" => "Joe"},
+        { "phone" => "sms://9991002", "name" => "Jane"},
+        { "mobile" => "9991003", "name" => "Jack"}
+      ]
+    })
+
+    HubImporter.new(poll).import_respondents!
+    it_should_have_two_respondents(poll)
   end
 
   it "should import repeated respondents" do
-    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: 'phone')
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
     api.stub(:json).and_return({
       "items" => [
         { "phone" => "9991001", "name" => "Joe"},
@@ -58,12 +88,11 @@ describe HubImporter do
     })
 
     HubImporter.new(poll).import_respondents!
-    poll.reload.should have(2).respondents
-    poll.respondents.pluck(:phone).should eq(["sms://9991001", "sms://9991002"])
+    it_should_have_two_respondents(poll)
   end
 
   it "should import with existing respondents" do
-    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: 'phone', respondents: [Respondent.make(phone: "sms://9991001")])
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'], respondents: [Respondent.make(phone: "sms://9991001")])
     api.stub(:json).and_return({
       "items" => [
         { "phone" => "9991001", "name" => "Joe"},
@@ -81,7 +110,7 @@ describe HubImporter do
   end
 
   it "should import respondents from several pages in hub" do
-    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: 'phone')
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
     api.should_receive(:json).with("/api/data/#{path}?") { json('hub-respondents-large-p1.json') }
     api.should_receive(:json).with("/api/data/#{path}?page=2") { json('hub-respondents-large-p2a.json') }
 
@@ -93,7 +122,7 @@ describe HubImporter do
   end
 
   it "should import respondents from several pages in hub with repeated numbers" do
-    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: 'phone')
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
     api.should_receive(:json).with("/api/data/#{path}?") { json('hub-respondents-large-p1.json') }
     api.should_receive(:json).with("/api/data/#{path}?page=2") { json('hub-respondents-large-p2b.json') }
 

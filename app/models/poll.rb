@@ -29,6 +29,7 @@ class Poll < ActiveRecord::Base
   has_recurrence :recurrence
 
   serialize :confirmation_words, Array
+  serialize :hub_respondents_phone_field, Array
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true

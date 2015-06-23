@@ -33,7 +33,7 @@ class HubImporter
   end
 
   def record_from(hub_entity)
-    phone = poll.hub_respondents_phone_field.inject hub_entity {|obj, field| obj[field]} rescue nil
+    phone = Array.wrap(poll.hub_respondents_phone_field).inject(hub_entity) {|obj, field| obj[field]} rescue nil
     return nil if phone.nil?
     [phone.to_s.ensure_protocol, poll.id, poll.hub_respondents_path]
   end

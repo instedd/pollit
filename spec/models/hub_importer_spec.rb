@@ -77,6 +77,33 @@ describe HubImporter do
     it_should_have_two_respondents(poll)
   end
 
+  it "should skip respondents without valid phone" do
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
+    api.stub(:json).and_return({
+      "items" => [
+        { "phone" => "9991001", "name" => "Joe"},
+        { "phone" => "sms://9991002", "name" => "Jane"},
+        { "phone" => "foobar", "name" => "Jack"}
+      ]
+    })
+
+    HubImporter.new(poll).import_respondents!
+    it_should_have_two_respondents(poll)
+  end
+
+  it "should remove invalid characters when importing" do
+    poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
+    api.stub(:json).and_return({
+      "items" => [
+        { "phone" => "+(99)91-001", "name" => "Joe"},
+        { "phone" => "sms://9991002", "name" => "Jane"}
+      ]
+    })
+
+    HubImporter.new(poll).import_respondents!
+    it_should_have_two_respondents(poll)
+  end
+
   it "should import repeated respondents" do
     poll = Poll.make!(hub_respondents_path: path, hub_respondents_phone_field: ['phone'])
     api.stub(:json).and_return({

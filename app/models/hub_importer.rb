@@ -34,8 +34,9 @@ class HubImporter
 
   def record_from(hub_entity)
     phone = Array.wrap(poll.hub_respondents_phone_field).inject(hub_entity) {|obj, field| obj[field]} rescue nil
-    return nil if phone.nil?
-    [phone.to_s.ensure_protocol, poll.id, poll.hub_respondents_path]
+    phone = phone.to_s.gsub(/[^0-9]/,"") if phone
+    return nil if phone.blank?
+    [phone.ensure_protocol, poll.id, poll.hub_respondents_path]
   end
 
   class Job < Struct.new(:poll_id)

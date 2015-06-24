@@ -63,8 +63,10 @@ Pollit::Application.routes.draw do
 
       resources :respondents, :only => [:index] do
         collection do
-          post 'batch_update'
+          post 'add_phones'
           post 'import_csv'
+          post 'clear_hub'
+          post 'connect_hub'
         end
       end
 

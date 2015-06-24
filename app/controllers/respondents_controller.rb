@@ -22,13 +22,17 @@ class RespondentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_poll
 
-  skip_before_filter :verify_authenticity_token, :only => [:import_csv]
+  skip_before_filter :verify_authenticity_token, :only => [:add_phones, :import_csv, :connect_hub, :clear_hub]
 
   def index
     gon.phones = phones = @poll.respondents.map{|x| {:number => x.unprefixed_phone}}
     gon.can_edit = @can_edit = @poll.status_configuring?
+    gon.poll = @poll.as_json
+
     gon.import_csv_poll_respondents_path = import_csv_poll_respondents_path(@poll)
-    gon.batch_update_poll_respondents_path = batch_update_poll_respondents_path
+    gon.add_phones_poll_respondents_path = add_phones_poll_respondents_path(@poll)
+    gon.connect_hub_path = connect_hub_poll_respondents_path(@poll)
+    gon.clear_hub_path = clear_hub_poll_respondents_path(@poll)
     gon.poll_path = poll_path(@poll, :wizard => true)
     gon.hub_url = HubClient.current.url
 
@@ -38,8 +42,13 @@ class RespondentsController < ApplicationController
     end
   end
 
-  def batch_update
-    update_phone_list(params[:phones])
+  def add_phones
+    params[:phones].each do |phone|
+      phone = phone.gsub(/[^0-9]/,"")
+      @poll.respondents.create(:phone => phone.with_protocol) unless phone.blank?
+    end
+
+    @poll.on_respondents_added
     head :ok
   end
 
@@ -53,7 +62,7 @@ class RespondentsController < ApplicationController
   def connect_hub
     @poll.hub_respondents_path = params[:path]
     @poll.hub_respondents_phone_field = params[:phone_field]
-    @poll.save
+    @poll.save!
 
     HubImporter.import_respondents(@poll.id)
     head :ok
@@ -64,26 +73,9 @@ class RespondentsController < ApplicationController
     @poll.hub_respondents_phone_field = nil
     @poll.save
 
-    if @poll.editable? && params[:delete_respondents]
-      @poll.where('hub_source IS NOT NULL').delete_all
-    end
+    @poll.respondents.where('hub_source IS NOT NULL').delete_all if @poll.editable? && params[:delete_respondents]
 
     head :ok
-  end
-
-  private
-
-  def update_phone_list(phones)
-    if @poll.status_configuring?
-      Respondent.delete_all :poll_id => @poll.id
-    end
-
-    phones.each do |phone|
-      prefixed_phone = "sms://#{phone.gsub(/[^0-9]/,"")}"
-      @poll.respondents.create(:phone => prefixed_phone)
-    end
-
-    @poll.on_respondents_added
   end
 
 end

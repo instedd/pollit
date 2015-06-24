@@ -5,19 +5,29 @@ $(document).ready(function() {
   });
 });
 
-angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', function($scope) {
-  $scope.phones = gon.can_edit ? gon.phones : [];
-  $scope.fixed_phones = gon.can_edit ? [] : gon.phones;
+angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', '$http', function($scope, $http) {
+  $scope.phones_list = [];
+  $scope.new_phones = [];
   $scope.only_add = !!gon.can_edit;
-  $scope.hub_fields = []
-  $scope.hub_phone_field = null
-  $scope.numberText = ''
+  $scope.hub_fields = [];
+  $scope.hub_status = 'pending';
 
+  $scope.connected_hub_fields = gon.poll.hub_respondents_phone_field;
+  $scope.connected_hub_path = gon.poll.hub_respondents_path;
+
+  $scope.$watch('hub_phone_field', function(val) {
+    $scope.hub_status = (val && _.isEqual(val.path(), $scope.connected_hub_fields) && $scope.hub_path == $scope.connected_hub_path) ? 'connected' : 'pending';
+  });
 
   $(document).ready(function() {
     window.setTimeout(function() {
       $("#numberText").focus().blur();
     }, 200);
+
+    if(gon.poll.hub_respondents_path) {
+      $scope.hub_status = 'connected';
+      $scope.reflectPath(gon.poll.hub_respondents_path, gon.poll.hub_respondents_phone_field);
+    }
 
     new AjaxUpload($('#import_csv'), {
       action: gon.import_csv_poll_respondents_path,
@@ -43,77 +53,102 @@ angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', function($sc
   });
 
   $scope.phoneExists = function(phoneNumber) {
-    var all_phones = _.union($scope.fixed_phones, $scope.phones);
-    return _.any(all_phones, function(phone) {
+    return _.any($scope.new_phones, function(phone) {
       return phone.number == phoneNumber;
     });
   }
 
   $scope.addPhone = function() {
     if ((!$scope.phoneExists($scope.numberText)) && $.trim($scope.numberText) != '') {
-      $scope.phones.push({number:$scope.numberText});
+      $scope.new_phones.push({number:$scope.numberText});
       $scope.numberText = '';
     }
   };
 
   $scope.chooseHubAction = function() {
+    $scope.hub_status = 'pending';
     hubApi = new HubApi(gon.hub_url, '/hub');
     hubApi.openPicker('entity_set').then(function(path, selection) {
-      return hubApi.reflect(path).then(function(reflect_result) {
-        $scope.$apply(function($scope) {
-          $scope.hub_fields = [];
-          $scope.hub_entity_set = reflect_result.toJson()
-          reflect_result.visitEntity(function(field) {
-            $scope.hub_fields.push(field);
-          });
+      $scope.reflectPath(path);
+    });
+  };
+
+  $scope.reflectPath = function(path, selection) {
+    hubApi = new HubApi(gon.hub_url, '/hub');
+    hubApi.reflect(path).then(function(reflect_result) {
+      $scope.$apply(function($scope) {
+        $scope.hub_fields = [];
+        $scope.hub_path = path;
+        $scope.hub_label = reflect_result._data.path.replace(/\//g, ' → ');
+        reflect_result.visitEntity(function(field) {
+          $scope.hub_fields.push(field);
+          if (_.isEqual(field.path(),selection)) {
+            $scope.hub_phone_field = field;
+          }
         });
       });
     });
   };
 
+  $scope.connectHub = function() {
+    $scope.hub_status = 'connecting'
+    $http.post(gon.connect_hub_path, {path: $scope.hub_path, phone_field: $scope.hub_phone_field.path()})
+      .success(function() {
+        $scope.hub_status = 'connected';
+        $scope.connected_hub_fields = $scope.hub_phone_field.path()
+        $scope.connected_hub_path = $scope.hub_path;
+        $.status.showNotice(hub_connected_successfully, 6000)
+      })
+      .error(function() {
+        $scope.hub_status = 'pending'
+        $.status.showError(hub_connected_error, 6000)
+      });
+  };
+
   $scope.clearHubAction = function() {
-    $scope.hub_entity_set = null;
-    $scope.hub_fields = [];
-  }
+    var delete_respondents = gon.can_edit && confirm(confirm_delete_respondents);
+    $http.post(gon.clear_hub_path, {delete_respondents: delete_respondents})
+      .success(function() {
+        $.status.showNotice(hub_disconnected_successfully, 6000)
+        $scope.hub_path = null;
+        $scope.hub_label = null;
+        $scope.hub_fields = [];
+        $scope.hub_status = 'pending';
+      })
+      .error(function() {
+        $.status.showError(hub_disconnected_error, 6000)
+      });
+  };
 
   $scope.removePhone = function(phoneNumber) {
-    $scope.phones = _.reject($scope.phones, function(phone) {
+    $scope.new_phones = _.reject($scope.new_phones, function(phone) {
       return phone.number == phoneNumber;
     });
     $(".ng-directive #numberText").focus().blur();
   }
 
   $scope.removeEmptyPhones = function() {
-    $scope.phones = _.reject($scope.phones, function(phone) {
+    $scope.new_phones = _.reject($scope.new_phones, function(phone) {
       return $.trim(phone.number) == '';
     })
   }
 
   $scope.saveChanges = function(showNotice, nextUrl) {
     $scope.removeEmptyPhones();
-    var phones = _.map($scope.phones, function(phone) { return phone.number });
-    $.post(gon.batch_update_poll_respondents_path, {'phones': phones}, function(data, textStatus) {
-      if (textStatus == "success") {
-        $scope.onSaved();
+    var phones = _.map($scope.new_phones, function(phone) { return phone.number });
+    $http.post(gon.add_phones_poll_respondents_path, {'phones': phones})
+      .success(function(data) {
+        $scope.new_phones = [];
+        $scope.show_add_respondents = false;
         if (showNotice) $.status.showNotice(phones_saved_successfully, 6000);
-        if (nextUrl) location.href = nextUrl;
-      } else {
+      })
+      .error(function() {
         $.status.showError(error_saving_phones, 6000);
-      }
-    });
+      });
   };
 
-  $scope.onSaved = function() {
-    if ($scope.only_add) {
-      var current_phones = $scope.phones;
-      $scope.phones = [];
-      angular.forEach(current_phones, function(phone) {
-        $scope.fixed_phones.push(phone);
-      });
-    }
-  }
+  $scope.clearChanges = function() {
+    $scope.new_phones = [];
+  };
 
-  $scope.nextStep = function() {
-    $scope.saveChanges(false, gon.poll_path);
-  }
 }]);

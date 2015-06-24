@@ -245,6 +245,7 @@ label.placeholder {
 }
 
 #respondents-container {
+  margin-left: 20pt;
   li .ux-clist:disabled {
     color: black;
   }
@@ -255,11 +256,14 @@ label.placeholder {
   line-height: 1.5;
 
   .hub_entity_set {
-    font-family: Courier;
+    cursor: pointer;
   }
 
-  .hub_clear {
-    margin-left: 5px;
-    text-decoration: underline;
+  .hub_actions button {
+    width: 80pt;
+    height: 17pt;
+    span {
+      top: -2pt !important;
+    }
   }
 }

@@ -51,8 +51,8 @@
               %span{'ng-switch-when' => 'connecting'} Connecting
               %span{'ng-switch-default' => true} Connect
             %button.white{'ng-click' => 'clearHubAction()', 'ng-switch' => true, 'on' => 'hub_status', 'ng-disabled' => 'hub_status == "clearing" || hub_status == "connecting"'}
-              %span{'ng-switch-when' => 'clearing'} Clearing
-              %span{'ng-switch-default' => true} Clear
+              %span{'ng-switch-when' => 'clearing'} Cancelling
+              %span{'ng-switch-default' => true} Cancel
 
       %br
       %button.fedit{'ng-click' => 'show_add_respondents = !show_add_respondents'}
@@ -75,6 +75,10 @@
             %span Clear
     %br
     %hr
+    %br
+
+    #respondents-list-container
+      = render 'respondents/list'
 
     - if wizard?
       .actions

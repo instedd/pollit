@@ -61,7 +61,7 @@ Pollit::Application.routes.draw do
 
       resource :channel, :only => [:show, :new, :create, :destroy]
 
-      resources :respondents, :only => [:index] do
+      resources :respondents, :only => [:index, :destroy] do
         collection do
           post 'add_phones'
           post 'import_csv'

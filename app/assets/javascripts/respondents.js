@@ -120,13 +120,6 @@ angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', '$http', fun
       });
   };
 
-  $scope.removePhone = function(phoneNumber) {
-    $scope.new_phones = _.reject($scope.new_phones, function(phone) {
-      return phone.number == phoneNumber;
-    });
-    $(".ng-directive #numberText").focus().blur();
-  }
-
   $scope.removeEmptyPhones = function() {
     $scope.new_phones = _.reject($scope.new_phones, function(phone) {
       return $.trim(phone.number) == '';
@@ -141,6 +134,7 @@ angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', '$http', fun
         $scope.new_phones = [];
         $scope.show_add_respondents = false;
         if (showNotice) $.status.showNotice(phones_saved_successfully, 6000);
+        $scope.reloadPhones();
       })
       .error(function() {
         $.status.showError(error_saving_phones, 6000);
@@ -149,6 +143,10 @@ angular.module('pollitApp', []).controller('PhonesCtrl', ['$scope', '$http', fun
 
   $scope.clearChanges = function() {
     $scope.new_phones = [];
+  };
+
+  $scope.reloadPhones = function() {
+    $.getScript(gon.respondents_path);
   };
 
 }]);

@@ -27,7 +27,8 @@ module ApplicationHelper
   end
 
   def angular_js_include_tag
-    javascript_include_tag("angular/angular-1.3.16.min.js")
+    javascript_include_tag("angular/angular-1.3.16.min.js") +\
+    javascript_include_tag("angular/ng-file-upload-all.min.js")
   end
 
   def instedd_theme_url_for(path)

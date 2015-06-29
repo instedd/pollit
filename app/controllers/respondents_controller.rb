@@ -69,13 +69,6 @@ class RespondentsController < ApplicationController
     head :ok
   end
 
-  def import_csv
-    phones = CSV.read(params[:csv].tempfile).map(&:first)
-    phones.map! { |phone| {:number => phone.gsub(/[^0-9]/,"")} }
-
-    render :text => phones.to_json
-  end
-
   def connect_hub
     @poll.hub_respondents_path = params[:path]
     @poll.hub_respondents_phone_field = params[:phone_field]

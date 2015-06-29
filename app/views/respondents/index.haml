@@ -33,8 +33,25 @@
           %b Download a sample csv file
           and fill it with the phone numbers
       #import_csv
-        = button_tag :type => :button, :class => :fimport do
+        = button_tag :type => :button, :class => :fimport, 'ng-click' => 'show_upload_csv = !show_upload_csv' do
           %b Upload a CSV for bulk account creation
+        %button{"ngf-select" => true, "ng-model" => "files", "ngf-accept" => "'.csv'", 'ng-show' => 'show_upload_csv'}
+          Choose a CSV file
+        #csv-container{'ng-show' => 'show_upload_csv'}
+          %div{'ng-show' => 'csv_fields && csv_fields.length > 0'}
+            %div
+            Import phones from field
+            %select{'ng-options' => 'field.name for field in csv_fields', 'ng-model' => 'csv_phone_field'}
+            %button{'ng-click' => 'submitUpload()', 'ng-disabled' => 'csv_status == "uploading"', 'ng-switch' => true, 'on' => 'csv_status'}
+              %span{'ng-switch-when' => 'uploading'} Uploading
+              %span{'ng-switch-default' => true} Upload
+            %br/
+            %p
+              Phones preview:
+              %ul
+                %li{"ng-repeat" => "phone in csv_preview track by $index"}
+                  %span{'ng-bind' => 'phone'}
+
       %br
       #hub_action
         = button_tag :type => :button, :class => :fdatabase, 'ng-click' => 'chooseHubAction()' do
@@ -59,8 +76,6 @@
         %b Manually add new respondents
       #respondents-container{'ng-show' => 'show_add_respondents'}
         %ul{:class => "clist w30"}
-          / %li{"ng-repeat" => "phone in fixed_phones"}
-          /   = text_field_tag "phone.number", "{{phone.number}}", :disabled => true, :class => "ux-clist"
           %li{"ng-repeat" => "phone in new_phones"}
             = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
             = button_tag "", :type => :button, :class => "clist-remove", "ng-click" => "removePhone(phone.number)"
@@ -69,9 +84,9 @@
               %input.ux-text#numberText{:type => 'text', :placeholder => _("Add a new phone..."), :'ng-model' => 'numberText'}
               = button_tag "", :type => :button, :class => "clist-add", "ng-click" => "addPhone()"
         .import_actions
-          %button.grey{"ng-click" => "saveChanges(true)"}
+          %button.grey{"ng-click" => "saveChanges(true)", "ng-disabled" => "!new_phones || new_phones.length == 0"}
             %span Save
-          %button.white{"ng-click" => "clearChanges()"}
+          %button.white{"ng-click" => "clearChanges()", "ng-disabled" => "!new_phones || new_phones.length == 0"}
             %span Clear
     %br
     %hr

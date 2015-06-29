@@ -251,6 +251,13 @@ label.placeholder {
   }
 }
 
+#csv-container {
+  margin-left: 20pt;
+  li {
+    list-style: none;
+  }
+}
+
 #respondents-list {
   .tablewrapp {
     width: 300px;

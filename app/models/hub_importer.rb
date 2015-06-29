@@ -44,7 +44,7 @@ class HubImporter
     def perform
       poll = Poll.find(poll_id)
       count = HubImporter.new(poll).import_respondents!
-      Delayed::Worker.logger.info "Imported #{count} respondents for poll #{poll_id}"
+      Delayed::Worker.logger.info "Imported #{count} respondents for poll #{poll_id}" rescue nil
     rescue ActiveRecord::RecordNotFound
       # Poll was deleted, ok to fail silently
     end

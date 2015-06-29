@@ -15,11 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
-VersionFilePath = "#{::Rails.root.to_s}/REVISION"
-raise Exception, "#{ConfigFilePath} configuration file is missing" unless
+VersionFilePath = "#{::Rails.root.to_s}/VERSION"
+RevisionFilePath = "#{::Rails.root.to_s}/REVISION"
 
 Pollit::Application.config.send "version=", if FileTest.exists?(VersionFilePath) then
   IO.read(VersionFilePath)
+elsif FileTest.exists?(RevisionFilePath)
+  IO.read(RevisionFilePath)
 else
-  "Dev"
+  "Development"
 end

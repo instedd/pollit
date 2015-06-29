@@ -9,6 +9,7 @@ defaults: &defaults
   user_group_url: https://groups.google.com/group/instedd-tech
   google_analytics:
   android_gateway_url: https://market.android.com/details?id=org.instedd.geochat.lgw&hl=en
+  hub_importer_sleep_time: 1800
 
 development:
   <<: *defaults

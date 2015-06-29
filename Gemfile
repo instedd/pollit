@@ -26,6 +26,8 @@ gem 'delayed_job_active_record'
 gem 'foreman', '0.64.0'
 gem 'knockoutjs-rails'
 gem 'knockout_forms-rails', git: "https://github.com/manastech/knockout_forms-rails.git", tag: 'v1.0.2'
+gem 'gon'
+gem 'activerecord-import', '~> 0.3.1'
 
 gem "omniauth"
 gem "omniauth-openid"
@@ -34,7 +36,6 @@ gem 'rack-oauth2'
 gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'master'
 gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
 gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
-
 
 # Gems used only for assets and not required
 # in production environments by default.

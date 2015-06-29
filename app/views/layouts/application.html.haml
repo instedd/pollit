@@ -1,5 +1,5 @@
 !!!
-%html{"xmlns:ng" => "http://angularjs.org"}
+%html{"xmlns:ng" => "http://angularjs.org", "ng-app" => 'pollitApp'}
   %head
     %title Pollit
     = yield(:head)
@@ -24,6 +24,8 @@
       var please_enter_a_value_between_x = "#{_('Please enter a value between {0} and {1}.')}";
       var please_enter_a_value_less_or_equal_to_x = "#{_('Please enter a value less than or equal to {0}.')}";
       var please_enter_a_greater_or_equal_to_x = "#{_('Please enter a value greater than or equal to {0}.')}";
+
+    = include_gon
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = stylesheet_link_tag instedd_theme_url_for('theme/stylesheets/theme.css')

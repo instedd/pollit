@@ -61,10 +61,12 @@ Pollit::Application.routes.draw do
 
       resource :channel, :only => [:show, :new, :create, :destroy]
 
-      resources :respondents, :only => [:index] do
+      resources :respondents, :only => [:index, :destroy] do
         collection do
-          post 'batch_update'
+          post 'add_phones'
           post 'import_csv'
+          post 'clear_hub'
+          post 'connect_hub'
         end
       end
 
@@ -75,6 +77,7 @@ Pollit::Application.routes.draw do
       end
     end
 
+    match '/hub/*path' => 'hub#api', format: false
     match '/locale/update' => 'locale#update',  :as => 'update_locale'
     match '/' => 'home#index',                  :as => 'home'
   end

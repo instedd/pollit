@@ -4,145 +4,98 @@
 
 - content_for :head do
   = angular_js_include_tag
+  :javascript
+    var file_should_be_in_csv_format = "#{_('Error: file should be in csv format')}";
+    var file_successfully_uploaded = "#{_('File successfully uploaded')}";
+    var phones_saved_successfully = "#{_('Phones saved succesfully')}";
+    var hub_connected_successfully = "#{_('InSTEDD Hub connected. Respondents will be automatically imported.')}";
+    var hub_connected_error = "#{_('Error connecting InSTEDD Hub. Please try again later.')}";
+    var hub_disconnected_successfully = "#{_('InSTEDD Hub has been disconnected. Respondents will no longer be imported.')}";
+    var confirm_delete_respondents = "#{_('Do you want to also remove all respondents imported so far from InSTEDD Hub?')}"
+    var hub_disconnected_error = "#{_('Error disconnecting InSTEDD Hub. Please try again later.')}";
+    var error_saving_phones = "#{_('Error saving phones')}";
 
-%div{:class => :content}
-  %h1 Bulk phone numbers importing
-  .whitebox{:style => "margin-top:-12px;"}
-    Add phone numbers manually or upload a CSV file
-    %br
-    %br
-    - unless can_edit
-      Because the poll has already started, you can only add respondents. New respondents will be invited after you click 'Save'.
+%div{"ng-controller" => "PhonesCtrl"}
+  %div{:class => :content}
+    %h1 Add respondents
+    .whitebox{:style => "margin-top:-12px;"}
+      Add phone numbers manually, upload a CSV file or connect with InSTEDD Hub
       %br
       %br
-    #export_csv
-      = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
-        %b Download a sample csv file
-        and fill it with the phone numbers
-    #import_csv
-      = button_tag :type => :button, :class => :fimport do
-        %b Upload it for bulk account creation
+      - unless @can_edit
+        Because the poll has already started, you can only add respondents.
+        %br
+        New respondents will be invited after you click 'Save'.
+        %br
+        %br
+      #export_csv
+        = button_tag :type => :button, :class => :fimport, :style => 'display:none;' do
+          %b Download a sample csv file
+          and fill it with the phone numbers
+      #import_csv
+        = button_tag :type => :button, :class => :fimport, 'ng-click' => 'show_upload_csv = !show_upload_csv' do
+          %b Upload a CSV for bulk account creation
+        %button{"ngf-select" => true, "ng-model" => "files", "ngf-accept" => "'.csv'", 'ng-show' => 'show_upload_csv'}
+          Choose a CSV file
+        #csv-container{'ng-show' => 'show_upload_csv'}
+          %div{'ng-show' => 'csv_fields && csv_fields.length > 0'}
+            %div
+            Import phones from field
+            %select{'ng-options' => 'field.name for field in csv_fields', 'ng-model' => 'csv_phone_field'}
+            %button{'ng-click' => 'submitUpload()', 'ng-disabled' => 'csv_status == "uploading"', 'ng-switch' => true, 'on' => 'csv_status'}
+              %span{'ng-switch-when' => 'uploading'} Uploading
+              %span{'ng-switch-default' => true} Upload
+            %br/
+            %p
+              Phones preview:
+              %ul
+                %li{"ng-repeat" => "phone in csv_preview track by $index"}
+                  %span{'ng-bind' => 'phone'}
 
-%br
+      %br
+      #hub_action
+        = button_tag :type => :button, :class => :fdatabase, 'ng-click' => 'chooseHubAction()' do
+          %b Connect with InSTEDD Hub
+        #hub_details{'ng-show' => 'hub_path != null'}
+          Using
+          %span.hub_entity_set{'ng-bind' => 'hub_label', 'ng-click' => 'chooseHubAction()'}
+          with field
+          %select{'ng-options' => 'field as field.label() for field in hub_fields', 'ng-model' => 'hub_phone_field'}
+          %br
+          .import_actions
+            %button.grey{'ng-click' => 'connectHub()', 'ng-switch' => true, 'on' => 'hub_status', 'ng-disabled' => 'hub_status != "pending" || !hub_phone_field'}
+              %span{'ng-switch-when' => 'connected'} Connected
+              %span{'ng-switch-when' => 'connecting'} Connecting
+              %span{'ng-switch-default' => true} Connect
+            %button.white{'ng-click' => 'clearHubAction()', 'ng-switch' => true, 'on' => 'hub_status', 'ng-disabled' => 'hub_status == "clearing" || hub_status == "connecting"'}
+              %span{'ng-switch-when' => 'clearing'} Cancelling
+              %span{'ng-switch-default' => true} Cancel
 
-= content_tag :div, "ng:controller" => "PhonesCtrl" do
-  %ul{:class => "clist w30"}
-    %li{"ng:repeat" => "phone in fixed_phones"}
-      = text_field_tag "phone.number", "{{phone.number}}", :disabled => true
-      = button_tag "", :type => :button, :class => "clist-remove", :disabled => true
-    %li{"ng:repeat" => "phone in phones"}
-      = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
-      = button_tag "", :type => :button, :class => "clist-remove", "ng:click" => "removePhone(phone.number)"
-    %li
-      = content_tag :form, "ng:submit" => "addPhone()" do
-        = text_field_tag "numberText", "", :class => "ux-text", :placeholder => _("Add a new phone...")
-        = button_tag "", :type => :button, :class => "clist-add", "ng:click" => "addPhone()"
-  %br
-  %hr
+      %br
+      %button.fedit{'ng-click' => 'show_add_respondents = !show_add_respondents'}
+        %b Manually add new respondents
+      #respondents-container{'ng-show' => 'show_add_respondents'}
+        %ul{:class => "clist w30"}
+          %li{"ng-repeat" => "phone in new_phones"}
+            = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
+            = button_tag "", :type => :button, :class => "clist-remove", "ng-click" => "removePhone(phone.number)"
+          %li
+            = content_tag :form, "ng-submit" => "addPhone()" do
+              %input.ux-text#numberText{:type => 'text', :placeholder => _("Add a new phone..."), :'ng-model' => 'numberText'}
+              = button_tag "", :type => :button, :class => "clist-add", "ng-click" => "addPhone()"
+        .import_actions
+          %button.grey{"ng-click" => "saveChanges(true)", "ng-disabled" => "!new_phones || new_phones.length == 0"}
+            %span Save
+          %button.white{"ng-click" => "clearChanges()", "ng-disabled" => "!new_phones || new_phones.length == 0"}
+            %span Clear
+    %br
+    %hr
+    %br
 
-  .actions
+    #respondents-list-container
+      = render 'respondents/list'
+
     - if wizard?
-      = white_link_to _("Back"), poll_channel_path(@poll, :wizard => true)
-      = grey_button _("Next"), :type => :button, "ng:click" => "nextStep()"
-      = link_to _("Skip this step"), poll_path(@poll, :wizard => true), :class => "wizard-skip"
-    - else
-      = grey_button _("Save"), :type => :button, "ng:click" => "saveChanges(true)"
-      = white_link_to _("Cancel"), @poll
-
-:javascript
-  $(document).ready(function() {
-    $('#numberText').placeholder();
-    $(":input[type=text]").live('focus', function() {
-      $(this).numeric({ decimal: false, negative: false });
-    });
-  });
-
-  function PhonesCtrl() {
-    var scope = this;
-    scope.phones = #{phones_list.to_json};
-    scope.fixed_phones = #{fixed_phones_list.to_json};
-    scope.only_add = #{can_edit ? "false" : "true"} ;
-
-    $(document).ready(function() {
-      window.setTimeout(function() {
-        $("#numberText").focus().blur();
-      }, 200);
-
-      new AjaxUpload($('#import_csv'), {
-        action: '#{import_csv_poll_respondents_path(@poll)}',
-        name: 'csv',
-        onSubmit: function(file, ext){
-          if(ext != 'csv') {
-            $.status.showError('#{_('Error: file should be in csv format')}', 6000)
-            return false;
-          }
-        },
-        onComplete: function(file, response){
-          var data = eval(response);
-          $.each(data, function(i, phone) {
-            if (!scope.phoneExists(phone.number)) {
-              scope.phones.push(phone);
-            }
-          });
-          scope.$eval();
-          $(".ng-directive #numberText").focus().blur();
-          $.status.showNotice('#{_("File successfully uploaded")}', 6000);
-        }
-      });
-    });
-
-    scope.phoneExists = function(phoneNumber) {
-      var all_phones = _.union(scope.fixed_phones, scope.phones);
-      return _.any(all_phones, function(phone) {
-        return phone.number == phoneNumber;
-      });
-    }
-
-    scope.addPhone = function() {
-      if ((!scope.phoneExists(scope.numberText)) && $.trim(scope.numberText) != '') {
-        scope.phones.push({number:scope.numberText});
-        scope.numberText = '';
-      }
-    };
-
-    scope.removePhone = function(phoneNumber) {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return phone.number == phoneNumber;
-      });
-      $(".ng-directive #numberText").focus().blur();
-    }
-
-    scope.removeEmptyPhones = function() {
-      scope.phones = _.reject(scope.phones, function(phone) {
-        return $.trim(phone.number) == '';
-      })
-    }
-
-    scope.saveChanges = function(showNotice, nextUrl) {
-      scope.removeEmptyPhones();
-      var phones = _.map(scope.phones, function(phone) { return phone.number });
-      $.post('#{batch_update_poll_respondents_path}', {'phones': phones}, function(data, textStatus) {
-        if (textStatus == "success") {
-          scope.onSaved();
-          if (showNotice) $.status.showNotice('Phones saved succesfully!', 6000);
-          if (nextUrl) location.href = nextUrl;
-        } else {
-          $.status.showError('Error saving phones', 6000);
-        }
-      });
-    };
-
-    scope.onSaved = function() {
-      if (scope.only_add) {
-        var current_phones = scope.phones;
-        scope.phones = [];
-        angular.forEach(current_phones, function(phone) {
-          scope.fixed_phones.push(phone);
-        });
-      }
-    }
-
-    scope.nextStep = function() {
-      scope.saveChanges(false, '#{poll_path(@poll, :wizard => true)}');
-    }
-  }
+      .actions
+        = white_link_to _("Back"), poll_channel_path(@poll, :wizard => true)
+        = grey_link_to _("Next"), poll_path(@poll, :wizard => true)

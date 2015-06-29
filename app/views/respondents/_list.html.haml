@@ -1,0 +1,9 @@
+#respondents-list
+  .tablewrapp
+    = instedd_table_for @respondents, [_('Phone number'), ''], :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
+      %tr
+        %td= respondent.unprefixed_phone
+        %td
+          - if !respondent.hub_source && @poll.status_configuring?
+            = link_to '', poll_respondent_path(@poll.id, respondent.id, page: @respondents.current_page), method: 'delete', remote: true, class: 'icon cremove'
+    = paginate @respondents, :params => { action: 'index', :id => nil }, :remote => true, :window => 2

@@ -29,6 +29,7 @@ class Poll < ActiveRecord::Base
   has_recurrence :recurrence
 
   serialize :confirmation_words, Array
+  serialize :hub_respondents_phone_field, Array
 
   validates :title, :presence => true, :length => {:maximum => 64}, :uniqueness => {:scope => :owner_id}
   validates :owner, :presence => true
@@ -137,7 +138,7 @@ class Poll < ActiveRecord::Base
   end
 
   def invite_new_respondents
-    respondents_to_invite = self.respondents.where(:current_question_sent => false).where(:confirmed => false)
+    respondents_to_invite = self.respondents.where(:current_question_sent => false, :confirmed => false)
     invite respondents_to_invite
   end
 
@@ -167,16 +168,11 @@ class Poll < ActiveRecord::Base
   private
 
   def invite(respondents)
-    messages = []
-
-    respondents.each do |respondent|
-      messages << message_to(respondent, welcome_message)
+    respondents.find_in_batches(batch_size: 100) do |batch|
+      messages = batch.map {|r| message_to(r, welcome_message)}
+      send_messages messages
+      Respondent.where(id: batch.map(&:id)).update_all :current_question_sent => true
     end
-
-    # mark respondents as invited
-    respondents.update_all :current_question_sent => true
-
-    send_messages messages
   end
 
   def default_values

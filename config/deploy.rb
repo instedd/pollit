@@ -30,6 +30,17 @@ default_environment['TERM'] = ENV['TERM']
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
+
+  desc 'Exports version identifier'
+  task :export_version, :roles => :app do
+    branch = fetch(:branch).gsub(/\Arelease-/, '') rescue nil
+    if branch
+      run "echo #{branch} > #{release_path}/VERSION"
+    else
+      run "echo `git describe --tags --exact-match` > #{release_path}/VERSION; true"
+    end
+  end
+
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
@@ -67,6 +78,7 @@ end
 before "deploy:start", "deploy:migrate"
 before "deploy:restart", "deploy:migrate"
 before "deploy:assets:precompile", "deploy:symlink_configs"
+before "deploy:assets:precompile", "deploy:export_version"
 
 after "deploy:update", "foreman:export"    # Export foreman scripts
 after "deploy:restart", "foreman:restart"   # Restart application scripts

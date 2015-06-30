@@ -15,6 +15,7 @@
 //= require knockout-sortable.min
 //= require knockout-validation.min
 //= require hub_client
+//= require_directory ./angularlibs
 //= require_directory .
 //= require_directory ./viewmodels
 //= require fancybox

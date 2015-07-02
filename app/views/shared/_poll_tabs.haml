@@ -6,8 +6,11 @@
 %ul.tabs.top
   %li#overview
     = link_to _("Overview"), poll
-  %li#answers
-    = link_to _("Answers"), poll_answers_path(poll)
+  - unless poll.status_configuring?
+    %li#answers
+      = link_to _("Answers"), poll_answers_path(poll)
+    %li#summary
+      = link_to _("Summary"), poll_summary_index_path(poll)
   %li#respondents
     = link_to _("Respondents"), poll_respondents_path(poll)
   %li#channel

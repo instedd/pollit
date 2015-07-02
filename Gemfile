@@ -28,6 +28,8 @@ gem 'knockoutjs-rails'
 gem 'knockout_forms-rails', git: "https://github.com/manastech/knockout_forms-rails.git", tag: 'v1.0.2'
 gem 'gon'
 gem 'activerecord-import', '~> 0.3.1'
+gem 'rgviz'
+gem 'rgviz-rails', :require => 'rgviz_rails'
 
 gem "omniauth"
 gem "omniauth-openid"

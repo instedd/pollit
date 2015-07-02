@@ -22,7 +22,7 @@ class Poll < ActiveRecord::Base
 
   has_many :questions, :order => "position", :dependent => :destroy, :inverse_of => :poll
   has_many :respondents, :dependent => :destroy
-  has_many :answers, :through => :respondents, :order => 'created_at'
+  has_many :answers, :through => :respondents
 
   has_one :channel, :dependent => :destroy
 

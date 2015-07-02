@@ -274,6 +274,10 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rgviz (0.51)
+    rgviz-rails (0.76)
+      rails
+      rgviz (>= 0.46)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -371,6 +375,8 @@ DEPENDENCIES
   rails (= 3.2.21)
   recurring_select!
   rest-client
+  rgviz
+  rgviz-rails
   rspec-rails
   ruby-openid
   ruby_parser

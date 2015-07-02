@@ -1,7 +1,9 @@
 = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'answers' }
 
 %h1 Answers
-= link_to poll_answers_path(format: :csv), :class => :fimport do
-  Download as CSV
 
-= render :partial => 'answers/list'
+- if @poll.recurrence_iterative?
+  = render_listing :recurrence_answers, poll_id: @poll.id
+- else
+  = render_listing :answers, poll_id: @poll.id
+

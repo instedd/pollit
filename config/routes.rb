@@ -70,11 +70,7 @@ Pollit::Application.routes.draw do
         end
       end
 
-      resources :answers, :only => [:index] do
-        collection do
-          get 'page/:page', :action => :index
-        end
-      end
+      resources :answers, :only => [:index]
     end
 
     match '/hub/*path' => 'hub#api', format: false
@@ -83,4 +79,6 @@ Pollit::Application.routes.draw do
   end
 
   root :to => 'home#index'
+
+  mount Listings::Engine => "/listings"
 end

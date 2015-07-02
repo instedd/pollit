@@ -1,0 +1,6 @@
+es:
+  listings:
+    no_data: "No se encontraron %{kind}"
+    export: "Descargar"
+    search_placeholder: "Buscar %{kind}"
+    records: "registros"

@@ -5,6 +5,9 @@
 
 - else
 
+  = link_to poll_summary_index_path(format: :csv), :class => ['fimport', 'right'] do
+    Download as CSV
+
   - if @poll.recurrence_iterative?
     %h2 Iteration
     %p Choose the iteration of the poll you want to review
@@ -14,7 +17,7 @@
     %hr
     %br/
 
-  #summary
+  #summary.clear
     - @questions.each do |q|
       .question-summary
         %h2= q.title

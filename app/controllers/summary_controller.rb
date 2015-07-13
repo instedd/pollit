@@ -20,7 +20,7 @@ class SummaryController < ApplicationController
 
   def index
     add_breadcrumb _("Summary"), poll_answers_path(@poll)
-
+    gon.question_ids = @poll.questions.to_a.map(&:id)
   end
 
   def query

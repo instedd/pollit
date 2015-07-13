@@ -286,4 +286,19 @@ label.placeholder {
     margin-bottom: 50px;
     margin-top: 5px;
   }
+
+  .question-summary {
+    hr {
+      margin-bottom: 20px;
+    }
+    .nodata-indicator {
+      display: none;
+      margin-bottom: 20px;
+    }
+    &.nodata {
+      .nodata-indicator { display: block; }
+      .chart { display: none; }
+    }
+  }
 }
+

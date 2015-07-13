@@ -6,8 +6,14 @@
 - else
   #summary
     - @poll.questions.each do |q|
-      %h2= q.title
-      %p= q.description
-      %br/
+      .question-summary
+        %h2= q.title
+        %p= q.description
+        %br/
 
-      = render :partial => "summary/#{q.kind}", :locals => { :question => q }
+        %span.nodata-indicator
+          There are no answers to this question yet.
+        %div.chart
+          = render :partial => "summary/#{q.kind}", :locals => { :question => q }
+
+        %hr/

@@ -57,6 +57,10 @@ class Poll
         Delayed::Job.where(:poll_id => self.id).first
       end
 
+      def occurrences
+        answers.select(:occurrence).order("occurrence DESC").uniq.map(&:occurrence) if has_recurrence?
+      end
+
     end
   end
 
@@ -176,5 +180,6 @@ class Poll
     def answers_expected
       @poll.respondents.count * @poll.questions.count
     end
+
   end
 end

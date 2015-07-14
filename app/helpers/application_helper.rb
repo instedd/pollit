@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
-
 module ApplicationHelper
+
+  include Rgviz::ViewHelper
 
   def image_tag(source, options = {})
     source = File.join(I18n.locale.to_s, source) if options.delete(:localized)

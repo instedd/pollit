@@ -1,0 +1,32 @@
+= render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'summary' }
+
+- if @poll.answers.count == 0
+  %h1 No answers have been received yet
+
+- else
+
+  = link_to poll_summary_index_path(format: :csv), :class => ['fimport', 'right'] do
+    Download as CSV
+
+  - if @poll.recurrence_iterative?
+    %h2 Iteration
+    %p Choose the iteration of the poll you want to review
+    = select_tag 'summary_occurrence', options_for_select(@poll.occurrences.map{|o| [o.to_date, o.as_json]})
+    %br/
+    %br/
+    %hr
+    %br/
+
+  #summary.clear
+    - @questions.each do |q|
+      .question-summary
+        %h2= q.title
+        %p= q.description
+        %br/
+
+        %span.nodata-indicator
+          There are no answers to this question yet.
+        %div.chart
+          = render :partial => "summary/#{q.kind}", :locals => { :question => q, :occurrence_filter => (@poll.has_recurrence? ? " where occurrence = html_summary_occurrence " : "") }
+
+        %hr/

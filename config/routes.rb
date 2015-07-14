@@ -71,6 +71,13 @@ Pollit::Application.routes.draw do
       end
 
       resources :answers, :only => [:index]
+
+      resources :summary, :only => [:index] do
+        collection do
+          get 'query/:question_id', :action => :query, :as => 'query'
+        end
+      end
+
     end
 
     match '/hub/*path' => 'hub#api', format: false

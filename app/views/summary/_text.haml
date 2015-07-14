@@ -1,0 +1,6 @@
+= rgviz :id => "question_#{question.id}", |
+  :kind => 'Table', |
+  :url => query_poll_summary_index_path(@poll.id, question.id), |
+  :query => "select response #{occurrence_filter} order by created_at desc", |
+  :options => {:width => 640, :height => 320, :is3D => true, :hAxis => { title: "Count"}, :vAxis => { title: "Response"}, :legend => { position: 'none'} }, |
+  :events => { :rgviz_before_draw => 'summaryBeforeDrawChart' }

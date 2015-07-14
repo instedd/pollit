@@ -20,3 +20,4 @@
 //= require_directory ./viewmodels
 //= require fancybox
 //= require recurring_select
+//= require listings

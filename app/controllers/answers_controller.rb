@@ -20,26 +20,6 @@ class AnswersController < ApplicationController
 
   def index
     add_breadcrumb _("Answers"), poll_answers_path(@poll)
-    @answers = @poll.answers.includes(:respondent, :question)
-
-    @headers = [_('Respondent'), _('Question'), _('Answer')]
-    @headers << _("Occurrence") if @poll.recurrence_iterative?
-    @headers << _('Date')
-
-    respond_to do |format|
-      format.html { @answers = @answers.page(params[:page]) }
-      format.csv do
-        send_data(CSV.generate do |csv|
-          csv << @headers
-          @answers.each do |answer|
-            row = [answer.respondent.unprefixed_phone, answer.question.title, answer.response]
-            row << answer.occurrence if @poll.recurrence_iterative?
-            row << answer.created_at.strftime("%Y-%m-%d %H:%M:%S")
-            csv << row
-          end
-        end)
-      end
-    end
   end
 
 end

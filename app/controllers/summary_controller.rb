@@ -21,20 +21,20 @@ class SummaryController < ApplicationController
   before_filter :load_poll
 
   def index
-    @questions = @poll.questions.where(collects_respondent: false)
+    @questions = @poll.questions.to_a.reject(&:collects_respondent)
 
     respond_to do |format|
 
       format.html do
         add_breadcrumb _("Summary"), poll_summary_index_path(@poll)
-        gon.question_ids = @questions.to_a.map(&:id)
+        gon.question_ids = @questions.map(&:id)
       end
 
       format.csv do
         headers = [_("Respondent"), _("Timestamp")]
         headers << _("Occurrence") if @poll.has_recurrence?
 
-        questions = @questions.to_a
+        questions = @questions
         question_id_to_index = Hash[questions.each_with_index.map{|q, index| [q.id, index + headers.length]}]
         headers += questions.map(&:title)
 

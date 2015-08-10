@@ -75,6 +75,9 @@ module Pollit
       g.fixture_replacement :machinist
     end
 
+    # Do not initialize full app on assets precompile
+    config.assets.initialize_on_precompile = false
+
     # Languages
     config.available_locales = {
       :en => "English",

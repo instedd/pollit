@@ -71,3 +71,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'faker'
 end
+
+group :webserver do
+  gem 'puma'
+end

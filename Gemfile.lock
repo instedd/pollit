@@ -245,6 +245,7 @@ GEM
     pry-byebug (3.0.1)
       byebug (~> 3.4)
       pry (~> 0.10)
+    puma (2.12.3)
     rack (1.4.7)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -382,6 +383,7 @@ DEPENDENCIES
   omniauth
   omniauth-openid
   pry-byebug
+  puma
   rack-oauth2
   rails (= 3.2.21)
   recurring_select!

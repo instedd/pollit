@@ -17,3 +17,4 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production SECRET_KEY_BASE=secr
 # Add scripts
 ADD docker/runit-web-run /etc/service/web/run
 ADD docker/migrate /app/migrate
+ADD docker/database.yml /app/config/database.yml

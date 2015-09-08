@@ -128,7 +128,7 @@ label.placeholder {
 
   span.error {
     // HACK: Display inline !important from theme.instedd causes the error label to be never hidden
-    background: url(http://theme.instedd.org/theme/images/icons/18/orange/alert.png) no-repeat;
+    background: image-url('alert.png') no-repeat;
     color: #ff6600;
     padding-left: 19px;
     padding-top: 1px;

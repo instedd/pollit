@@ -2,5 +2,5 @@
   :kind => 'BarChart', |
   :url => query_poll_summary_index_path(@poll.id, question.id), |
   :query => "select response, count(response) #{occurrence_filter} group by response order by response DESC", |
-  :options => {:width => 640, :height => 480, :is3D => true, :hAxis => { title: "Count"}, :vAxis => { title: "Response"}, :legend => { position: 'none'}, :chartArea => { height: 380, top: 20 } }, |
+  :options => {:width => 640, :height => 480, :is3D => true, :hAxis => { title: "Count", gridlines: { count: 4 }}, :vAxis => { title: "Response"}, :legend => { position: 'none'}, :chartArea => { height: 380, top: 20 } }, |
   :events => { :rgviz_before_draw => 'summaryBeforeDrawChart' }

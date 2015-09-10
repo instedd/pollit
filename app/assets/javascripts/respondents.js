@@ -1,8 +1,10 @@
 $(document).ready(function() {
-  if ($('#respondents').length > 0) {
+  if ($('#respondents-container').length > 0) {
     $('#numberText').placeholder();
-    $(":input[type=text]").live('focus', function() {
-      $(this).numeric({ decimal: false, negative: false });
+    $("input.ux-numeric").live('focus', function() {
+      if (typeof($(this).data('numeric.callback')) === 'undefined') {
+        $(this).numeric({ decimal: false, negative: false });
+      }
     });
   };
 });

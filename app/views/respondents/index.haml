@@ -76,11 +76,11 @@
       #respondents-container{'ng-show' => 'show_add_respondents'}
         %ul{:class => "clist w30"}
           %li{"ng-repeat" => "phone in new_phones"}
-            = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist"
+            = text_field_tag "phone.number", "{{phone.number}}", :class => "ux-clist ux-numeric"
             = button_tag "", :type => :button, :class => "clist-remove", "ng-click" => "removePhone(phone.number)"
           %li
             = content_tag :form, "ng-submit" => "addPhone()" do
-              %input.ux-text#numberText{:type => 'text', :placeholder => _("Add a new phone..."), :'ng-model' => 'numberText'}
+              %input.ux-text.ux-numeric#numberText{:type => 'text', :placeholder => _("Add a new phone..."), :'ng-model' => 'numberText'}
               = button_tag "", :type => :button, :class => "clist-add", "ng-click" => "addPhone()"
         .import_actions
           %button.grey{"ng-click" => "saveChanges(true)", "ng-disabled" => "!new_phones || new_phones.length == 0"}

@@ -5,7 +5,6 @@ class @Question
   constructor: (data, poll) ->
     @data = data
     @poll = poll
-    @initialized = ko.observable(false)
     @id = ko.observable(data.id)
     @kind = ko.observable(data.kind).extend(required: true)
     @title = ko.observable(data.title).extend(required: true)
@@ -76,7 +75,7 @@ class @Question
     @options_caption = "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Next question"
 
     @highlighted = ko.computed(() =>
-      @initialized() and (active = @poll.active_question()) and active? and (active.next_question() == @ or _.some(active.options(), (opt) => opt.next_question() == @))
+      @poll.initialized() and (active = @poll.active_question()) and active? and (active.next_question() == @ or _.some(active.options(), (opt) => opt.next_question() == @))
     ).extend(throttle: 10)
     @question_colour = ko.computed () => Question.palette[@position() % Question.palette.length]
 
@@ -128,6 +127,7 @@ class @Poll
 
   constructor: (data) ->
     # Poll attributes
+    @initialized = ko.observable(false)
     @title = ko.observable(data.title).extend(required: true)
     @confirmation_words_text = ko.observable(data.confirmation_words_text).extend(required: true)
     @welcome_message = ko.observable(data.welcome_message).extend(required: true, maxLength: 140)
@@ -170,7 +170,7 @@ class @Poll
     @errors = ko.validation.group(@)
 
   initialize: () ->
-    _.each @questions(), (q) -> q.initialize()
+    @initialized(true)
 
   import_form: (poll,evt) ->
     @importing true

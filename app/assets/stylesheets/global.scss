@@ -163,10 +163,17 @@ label.placeholder {
 
   .feditor.highlighted {
     .feditor-button button {
-      border-radius: 5px;
-      border-width: 2px;
       border-style: solid;
+      border-radius: 8px;
+      border-width: 2px;
+      position: relative;
+      top: -2px;
+      left: -2px;
     }
+  }
+
+  .feditor-button button {
+    border-style: hidden;
   }
 
   .feditor-container {

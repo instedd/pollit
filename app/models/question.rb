@@ -55,13 +55,14 @@ class Question < ActiveRecord::Base
   end
 
   def option_for(value)
-    if OptionsIndices[0..options.count-1].include?(value.downcase)
-      options[OptionsIndices.index(value.downcase)]
-    elsif options.collect { |opt| opt.downcase }.include?(value.downcase)
-      pos = options.collect { |opt| opt.downcase }.index(value.downcase)
+    normalised_value = value.to_s.strip.downcase
+    if OptionsIndices[0..options.count-1].include?(normalised_value)
+      options[OptionsIndices.index(normalised_value)]
+    elsif options.collect { |opt| opt.downcase }.include?(normalised_value)
+      pos = options.collect { |opt| opt.downcase }.index(normalised_value)
       options[pos]
-    elsif options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(value.downcase)
-      options[OptionsIndices.index(value.downcase.split('-').first)]
+    elsif options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(normalised_value)
+      options[OptionsIndices.index(normalised_value.split('-').first)]
     else
       nil
     end

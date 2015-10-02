@@ -78,6 +78,45 @@ describe Poll do
 
     end
 
+    context "options question" do
+
+      let(:question) { Question.make(:options, :options => %w(foo bar baz)) }
+
+      it { accepts_answer("a") }
+      it { accepts_answer("b") }
+      it { accepts_answer("c") }
+
+      it { accepts_answer("foo") }
+      it { accepts_answer("bar") }
+      it { accepts_answer("baz") }
+
+      it { accepts_answer(" a ") }
+      it { accepts_answer(" foo ") }
+
+      it { rejects_answer("fooz") }
+      it { rejects_answer("d") }
+      it { rejects_answer("1") }
+
+      context "with numeric labels" do
+
+        let(:question) { Question.make(:options, :options => %w(1 2)) }
+
+        it { accepts_answer("a") }
+        it { accepts_answer("b") }
+
+        it { accepts_answer("1") }
+        it { accepts_answer("2") }
+
+        it { accepts_answer("1 ") }
+        it { accepts_answer("b ") }
+
+        it { rejects_answer("c") }
+        it { rejects_answer("3") }
+
+      end
+
+    end
+
     context "text question" do
 
       context "with min and max length" do

@@ -7,4 +7,5 @@ InsteddTelemetry.setup do |config|
 
   # Add custom collectors to Telemetry
   config.add_collector Telemetry::AccountsCountCollector
+  config.add_collector Telemetry::PollsByAccountCollector
 end

@@ -17,6 +17,8 @@
 
 Pollit::Application.routes.draw do
 
+  mount InsteddTelemetry::Engine => '/instedd_telemetry'
+
   namespace "api" do
     resources :polls, :only => [:index, :show] do
       resources :questions,   :only => [:index, :show]

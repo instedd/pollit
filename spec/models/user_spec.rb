@@ -32,4 +32,23 @@ describe User do
     user.reload.should have(3).polls
   end
 
+  describe 'telemetry' do
+    it 'updates its lifespan when created' do
+      user = User.make
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(user)
+
+      user.save
+    end
+
+    it 'updates its lifespan when updated' do
+      user = User.make!
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(user)
+
+      user.touch
+      user.save
+    end
+  end
+  
 end

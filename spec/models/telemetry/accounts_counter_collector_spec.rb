@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Telemetry::AccountsCountCollector, telemetry: true do
 
-  it 'counts applications' do
+  it 'counts accounts' do
     User.make! created_at: to - 1.day
     User.make! created_at: to - 5.days
     User.make! created_at: from - 1.day

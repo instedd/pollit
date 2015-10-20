@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Telemetry::QuestionsByPollCollector, telemetry: true do
 
-  it 'counts polls by account' do
+  it 'counts questions by poll' do
     poll_1 = Poll.make!
     poll_2 = Poll.make!
 

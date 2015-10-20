@@ -9,4 +9,5 @@ InsteddTelemetry.setup do |config|
   config.add_collector Telemetry::AccountsCountCollector
   config.add_collector Telemetry::PollsByAccountCollector
   config.add_collector Telemetry::QuestionsByPollCollector
+  config.add_collector Telemetry::ResponsesByPollCollector
 end

@@ -10,4 +10,5 @@ InsteddTelemetry.setup do |config|
   config.add_collector Telemetry::PollsByAccountCollector
   config.add_collector Telemetry::QuestionsByPollCollector
   config.add_collector Telemetry::ResponsesByPollCollector
+  config.add_collector Telemetry::NumbersByCountryCodeCollector
 end

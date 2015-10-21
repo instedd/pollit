@@ -91,6 +91,14 @@ describe Question do
       question.touch
       question.save
     end
+
+    it 'updates the users lifespan when destroyed' do
+      question = Question.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      question.destroy
+    end
   end
 
 end

@@ -49,6 +49,14 @@ describe User do
       user.touch
       user.save
     end
+
+    it 'updates its lifespan when destroyed' do
+      user = User.make!
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(user)
+
+      user.destroy
+    end
   end
   
 end

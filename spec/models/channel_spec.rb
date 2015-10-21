@@ -37,5 +37,13 @@ describe Channel do
       channel.touch
       channel.save
     end
+
+    it 'updates the users lifespan when destroyed' do
+      channel = Channel.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      channel.destroy
+    end
   end
 end

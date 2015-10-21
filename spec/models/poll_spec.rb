@@ -66,5 +66,13 @@ describe Poll do
       poll.touch
       poll.save
     end
+
+    it 'updates the users lifespan when destroyed' do
+      poll = Poll.make!
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner).at_least(:once)
+
+      poll.destroy
+    end
   end
 end

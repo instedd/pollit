@@ -41,6 +41,7 @@ class Question < ActiveRecord::Base
   enum_attr :kind, %w(^text options numeric unsupported)
 
   after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
 
   def message
     if kind_text?

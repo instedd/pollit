@@ -169,4 +169,33 @@ describe Respondent do
 
   end
 
+  describe 'telemetry' do
+    let(:poll) { Poll.make! }
+
+    it 'updates the users lifespan when created' do
+      respondent = Respondent.make poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      respondent.save
+    end
+
+    it 'updates the users lifespan when updated' do
+      respondent = Respondent.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      respondent.touch
+      respondent.save
+    end
+
+    it 'updates the users lifespan when destroyed' do
+      respondent = Respondent.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      respondent.destroy
+    end
+  end
+
 end

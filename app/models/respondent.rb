@@ -24,6 +24,9 @@ class Respondent < ActiveRecord::Base
 
   enum_attr :pushed_status, %w(^pending succeeded failed local)
 
+  after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
+
   include Pusher
 
   def answer_for(question)
@@ -41,6 +44,12 @@ class Respondent < ActiveRecord::Base
 
   def for_api
     self.as_json.merge("phone" => api_phone)
+  end
+
+  private
+
+  def touch_user_lifespan
+    Telemetry::Lifespan.touch_user(self.poll.try(:owner))
   end
 
 end

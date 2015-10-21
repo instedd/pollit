@@ -47,6 +47,7 @@ class Poll < ActiveRecord::Base
   after_initialize :default_values
 
   after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
 
   enum_attr :status, %w(^configuring started paused)
   enum_attr :kind,   %w(^gforms manual)

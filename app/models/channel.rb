@@ -28,6 +28,7 @@ class Channel < ActiveRecord::Base
   before_destroy :delete_nuntium_channel
 
   after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
 
   def unprefixed_address
     return nil if not address

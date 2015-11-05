@@ -1,8 +1,17 @@
 module Telemetry::PollsByAccountCollector
   def self.collect_stats(period)
-    polls_by_account = Poll.where('created_at < ?', period.end).group(:owner_id).count
+    period_end = ActiveRecord::Base.sanitize(period.end)
 
-    counters = polls_by_account.map do |account_id, count|
+    results = ActiveRecord::Base.connection.execute <<-SQL
+      SELECT users.id, COUNT(polls.owner_id)
+      FROM users
+      LEFT JOIN polls ON polls.owner_id = users.id
+      AND polls.created_at < #{period_end}
+      WHERE users.created_at < #{period_end}
+      GROUP BY users.id
+    SQL
+
+    counters = results.map do |account_id, count|
       {
         metric: 'polls_by_account',
         key: {account_id: account_id},

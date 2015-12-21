@@ -25,6 +25,9 @@ class Answer < ActiveRecord::Base
 
   scope :on_occurrence, -> (occurrence){ where(occurrence: occurrence) }
 
+  after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
+
   def for_api
     {
       id: self.id,
@@ -35,5 +38,11 @@ class Answer < ActiveRecord::Base
       timestamp: self.created_at,
       response: self.response
     }
+  end
+
+  private
+
+  def touch_user_lifespan
+    Telemetry::Lifespan.touch_user(self.question.try(:poll).try(:owner))
   end
 end

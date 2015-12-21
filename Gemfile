@@ -30,6 +30,7 @@ gem 'gon'
 gem 'activerecord-import', '~> 0.3.1'
 gem 'rgviz'
 gem 'rgviz-rails', :require => 'rgviz_rails'
+gem 'instedd_telemetry', git: 'https://github.com/instedd/telemetry_rails.git'
 
 gem "omniauth"
 gem "omniauth-openid"

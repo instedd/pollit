@@ -27,6 +27,9 @@ class Channel < ActiveRecord::Base
   before_validation :register_nuntium_channel, :on => :create
   before_destroy :delete_nuntium_channel
 
+  after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
+
   def unprefixed_address
     return nil if not address
     address.gsub(/^sms:\/\//, '')
@@ -81,5 +84,9 @@ class Channel < ActiveRecord::Base
 
   def nuntium_info
     @nuntium_info ||= Nuntium.new_from_config.channel(name)
+  end
+
+  def touch_user_lifespan
+    Telemetry::Lifespan.touch_user(self.poll.try(:owner))
   end
 end

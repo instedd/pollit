@@ -72,4 +72,33 @@ describe Question do
     end
   end
 
+  describe 'telemetry' do
+    let(:poll) { Poll.make! }
+
+    it 'updates the users lifespan when created' do
+      question = Question.make poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      question.save
+    end
+
+    it 'updates the users lifespan when updated' do
+      question = Question.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      question.touch
+      question.save
+    end
+
+    it 'updates the users lifespan when destroyed' do
+      question = Question.make! poll: poll
+
+      Telemetry::Lifespan.should_receive(:touch_user).with(poll.owner)
+
+      question.destroy
+    end
+  end
+
 end

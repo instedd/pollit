@@ -40,6 +40,9 @@ class Question < ActiveRecord::Base
 
   enum_attr :kind, %w(^text options numeric unsupported)
 
+  after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
+
   def message
     if kind_text?
       title
@@ -95,6 +98,10 @@ class Question < ActiveRecord::Base
 
   def kind_supported
     errors.add(:kind, _("is not supported")) if kind_unsupported?
+  end
+
+  def touch_user_lifespan
+    Telemetry::Lifespan.touch_user(self.poll.try(:owner))
   end
 
 end

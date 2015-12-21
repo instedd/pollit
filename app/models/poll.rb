@@ -46,6 +46,9 @@ class Poll < ActiveRecord::Base
 
   after_initialize :default_values
 
+  after_save :touch_user_lifespan
+  after_destroy :touch_user_lifespan
+
   enum_attr :status, %w(^configuring started paused)
   enum_attr :kind,   %w(^gforms manual)
 
@@ -187,5 +190,9 @@ class Poll < ActiveRecord::Base
     if self.questions.select{ |q| !q.marked_for_destruction? && q.collects_respondent }.length > 1
       errors.add(:questions, " cannot collect respondent in more than one question")
     end
+  end
+
+  def touch_user_lifespan
+    Telemetry::Lifespan.touch_user(self.owner)
   end
 end

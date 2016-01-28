@@ -37,7 +37,7 @@ namespace :deploy do
     if branch
       run "echo #{branch} > #{release_path}/VERSION"
     else
-      run "echo `git describe --tags --exact-match` > #{release_path}/VERSION; true"
+      run "echo `cd #{release_path} && git describe --tags --exact-match` > #{release_path}/VERSION; true"
     end
   end
 

@@ -177,5 +177,18 @@ if (typeof angular !== 'undefined') {
       $.getScript(gon.respondents_path);
     };
 
+    $scope.deleteAllRespondents = function() {
+      if (confirm("Are you sure you want to delete ALL respondents?")) {
+        $http.post(gon.delete_all_poll_respondents_path, {})
+          .success(function() {
+            $.status.showNotice(respondents_deleted_successfully, 6000);
+            $scope.reloadPhones();
+          })
+          .error(function() {
+            $.status.showError(error_deleting_respondents, 6000);
+          });
+      }
+    };
+
   }]);
 };

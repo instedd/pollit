@@ -7,6 +7,8 @@
     var file_should_be_in_csv_format = "#{_('Error: file should be in csv format')}";
     var file_successfully_uploaded = "#{_('File successfully uploaded')}";
     var phones_saved_successfully = "#{_('Phones saved succesfully')}";
+    var respondents_deleted_successfully = "#{_('Respondents deleted successfully')}";
+    var error_deleting_respondents = "#{_('Error deleting respondents')}";
     var hub_connected_successfully = "#{_('InSTEDD Hub connected. Respondents will be automatically imported.')}";
     var hub_connected_error = "#{_('Error connecting InSTEDD Hub. Please try again later.')}";
     var hub_disconnected_successfully = "#{_('InSTEDD Hub has been disconnected. Respondents will no longer be imported.')}";
@@ -87,6 +89,10 @@
             %span Save
           %button.white{"ng-click" => "clearChanges()", "ng-disabled" => "!new_phones || new_phones.length == 0"}
             %span Clear
+      %br
+      %br
+      %button.fdelete{'ng-click' => 'deleteAllRespondents()'}
+        %b Delete all respondents
     %br
     %hr
     %br

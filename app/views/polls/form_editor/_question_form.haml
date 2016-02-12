@@ -30,7 +30,7 @@
     = f.text_field :max_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %hr
     %p.title Contains
-    %p.smalltext Require this string to be contained in the response
+    %p.smalltext Require this text to be contained in the response
     = f.text_field :must_contain, :'data-bind' => 'attr: {readonly: readonly}'
     %hr
     -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
@@ -63,5 +63,25 @@
       %input.newoption.small.option{ko(textInput: 'text', hasFocus: 'focus', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Enter a new option'}
       %buttom.right.addoption.clist-add{ko(click: 'add', visible: '(text().length > 0)')}
     .clear
+
+  %hr
+  %p.title Validation messages
+  %p.smalltext Messages to use when respondents reply with invalid answers.
+  %br/
+  - ko_if 'kind_text()' do
+    %p.smalltext The response is empty
+    = f.text_field :custom_message_empty, placeholder: "(default message)"
+    %p.smalltext The response doesn't have the required size
+    = f.text_field :custom_message_invalid_length, placeholder: "(default message)"
+    %p.smalltext The response doesn't contain the required text
+    = f.text_field :custom_message_doesnt_contain, placeholder: "(default message)"
+  - ko_if 'kind_numeric()' do
+    %p.smalltext The response is not a number
+    = f.text_field :custom_message_not_a_number, placeholder: "(default message)"
+    %p.smalltext The response number is outside the valid range
+    = f.text_field :custom_message_number_not_in_range, placeholder: "(default message)"
+  - ko_if 'kind_options()' do
+    %p.smalltext The response is not an option
+    = f.text_field :custom_message_not_an_option, placeholder: "(default message)"
 
 

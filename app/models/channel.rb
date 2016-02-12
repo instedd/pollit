@@ -1,17 +1,17 @@
 # Copyright (C) 2011-2012, InSTEDD
-# 
+#
 # This file is part of Pollit.
-# 
+#
 # Pollit is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Pollit is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Pollit.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -48,7 +48,7 @@ class Channel < ActiveRecord::Base
   def register_nuntium_channel
     @nuntium = Nuntium.new_from_config
     begin
-      channel_info = @nuntium.create_channel({ 
+      channel_info = @nuntium.create_channel({
         :name => name,
         :protocol => 'sms',
         :kind => 'qst_server',
@@ -59,7 +59,7 @@ class Channel < ActiveRecord::Base
         :configuration => { :password => SecureRandom.base64(6) },
         :enabled => true
       })
-    
+
       self.address = "sms://#{channel_info[:address]}"
     rescue Nuntium::Exception => e
       e.properties.each do |error|

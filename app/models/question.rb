@@ -37,6 +37,7 @@ class Question < ActiveRecord::Base
 
   serialize :options, Array
   serialize :next_question_definition, Hash
+  serialize :custom_messages, Hash
 
   enum_attr :kind, %w(^text options numeric unsupported)
 
@@ -92,6 +93,28 @@ class Question < ActiveRecord::Base
 
   def kind_valid?
     kind && !kind_unsupported?
+  end
+
+  def custom_message(key)
+    custom_messages.try(:[], key).presence
+  end
+
+  %w(empty invalid_length doesnt_contain not_a_number number_not_in_range not_an_option).each do |key|
+    class_eval <<-CODE, __FILE__, __LINE__
+      def custom_message_#{key}
+        custom_message "#{key}"
+      end
+
+      def custom_message_#{key}=(value)
+        set_custom_message "#{key}", value
+      end
+    CODE
+  end
+
+  def set_custom_message(key, value)
+    self.custom_messages ||= {}
+    self.custom_messages[key] = value.strip
+    custom_messages_will_change!
   end
 
   private

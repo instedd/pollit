@@ -17,6 +17,15 @@ class @Question
     @max_length = ko.observable(data.max_length)
     @must_contain = ko.observable(data.must_contain)
 
+    # Custom messages
+    custom_messages = data.custom_messages || {}
+    @custom_message_empty = ko.observable(custom_messages.empty)
+    @custom_message_invalid_length = ko.observable(custom_messages.invalid_length)
+    @custom_message_doesnt_contain = ko.observable(custom_messages.doesnt_contain)
+    @custom_message_not_a_number = ko.observable(custom_messages.not_a_number)
+    @custom_message_number_not_in_range = ko.observable(custom_messages.number_not_in_range)
+    @custom_message_not_an_option = ko.observable(custom_messages.not_an_option)
+
     # Options list
     @options = ko.observableArray(_.map(data.options, (opt) => new QuestionOption(@, opt)))
 

@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Poll do
-
   context "workflow" do
-
     it "should change status to started when a poll is started" do
       poll = Poll.make!(:with_questions)
       poll.stubs(:send_messages).returns(true)
@@ -208,6 +206,167 @@ describe Poll do
       p.start
     end
 
-  end
+    context "validations" do
+      def assert_validation
+        p = Poll.make!(:with_questions)
+        given_answer, expected_reply = yield p
+        p.start
 
+        # To confirm joining the poll
+        p.accept_answer("yes", p.respondents.first)
+
+        # The test answer
+        response = p.accept_answer(given_answer, p.respondents.first)
+        response.should eq(expected_reply)
+      end
+
+      describe "text" do
+        it "validates text answer" do
+          assert_validation do |poll|
+            ["", _("Your answer was not understood.") + " " + _("Please answer with a non empty response.")]
+          end
+        end
+
+        it "validates text answer with custom validation message when empty" do
+          assert_validation do |poll|
+            q = poll.questions.first
+            q.custom_messages = {
+              "empty" => "Must not be empty!",
+            }
+            q.save!
+
+            ["", q.custom_messages["empty"]]
+          end
+        end
+
+        it "validates text answer with custom validation message when less than min length" do
+          assert_validation do |poll|
+            q = poll.questions.first
+            q.min_length = 5
+            q.custom_messages = {
+              "invalid_length" => "Invalid length!",
+            }
+            q.save!
+
+            ["1", q.custom_messages["invalid_length"]]
+          end
+        end
+
+        it "validates text answer with custom validation message when more than max length" do
+          assert_validation do |poll|
+            q = poll.questions.first
+            q.max_length = 5
+            q.custom_messages = {
+              "invalid_length" => "Invalid length!",
+            }
+            q.save!
+
+            ["123456", q.custom_messages["invalid_length"]]
+          end
+        end
+
+        it "validates text answer with custom validation message when outside min max length" do
+          assert_validation do |poll|
+            q = poll.questions.first
+            q.min_length = 4
+            q.max_length = 5
+            q.custom_messages = {
+              "invalid_length" => "Invalid length!",
+            }
+            q.save!
+
+            ["1", q.custom_messages["invalid_length"]]
+          end
+        end
+
+        it "validates text answer with custom validation message when doesn't contain text" do
+          assert_validation do |poll|
+            q = poll.questions.first
+            q.must_contain = "foo"
+            q.custom_messages = {
+              "doesnt_contain" => "Doesn't contain!",
+            }
+            q.save!
+
+            ["this has a bar", q.custom_messages["doesnt_contain"]]
+          end
+        end
+      end
+
+      describe "numeric" do
+        it "validates numeric answer with custom validation message when not a number" do
+          assert_validation do |poll|
+            3.times { poll.questions.first.destroy }
+            q = poll.questions.first
+            q.custom_messages = {
+              "not_a_number" => "Not a number!",
+            }
+            q.save!
+
+            ["hello", q.custom_messages["not_a_number"]]
+          end
+        end
+
+        it "validates numeric answer with custom validation message when less than min" do
+          assert_validation do |poll|
+            3.times { poll.questions.first.destroy }
+            q = poll.questions.first
+            q.numeric_min = 10
+            q.numeric_max = nil
+            q.custom_messages = {
+              "number_not_in_range" => "Not in range!",
+            }
+            q.save!
+
+            ["9", q.custom_messages["number_not_in_range"]]
+          end
+        end
+
+        it "validates numeric answer with custom validation message when greater than max" do
+          assert_validation do |poll|
+            3.times { poll.questions.first.destroy }
+            q = poll.questions.first
+            q.numeric_min = nil
+            q.numeric_max = 10
+            q.custom_messages = {
+              "number_not_in_range" => "Not in range!",
+            }
+            q.save!
+
+            ["11", q.custom_messages["number_not_in_range"]]
+          end
+        end
+
+        it "validates numeric answer with custom validation message when outside range" do
+          assert_validation do |poll|
+            3.times { poll.questions.first.destroy }
+            q = poll.questions.first
+            q.numeric_min = 9
+            q.numeric_max = 10
+            q.custom_messages = {
+              "number_not_in_range" => "Not in range!",
+            }
+            q.save!
+
+            ["8", q.custom_messages["number_not_in_range"]]
+          end
+        end
+      end
+
+      describe "options" do
+        it "validates optios answer with custom validation message when not a valid option" do
+          assert_validation do |poll|
+            poll.questions.first.destroy
+            q = poll.questions.first
+            q.custom_messages = {
+              "not_an_option" => "Not an option!",
+            }
+            q.save!
+
+            ["qux", q.custom_messages["not_an_option"]]
+          end
+        end
+      end
+    end
+  end
 end

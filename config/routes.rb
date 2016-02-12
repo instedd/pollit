@@ -66,6 +66,7 @@ Pollit::Application.routes.draw do
       resources :respondents, :only => [:index, :destroy] do
         collection do
           post 'add_phones'
+          post 'delete_all'
           post 'import_csv'
           post 'clear_hub'
           post 'connect_hub'

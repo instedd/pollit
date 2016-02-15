@@ -168,6 +168,56 @@ class Poll < ActiveRecord::Base
     self.questions.where(collects_respondent: true).first
   end
 
+  def duplicate
+    duplicate = self.dup
+    duplicate.current_occurrence = nil
+
+    count = 2
+    title = self.title
+
+    case title
+    when /\A(.+?)\s+\(Copy\)\Z/
+      title = $1
+      duplicate.title = "#{title} (Copy 2)"
+      count = 3
+    when /\A(.+?)\s+\(Copy\s+(\d+)\)\Z/
+      title = $1
+      n = $2.to_i
+      duplicate.title = "#{title} (Copy #{n + 1})"
+      count = n + 2
+    else
+      duplicate.title = "#{title} (Copy)"
+    end
+
+    duplicate.status = :configuring
+
+    count = 2
+    while Poll.where(owner_id: owner_id, title: duplicate.title).exists?
+      duplicate.title = "#{title} (Copy #{count})"
+      count += 1
+    end
+
+    self.questions.each do |question|
+      duplicate_question = question.dup
+      duplicate_question.poll = duplicate
+      duplicate.questions << duplicate_question
+    end
+
+    self.respondents.each do |respondent|
+      duplicate_respondent = respondent.dup
+      duplicate_respondent.poll = duplicate
+      duplicate_respondent.confirmed = false
+      duplicate_respondent.pushed_at = nil
+      duplicate_respondent.pushed_status = "pending"
+      duplicate_respondent.current_question_id = nil
+      duplicate_respondent.current_question_sent = false
+      duplicate.respondents << duplicate_respondent
+    end
+
+    duplicate.save!
+    duplicate
+  end
+
   private
 
   def invite(respondents)

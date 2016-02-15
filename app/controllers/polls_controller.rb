@@ -153,6 +153,10 @@ class PollsController < ApplicationController
     redirect_to :back
   end
 
+  def duplicate
+    redirect_to @poll.duplicate
+  end
+
   protected
 
   def set_layout

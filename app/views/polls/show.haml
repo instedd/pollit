@@ -70,6 +70,7 @@
 
 %hr
 
+= link_to _("Duplicate this poll"), duplicate_poll_path(@poll), :method => :post, :confirm => _("Are you sure you want to duplicate poll %{title}?") % {:title => @poll.title}, :class => 'farrange'
 = link_to _("Delete this poll"), poll_path(@poll), :method => :delete, :confirm => _("Are you sure you want to delete poll %{title}?") % {:title => @poll.title}, :class => 'fdelete'
 
 

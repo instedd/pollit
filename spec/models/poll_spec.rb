@@ -75,4 +75,19 @@ describe Poll do
       poll.destroy
     end
   end
+
+  it "duplicates poll" do
+    poll = Poll.make! title: "Some poll"
+    duplicate = poll.duplicate
+    duplicate.title.should eq("#{poll.title} (Copy)")
+
+    duplicate2 = duplicate.duplicate
+    duplicate2.title.should eq("Some poll (Copy 2)")
+
+    duplicate3 = duplicate2.duplicate
+    duplicate3.title.should eq("Some poll (Copy 3)")
+
+    duplicate4 = duplicate.duplicate
+    duplicate4.title.should eq("Some poll (Copy 4)")
+  end
 end

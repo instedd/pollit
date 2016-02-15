@@ -57,6 +57,7 @@ Pollit::Application.routes.draw do
         post 'register_channel/:ticket_code', :action => 'register_channel'
         post 'pause'
         post 'resume'
+        post 'duplicate'
 
         post 'run_next_job'
       end

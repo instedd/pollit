@@ -26,6 +26,10 @@ class @Question
     @custom_message_number_not_in_range = ko.observable(custom_messages.number_not_in_range)
     @custom_message_not_an_option = ko.observable(custom_messages.not_an_option)
 
+    # Numeric conditions
+    @numeric_condition = ko.observable(new QuestionNumericCondition(@))
+    @numeric_conditions = ko.observableArray()
+
     # Options list
     @options = ko.observableArray(_.map(data.options, (opt) => new QuestionOption(@, opt)))
 
@@ -49,36 +53,13 @@ class @Question
 
     # Selecting next question. Serialize and deserialize next_question_definition
     @next_question = ko.observable()
+
     @next_question_colour = ko.computed () => @next_question()?.question_colour?() || 'transparent'
-    @next_question_definition = ko.pureComputed
-      owner: @
-      read: () =>
-        if @next_question()
-          ko.toJSON({next: @next_question()?.position})
-        else if @kind() == 'options'
-          cases = {}
-          _.each @options(), (opt) ->
-            cases[opt.text()] = opt.next_question()?.position
-          ko.toJSON({case: cases})
-        else
-          ko.toJSON({})
-      write: (value) =>
-        if value.next == 'end'
-          @next_question(@poll.end_option)
-        else if value.next?
-          @next_question(_.find(@poll.questions(), (q) -> q.position() == value.next))
-        else if value.case?
-          for opt, pos of value.case
-            option = _.find(@options(), (o) -> o.text() == opt)
-            question = _.find(@poll.questions(), (q) -> q.position() == pos)
-            option.next_question(question)
-        else
-          true
-    .extend(throttle: 1)
 
     @next_questions = ko.computed(() =>
       (@poll.questions()[@position()..]).concat([@poll.end_option])
     ).extend(throttle: 1)
+
     @title_for_options = ko.computed () =>
       "#{if @position > 9 then '' else '0'}#{@position()} \u00A0\u00A0\u00A0 #{@title()}"
     @options_caption = "\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 Next question"
@@ -96,9 +77,47 @@ class @Question
     # Validation
     @errors = ko.validation.group(@)
 
+    @next_question_definition = ko.computed
+      owner: @
+      read: () =>
+        if @kind() == 'numeric'
+          cases = []
+          _.each @numeric_conditions(), (condition) ->
+            cases.push min: condition.min(), max: condition.max(), next: condition.next_question()?.position
+          ko.toJSON({cases: cases, next: @next_question()?.position})
+        else if @next_question()
+          ko.toJSON({next: @next_question()?.position})
+        else if @kind() == 'options'
+          cases = {}
+          _.each @options(), (opt) ->
+            cases[opt.text()] = opt.next_question()?.position
+          ko.toJSON({case: cases})
+        else
+          ko.toJSON({})
+      write: (value) =>
+        if @kind() == 'numeric'
+          if value.cases
+            _.each value.cases, (a_case) =>
+              @numeric_conditions.push(new QuestionNumericCondition(@, a_case))
+          if value.next == 'end'
+            @next_question(@poll.end_option)
+          else if value.next?
+            @next_question(_.find(@poll.questions(), (q) -> q.position() == value.next))
+        else if value.next == 'end'
+          @next_question(@poll.end_option)
+        else if value.next?
+          @next_question(_.find(@poll.questions(), (q) -> q.position() == value.next))
+        else if value.case?
+          for opt, pos of value.case
+            option = _.find(@options(), (o) -> o.text() == opt)
+            question = _.find(@poll.questions(), (q) -> q.position() == pos)
+            option.next_question(question)
+        else
+          true
+    .extend(throttle: 1)
+
   initialize: () ->
     @next_question_definition(@data.next_question_definition)
-    @initialized(true)
 
   remove: () ->
     @poll.questions.remove @
@@ -110,6 +129,9 @@ class @Question
   position_updated: () ->
     true
 
+  add_numeric_condition: =>
+    @numeric_conditions.push @numeric_condition()
+    @numeric_condition(new QuestionNumericCondition(@))
 
 class @QuestionOption
 
@@ -131,6 +153,20 @@ class @QuestionOption
     @add() if e.keyCode == 13 && @text().length > 0
     return true
 
+class @QuestionNumericCondition
+  constructor: (@question, data) ->
+    @min = ko.observable(data?.min)
+    @max = ko.observable(data?.max)
+    @next_question = ko.observable()
+
+    if data?.next
+      if data.next == 'end'
+        @next_question(@question.poll.end_option)
+      else
+        @next_question(_.find(@question.poll.questions(), (q) -> q.position() == data.next))
+
+  remove: =>
+    @question.numeric_conditions.remove(@)
 
 class @Poll
 
@@ -163,6 +199,11 @@ class @Poll
     # Questions array must be initialized first since the question model constructor requires the poll to have a questions array
     @questions = ko.observableArray()
     @questions(_.map(data.questions, (q) => new Question(q, @)))
+
+    # Initialize the questions: some properties depend on the `next_questions` property, but this is only
+    # known once all poll questions are assigned: we can't do it as we instantiate the questions.
+    _.each @questions(), (q) -> q.initialize()
+
     @active_question = ko.computed () =>
       _.find @questions(), (q) -> q.active()
 

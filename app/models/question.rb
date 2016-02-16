@@ -73,9 +73,26 @@ class Question < ActiveRecord::Base
   end
 
   def next_question(answer=nil)
+    if answer && kind == :numeric
+      num = answer.to_i
+
+      cases = next_question_definition['cases']
+      if cases
+        cases.each do |a_case|
+          case_min = a_case['min'].try(&:to_i) || -Float::INFINITY
+          case_max = a_case['max'].try(&:to_i) || Float::INFINITY
+          case_next = a_case['next']
+
+          if case_min <= num && num <= case_max
+            return self.poll.questions.where(position: case_next).first
+          end
+        end
+      end
+    end
+
     if next_pos = next_question_definition['next']
       self.poll.questions.where(position: next_pos).first
-    elsif answer && (cases = next_question_definition['case']) && (next_pos = cases[answer])
+    elsif answer && (kind != :numeric) && (cases = next_question_definition['case']) && (next_pos = cases[answer])
       self.poll.questions.where(position: next_pos).first
     else
       self.next

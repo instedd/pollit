@@ -40,10 +40,48 @@
     %input{ko(checked: 'collects_respondent', disable: 'poll.status_started()').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
     %span Stores sender phone number
 
-  - ko_if '(kind_numeric() || kind_text()) && $parent.kind_manual()' do
+  - ko_if 'kind_text() && $parent.kind_manual()' do
     %hr
     %p.title Go to question
     %p.smalltext After answering this question, go to
+    %select.next-question{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}).merge(class: 'w30')}
+
+  - ko_if 'kind_numeric() && $parent.kind_manual()' do
+    %hr
+    %p.title Go to question
+    %p.smalltext Add a condition
+
+    If
+    %input{type: "number", :"data-bind" => "value:numeric_condition().min", style: "width: 40px"}
+    %span.smalltext to
+    %input{type: "number", :"data-bind" => "value:numeric_condition().max", style: "width: 40px"}
+    %select.option-next-question{ko(value: 'numeric_condition().next_question', options: 'next_questions', optionsText: '"title_for_options"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}), style: "width: 130px"}
+    %button.right.clist-add{ko(click: 'add_numeric_condition')}
+    .clear
+
+    %hr
+
+    /ko if: numeric_conditions().length > 0
+    %p.smalltext After answering this question
+    //ko
+
+    /ko if: numeric_conditions().length == 0
+    %p.smalltext After answering this question, go to
+    //ko
+
+    %div{ko(foreach: 'numeric_conditions')}
+      If
+      %input{type: "number", :"data-bind" => "value:min", style: "width: 40px"}
+      %span.smalltext to
+      %input{type: "number", :"data-bind" => "value:max", style: "width: 40px"}
+      %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '"Next question"', disable: '$parent.readonly', style: {'borderColor' => '$parent.next_question_colour'}), style: "width: 130px"}
+      %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
+      .clear
+
+    /ko if: numeric_conditions().length > 0
+    Otherwise:
+    //ko
+
     %select.next-question{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}).merge(class: 'w30')}
 
   - ko_if 'kind_options' do

@@ -206,6 +206,52 @@ describe Poll do
       p.start
     end
 
+    describe "numeric conditions" do
+      let!(:poll) do
+        p = Poll.make!(questions: [
+          Question.make(:numeric, :position => 1, :numeric_min => 1, :numeric_max => 100, :next_question_definition => {'cases' => [
+              {'min' => 1, 'max' => 3, 'next' => 3},
+              {'min' => 4, 'max' => 10, 'next' => 4},
+              {'min' => 11, 'max' => 20},
+              {'min' => 21, 'max' => 50, 'next' => 'end'},
+            ], 'next' => 6}),
+          Question.make(:numeric, title: "foo2", :position => 2),
+          Question.make(:numeric, title: "foo3", :position => 3),
+          Question.make(:numeric, title: "foo4", :position => 4),
+          Question.make(:numeric, title: "foo5", :position => 5),
+          Question.make(:numeric, title: "foo6", :position => 6),
+        ], respondents: [Respondent.make])
+        p.stubs(:send_messages).returns(true)
+        p.start
+
+        # To confirm joining the poll
+        p.accept_answer("yes", p.respondents.first)
+
+        p
+      end
+      let!(:respondent) { poll.respondents.first }
+
+      it "branches off conditionally in numeric (1)" do
+        poll.accept_answer("2", respondent).should include("foo3")
+      end
+
+      it "branches off conditionally in numeric (2)" do
+        poll.accept_answer("4", respondent).should include("foo4")
+      end
+
+      it "branches off conditionally in numeric (3)" do
+        poll.accept_answer("12", respondent).should eq(_("Thank you for your answers!"))
+      end
+
+      it "branches off conditionally in numeric (4)" do
+        poll.accept_answer("22", respondent).should eq(_("Thank you for your answers!"))
+      end
+
+      it "branches off conditionally in numeric (5)" do
+        poll.accept_answer("51", respondent).should include("foo6")
+      end
+    end
+
     context "validations" do
       def assert_validation
         p = Poll.make!(:with_questions)

@@ -25,13 +25,19 @@ class @Question
     @custom_message_not_a_number = ko.observable(custom_messages.not_a_number)
     @custom_message_number_not_in_range = ko.observable(custom_messages.number_not_in_range)
     @custom_message_not_an_option = ko.observable(custom_messages.not_an_option)
+    @custom_message_options_explanation = ko.observable(custom_messages.options_explanation)
 
     # Numeric conditions
     @numeric_condition = ko.observable(new QuestionNumericCondition(@))
     @numeric_conditions = ko.observableArray()
 
     # Options list
-    @options = ko.observableArray(_.map(data.options, (opt) => new QuestionOption(@, opt)))
+    @options = ko.observableArray(_.map(data.options, (opt) =>
+      if typeof(opt) == "string"
+        new QuestionOption(@, opt)
+      else
+        new QuestionOption(@, opt[0], opt[1])
+      ))
 
     # Toggle collect respondent
     @collects_respondent = ko.observable(data.collects_respondent)
@@ -46,7 +52,7 @@ class @Question
     @first = ko.computed () => @poll.questions()[0] == @
     @last = ko.computed () => !@editable() && @poll.questions()[@poll.questions().length-1] == @
     @active = ko.observable false
-    @new_option = ko.observable new QuestionOption(@, "")
+    @new_option = ko.observable new QuestionOption(@, "", "")
 
     @editor_class = ko.computed () =>
       (if @active() then 'active ' else ' ') + (@poll.editor_class_for(@kind()))
@@ -135,8 +141,9 @@ class @Question
 
 class @QuestionOption
 
-  constructor: (@question, text, hasFocus=false) ->
+  constructor: (@question, text, key, hasFocus=false) ->
     @text = ko.observable text
+    @key = ko.observable key
     @focus= ko.observable hasFocus
     @next_question = ko.observable()
     @next_question_colour = ko.computed () => @next_question()?.question_colour?() || 'transparent'
@@ -146,7 +153,7 @@ class @QuestionOption
 
   add: () ->
     @question.options.push @
-    new_option = new QuestionOption(@question, "", true)
+    new_option = new QuestionOption(@question, "", "", true)
     @question.new_option(new_option)
 
   onEnter: (q, e) ->

@@ -83,7 +83,8 @@ module Poll::AcceptAnswers
 
     if option.nil?
       return question_reply(question, "not_an_option") {
-        invalid_reply_options % [question.options.join("|")]
+        options = question.options.map { |opt| opt.is_a?(Array) ? opt[0] : opt }
+        invalid_reply_options % [options.join("|")]
       }
     else
       answer = create_answer question, respondent, option

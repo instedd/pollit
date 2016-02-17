@@ -32,6 +32,18 @@ describe Question do
     question.options.should_not be_empty
   end
 
+  it "can be saved successfully with options and keys" do
+    question = Question.make(:options)
+    original_options = question.options
+    original_keys = question.options.map.with_index { |o, i| i.to_s }
+
+    question.keys = original_keys
+    question.save!
+
+    question.should be_persisted
+    question.options.should eq(original_options.zip(original_keys))
+  end
+
   it "has many answers" do
     question = Question.make!(:answers => [Answer.make!(:response => 'foo'), Answer.make!(:response => 'bar')])
     question.reload.should have(2).answers
@@ -51,6 +63,16 @@ describe Question do
     it "can be set to message being numeric" do
       Question.make!(:numeric, :title => "A numeric question?", :numeric_min => 1, :numeric_max => 4).message.should\
         eq("A numeric question? 1-4")
+    end
+
+    it "uses keys in options" do
+      q = Question.make!(:options, :title => "An options question?", :options => %w(foo bar baz), :keys => %w(x y z))
+      q.message.should eq("An options question? x-foo y-bar z-baz")
+    end
+
+    it "uses custom message in options" do
+      q = Question.make!(:options, :title => "An options question?", :options => %w(foo bar baz), :custom_message_options_explanation => "Say this and that")
+      q.message.should eq("An options question? Say this and that")
     end
   end
 

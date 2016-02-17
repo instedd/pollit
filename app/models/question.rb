@@ -44,29 +44,51 @@ class Question < ActiveRecord::Base
   after_save :touch_user_lifespan
   after_destroy :touch_user_lifespan
 
+  before_save :merge_options_and_keys
+
+  attr_accessor :keys
+
   def message
     if kind_text?
       title
     elsif numeric?
       "#{title} #{numeric_min}-#{numeric_max}"
     elsif kind_options?
-      opts = []
-      options.each_with_index do |opt,idx|
-        opts << "#{OptionsIndices[idx]}-#{opt}"
+      if explanation = custom_message("options_explanation")
+        "#{title} #{explanation}"
+      else
+        opts = []
+        options.each_with_index do |opt,idx|
+          if opt.is_a?(Array)
+            opts << "#{opt[1].presence || OptionsIndices[idx]}-#{opt[0]}"
+          else
+            opts << "#{OptionsIndices[idx]}-#{opt}"
+          end
+        end
+        "#{title} #{opts.join(' ')}"
       end
-      "#{title} #{opts.join(' ')}"
     end
   end
 
   def option_for(value)
     normalised_value = value.to_s.strip.downcase
-    if OptionsIndices[0..options.count-1].include?(normalised_value)
-      options[OptionsIndices.index(normalised_value)]
+
+    keys = OptionsIndices[0...options.count]
+    options = self.options.clone
+    options.each_with_index do |opt, index|
+      if opt.is_a?(Array)
+        keys[index] = opt[1]
+        options[index] = opt[0]
+      end
+    end
+
+    if keys.include?(normalised_value)
+      options[keys.index(normalised_value)]
     elsif options.collect { |opt| opt.downcase }.include?(normalised_value)
       pos = options.collect { |opt| opt.downcase }.index(normalised_value)
       options[pos]
-    elsif options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(normalised_value)
-      options[OptionsIndices.index(normalised_value.split('-').first)]
+    elsif options.collect.with_index { |opt,i| "#{keys[i]}-#{opt.downcase}"}.include?(normalised_value)
+      options[keys.index(normalised_value.split('-').first)]
     else
       nil
     end
@@ -116,7 +138,7 @@ class Question < ActiveRecord::Base
     custom_messages.try(:[], key).presence
   end
 
-  %w(empty invalid_length doesnt_contain not_a_number number_not_in_range not_an_option).each do |key|
+  %w(empty invalid_length doesnt_contain not_a_number number_not_in_range not_an_option options_explanation).each do |key|
     class_eval <<-CODE, __FILE__, __LINE__
       def custom_message_#{key}
         custom_message "#{key}"
@@ -142,6 +164,12 @@ class Question < ActiveRecord::Base
 
   def touch_user_lifespan
     Telemetry::Lifespan.touch_user(self.poll.try(:owner))
+  end
+
+  def merge_options_and_keys
+    return unless keys && keys.any?(&:present?)
+
+    self.options = self.options.zip(self.keys)
   end
 
 end

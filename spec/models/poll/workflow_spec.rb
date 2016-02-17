@@ -79,6 +79,29 @@ describe Poll do
       p.respondents.first.answers.count.should_not eq(0)
     end
 
+    it "should send next question if option response is valid (with keys)" do
+      p = Poll.make!(:with_option_questions)
+
+      q = p.questions[0]
+      q.keys = %w(xy yz zx)
+      q.save!
+
+      p.reload
+
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      p.accept_answer("yes", p.respondents.first)
+      reply = p.accept_answer("lalala", p.respondents.first)
+      reply.should include("foo|bar|baz")
+
+      p.respondents.first.current_question_id.should_not eq(p.questions.first.lower_item.id)
+      p.respondents.first.answers.count.should eq(0)
+      p.accept_answer("yz", p.respondents.first)
+      p.respondents.first.current_question_id.should eq(p.questions.first.lower_item.id)
+      p.respondents.first.answers.count.should_not eq(0)
+    end
+
     it "should send next question if the numeric answer is valid" do
       p = Poll.make!(:with_numeric_questions)
       p.stubs(:send_messages).returns(true)

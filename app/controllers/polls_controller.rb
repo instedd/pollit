@@ -38,6 +38,7 @@ class PollsController < ApplicationController
   end
 
   def show
+    @channels = @poll.channels.to_a
   end
 
   def new
@@ -78,7 +79,7 @@ class PollsController < ApplicationController
     # Update
     if @poll.update_attributes(params[:poll])
       if params[:wizard]
-        redirect_to poll_channel_path(@poll, :wizard => true)
+        redirect_to poll_channels_path(@poll, :wizard => true)
       else
         redirect_to @poll, :notice => "Poll #{@poll.title} has been updated"
       end

@@ -26,16 +26,20 @@
       respondents
   = link_to _("Manage Respondents"), poll_respondents_path(@poll), :class => 'farrow'
 
-.box.overview{:class => ('incomplete' if @poll.channel.nil?)}
+.box.overview{:class => ('incomplete' if @poll.channels.empty?)}
   .i48grad-channel.icon
   .content
-    - if @poll.channel.nil?
+    - if @channels.empty?
       There is no channel set for this poll
-    - else
+    - elsif @channels.one?
       Channel
       %br
-      = @poll.channel.unprefixed_address
-  = link_to _("Manage Channel"), poll_channel_path(@poll), :class => 'farrow'
+      = @channels.first.unprefixed_address
+    - else
+      #{@channels.count} channels
+      %br
+      #{@channels.first.unprefixed_address}, ...
+  = link_to _("Manage Channels"), poll_channels_path(@poll), :class => 'farrow'
 
 - if @poll.kind_gforms?
   .box.overview

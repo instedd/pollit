@@ -24,7 +24,7 @@ class Poll < ActiveRecord::Base
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
 
-  has_one :channel, :dependent => :destroy
+  has_many :channels, :dependent => :destroy
 
   has_recurrence :recurrence
 
@@ -88,7 +88,7 @@ class Poll < ActiveRecord::Base
   end
 
   def can_be_started?
-    status_configuring? && channel && respondents.any?
+    status_configuring? && channels.any? && respondents.any?
   end
 
   def pause
@@ -106,16 +106,11 @@ class Poll < ActiveRecord::Base
     self.save
   end
 
-  def as_channel_name
-    "#{title}-#{id}".parameterize
-  end
-
   def register_channel(ticket_code)
-    Channel.create({
+    channels.create(
       :ticket_code => ticket_code,
-      :name => as_channel_name,
-      :poll_id => id
-    })
+      :name => "#{title}-#{id}-#{Time.now.to_i}".parameterize,
+    )
   end
 
   def completion_percentage

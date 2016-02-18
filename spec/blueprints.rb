@@ -52,7 +52,7 @@ Poll.blueprint do
   form_url        {Sham.url}
   post_url        {Sham.url}
   owner           {User.make}
-  channel         {Channel.make}
+  channels         { [Channel.make] }
   questions(1)
 end
 
@@ -62,13 +62,13 @@ Poll.blueprint(:with_respondents) do
   form_url        {Sham.url}
   post_url        {Sham.url}
   owner           {User.make}
-  channel         { Channel.make }
+  channels        { [Channel.make] }
   questions(1)
   respondents(3)
 end
 
 Poll.blueprint(:with_questions) do
-  channel           {Channel.make}
+  channels          { [Channel.make] }
   title             {Sham.title}
   description       {Sham.description}
   form_url          {Sham.url}
@@ -83,7 +83,7 @@ Poll.blueprint(:with_questions) do
 end
 
 Poll.blueprint(:with_text_questions) do
-  channel           {Channel.make}
+  channels          { [Channel.make] }
   title             {Sham.title}
   description       {Sham.description}
   form_url          {Sham.url}
@@ -97,7 +97,7 @@ Poll.blueprint(:with_text_questions) do
 end
 
 Poll.blueprint(:with_collecting_respondent_question) do
-  channel           {Channel.make}
+  channels          { [Channel.make] }
   title             {Sham.title}
   description       {Sham.description}
   form_url          {Sham.url}
@@ -111,7 +111,7 @@ Poll.blueprint(:with_collecting_respondent_question) do
 end
 
 Poll.blueprint(:with_option_questions) do
-  channel       {Channel.make}
+  channels      { [Channel.make] }
   title         {Sham.title}
   description   {Sham.description}
   form_url      {Sham.url}
@@ -124,7 +124,7 @@ Poll.blueprint(:with_option_questions) do
 end
 
 Poll.blueprint(:with_numeric_questions) do
-  channel       {Channel.make}
+  channels      { [Channel.make] }
   title         {Sham.title}
   description   {Sham.description}
   form_url      {Sham.url}
@@ -189,7 +189,7 @@ class Poll
   def self.plan(*args)
     poll = self.make(*args)
     plan = poll.serializable_hash
-    plan.delete :channel
+    plan.delete :channels
     plan.delete :questions
     plan["questions_attributes"] = {}
     (poll.questions || []).each_with_index do |question,index|

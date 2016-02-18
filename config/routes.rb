@@ -62,7 +62,7 @@ Pollit::Application.routes.draw do
         post 'run_next_job'
       end
 
-      resource :channel, :only => [:show, :new, :create, :destroy]
+      resources :channels, :only => [:index, :new, :create, :destroy]
 
       resources :respondents, :only => [:index, :destroy] do
         collection do

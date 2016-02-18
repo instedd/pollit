@@ -40,13 +40,16 @@ describe NuntiumController do
 
     nuntium_http_login
     post :receive_at, {
-      :channel => p.channel.name,
+      :channel => p.channels.first.name,
       :from => p.respondents.first.phone,
       :body => "Yes"
     }
 
     @response.body.should eq(p.questions.first.message)
-    p.reload.respondents.first.confirmed.should be_true
+
+    respondent = p.reload.respondents.first
+    respondent.confirmed.should be_true
+    respondent.channel.should eq(p.channels.first)
   end
 
   it "should receive confirmation with multiple confirmation words" do
@@ -55,7 +58,7 @@ describe NuntiumController do
 
     nuntium_http_login
     post :receive_at, {
-      :channel => p.channel.name,
+      :channel => p.channels.first.name,
       :from => p.respondents.first.phone,
       :body => "Si"
     }

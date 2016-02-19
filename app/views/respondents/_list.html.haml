@@ -1,9 +1,33 @@
 #respondents-list
   .tablewrapp
-    = instedd_table_for @respondents, [_('Phone number'), ''], :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
+    = instedd_table_for @respondents, [_('Phone number'), _('Channel'), _('Current Question'), _('Status (*)'), ''], :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
       %tr
         %td= respondent.unprefixed_phone
+        %td= respondent.channel.try(:unprefixed_address)
+        %td
+          - if respondent.confirmed
+            - title = respondent.current_question.try(:title)
+            - if title
+              = truncate(title)
+          - else
+            Confirmation message
+        %td
+          - if respondent.current_question_sent
+            - if respondent.ao_message_state == 'confirmed'
+              Received by respondent
+            - elsif respondent.ao_message_state == 'delivered'
+              Received by channel
+            - else
+              Sent to channel
+          - else
+            Not sent
+        %td
         %td
           - if !respondent.hub_source && @poll.status_configuring?
             = link_to '', poll_respondent_path(@poll.id, respondent.id, page: @respondents.current_page), method: 'delete', remote: true, class: 'icon cremove'
     = paginate @respondents, :params => { action: 'index', :id => nil }, :remote => true, :window => 2
+
+%br
+%div
+  (*) Status: Not sent → Sent to channel → Received by channel → Received by respondent
+

@@ -44,6 +44,7 @@ Pollit::Application.routes.draw do
     get 'community',    :action => :index, :controller => :community, :as => 'community'
 
     post 'nuntium/receive_at' => 'nuntium#receive_at'
+    post 'nuntium/delivery_callback' => 'nuntium#delivery_callback'
 
     resources :polls do
       collection do

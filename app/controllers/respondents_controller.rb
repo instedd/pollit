@@ -97,7 +97,7 @@ class RespondentsController < ApplicationController
   private
 
   def load_respondents
-    @respondents = @poll.respondents.order("created_at DESC").page(params[:page]).per(15)
+    @respondents = @poll.respondents.includes(:channel, :current_question).order("created_at DESC").page(params[:page]).per(15)
   end
 
 end

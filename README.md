@@ -16,6 +16,22 @@ Simply clone the repository and fill the following settings file before starting
     config/guisso.yml
     config/hub.yml
 
+Configuring Nuntium
+-------------------
+
+Nuntium settings are located in `config/nuntium.yml`.
+
+The Nuntium Application associated to a Pollit instance must be configured in this way:
+  * Application name: the value of `application` in `config/nuntium.yml`
+  * Interface configuration:
+    * HTTP Post callback: `/nuntium/receive_at`
+    * User: the value of `at_post_user` in `config/nuntium.yml`
+    * Password: the value of `at_post_password` in `config/nuntium.yml`
+  * Delivery acknowledgement:
+    * HTTP Post: `/nuntium/delivery_callback`
+    * User: the value of `at_post_user` in `config/nuntium.yml`
+    * Password: the value of `at_post_password` in `config/nuntium.yml`
+
 API
 ===
 

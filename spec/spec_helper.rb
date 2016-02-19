@@ -42,9 +42,11 @@ RSpec.configure do |config|
     @nuntium.stubs(:delete_channel)
 
     @nuntium_ao_messages = []
-    @nuntium.stubs(:send_ao).with do |args|
-      @nuntium_ao_messages += args; true
-    end.returns(true)
+    @nuntium.stub(:send_ao) do |args|
+      args = [args] unless args.is_a?(Array)
+      @nuntium_ao_messages.concat args
+      {:guid => Guid.new.to_s}
+    end
   end
 end
 

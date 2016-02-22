@@ -48,6 +48,16 @@ class NuntiumController < ApplicationController
     end
   end
 
+  def delivery_callback
+    respondent = Respondent.find_by_ao_message_guid params[:guid]
+    if respondent
+      respondent.ao_message_state = params[:state]
+      respondent.save!
+    end
+
+    head :ok
+  end
+
   private
 
   def authenticate_nuntium_at_post

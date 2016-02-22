@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160218194359) do
+ActiveRecord::Schema.define(:version => 20160222170715) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -145,8 +145,11 @@ ActiveRecord::Schema.define(:version => 20160218194359) do
     t.boolean  "current_question_sent", :default => false, :null => false
     t.string   "hub_source"
     t.integer  "channel_id"
+    t.string   "ao_message_guid"
+    t.string   "ao_message_state"
   end
 
+  add_index "respondents", ["ao_message_guid"], :name => "index_respondents_on_ao_message_guid", :unique => true
   add_index "respondents", ["phone", "poll_id"], :name => "index_respondents_on_phone_and_poll_id", :unique => true
 
   create_table "users", :force => true do |t|

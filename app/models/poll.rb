@@ -143,10 +143,17 @@ class Poll < ActiveRecord::Base
   # public only cause recurrence_strategy need to use it
 
   def send_messages(messages)
-    begin
-      Nuntium.new_from_config.send_ao messages
-    rescue MultiJson::DecodeError
-      # HACK until nuntium ruby api is fixed
+    nuntium = Nuntium.new_from_config
+    messages.each do |message|
+      begin
+        respondent = message.delete :respondent
+        reply = nuntium.send_ao message
+        respondent.ao_message_guid = reply[:guid]
+        respondent.ao_message_state = nil
+        respondent.save!
+      rescue MultiJson::DecodeError
+        # HACK until nuntium ruby api is fixed
+      end
     end
   end
 
@@ -155,7 +162,8 @@ class Poll < ActiveRecord::Base
       :from => MESSAGE_FROM,
       :to => respondent.phone,
       :body => body,
-      :poll_id => self.id.to_s
+      :poll_id => self.id.to_s,
+      :respondent => respondent,
     }
   end
 
@@ -206,6 +214,8 @@ class Poll < ActiveRecord::Base
       duplicate_respondent.pushed_status = "pending"
       duplicate_respondent.current_question_id = nil
       duplicate_respondent.current_question_sent = false
+      duplicate_respondent.ao_message_guid = nil
+      duplicate_respondent.ao_message_state = nil
       duplicate.respondents << duplicate_respondent
     end
 

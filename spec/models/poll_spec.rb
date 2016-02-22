@@ -90,4 +90,15 @@ describe Poll do
     duplicate4 = duplicate.duplicate
     duplicate4.title.should eq("Some poll (Copy 4)")
   end
+
+  it "sends messages and stores AO message guid in respondent" do
+    poll = Poll.make!
+    respondent = poll.respondents.make! ao_message_state: 'confirmed'
+
+    poll.send_messages [{respondent: respondent}]
+    respondent.reload
+
+    respondent.ao_message_guid.should_not be_nil
+    respondent.ao_message_state.should be_nil
+  end
 end

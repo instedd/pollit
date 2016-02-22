@@ -66,4 +66,13 @@ describe NuntiumController do
     @response.body.should eq(p.questions.first.message)
     p.reload.respondents.first.confirmed.should be_true
   end
+
+  it "saves ao_message_state in respondent on delivery ack" do
+    r = Respondent.make! ao_message_guid: "foo"
+
+    nuntium_http_login
+    post :delivery_callback, guid: "foo", state: "delivered"
+
+    r.reload.ao_message_state.should eq("delivered")
+  end
 end

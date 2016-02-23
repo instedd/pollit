@@ -229,6 +229,23 @@ describe Poll do
       p.start
     end
 
+    it "should clear ao_message_guid and ao_message_state" do
+      p = Poll.make!(:with_questions)
+      p.stubs(:send_messages).returns(true)
+      p.start
+
+      respondent = p.respondents.first
+      respondent.ao_message_guid = Guid.new.to_s
+      respondent.ao_message_state = 'foo'
+      respondent.save!
+
+      p.accept_answer(p.confirmation_words.first, respondent)
+
+      respondent.reload
+      respondent.ao_message_guid.should be_nil
+      respondent.ao_message_state.should be_nil
+    end
+
     describe "numeric conditions" do
       let!(:poll) do
         p = Poll.make!(questions: [

@@ -46,6 +46,8 @@ module Poll::AcceptAnswers
 
     respondent.current_question_id = next_question.try(:id)
     respondent.current_question_sent = self.status_is_not_paused?
+    respondent.ao_message_guid = nil
+    respondent.ao_message_state = nil
     respondent.save!
 
     respondent.push_answers if next_question.nil?

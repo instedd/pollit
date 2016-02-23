@@ -36,16 +36,11 @@ class NuntiumController < ApplicationController
       end
 
       next_message = poll.accept_answer(params[:body], respondent)
-
-      if next_message.nil?
-        render :nothing => true
-      else
-        render :content_type => "text/plain", :text => next_message
-      end
-
+      Delayed::Job.enqueue SendNextMessageJob.new(poll.id, respondent.id, next_message)
     rescue Exception => e
-      render :nothing => true
     end
+
+    render :nothing => true
   end
 
   def delivery_callback

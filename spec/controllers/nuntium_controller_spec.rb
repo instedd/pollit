@@ -45,8 +45,6 @@ describe NuntiumController do
       :body => "Yes"
     }
 
-    @response.body.should eq(p.questions.first.message)
-
     respondent = p.reload.respondents.first
     respondent.confirmed.should be_true
     respondent.channel.should eq(p.channels.first)
@@ -63,7 +61,6 @@ describe NuntiumController do
       :body => "Si"
     }
 
-    @response.body.should eq(p.questions.first.message)
     p.reload.respondents.first.confirmed.should be_true
   end
 

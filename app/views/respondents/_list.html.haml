@@ -5,22 +5,26 @@
         %td= respondent.unprefixed_phone
         %td= respondent.channel.try(:unprefixed_address)
         %td
-          - if respondent.confirmed
-            - title = respondent.current_question.try(:title)
-            - if title
-              = truncate(title)
+          - if respondent.confirmed && !respondent.current_question_id
+            Poll finished
           - else
-            Confirmation message
-        %td
-          - if respondent.current_question_sent
-            - if respondent.ao_message_state == 'confirmed'
-              Received by respondent
-            - elsif respondent.ao_message_state == 'delivered'
-              Received by channel
+            - if respondent.confirmed
+              - title = respondent.current_question.try(:title)
+              - if title
+                = truncate(title)
             - else
-              Sent to channel
-          - else
-            Not sent
+              Confirmation message
+        %td
+          - unless respondent.confirmed && !respondent.current_question_id
+            - if respondent.current_question_sent
+              - if respondent.ao_message_state == 'confirmed'
+                Received by respondent
+              - elsif respondent.ao_message_state == 'delivered'
+                Received by channel
+              - else
+                Sent to channel
+            - else
+              Not sent
         %td
         %td
           - if !respondent.hub_source && @poll.status_configuring?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160222170715) do
+ActiveRecord::Schema.define(:version => 20160311145837) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -60,8 +60,11 @@ ActiveRecord::Schema.define(:version => 20160222170715) do
     t.integer "period_id"
     t.string  "bucket"
     t.text    "key_attributes"
-    t.integer "count",          :default => 0
+    t.integer "count",               :default => 0
+    t.string  "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_counters", ["bucket", "key_attributes_hash", "period_id"], :name => "instedd_telemetry_counters_unique_fields", :unique => true
 
   create_table "instedd_telemetry_periods", :force => true do |t|
     t.datetime "beginning"
@@ -78,7 +81,10 @@ ActiveRecord::Schema.define(:version => 20160222170715) do
     t.string  "bucket"
     t.text    "key_attributes"
     t.string  "element"
+    t.string  "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_set_occurrences", ["bucket", "key_attributes_hash", "element", "period_id"], :name => "instedd_telemetry_set_occurrences_unique_fields", :unique => true
 
   create_table "instedd_telemetry_settings", :force => true do |t|
     t.string "key"
@@ -92,7 +98,10 @@ ActiveRecord::Schema.define(:version => 20160222170715) do
     t.text     "key_attributes"
     t.datetime "since"
     t.datetime "until"
+    t.string   "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_timespans", ["bucket", "key_attributes_hash"], :name => "instedd_telemetry_timespans_unique_fields", :unique => true
 
   create_table "polls", :force => true do |t|
     t.string   "title"

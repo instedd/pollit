@@ -1,37 +1,40 @@
 #respondents-list
   .tablewrapp
-    = instedd_table_for @respondents, [_('Phone number'), _('Current Question'), _('Message Status (*)'), ''], :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
+    - headers = @poll.status_configuring? ? [_('Phone number'), ''] : [_('Phone number'), _('Current Question'), _('Message Status (*)'), '']
+    = instedd_table_for @respondents, headers, :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
       %tr
         %td= respondent.unprefixed_phone
-        %td
-          - if respondent.confirmed && !respondent.current_question_id
-            Poll finished
-          - else
-            - if respondent.confirmed
-              - title = respondent.current_question.try(:title)
-              - if title
-                = truncate(title)
+        - if !@poll.status_configuring?
+          %td
+            - if respondent.confirmed && !respondent.current_question_id
+              Poll finished
             - else
-              Confirmation message
-        %td
-          - unless respondent.confirmed && !respondent.current_question_id
-            - if respondent.current_question_sent
-              - if respondent.ao_message_state == 'confirmed'
-                Sent to respondent
-              - elsif respondent.ao_message_state == 'delivered'
-                Received by gateway
-              - elsif respondent.ao_message_state == 'failed'
-                Failed
+              - if respondent.confirmed
+                - title = respondent.current_question.try(:title)
+                - if title
+                  = truncate(title)
               - else
-                Sent to gateway
-            - else
-              Not sent
+                Confirmation message
+          %td
+            - unless respondent.confirmed && !respondent.current_question_id
+              - if respondent.current_question_sent
+                - if respondent.ao_message_state == 'confirmed'
+                  Sent to respondent
+                - elsif respondent.ao_message_state == 'delivered'
+                  Received by gateway
+                - elsif respondent.ao_message_state == 'failed'
+                  Failed
+                - else
+                  Sent to gateway
+              - else
+                Not sent
         %td
           - if !respondent.hub_source && @poll.status_configuring?
             = link_to '', poll_respondent_path(@poll.id, respondent.id, page: @respondents.current_page), method: 'delete', remote: true, class: 'icon cremove'
     = paginate @respondents, :params => { action: 'index', :id => nil }, :remote => true, :window => 2
 
-  %br
-  %div
-    (*) Status: Not sent → Sent to gateway → Received by gateway → Sent to respondent / Failed
-  %br
+  - if !@poll.status_configuring?
+    %br
+    %div
+      (*) Status: Not sent → Sent to gateway → Received by gateway → Sent to respondent / Failed
+    %br

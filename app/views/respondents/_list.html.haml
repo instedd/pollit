@@ -1,10 +1,11 @@
 #respondents-list
   .tablewrapp
-    - headers = @poll.status_configuring? ? [_('Phone number'), ''] : [_('Phone number'), _('Current Question'), _('Message Status (*)'), '']
+    - headers = @poll.status_configuring? ? [_('Phone number'), ''] : [_('Phone number'), _('Channel'), _('Current Question'), _('Message Status (*)'), '']
     = instedd_table_for @respondents, headers, :class => "GralTable TwoColumn CleanTable w-pagination", :empty => _("No respondents have been set up yet") do |respondent|
       %tr
         %td= respondent.unprefixed_phone
         - if !@poll.status_configuring?
+          %td= respondent.channel.try(:unprefixed_address)
           %td
             - if respondent.confirmed && !respondent.current_question_id
               Poll finished

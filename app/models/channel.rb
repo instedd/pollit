@@ -17,6 +17,7 @@
 
 class Channel < ActiveRecord::Base
   belongs_to :poll
+  belongs_to :owner, :class_name => User.name
 
   attr_accessor :ticket_code
 

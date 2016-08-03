@@ -17,6 +17,7 @@
 
 class User < ActiveRecord::Base
   has_many :polls, :foreign_key => 'owner_id'
+  has_many :channels, :foreign_key => 'owner_id'
 
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :confirmable, :omniauthable

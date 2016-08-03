@@ -32,6 +32,29 @@ The Nuntium Application associated to a Pollit instance must be configured in th
     * User: the value of `at_post_user` in `config/nuntium.yml`
     * Password: the value of `at_post_password` in `config/nuntium.yml`
 
+Development
+===========
+
+Docker development
+------------------
+
+`docker-compose.yml` file build a development environment mounting the current folder and running rails in development environment.
+
+Run the following commands to have a stable development environment.
+
+```
+$ docker-compose run --rm --no-deps web bundle install
+$ docker-compose run --rm web rake db:setup
+$ docker-compose up
+```
+
+To setup and run test, once the web container is running:
+
+```
+$ docker-compose exec web bash
+root@web_1 $ rake
+```
+
 API
 ===
 

@@ -21,19 +21,42 @@ describe Telemetry::NumbersByCountryCodeCollector, telemetry: true do
     stats = Telemetry::NumbersByCountryCodeCollector.collect_stats period
     counters = stats[:counters]
 
-    counters.size.should eq(2)
+    counters.size.should eq(6)
 
     counters.should include({
-      metric: 'numbers_by_country_code',
+      metric: 'unique_phone_numbers_by_country',
       key: {country_code: '54'},
       value: 1
     })
 
     counters.should include({
-      metric: 'numbers_by_country_code',
+      metric: 'unique_phone_numbers_by_country',
       key: {country_code: '855'},
       value: 3
     })
-  end
 
+    counters.should include({
+      metric: 'unique_phone_numbers_by_project_and_country',
+      key: {country_code: '54', project_id: poll_1.id},
+      value: 1
+    })
+
+    counters.should include({
+      metric: 'unique_phone_numbers_by_project_and_country',
+      key: {country_code: '855', project_id: poll_1.id},
+      value: 1
+    })
+
+    counters.should include({
+      metric: 'unique_phone_numbers_by_project_and_country',
+      key: {country_code: '54', project_id: poll_2.id},
+      value: 1
+    })
+
+    counters.should include({
+      metric: 'unique_phone_numbers_by_project_and_country',
+      key: {country_code: '855', project_id: poll_2.id},
+      value: 2
+    })
+  end
 end

@@ -30,7 +30,7 @@ services:
 
   hub_import:
     <<: *rails
-    command: 'rake jobs:work'
+    command: 'rake hub:import'
     ports: []
 
 volumes:

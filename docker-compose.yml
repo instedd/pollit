@@ -8,25 +8,30 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  web:
-    extends:
-      file: docker-compose-base.yml
-      service: rails
+  web: &rails
+    image: instedd/nginx-rails:2.0
+    environment:
+      RAILS_ENV:
+      DATABASE_HOST: 'db'
+    pid: host
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    depends_on:
+      - db
     command: 'rails server'
     ports:
       - 3000:3000
 
   jobs_work:
-    extends:
-      file: docker-compose-base.yml
-      service: rails
+    <<: *rails
     command: 'rake jobs:work'
+    ports: []
 
   hub_import:
-    extends:
-      file: docker-compose-base.yml
-      service: rails
-    command: 'rake hub:import'
+    <<: *rails
+    command: 'rake jobs:work'
+    ports: []
 
 volumes:
   db:

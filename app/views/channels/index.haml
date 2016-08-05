@@ -1,5 +1,5 @@
 - unless wizard?
-  - add_breadcrumb _("Channel"), poll_channels_path(@poll.id)
+  - add_breadcrumb _("Channel"), channels_path
   = render :partial => 'shared/poll_tabs', :locals => { :poll => @poll, :active_tab => 'channel' }
 
 %h1 Channel

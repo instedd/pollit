@@ -50,7 +50,7 @@ describe PollsController do
   it "should create new poll" do
     post :create, :poll => Poll.plan
     Poll.all.should have(1).poll
-    response.should redirect_to(new_poll_channel_path(Poll.first, :wizard => true))
+    response.should redirect_to(new_channel_path(:wizard => true))
   end
 
   it "should not create new poll if invalid" do

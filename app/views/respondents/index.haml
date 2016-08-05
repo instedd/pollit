@@ -102,5 +102,5 @@
 
     - if wizard?
       .actions
-        = white_link_to _("Back"), poll_channels_path(@poll, :wizard => true)
+        = white_link_to _("Back"), channels_path(:wizard => true)
         = grey_link_to _("Next"), poll_path(@poll, :wizard => true)

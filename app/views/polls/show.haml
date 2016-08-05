@@ -39,7 +39,7 @@
       #{@channels.count} channels
       %br
       #{@channels.first.unprefixed_address}, ...
-  = link_to _("Manage Channels"), poll_channels_path(@poll), :class => 'farrow'
+  = link_to _("Manage Channels"), channels_path, :class => 'farrow'
 
 - if @poll.kind_gforms?
   .box.overview

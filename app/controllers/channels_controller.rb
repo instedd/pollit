@@ -21,8 +21,8 @@ class ChannelsController < ApplicationController
   before_filter :load_poll
 
   def index
-    redirect_to :action => 'new', :wizard => params[:wizard] and return if @poll.channels.empty?
-    @channels = @poll.channels.to_a
+    redirect_to :action => 'new', :wizard => params[:wizard] and return if current_user.channels.empty?
+    @channels = current_user.channels.to_a
     render :layout => 'wizard' if params[:wizard]
   end
 
@@ -43,7 +43,7 @@ class ChannelsController < ApplicationController
         set_current_step("d_end_wizard")
         render 'new'
       else
-        redirect_to new_poll_channels_path(@poll, "d_end_wizard")
+        redirect_to new_channels_path("d_end_wizard")
       end
     else
       set_current_step(params[:next_step])
@@ -55,7 +55,7 @@ class ChannelsController < ApplicationController
     channel = @poll.channels.where(id: params[:id]).first
     channel.destroy if channel
     flash[:notice] = _('Channel successfully deleted')
-    redirect_to poll_channels_path(@poll)
+    redirect_to channels_path
   end
 
   protected

@@ -46,6 +46,8 @@ Pollit::Application.routes.draw do
     post 'nuntium/receive_at' => 'nuntium#receive_at'
     post 'nuntium/delivery_callback' => 'nuntium#delivery_callback'
 
+    resources :channels, :only => [:index, :new, :create, :destroy]
+
     resources :polls do
       collection do
         get   'new/manual', action: 'new_manual'
@@ -62,8 +64,6 @@ Pollit::Application.routes.draw do
 
         post 'run_next_job'
       end
-
-      resources :channels, :only => [:index, :new, :create, :destroy]
 
       resources :respondents, :only => [:index, :destroy] do
         collection do
@@ -82,7 +82,6 @@ Pollit::Application.routes.draw do
           get 'query/:question_id', :action => :query, :as => 'query'
         end
       end
-
     end
 
     match '/hub/*path' => 'hub#api', format: false

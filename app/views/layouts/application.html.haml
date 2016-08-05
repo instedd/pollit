@@ -45,6 +45,7 @@
             = section _("Home"), home_path, :home
             - if user_signed_in?
               = section _("Polls"), polls_path, :polls, [:polls, :answers, :channels, :respondents]
+              = section _("Channels"), channels_path, :channels
             = section _("Tour"), tour_path, :tour
             = section _("Community"), community_path, :community
             = section _("Help"), help_path, :help

@@ -76,5 +76,5 @@ group :test, :development do
 end
 
 group :webserver do
-  gem 'puma'
+  gem 'puma', '~> 3.0.2'
 end

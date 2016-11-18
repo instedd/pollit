@@ -64,7 +64,9 @@ group :development do
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano',         '~> 3.6', :require => false
+  gem 'capistrano-rails',   '~> 1.2', :require => false
+  gem 'capistrano-bundler', '~> 1.2', :require => false
   gem 'rvm'
   gem 'licit'
 end

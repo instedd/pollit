@@ -37,7 +37,7 @@ namespace :service do
 
       within release_path do
         execute :sudo, '/usr/local/bin/bundle', 'exec', 'foreman', 'export',
-                'upstart', '/etc/init',
+                'upstart', '/etc/init', '-t', "etc/upstart",
                 opts.map { |opt, value| "--#{opt}=\"#{value}\"" }.join(' ')
       end
     end
@@ -48,7 +48,7 @@ namespace :service do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, :exec, "env | grep '^\\(PATH\\|GEM_PATH\\|GEM_HOME\\|RAILS_ENV\\)'", "> .env"
+          execute :bundle, :exec, "env | grep '^\\(PATH\\|GEM_PATH\\|GEM_HOME\\|RAILS_ENV\\|PUMA_OPTS\\)'", "> .env"
         end
       end
     end

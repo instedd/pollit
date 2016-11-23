@@ -17,7 +17,7 @@ namespace :deploy do
   desc 'Compile assets'
   task :compile_assets => [:set_rails_env] do
     # invoke 'deploy:assets:precompile'
-    invoke 'deploy:assets:force_local_version_matches_deployed'
+    invoke 'deploy:assets:force_local_vgersion_matches_deployed'
     invoke 'deploy:assets:copy_manifest'
     invoke 'deploy:assets:precompile_local'
     invoke 'deploy:assets:backup_manifest'
@@ -64,7 +64,7 @@ namespace :deploy do
     task :precompile_local do
       # compile assets locally
       run_locally do
-        execute "RAILS_ENV=#{fetch(:stage)} bundle exec rake assets:precompile"
+        execute "RAILS_ENV=production bundle exec rake assets:precompile"
       end
 
       # rsync to each server

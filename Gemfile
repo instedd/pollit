@@ -41,6 +41,7 @@ gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'm
 gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
 gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 gem 'listings'
+gem 'io-console'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -63,7 +64,9 @@ group :development do
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano',         '~> 3.6', :require => false
+  gem 'capistrano-rails',   '~> 1.2', :require => false
+  gem 'capistrano-bundler', '~> 1.2', :require => false
   gem 'rvm'
   gem 'licit'
 end
@@ -75,5 +78,5 @@ group :test, :development do
 end
 
 group :webserver do
-  gem 'puma'
+  gem 'puma', '~> 3.0.2'
 end

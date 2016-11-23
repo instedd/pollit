@@ -15,7 +15,7 @@ set :rails_env, :production
 set :migration_role, :app
 
 # Default value for :linked_files is []
-append :linked_files, 'config/database.yml', 'config/guisso.yml', 'config/hub.yml', 'config/nuntium.yml'
+append :linked_files, 'config/database.yml', 'config/guisso.yml', 'config/hub.yml', 'config/nuntium.yml', 'config/settings.yml'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache'

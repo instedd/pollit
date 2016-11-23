@@ -17,7 +17,7 @@ namespace :deploy do
   desc 'Compile assets'
   task :compile_assets => [:set_rails_env] do
     # invoke 'deploy:assets:precompile'
-    invoke 'deploy:assets:force_local_vgersion_matches_deployed'
+    invoke 'deploy:assets:force_local_version_matches_deployed'
     invoke 'deploy:assets:copy_manifest'
     invoke 'deploy:assets:precompile_local'
     invoke 'deploy:assets:backup_manifest'

@@ -42,6 +42,7 @@ gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git"
 gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 gem 'listings'
 gem 'io-console'
+gem 'lograge'
 
 # Gems used only for assets and not required
 # in production environments by default.

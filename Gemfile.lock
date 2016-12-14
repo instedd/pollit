@@ -218,6 +218,10 @@ GEM
       rails
       sass-rails
     locale (2.0.5)
+    lograge (0.3.6)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     machinist (2.0)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -400,6 +404,7 @@ DEPENDENCIES
   licit
   listings
   locale
+  lograge
   machinist
   mechanize
   mocha

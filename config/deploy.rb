@@ -23,22 +23,37 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache'
 # Name for the exported service
 set :service_name, fetch(:application)
 
+# Service management
 namespace :service do
+  # Export services definition
   task :export do
     on roles(:app) do
       opts = {
         app: fetch(:service_name),
         log: File.join(shared_path, 'log'),
         user: fetch(:deploy_user),
-        concurrency: "puma=1,delayed=1,hub=1"
+        concurrency: fetch(:concurrency)
       }
+
+      # From https://gist.github.com/teohm/9777017
+      sudo_bundle = if ENV["RVM"]
+        ["cd #{release_path} &&",
+         'export rvmsudo_secure_path=1 && ',
+         "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
+         "rvmsudo", "bundle", "exec"]
+      else
+        ["sudo",
+         '/usr/local/bin/bundle',
+         'exec']
+      end.join(' ')
+
+      foreman_export = (['foreman', 'export', 'upstart', '/etc/init', '-t', "etc/upstart"] +
+                        opts.map { |opt, value| "--#{opt}=\"#{value}\"" }).join(' ')
 
       execute(:mkdir, "-p", opts[:log])
 
       within release_path do
-        execute :sudo, '/usr/local/bin/bundle', 'exec', 'foreman', 'export',
-                'upstart', '/etc/init', '-t', "etc/upstart",
-                opts.map { |opt, value| "--#{opt}=\"#{value}\"" }.join(' ')
+        execute "#{sudo_bundle} #{foreman_export}"
       end
     end
   end
@@ -54,7 +69,8 @@ namespace :service do
     end
   end
 
-  task :safe_restart do
+  # Restart service
+  task :restart do
     on roles(:app) do
       execute "sudo stop #{fetch(:service_name)} ; sudo start #{fetch(:service_name)}"
     end
@@ -63,5 +79,14 @@ end
 
 namespace :deploy do
   after :updated, "service:export"         # Export foreman scripts
-  after :restart, "service:safe_restart"   # Restart background services
+  after :restart, "service:restart"        # Restart background services
+
+  after :updated, :export_version do
+    on roles(:app) do
+      within release_path do
+        version = capture "git --git-dir #{repo_path} describe --tags #{fetch(:current_revision)}"
+        execute :echo, "#{version} > VERSION"
+      end
+    end
+  end
 end

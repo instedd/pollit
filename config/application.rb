@@ -93,13 +93,5 @@ module Pollit
     FastGettext.default_text_domain = 'app'
     FastGettext.default_locale = 'en'
 
-    # Lograge (single line logs)
-    config.lograge.enabled = true
-    config.lograge.logger = Logger.new(STDOUT)
-    config.lograge.custom_options = lambda do |event|
-      params = event.payload[:params].except('controller', 'action')
-      { :time => event.time, :params => params.to_query }
-    end
-
   end
 end

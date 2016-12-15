@@ -73,13 +73,14 @@ namespace :service do
   task :restart do
     on roles(:app) do
       execute "sudo stop #{fetch(:service_name)} ; sudo start #{fetch(:service_name)}"
+      execute "sudo touch #{release_path}/tmp/restart.txt"
     end
   end
 end
 
 namespace :deploy do
-  after :updated, "service:export"         # Export foreman scripts
-  after :restart, "service:restart"        # Restart background services
+  after :updated,    "service:export"      # Export foreman scripts
+  after :publishing, "service:restart"     # Restart background services
 
   after :updated, :export_version do
     on roles(:app) do

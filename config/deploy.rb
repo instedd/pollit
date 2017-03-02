@@ -42,7 +42,8 @@ namespace :service do
          "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do",
          "rvmsudo", "bundle", "exec"]
       else
-        ["sudo",
+        ["cd #{release_path} &&",
+         "sudo",
          '/usr/local/bin/bundle',
          'exec']
       end.join(' ')
@@ -53,6 +54,9 @@ namespace :service do
       execute(:mkdir, "-p", opts[:log])
 
       within release_path do
+        # FIXME: use the list parameters version to execute; need to change the
+        # definition of sudo_bundle and figure out how to 'simulate' the &&
+        # operator
         execute "#{sudo_bundle} #{foreman_export}"
       end
     end

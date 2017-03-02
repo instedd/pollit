@@ -17,6 +17,6 @@
 
 class TourController < ApplicationController
   def show
-    render (params[:page] ||= 'start')
+    render (params[:page].to_s ||= 'start')
   end
 end

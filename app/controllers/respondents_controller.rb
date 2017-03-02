@@ -23,7 +23,7 @@ class RespondentsController < ApplicationController
   before_filter :load_poll
   before_filter :load_respondents, only: [:index]
 
-  skip_before_filter :verify_authenticity_token, :only => [:add_phones, :import_csv, :connect_hub, :clear_hub]
+  skip_before_filter :verify_authenticity_token, :only => [:add_phones, :delete_all, :import_csv, :connect_hub, :clear_hub]
 
   def index
     respond_to do |format|
@@ -35,6 +35,7 @@ class RespondentsController < ApplicationController
 
         gon.import_csv_poll_respondents_path = import_csv_poll_respondents_path(@poll)
         gon.add_phones_poll_respondents_path = add_phones_poll_respondents_path(@poll)
+        gon.delete_all_poll_respondents_path = delete_all_poll_respondents_path(@poll)
         gon.connect_hub_path = connect_hub_poll_respondents_path(@poll)
         gon.clear_hub_path = clear_hub_poll_respondents_path(@poll)
         gon.respondents_path = poll_respondents_path(@poll)
@@ -69,6 +70,11 @@ class RespondentsController < ApplicationController
     head :ok
   end
 
+  def delete_all
+    @poll.respondents.destroy_all
+    head :ok
+  end
+
   def connect_hub
     @poll.hub_respondents_path = params[:path]
     @poll.hub_respondents_phone_field = params[:phone_field]
@@ -91,7 +97,7 @@ class RespondentsController < ApplicationController
   private
 
   def load_respondents
-    @respondents = @poll.respondents.order("created_at DESC").page(params[:page]).per(15)
+    @respondents = @poll.respondents.includes(:channel, :current_question).order("created_at DESC").page(params[:page]).per(15)
   end
 
 end

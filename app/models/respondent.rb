@@ -19,6 +19,7 @@ class Respondent < ActiveRecord::Base
   has_many :answers, :dependent => :destroy
   belongs_to :current_question, :class_name => Question.name
   belongs_to :poll
+  belongs_to :channel
 
   validates :phone, :presence => true, :uniqueness => { :scope => :poll_id }
 

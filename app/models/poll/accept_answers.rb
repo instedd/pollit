@@ -46,6 +46,8 @@ module Poll::AcceptAnswers
 
     respondent.current_question_id = next_question.try(:id)
     respondent.current_question_sent = self.status_is_not_paused?
+    respondent.ao_message_guid = nil
+    respondent.ao_message_state = nil
     respondent.save!
 
     respondent.push_answers if next_question.nil?
@@ -59,7 +61,7 @@ module Poll::AcceptAnswers
     question = questions.find(respondent.current_question_id)
 
     if error = valid_text_answer?(question, response)
-      invalid_reply error
+      error
     else
       answer = create_answer question, respondent, response
       next_question_for respondent, answer
@@ -70,7 +72,7 @@ module Poll::AcceptAnswers
     question = questions.find(respondent.current_question_id)
 
     if error = valid_numeric_answer?(question, response)
-      invalid_reply error
+      error
     else
       answer = create_answer question, respondent, response.to_i
       next_question_for respondent, answer
@@ -82,7 +84,10 @@ module Poll::AcceptAnswers
     option = question.option_for(response)
 
     if option.nil?
-      invalid_reply_options % [question.options.join("|")]
+      return question_reply(question, "not_an_option") {
+        options = question.options.map { |opt| opt.is_a?(Array) ? opt[0] : opt }
+        invalid_reply_options % [options.join("|")]
+      }
     else
       answer = create_answer question, respondent, option
       next_question_for respondent, answer
@@ -107,43 +112,67 @@ module Poll::AcceptAnswers
 
   def valid_text_answer?(question, response)
     response = response.strip
-    return _("Please answer with a non empty response.") unless response.length > 0
-
+    unless response.length > 0
+      return question_invalid_reply(question, "empty") {
+        _("Please answer with a non empty response.")
+      }
+    end
 
     if question.min_length && question.max_length
       if response.length < question.min_length || response.length > question.max_length
-        _("Please answer with a response between %s and %s characters.") % [question.min_length, question.max_length]
+        return question_invalid_reply(question, "invalid_length") {
+          _("Please answer with a response between %s and %s characters.") % [question.min_length, question.max_length]
+        }
       end
     elsif question.min_length
       if response.length < question.min_length
-        _("Please answer with a response with at least %s characters.") % question.min_length
+        return question_invalid_reply(question, "invalid_length") {
+          _("Please answer with a response with at least %s characters.") % question.min_length
+        }
       end
     elsif question.max_length
       if response.length > question.max_length
-        _("Please answer with a response with no more than %s characters.") % question.max_length
+        return question_invalid_reply(question, "invalid_length") {
+          _("Please answer with a response with no more than %s characters.") % question.max_length
+        }
       end
-    elsif question.must_contain
+    end
+
+    if question.must_contain
       if !response.downcase.include?(question.must_contain.downcase)
-        _("Your response must include '%s'.") % question.must_contain
+        return question_invalid_reply(question, "doesnt_contain") {
+          _("Your response must include '%s'.") % question.must_contain
+        }
       end
     end
   end
 
   def valid_numeric_answer?(question, response)
-    return _("Please answer with a number.") unless response =~ /\A\s*-?\d+\s*/
+    unless response =~ /\A\s*-?\d+\s*/
+      return question_invalid_reply(question, "not_a_number") {
+        _("Please answer with a number.")
+      }
+    end
+
     response = response.to_i
 
     if question.numeric_min && question.numeric_max
       if response < question.numeric_min || response > question.numeric_max
-        _("Please answer with a number between %s and %s.") % [question.numeric_min, question.numeric_max]
+        return question_invalid_reply(question, "number_not_in_range") {
+          _("Please answer with a number between %s and %s.") % [question.numeric_min, question.numeric_max]
+        }
       end
     elsif question.numeric_min
       if response < question.numeric_min
-        _("Please answer with a number greater or equal to %s.") % question.numeric_min
+        return question_invalid_reply(question, "number_not_in_range") {
+          _("Please answer with a number greater or equal to %s.") % question.numeric_min
+        }
       end
     elsif question.numeric_max
       if response > question.numeric_max
-        _("Please answer with a number less or equal to %s.") % question.numeric_max
+        return question_invalid_reply(question, "number_not_in_range") {
+          _("Please answer with a number less or equal to %s.") % question.numeric_max
+        }
       end
     end
   end
@@ -156,4 +185,11 @@ module Poll::AcceptAnswers
     invalid_reply _("Please answer with (%s).")
   end
 
+  def question_reply(question, key)
+     question.custom_message(key) || yield
+  end
+
+  def question_invalid_reply(question, key)
+    question_reply(question, key) { invalid_reply(yield) }
+  end
 end

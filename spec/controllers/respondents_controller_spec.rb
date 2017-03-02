@@ -43,6 +43,12 @@ describe RespondentsController do
     messages.should be_empty
   end
 
+  it "should delete all respondents" do
+    post :delete_all, poll_id: poll.id
+    response.should be_success
+    poll.respondents.should be_empty
+  end
+
   context "with poll started" do
 
     let(:poll) { Poll.make!(status: :started, owner: controller.current_user, respondents: phones.map{|p| Respondent.make(phone: "sms://#{p}", current_question_sent: true)}) }

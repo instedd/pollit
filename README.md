@@ -16,6 +16,46 @@ Simply clone the repository and fill the following settings file before starting
     config/guisso.yml
     config/hub.yml
 
+Configuring Nuntium
+-------------------
+
+Nuntium settings are located in `config/nuntium.yml`.
+
+The Nuntium Application associated to a Pollit instance must be configured in this way:
+  * Application name: the value of `application` in `config/nuntium.yml`
+  * Interface configuration:
+    * HTTP Post callback: `/nuntium/receive_at`
+    * User: the value of `at_post_user` in `config/nuntium.yml`
+    * Password: the value of `at_post_password` in `config/nuntium.yml`
+  * Delivery acknowledgement:
+    * HTTP Post: `/nuntium/delivery_callback`
+    * User: the value of `at_post_user` in `config/nuntium.yml`
+    * Password: the value of `at_post_password` in `config/nuntium.yml`
+
+Development
+===========
+
+Docker development
+------------------
+
+`docker-compose.yml` file build a development environment mounting the current folder and running rails in development environment.
+
+Run the following commands to have a stable development environment.
+
+```
+$ docker-compose run --rm --no-deps web bundle install
+$ docker-compose up -d db
+$ docker-compose run --rm web rake db:setup
+$ docker-compose up
+```
+
+To setup and run test, once the web container is running:
+
+```
+$ docker-compose exec web bash
+root@web_1 $ rake
+```
+
 API
 ===
 

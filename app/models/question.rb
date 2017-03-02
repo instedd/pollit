@@ -37,11 +37,16 @@ class Question < ActiveRecord::Base
 
   serialize :options, Array
   serialize :next_question_definition, Hash
+  serialize :custom_messages, Hash
 
   enum_attr :kind, %w(^text options numeric unsupported)
 
   after_save :touch_user_lifespan
   after_destroy :touch_user_lifespan
+
+  before_save :merge_options_and_keys
+
+  attr_accessor :keys
 
   def message
     if kind_text?
@@ -49,32 +54,67 @@ class Question < ActiveRecord::Base
     elsif numeric?
       "#{title} #{numeric_min}-#{numeric_max}"
     elsif kind_options?
-      opts = []
-      options.each_with_index do |opt,idx|
-        opts << "#{OptionsIndices[idx]}-#{opt}"
+      if explanation = custom_message("options_explanation")
+        "#{title} #{explanation}"
+      else
+        opts = []
+        options.each_with_index do |opt,idx|
+          if opt.is_a?(Array)
+            opts << "#{opt[1].presence || OptionsIndices[idx]}-#{opt[0]}"
+          else
+            opts << "#{OptionsIndices[idx]}-#{opt}"
+          end
+        end
+        "#{title} #{opts.join(' ')}"
       end
-      "#{title} #{opts.join(' ')}"
     end
   end
 
   def option_for(value)
     normalised_value = value.to_s.strip.downcase
-    if OptionsIndices[0..options.count-1].include?(normalised_value)
-      options[OptionsIndices.index(normalised_value)]
+
+    keys = OptionsIndices[0...options.count]
+    options = self.options.clone
+    options.each_with_index do |opt, index|
+      if opt.is_a?(Array)
+        keys[index] = opt[1]
+        options[index] = opt[0]
+      end
+    end
+
+    if keys.include?(normalised_value)
+      options[keys.index(normalised_value)]
     elsif options.collect { |opt| opt.downcase }.include?(normalised_value)
       pos = options.collect { |opt| opt.downcase }.index(normalised_value)
       options[pos]
-    elsif options.collect.with_index { |opt,i| "#{OptionsIndices[i]}-#{opt.downcase}"}.include?(normalised_value)
-      options[OptionsIndices.index(normalised_value.split('-').first)]
+    elsif options.collect.with_index { |opt,i| "#{keys[i]}-#{opt.downcase}"}.include?(normalised_value)
+      options[keys.index(normalised_value.split('-').first)]
     else
       nil
     end
   end
 
   def next_question(answer=nil)
+    if answer && kind == :numeric
+      num = answer.to_i
+
+      cases = next_question_definition['cases']
+      if cases
+        cases.each do |a_case|
+          case_min = a_case['min'].try(&:to_i) || -Float::INFINITY
+          case_max = a_case['max'].try(&:to_i) || Float::INFINITY
+          case_next = a_case['next']
+
+          if case_min <= num && num <= case_max
+            return self.poll.questions.where(position: case_next).first
+          end
+        end
+      end
+    end
+
     if next_pos = next_question_definition['next']
       self.poll.questions.where(position: next_pos).first
-    elsif answer && (cases = next_question_definition['case']) && (next_pos = cases[answer])
+    elsif answer && (kind != :numeric) && (cases = next_question_definition['case']) && (next_pos = cases[answer])
       self.poll.questions.where(position: next_pos).first
     else
       self.next
@@ -94,6 +134,28 @@ class Question < ActiveRecord::Base
     kind && !kind_unsupported?
   end
 
+  def custom_message(key)
+    custom_messages.try(:[], key).presence
+  end
+
+  %w(empty invalid_length doesnt_contain not_a_number number_not_in_range not_an_option options_explanation).each do |key|
+    class_eval <<-CODE, __FILE__, __LINE__
+      def custom_message_#{key}
+        custom_message "#{key}"
+      end
+
+      def custom_message_#{key}=(value)
+        set_custom_message "#{key}", value
+      end
+    CODE
+  end
+
+  def set_custom_message(key, value)
+    self.custom_messages ||= {}
+    self.custom_messages[key] = value.strip
+    custom_messages_will_change!
+  end
+
   private
 
   def kind_supported
@@ -102,6 +164,12 @@ class Question < ActiveRecord::Base
 
   def touch_user_lifespan
     Telemetry::Lifespan.touch_user(self.poll.try(:owner))
+  end
+
+  def merge_options_and_keys
+    return unless keys && keys.any?(&:present?)
+
+    self.options = self.options.zip(self.keys)
   end
 
 end

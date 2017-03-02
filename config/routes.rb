@@ -44,6 +44,7 @@ Pollit::Application.routes.draw do
     get 'community',    :action => :index, :controller => :community, :as => 'community'
 
     post 'nuntium/receive_at' => 'nuntium#receive_at'
+    post 'nuntium/delivery_callback' => 'nuntium#delivery_callback'
 
     resources :polls do
       collection do
@@ -57,15 +58,17 @@ Pollit::Application.routes.draw do
         post 'register_channel/:ticket_code', :action => 'register_channel'
         post 'pause'
         post 'resume'
+        post 'duplicate'
 
         post 'run_next_job'
       end
 
-      resource :channel, :only => [:show, :new, :create, :destroy]
+      resources :channels, :only => [:index, :new, :create, :destroy]
 
       resources :respondents, :only => [:index, :destroy] do
         collection do
           post 'add_phones'
+          post 'delete_all'
           post 'import_csv'
           post 'clear_hub'
           post 'connect_hub'

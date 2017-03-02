@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151113144807) do
+ActiveRecord::Schema.define(:version => 20160803182440) do
 
   create_table "answers", :force => true do |t|
     t.integer  "respondent_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "poll_id"
+    t.integer  "owner_id"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -60,8 +61,11 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.integer "period_id"
     t.string  "bucket"
     t.text    "key_attributes"
-    t.integer "count",          :default => 0
+    t.integer "count",               :default => 0
+    t.string  "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_counters", ["bucket", "key_attributes_hash", "period_id"], :name => "instedd_telemetry_counters_unique_fields", :unique => true
 
   create_table "instedd_telemetry_periods", :force => true do |t|
     t.datetime "beginning"
@@ -78,7 +82,10 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.string  "bucket"
     t.text    "key_attributes"
     t.string  "element"
+    t.string  "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_set_occurrences", ["bucket", "key_attributes_hash", "element", "period_id"], :name => "instedd_telemetry_set_occurrences_unique_fields", :unique => true
 
   create_table "instedd_telemetry_settings", :force => true do |t|
     t.string "key"
@@ -92,7 +99,10 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.text     "key_attributes"
     t.datetime "since"
     t.datetime "until"
+    t.string   "key_attributes_hash"
   end
+
+  add_index "instedd_telemetry_timespans", ["bucket", "key_attributes_hash"], :name => "instedd_telemetry_timespans_unique_fields", :unique => true
 
   create_table "polls", :force => true do |t|
     t.string   "title"
@@ -130,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.integer  "max_length"
     t.string   "must_contain"
     t.text     "next_question_definition"
+    t.text     "custom_messages"
   end
 
   create_table "respondents", :force => true do |t|
@@ -143,8 +154,12 @@ ActiveRecord::Schema.define(:version => 20151113144807) do
     t.integer  "current_question_id"
     t.boolean  "current_question_sent", :default => false, :null => false
     t.string   "hub_source"
+    t.integer  "channel_id"
+    t.string   "ao_message_guid"
+    t.string   "ao_message_state"
   end
 
+  add_index "respondents", ["ao_message_guid"], :name => "index_respondents_on_ao_message_guid", :unique => true
   add_index "respondents", ["phone", "poll_id"], :name => "index_respondents_on_phone_and_poll_id", :unique => true
 
   create_table "users", :force => true do |t|

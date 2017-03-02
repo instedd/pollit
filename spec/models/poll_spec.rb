@@ -75,4 +75,30 @@ describe Poll do
       poll.destroy
     end
   end
+
+  it "duplicates poll" do
+    poll = Poll.make! title: "Some poll"
+    duplicate = poll.duplicate
+    duplicate.title.should eq("#{poll.title} (Copy)")
+
+    duplicate2 = duplicate.duplicate
+    duplicate2.title.should eq("Some poll (Copy 2)")
+
+    duplicate3 = duplicate2.duplicate
+    duplicate3.title.should eq("Some poll (Copy 3)")
+
+    duplicate4 = duplicate.duplicate
+    duplicate4.title.should eq("Some poll (Copy 4)")
+  end
+
+  it "sends messages and stores AO message guid in respondent" do
+    poll = Poll.make!
+    respondent = poll.respondents.make! ao_message_state: 'confirmed'
+
+    poll.send_messages [{respondent: respondent}]
+    respondent.reload
+
+    respondent.ao_message_guid.should_not be_nil
+    respondent.ao_message_state.should be_nil
+  end
 end

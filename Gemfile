@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.21'
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.17'
 gem 'jquery-rails'
 gem 'fancybox-rails'
 gem 'haml-rails'
@@ -28,6 +28,7 @@ gem 'knockoutjs-rails'
 gem 'knockout_forms-rails', git: "https://github.com/manastech/knockout_forms-rails.git", tag: 'v1.0.2'
 gem 'gon'
 gem 'activerecord-import', '~> 0.3.1'
+gem "guid"
 gem 'rgviz'
 gem 'rgviz-rails', :require => 'rgviz_rails'
 gem 'instedd_telemetry', git: 'https://github.com/instedd/telemetry_rails.git'
@@ -40,6 +41,8 @@ gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'm
 gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
 gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 gem 'listings'
+gem 'io-console'
+gem 'lograge'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -62,7 +65,10 @@ group :development do
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'
-  gem 'capistrano', '2.15.5'
+  gem 'capistrano',         '~> 3.6', :require => false
+  gem 'capistrano-rails',   '~> 1.2', :require => false
+  gem 'capistrano-bundler', '~> 1.2', :require => false
+  gem 'capistrano-rvm',               :require => false
   gem 'rvm'
   gem 'licit'
 end
@@ -74,5 +80,5 @@ group :test, :development do
 end
 
 group :webserver do
-  gem 'puma'
+  gem 'puma', '~> 3.0.2'
 end

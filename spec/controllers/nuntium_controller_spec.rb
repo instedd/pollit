@@ -40,13 +40,14 @@ describe NuntiumController do
 
     nuntium_http_login
     post :receive_at, {
-      :channel => p.channel.name,
+      :channel => p.channels.first.name,
       :from => p.respondents.first.phone,
       :body => "Yes"
     }
 
-    @response.body.should eq(p.questions.first.message)
-    p.reload.respondents.first.confirmed.should be_true
+    respondent = p.reload.respondents.first
+    respondent.confirmed.should be_true
+    respondent.channel.should eq(p.channels.first)
   end
 
   it "should receive confirmation with multiple confirmation words" do
@@ -55,12 +56,20 @@ describe NuntiumController do
 
     nuntium_http_login
     post :receive_at, {
-      :channel => p.channel.name,
+      :channel => p.channels.first.name,
       :from => p.respondents.first.phone,
       :body => "Si"
     }
 
-    @response.body.should eq(p.questions.first.message)
     p.reload.respondents.first.confirmed.should be_true
+  end
+
+  it "saves ao_message_state in respondent on delivery ack" do
+    r = Respondent.make! ao_message_guid: "foo"
+
+    nuntium_http_login
+    post :delivery_callback, guid: "foo", state: "delivered"
+
+    r.reload.ao_message_state.should eq("delivered")
   end
 end

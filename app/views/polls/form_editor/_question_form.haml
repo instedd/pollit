@@ -30,7 +30,7 @@
     = f.text_field :max_length, :class => "w13", :'data-bind' => 'attr: {readonly: readonly}', :type => 'number'
     %hr
     %p.title Contains
-    %p.smalltext Require this string to be contained in the response
+    %p.smalltext Require this text to be contained in the response
     = f.text_field :must_contain, :'data-bind' => 'attr: {readonly: readonly}'
     %hr
     -# HACK: Rails generates two check_boxes when using f.check_box, to ensure the falsy value is always submitted
@@ -40,18 +40,57 @@
     %input{ko(checked: 'collects_respondent', disable: 'poll.status_started()').merge(:class => 'feditor-capture-respondent', :title => "This question will not be sent to the respondents, but will be used to automatically store their phone numbers in the responses spreadsheet.", :type => "checkbox", :value => "1")}
     %span Stores sender phone number
 
-  - ko_if '(kind_numeric() || kind_text()) && $parent.kind_manual()' do
+  - ko_if 'kind_text() && $parent.kind_manual()' do
     %hr
     %p.title Go to question
     %p.smalltext After answering this question, go to
     %select.next-question{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}).merge(class: 'w30')}
 
+  - ko_if 'kind_numeric() && $parent.kind_manual()' do
+    %hr
+    %p.title Go to question
+    %p.smalltext Add a condition
+
+    If
+    %input{type: "number", :"data-bind" => "value:numeric_condition().min", style: "width: 40px"}
+    %span.smalltext to
+    %input{type: "number", :"data-bind" => "value:numeric_condition().max", style: "width: 40px"}
+    %select.option-next-question{ko(value: 'numeric_condition().next_question', options: 'next_questions', optionsText: '"title_for_options"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}), style: "width: 130px"}
+    %button.right.clist-add{ko(click: 'add_numeric_condition')}
+    .clear
+
+    %hr
+
+    /ko if: numeric_conditions().length > 0
+    %p.smalltext After answering this question
+    //ko
+
+    /ko if: numeric_conditions().length == 0
+    %p.smalltext After answering this question, go to
+    //ko
+
+    %div{ko(foreach: 'numeric_conditions')}
+      If
+      %input{type: "number", :"data-bind" => "value:min", style: "width: 40px"}
+      %span.smalltext to
+      %input{type: "number", :"data-bind" => "value:max", style: "width: 40px"}
+      %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '"Next question"', disable: '$parent.readonly', style: {'borderColor' => '$parent.next_question_colour'}), style: "width: 130px"}
+      %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
+      .clear
+
+    /ko if: numeric_conditions().length > 0
+    Otherwise:
+    //ko
+
+    %select.next-question{ko(value: 'next_question', options: 'next_questions', optionsText: '"title"', optionsCaption: '"Next question"', disable: 'readonly', style: {'borderColor' => 'next_question_colour'}).merge(class: 'w30')}
+
   - ko_if 'kind_options' do
     %p.title Options
-    %p.smalltext Possible values for this question.
+    %p.smalltext Possible keys and values for this question.
     %ul.feditor-form-options.clist.w30
       %li.feditor-form-option{ko(foreach: 'options')}
-        = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 200px !important"
+        = text_field_tag "#{f.object_name}[keys][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: key', :class => "ux-clist", :style => "width: 30px !important"
+        = text_field_tag "#{f.object_name}[options][]", nil, :'data-bind' => 'attr: {readonly: $parent.readonly()}, value: text', :class => "ux-clist", :style => "width: 150px !important"
         %select.option-next-question{ko(value: 'next_question', options: '$parent.next_questions()', optionsText: '"title_for_options"', optionsCaption: '$parent.options_caption', disable: '$parent.readonly()', visible: '$parent.poll.kind_manual()', style: {'borderColor' => 'next_question_colour'})}
         %button.right.clist-remove.removeoption{ko(click: 'remove', visible: '$parent.editable()')}
       .clear
@@ -60,8 +99,34 @@
 
   - ko_if 'editable() && kind_options()' do
     .feditor-form-option-new.require_from_group{ko(with: 'new_option')}
-      %input.newoption.small.option{ko(textInput: 'text', hasFocus: 'focus', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Enter a new option'}
+      %input.option{ko(textInput: 'key', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Key', style: 'width: 30px'}
+      %input.option{ko(textInput: 'text', hasFocus: 'focus', event: { keypress: 'onEnter' }), type: 'text', placeholder: 'Enter a new option', style: 'width: 150px'}
       %buttom.right.addoption.clist-add{ko(click: 'add', visible: '(text().length > 0)')}
     .clear
 
+  %hr
+  %p.title Validation messages
+  %p.smalltext Messages to use when respondents reply with invalid answers.
+  %br/
+  - ko_if 'kind_text()' do
+    %p.smalltext The response is empty
+    = f.text_field :custom_message_empty, placeholder: "(default message)"
+    %p.smalltext The response doesn't have the required size
+    = f.text_field :custom_message_invalid_length, placeholder: "(default message)"
+    %p.smalltext The response doesn't contain the required text
+    = f.text_field :custom_message_doesnt_contain, placeholder: "(default message)"
+  - ko_if 'kind_numeric()' do
+    %p.smalltext The response is not a number
+    = f.text_field :custom_message_not_a_number, placeholder: "(default message)"
+    %p.smalltext The response number is outside the valid range
+    = f.text_field :custom_message_number_not_in_range, placeholder: "(default message)"
+  - ko_if 'kind_options()' do
+    %p.smalltext The response is not an option
+    = f.text_field :custom_message_not_an_option, placeholder: "(default message)"
+
+  - ko_if 'kind_options' do
+    %hr
+    %p.title "How to reply" message
+    %p.smalltext Message explaining how to reply to this question
+    = f.text_field :custom_message_options_explanation, placeholder: "(default message)"
 

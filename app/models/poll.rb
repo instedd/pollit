@@ -24,7 +24,7 @@ class Poll < ActiveRecord::Base
   has_many :respondents, :dependent => :destroy
   has_many :answers, :through => :respondents
 
-  has_one :channel, :dependent => :destroy
+  has_many :channels, :dependent => :destroy
 
   has_recurrence :recurrence
 
@@ -88,7 +88,7 @@ class Poll < ActiveRecord::Base
   end
 
   def can_be_started?
-    status_configuring? && channel && respondents.any?
+    status_configuring? && channels.any? && respondents.any?
   end
 
   def pause
@@ -106,16 +106,11 @@ class Poll < ActiveRecord::Base
     self.save
   end
 
-  def as_channel_name
-    "#{title}-#{id}".parameterize
-  end
-
   def register_channel(ticket_code)
-    Channel.create({
+    channels.create(
       :ticket_code => ticket_code,
-      :name => as_channel_name,
-      :poll_id => id
-    })
+      :name => "#{title}-#{id}-#{Time.now.to_i}".parameterize,
+    )
   end
 
   def completion_percentage
@@ -148,10 +143,17 @@ class Poll < ActiveRecord::Base
   # public only cause recurrence_strategy need to use it
 
   def send_messages(messages)
-    begin
-      Nuntium.new_from_config.send_ao messages
-    rescue MultiJson::DecodeError
-      # HACK until nuntium ruby api is fixed
+    nuntium = Nuntium.new_from_config
+    messages.each do |message|
+      begin
+        respondent = message.delete :respondent
+        reply = nuntium.send_ao message
+        respondent.ao_message_guid = reply[:guid]
+        respondent.ao_message_state = nil
+        respondent.save!
+      rescue MultiJson::DecodeError
+        # HACK until nuntium ruby api is fixed
+      end
     end
   end
 
@@ -160,12 +162,65 @@ class Poll < ActiveRecord::Base
       :from => MESSAGE_FROM,
       :to => respondent.phone,
       :body => body,
-      :poll_id => self.id.to_s
+      :poll_id => self.id.to_s,
+      :respondent => respondent,
     }
   end
 
   def respondent_question
     self.questions.where(collects_respondent: true).first
+  end
+
+  def duplicate
+    duplicate = self.dup
+    duplicate.current_occurrence = nil
+
+    count = 2
+    title = self.title
+
+    case title
+    when /\A(.+?)\s+\(Copy\)\Z/
+      title = $1
+      duplicate.title = "#{title} (Copy 2)"
+      count = 3
+    when /\A(.+?)\s+\(Copy\s+(\d+)\)\Z/
+      title = $1
+      n = $2.to_i
+      duplicate.title = "#{title} (Copy #{n + 1})"
+      count = n + 2
+    else
+      duplicate.title = "#{title} (Copy)"
+    end
+
+    duplicate.status = :configuring
+
+    count = 2
+    while Poll.where(owner_id: owner_id, title: duplicate.title).exists?
+      duplicate.title = "#{title} (Copy #{count})"
+      count += 1
+    end
+
+    self.questions.each do |question|
+      duplicate_question = question.dup
+      duplicate_question.poll = duplicate
+      duplicate.questions << duplicate_question
+    end
+
+    self.respondents.each do |respondent|
+      duplicate_respondent = respondent.dup
+      duplicate_respondent.poll = duplicate
+      duplicate_respondent.confirmed = false
+      duplicate_respondent.pushed_at = nil
+      duplicate_respondent.pushed_status = "pending"
+      duplicate_respondent.current_question_id = nil
+      duplicate_respondent.current_question_sent = false
+      duplicate_respondent.ao_message_guid = nil
+      duplicate_respondent.ao_message_state = nil
+      duplicate.respondents << duplicate_respondent
+    end
+
+    duplicate.save!
+    duplicate
   end
 
   private

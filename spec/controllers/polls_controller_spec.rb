@@ -188,4 +188,23 @@ describe PollsController do
     Poll.find_by_id(p.id).should be_nil
   end
 
+  it "duplicates poll" do
+    poll = Poll.make!(owner: controller.current_user)
+    respondent = poll.respondents.make!
+
+    poll.start
+
+    post :duplicate, id: poll.id
+
+    duplicate = Poll.last
+    duplicate.id.should_not eq(poll.id)
+    duplicate.title.should eq("#{poll.title} (Copy)")
+    duplicate.status.should eq(:configuring)
+
+    dup_questions = duplicate.questions
+    dup_questions.count.should eq(poll.questions.count)
+
+    dup_respondents = duplicate.respondents
+    dup_respondents.count.should eq(poll.respondents.count)
+  end
 end

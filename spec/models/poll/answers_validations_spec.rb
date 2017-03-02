@@ -171,6 +171,17 @@ describe Poll do
         it { rejects_answer("bar") }
       end
 
+      context "with contains and length" do
+        let(:question) { Question.make(kind: 'text', must_contain: 'foo', min_length: 2, max_length: 10) }
+
+        it { accepts_answer("foo") }
+        it { accepts_answer("foobar") }
+        it { accepts_answer("barfoobar") }
+
+        it { rejects_answer("bar") }
+        it { rejects_answer("foobarbarbarbarbar") }
+      end
+
       context "with contains in caps" do
         let(:question) { Question.make(kind: 'text', must_contain: 'FOO') }
 

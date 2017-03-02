@@ -20,9 +20,9 @@ class ChannelsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_poll
 
-  def show
-    redirect_to :action => 'new', :wizard => params[:wizard] and return unless @poll.channel
-    @channel = @poll.channel
+  def index
+    redirect_to :action => 'new', :wizard => params[:wizard] and return if @poll.channels.empty?
+    @channels = @poll.channels.to_a
     render :layout => 'wizard' if params[:wizard]
   end
 
@@ -35,9 +35,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    @poll.channel.destroy if @poll.channel
     @channel = @poll.register_channel(params[:channel][:ticket_code])
-
     if @channel.valid?
       if params[:wizard]
         redirect_to poll_respondents_path(@poll, :wizard => true)
@@ -45,7 +43,7 @@ class ChannelsController < ApplicationController
         set_current_step("d_end_wizard")
         render 'new'
       else
-        redirect_to new_poll_channel_path(@poll, "d_end_wizard")
+        redirect_to new_poll_channels_path(@poll, "d_end_wizard")
       end
     else
       set_current_step(params[:next_step])
@@ -54,9 +52,10 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-    @poll.channel.destroy if @poll.channel
+    channel = @poll.channels.where(id: params[:id]).first
+    channel.destroy if channel
     flash[:notice] = _('Channel successfully deleted')
-    redirect_to poll_path(@poll)
+    redirect_to poll_channels_path(@poll)
   end
 
   protected

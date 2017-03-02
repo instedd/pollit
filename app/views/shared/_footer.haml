@@ -12,7 +12,7 @@
     .left
       %a{:href => "http://instedd.org"}
         &copy; 2011 InSTEDD
-      -#%a{:href => "#"} Terms and conditions
+      %a{:href => "http://instedd.org/terms-of-service/"} Terms and conditions
       = link_to_instedd(_("Contact us"), :latam => Pollit::Application.config.contact_us_ilab, :instedd => Pollit::Application.config.contact_us)
     .right
       = link_to _("Home"), home_path

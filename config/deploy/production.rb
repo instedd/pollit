@@ -1,4 +1,4 @@
-set :branch, "master"
+set :branch, "stable"
 set :deploy_user, 'ec2-user'
 set :force_local_version_matches_deployed, true
 set :concurrency, "puma=1,delayed=1,hub=1"

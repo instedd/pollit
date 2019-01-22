@@ -36,8 +36,8 @@ Pollit::Application.routes.draw do
     guisso_for :user
 
     get  'createAccount', :to => redirect('/users/sign_up')
-    get  'discuss',       :to => redirect(Pollit::Application.config.user_group_url)
-    get  'backlog',       :to => redirect(Pollit::Application.config.backlog_url)
+    get  'discuss',       :to => redirect(Settings.user_group_url)
+    get  'backlog',       :to => redirect(Settings.backlog_url)
 
     get 'help',         :action => :index, :controller => :help,      :as => 'help'
     get 'tour(/:page)', :action => :show,  :controller => :tour,      :as => 'tour'

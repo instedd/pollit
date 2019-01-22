@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def instedd_theme_url_for(path)
-    url = Pollit::Application.config.theme_url
+    url = Settings.theme_url
     URI.join url, path
   end
 

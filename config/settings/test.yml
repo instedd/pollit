@@ -1,0 +1,7 @@
+nuntium:
+  url: http://nuntium.instedd.org
+  account:
+  password:
+  application:
+  at_post_user: test_user
+  at_post_pass: test_pass

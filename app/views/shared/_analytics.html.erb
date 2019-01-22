@@ -1,8 +1,8 @@
-<% unless Pollit::Application.config.google_analytics.blank? %>
+<% unless Settings.google_analytics.blank? %>
 <script type="text/javascript">
 
  var _gaq = _gaq || [];
- _gaq.push(['_setAccount', '<%= Pollit::Application.config.google_analytics %>']);
+ _gaq.push(['_setAccount', '<%= Settings.google_analytics %>']);
  _gaq.push(['_trackPageview']);
 
  (function() {

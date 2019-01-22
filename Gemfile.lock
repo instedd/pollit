@@ -9,14 +9,6 @@ GIT
       rest-client
 
 GIT
-  remote: https://github.com/cameel/gettext.git
-  revision: c3a83734eea5029d067783127398ddf765f7265c
-  ref: c3a8373
-  specs:
-    gettext (2.0.0)
-      locale
-
-GIT
   remote: https://github.com/instedd/alto_guisso.git
   revision: 6d72573c211f45ff95d36847af733449acdfa04a
   branch: master
@@ -151,8 +143,12 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     columnize (0.9.0)
+    config (1.4.0)
+      activesupport (>= 3.0)
+      deep_merge (~> 1.1.1)
     crack (0.3.1)
     debugger-linecache (1.2.0)
+    deep_merge (1.1.1)
     delayed_job (4.0.1)
       activesupport (>= 3.0, < 4.2)
     delayed_job_active_record (4.0.1)
@@ -383,6 +379,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.2)
   capistrano-rvm
   coffee-rails (~> 3.2.0)
+  config (~> 1.4.0)
   delayed_job
   delayed_job_active_record
   devise (= 1.5.4)
@@ -391,7 +388,6 @@ DEPENDENCIES
   fancybox-rails
   fast_gettext
   foreman (= 0.64.0)
-  gettext!
   gettext_i18n_rails
   gon
   guid

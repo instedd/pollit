@@ -7,3 +7,7 @@ tmp/
 coverage.data
 config/guisso.yml
 config/hub.yml
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

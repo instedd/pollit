@@ -1,0 +1,7 @@
+nuntium:
+  url: http://nuntium.instedd.org
+  account: bcardiff
+  password: pollit
+  application: pollit-dev
+  at_post_user: pollit
+  at_post_pass: pollit

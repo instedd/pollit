@@ -43,6 +43,7 @@ gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 gem 'listings'
 gem 'io-console'
 gem 'lograge'
+gem 'config', '~> 1.4.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -61,7 +62,6 @@ group :test do
 end
 
 group :development do
-  gem 'gettext', :git => 'https://github.com/cameel/gettext.git', :ref => 'c3a8373'
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'

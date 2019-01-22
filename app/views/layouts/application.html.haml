@@ -58,7 +58,7 @@
                 .container
                   %ul
                     %li= link_to _("Settings"), guisso_settings_path(:user)
-                    %li= link_to _("Report a bug"), "mailto:#{Pollit::Application.config.report_bug}?subject=[Pollit]%20Bug%20report"
+                    %li= link_to _("Report a bug"), "mailto:#{Settings.report_bug}?subject=[Pollit]%20Bug%20report"
                   %hr
                   %ul
                     %li= link_to _("Sign Out"), destroy_session_path(:user)

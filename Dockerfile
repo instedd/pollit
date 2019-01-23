@@ -29,4 +29,4 @@ ENV PUMA_TAG=pollit
 ENV PUMA_PARAMS=
 EXPOSE 80
 
-CMD exec puma -e $RAILS_ENV -b $BIND --tag $PUMA_TAG $PUMA_PARAMS
+CMD exec bundle exec puma -e $RAILS_ENV -b $BIND --tag $PUMA_TAG $PUMA_PARAMS

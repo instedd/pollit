@@ -13,7 +13,7 @@
       %a{:href => "http://instedd.org"}
         &copy; 2011 InSTEDD
       %a{:href => "http://instedd.org/terms-of-service/"} Terms and conditions
-      = link_to_instedd(_("Contact us"), :latam => Pollit::Application.config.contact_us_ilab, :instedd => Pollit::Application.config.contact_us)
+      = link_to_instedd(_("Contact us"), :latam => Settings.contact_us_ilab, :instedd => Settings.contact_us)
     .right
       = link_to _("Home"), home_path
       = link_to _("Tour"), tour_path

@@ -1,11 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.21'
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+gem 'rails', '3.2.22.5'
 gem 'mysql2', '~> 0.3.17'
 gem 'jquery-rails'
 gem 'fancybox-rails'
 gem 'haml-rails'
-gem 'sass'
+gem 'sass', '~> 3.1.10'
 gem 'devise', '1.5.4'
 gem 'enumerated_attribute', :git => "https://github.com/jeffp/enumerated_attribute.git"
 gem 'nokogiri'
@@ -42,8 +44,8 @@ gem 'alto_guisso', git: "https://github.com/instedd/alto_guisso.git", branch: 'm
 gem 'alto_guisso_rails', git: "https://github.com/instedd/alto_guisso_rails.git", branch: 'master'
 gem 'hub_client', github: 'instedd/ruby-hub_client', branch: 'master'
 gem 'listings'
-gem 'io-console'
 gem 'lograge'
+gem 'config', '~> 1.4.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -59,18 +61,13 @@ group :test do
   gem 'machinist'
   gem 'mocha'
   gem 'webmock'
+  gem 'test-unit'
 end
 
 group :development do
-  gem 'gettext', :git => 'https://github.com/cameel/gettext.git', :ref => 'c3a8373'
   gem 'ruby_parser'
   gem 'locale'
   gem 'wirble'
-  gem 'capistrano',         '~> 3.6', :require => false
-  gem 'capistrano-rails',   '~> 1.2', :require => false
-  gem 'capistrano-bundler', '~> 1.2', :require => false
-  gem 'capistrano-rvm',               :require => false
-  gem 'rvm'
   gem 'licit'
 end
 

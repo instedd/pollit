@@ -8,11 +8,12 @@ GIT
 
 GIT
   remote: https://github.com/instedd/alto_guisso_rails.git
-  revision: 7744de77433a5713bb1fa852e62faecda4a36188
+  revision: ea6c685318bc24252d1ded53766e1d86eecaab0e
   branch: master
   specs:
     alto_guisso_rails (0.0.1)
       alto_guisso
+      dalli
       omniauth
       omniauth-openid
       rack-oauth2
@@ -133,6 +134,7 @@ GEM
       deep_merge (~> 1.1.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
+    dalli (2.7.9)
     debugger-linecache (1.2.0)
     deep_merge (1.1.1)
     delayed_job (4.0.1)

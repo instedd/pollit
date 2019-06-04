@@ -32,7 +32,7 @@ gem 'gon'
 gem 'activerecord-import', '~> 0.3.1'
 gem "guid"
 gem 'rgviz'
-gem 'rgviz-rails', :require => 'rgviz_rails'
+gem 'rgviz-rails', '~> 1.0.0', :require => 'rgviz_rails'
 gem 'instedd_telemetry', git: 'https://github.com/instedd/telemetry_rails.git'
 gem 'intercom-rails'
 

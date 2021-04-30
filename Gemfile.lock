@@ -128,7 +128,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     columnize (0.9.0)
-    concurrent-ruby (1.1.4)
+    concurrent-ruby (1.1.8)
     config (1.4.0)
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
@@ -165,11 +165,11 @@ GEM
     global_phone (1.0.1)
     global_phone_dbgen (1.0.0)
       nokogiri (~> 1.5)
-    gon (5.2.3)
-      actionpack (>= 2.3.0)
-      json
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
       multi_json
-      request_store (>= 1.0.5)
+      request_store (>= 1.0)
     guid (0.1.1)
     haml (4.0.5)
       tilt
@@ -233,7 +233,7 @@ GEM
     mini_portile2 (2.4.0)
     mocha (1.0.0)
       metaclass (~> 0.0.1)
-    multi_json (1.13.1)
+    multi_json (1.15.0)
     mysql2 (0.3.20)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
@@ -262,7 +262,7 @@ GEM
       pry (~> 0.10)
     puma (3.0.2)
     rack (1.4.7)
-    rack-cache (1.8.0)
+    rack-cache (1.12.1)
       rack (>= 0.4)
     rack-oauth2 (1.9.3)
       activesupport
@@ -295,7 +295,8 @@ GEM
     rake (10.4.2)
     rdoc (3.12.2)
       json (~> 1.4)
-    request_store (1.1.0)
+    request_store (1.5.0)
+      rack (>= 1.4)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)

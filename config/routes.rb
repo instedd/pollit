@@ -29,7 +29,7 @@ Pollit::Application.routes.draw do
 
   scope "(:locale)", :locale => /#{Locales.available.keys.join('|')}/ do
 
-    devise_for :users, :controllers => {
+    devise_for :users, :skip => [ ( :registrations if Guisso.enabled? ) ], :controllers => {
       :registrations => 'users/registrations',
       omniauth_callbacks: "omniauth_callbacks",
       sessions: "sessions"

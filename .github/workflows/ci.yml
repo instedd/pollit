@@ -1,0 +1,33 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set environment up
+        run: |
+          docker compose pull
+          docker compose up -d db
+          docker compose run --rm --no-deps web bundle
+          docker compose run --rm --no-deps web rake db:setup
+          docker compose run --rm --no-deps web rake db:test:prepare
+
+      - name: Run specs
+        run: |
+          docker compose run --rm web bundle exec rspec spec
+
+  build:
+    needs: test
+    runs-on: ubuntu-22.04
+    env:
+      DOCKER_REPOSITORY: 'instedd/pollit'
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build image & push to Docker Hub
+        run: ./build.sh
